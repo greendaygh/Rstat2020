@@ -30,6 +30,7 @@ R은 통계분석에 널리 사용되는데 이는 데이터 가시화를 위한
  
 ### Rstudio 설치
 Rstudio는 R 언어를 위한 오픈소스 기반 통합개발환경(IDE)으로 R 프로그래밍을 위한 편리한 기능들을 제공해 줍니다. 
+
 - 사이트에 접속 (https://www.rstudio.com/), 상단의 Products > RStudio 클릭
 - RStudio Desktop 선택
 - Download RStudio Desktop 클릭
@@ -40,7 +41,7 @@ Rstudio는 R 언어를 위한 오픈소스 기반 통합개발환경(IDE)으로 
 
 
 ## Rstudio interface
-- 아래 그림의 좌측 상단의 공간은 코드편집창, 좌측 하단은 콘솔창 입니다. 
+- 좌측 상단의 공간은 코드편집창, 좌측 하단은 콘솔창 이며 각 위치를 기호에 따라서 바꿀 수 있습니다. 
 ![](images/01/01-11.PNG)
 
 
