@@ -119,7 +119,6 @@ dir()
 - Assignment operator ( `<-` OR `=` )
   - Valid object name `<-` value 
   - 단축키: `Alt + -` (the minus sign)
-- 내장 변수 Built-in variables
 
 ```{r, eval=FALSE}
 x <- 2
@@ -127,6 +126,11 @@ y <- x^2 – 2*x + 1
 y
 x <- "two"  
 some_data <- 9.8
+```
+
+- 내장 변수 Built-in variables
+
+```{r, eval=FALSE}
 pi
 ```
 
@@ -144,6 +148,9 @@ And_aFew.People_RENOUNCEconvention <- 4
 ```
 
 - 자동 완성 기능 (Tab completion) in RStudio
+```{r, eval=F}
+boxplot()
+```
 
 
 ## Variable type of (storage) mode
@@ -173,7 +180,7 @@ y[3]
 
 ## Functions
 
-- Function define
+- Function 정의
 
 ```{r, eval=FALSE}
 my_sine <- function(x){
@@ -182,23 +189,34 @@ my_sine <- function(x){
 }
 ```
 
-- Usage
+- 사용법 
 
 ```{r, eval=F}
 my_sine(pi)
 ```
 
-- Terminology 
+- 용어 
   - function name: `my_sine`
   - parameter: `x`
   - argument: `pi`
   - return value: `y`
 
+```{r, eval=F}
+log(100)
+?log
+log(100, base=10)
+log(100, 10)
+```
 
-- Built-in functions
-  - Arguments separated by commas
+
+- R code 스니핏 
+
+```{r, eval=FALSE}
+fun
+```
+
+- 내장 함수 (Built-in functions)
   - Tab completion
-
 
 ```{r, eval=F}
 x <- pi
@@ -239,20 +257,13 @@ help(package="MASS")
 ```
 
 
-## RStudio workspace
-
-![](images/01/01-17.PNG)
-![](images/01/rstudio-ide-1.png)
-![](images/01/rstudio-ide-2.png)
-
-
 ## R packages
 
-- R comes ready loaded with various libraries of functions called packages
- + ex) sum() is in the “base” package and sd() in the “stats” package
-- The packages can be found in numerous server locations on the web called repositories
- + The Comprehensive R Archive Network (CRAN) http://cran.r-project.org/web/views/
- + Bioconductor specialised in genomics http://www.bioconductor.org/packages/release/bioc/
+- R 패키지는 함수들의 모음으로 다른 사람들이 만들어 놓은 함수를 가져와서 사용할 수 있음
+ + 예) sum() 은 “base” package에 있고 sd() 함수는 “stats” package에서 제공
+- 패키지를 구할 수 있는 가장 대표적인 사이트 
+ + The Comprehensive R Archive Network (CRAN) - http://cran.r-project.org/web/views/
+ + Bioconductor - http://www.bioconductor.org/packages/release/bioc/
  
 
 ![](images/01/01-18.png)
@@ -265,6 +276,7 @@ help(package="MASS")
 
 ```{r, eval=F}
 library(UsingR)
+help(package="UsingR")
 ```
 
 - R 설치 디렉토리
@@ -280,9 +292,8 @@ path.package()
 
 ## Data sets
 
-- Packages include accompanying data sets
-- R has a datasets package that is loaded automatically
-- The data function  produces a copy of dataset in user’s workspace
+- 일반적으로 패키지 안에 관련된 데이터도 같이 저장
+- data() function를 이용해서 패키지 데이터를 사용자 작업공간에 복사해서 사용 가능
 
 ```{r, eval=F}
 head(rivers)
@@ -298,6 +309,8 @@ head(Cavendish$density2)
 
 
 ## Cheatsheet
+
+https://rstudio.com/resources/cheatsheets/
 
 ![](images/01/base-r_1.png)
 ![](images/01/base-r_2.png)

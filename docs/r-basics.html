@@ -166,10 +166,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.11" data-path="r-basics.html"><a href="r-basics.html#functions"><i class="fa fa-check"></i><b>2.11</b> Functions</a></li>
 <li class="chapter" data-level="2.12" data-path="r-basics.html"><a href="r-basics.html#vectorized-functions"><i class="fa fa-check"></i><b>2.12</b> Vectorized functions</a></li>
 <li class="chapter" data-level="2.13" data-path="r-basics.html"><a href="r-basics.html#help"><i class="fa fa-check"></i><b>2.13</b> Help</a></li>
-<li class="chapter" data-level="2.14" data-path="r-basics.html"><a href="r-basics.html#rstudio-workspace"><i class="fa fa-check"></i><b>2.14</b> RStudio workspace</a></li>
-<li class="chapter" data-level="2.15" data-path="r-basics.html"><a href="r-basics.html#r-packages"><i class="fa fa-check"></i><b>2.15</b> R packages</a></li>
-<li class="chapter" data-level="2.16" data-path="r-basics.html"><a href="r-basics.html#data-sets"><i class="fa fa-check"></i><b>2.16</b> Data sets</a></li>
-<li class="chapter" data-level="2.17" data-path="r-basics.html"><a href="r-basics.html#cheatsheet"><i class="fa fa-check"></i><b>2.17</b> Cheatsheet</a></li>
+<li class="chapter" data-level="2.14" data-path="r-basics.html"><a href="r-basics.html#r-packages"><i class="fa fa-check"></i><b>2.14</b> R packages</a></li>
+<li class="chapter" data-level="2.15" data-path="r-basics.html"><a href="r-basics.html#data-sets"><i class="fa fa-check"></i><b>2.15</b> Data sets</a></li>
+<li class="chapter" data-level="2.16" data-path="r-basics.html"><a href="r-basics.html#cheatsheet"><i class="fa fa-check"></i><b>2.16</b> Cheatsheet</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -324,14 +323,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Valid object name <code>&lt;-</code> value</li>
 <li>단축키: <code>Alt + -</code> (the minus sign)</li>
 </ul></li>
-<li>내장 변수 Built-in variables</li>
 </ul>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="r-basics.html#cb4-1"></a>x &lt;-<span class="st"> </span><span class="dv">2</span></span>
 <span id="cb4-2"><a href="r-basics.html#cb4-2"></a>y &lt;-<span class="st"> </span>x<span class="op">^</span><span class="dv">2</span> – <span class="dv">2</span><span class="op">*</span>x <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
 <span id="cb4-3"><a href="r-basics.html#cb4-3"></a>y</span>
 <span id="cb4-4"><a href="r-basics.html#cb4-4"></a>x &lt;-<span class="st"> &quot;two&quot;</span>  </span>
-<span id="cb4-5"><a href="r-basics.html#cb4-5"></a>some_data &lt;-<span class="st"> </span><span class="fl">9.8</span></span>
-<span id="cb4-6"><a href="r-basics.html#cb4-6"></a>pi</span></code></pre></div>
+<span id="cb4-5"><a href="r-basics.html#cb4-5"></a>some_data &lt;-<span class="st"> </span><span class="fl">9.8</span></span></code></pre></div>
+<ul>
+<li>내장 변수 Built-in variables</li>
+</ul>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="r-basics.html#cb5-1"></a>pi</span></code></pre></div>
 <ul>
 <li>변수이름 작명법
 <ul>
@@ -341,13 +342,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>길이 제한 없음</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="r-basics.html#cb5-1"></a>i_use_snake_case &lt;-<span class="st"> </span><span class="dv">1</span></span>
-<span id="cb5-2"><a href="r-basics.html#cb5-2"></a>otherPeopleUseCamelCase &lt;-<span class="st"> </span><span class="dv">2</span></span>
-<span id="cb5-3"><a href="r-basics.html#cb5-3"></a>some.people.use.periods &lt;-<span class="st"> </span><span class="dv">3</span></span>
-<span id="cb5-4"><a href="r-basics.html#cb5-4"></a>And_aFew.People_RENOUNCEconvention &lt;-<span class="st"> </span><span class="dv">4</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="r-basics.html#cb6-1"></a>i_use_snake_case &lt;-<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb6-2"><a href="r-basics.html#cb6-2"></a>otherPeopleUseCamelCase &lt;-<span class="st"> </span><span class="dv">2</span></span>
+<span id="cb6-3"><a href="r-basics.html#cb6-3"></a>some.people.use.periods &lt;-<span class="st"> </span><span class="dv">3</span></span>
+<span id="cb6-4"><a href="r-basics.html#cb6-4"></a>And_aFew.People_RENOUNCEconvention &lt;-<span class="st"> </span><span class="dv">4</span></span></code></pre></div>
 <ul>
 <li>자동 완성 기능 (Tab completion) in RStudio</li>
 </ul>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="r-basics.html#cb7-1"></a><span class="kw">boxplot</span>()</span></code></pre></div>
 </div>
 <div id="variable-type-of-storage-mode" class="section level2">
 <h2><span class="header-section-number">2.9</span> Variable type of (storage) mode</h2>
@@ -358,88 +360,91 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Combine function <code>c()</code>: Concatenating elements end to end</li>
 </ul>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="r-basics.html#cb6-1"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">10.4</span>, <span class="fl">5.6</span>, <span class="fl">3.1</span>, <span class="fl">6.4</span>, <span class="fl">21.7</span>) </span>
-<span id="cb6-2"><a href="r-basics.html#cb6-2"></a>y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;X1&quot;</span>, <span class="st">&quot;Y2&quot;</span>,  <span class="st">&quot;X3&quot;</span>,  <span class="st">&quot;Y4&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="r-basics.html#cb8-1"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">10.4</span>, <span class="fl">5.6</span>, <span class="fl">3.1</span>, <span class="fl">6.4</span>, <span class="fl">21.7</span>) </span>
+<span id="cb8-2"><a href="r-basics.html#cb8-2"></a>y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;X1&quot;</span>, <span class="st">&quot;Y2&quot;</span>,  <span class="st">&quot;X3&quot;</span>,  <span class="st">&quot;Y4&quot;</span>)</span></code></pre></div>
 <ul>
 <li>인덱싱: Subsets of the elements of a vector</li>
 </ul>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="r-basics.html#cb7-1"></a>x[<span class="dv">1</span>]</span>
-<span id="cb7-2"><a href="r-basics.html#cb7-2"></a>x[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]</span>
-<span id="cb7-3"><a href="r-basics.html#cb7-3"></a>x[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>)]</span>
-<span id="cb7-4"><a href="r-basics.html#cb7-4"></a>y[<span class="dv">3</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="r-basics.html#cb9-1"></a>x[<span class="dv">1</span>]</span>
+<span id="cb9-2"><a href="r-basics.html#cb9-2"></a>x[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]</span>
+<span id="cb9-3"><a href="r-basics.html#cb9-3"></a>x[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>)]</span>
+<span id="cb9-4"><a href="r-basics.html#cb9-4"></a>y[<span class="dv">3</span>]</span></code></pre></div>
 </div>
 <div id="functions" class="section level2">
 <h2><span class="header-section-number">2.11</span> Functions</h2>
 <ul>
-<li>Function define</li>
+<li>Function 정의</li>
 </ul>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="r-basics.html#cb8-1"></a>my_sine &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
-<span id="cb8-2"><a href="r-basics.html#cb8-2"></a>	y &lt;-<span class="st"> </span><span class="kw">sin</span>(x)</span>
-<span id="cb8-3"><a href="r-basics.html#cb8-3"></a>	<span class="kw">return</span>(y)</span>
-<span id="cb8-4"><a href="r-basics.html#cb8-4"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="r-basics.html#cb10-1"></a>my_sine &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
+<span id="cb10-2"><a href="r-basics.html#cb10-2"></a>	y &lt;-<span class="st"> </span><span class="kw">sin</span>(x)</span>
+<span id="cb10-3"><a href="r-basics.html#cb10-3"></a>	<span class="kw">return</span>(y)</span>
+<span id="cb10-4"><a href="r-basics.html#cb10-4"></a>}</span></code></pre></div>
 <ul>
-<li>Usage</li>
+<li>사용법</li>
 </ul>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="r-basics.html#cb9-1"></a><span class="kw">my_sine</span>(pi)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="r-basics.html#cb11-1"></a><span class="kw">my_sine</span>(pi)</span></code></pre></div>
 <ul>
-<li>Terminology
+<li>용어
 <ul>
 <li>function name: <code>my_sine</code></li>
 <li>parameter: <code>x</code></li>
 <li>argument: <code>pi</code></li>
 <li>return value: <code>y</code></li>
 </ul></li>
-<li>Built-in functions
+</ul>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="r-basics.html#cb12-1"></a><span class="kw">log</span>(<span class="dv">100</span>)</span>
+<span id="cb12-2"><a href="r-basics.html#cb12-2"></a>?log</span>
+<span id="cb12-3"><a href="r-basics.html#cb12-3"></a><span class="kw">log</span>(<span class="dv">100</span>, <span class="dt">base=</span><span class="dv">10</span>)</span>
+<span id="cb12-4"><a href="r-basics.html#cb12-4"></a><span class="kw">log</span>(<span class="dv">100</span>, <span class="dv">10</span>)</span></code></pre></div>
 <ul>
-<li>Arguments separated by commas</li>
+<li>R code 스니핏</li>
+</ul>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="r-basics.html#cb13-1"></a>fun</span></code></pre></div>
+<ul>
+<li>내장 함수 (Built-in functions)
+<ul>
 <li>Tab completion</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="r-basics.html#cb10-1"></a>x &lt;-<span class="st"> </span>pi</span>
-<span id="cb10-2"><a href="r-basics.html#cb10-2"></a><span class="kw">sin</span>(x)</span>
-<span id="cb10-3"><a href="r-basics.html#cb10-3"></a><span class="kw">sqrt</span>(x)</span>
-<span id="cb10-4"><a href="r-basics.html#cb10-4"></a><span class="kw">log</span>(x)</span>
-<span id="cb10-5"><a href="r-basics.html#cb10-5"></a><span class="kw">log</span>(x, <span class="dv">10</span>)</span>
-<span id="cb10-6"><a href="r-basics.html#cb10-6"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>)</span>
-<span id="cb10-7"><a href="r-basics.html#cb10-7"></a>x <span class="op">+</span><span class="st"> </span>x</span>
-<span id="cb10-8"><a href="r-basics.html#cb10-8"></a><span class="kw">mean</span>(x)</span>
-<span id="cb10-9"><a href="r-basics.html#cb10-9"></a><span class="kw">sum</span>(x)<span class="op">/</span><span class="kw">length</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="r-basics.html#cb14-1"></a>x &lt;-<span class="st"> </span>pi</span>
+<span id="cb14-2"><a href="r-basics.html#cb14-2"></a><span class="kw">sin</span>(x)</span>
+<span id="cb14-3"><a href="r-basics.html#cb14-3"></a><span class="kw">sqrt</span>(x)</span>
+<span id="cb14-4"><a href="r-basics.html#cb14-4"></a><span class="kw">log</span>(x)</span>
+<span id="cb14-5"><a href="r-basics.html#cb14-5"></a><span class="kw">log</span>(x, <span class="dv">10</span>)</span>
+<span id="cb14-6"><a href="r-basics.html#cb14-6"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>)</span>
+<span id="cb14-7"><a href="r-basics.html#cb14-7"></a>x <span class="op">+</span><span class="st"> </span>x</span>
+<span id="cb14-8"><a href="r-basics.html#cb14-8"></a><span class="kw">mean</span>(x)</span>
+<span id="cb14-9"><a href="r-basics.html#cb14-9"></a><span class="kw">sum</span>(x)<span class="op">/</span><span class="kw">length</span>(x)</span></code></pre></div>
 </div>
 <div id="vectorized-functions" class="section level2">
 <h2><span class="header-section-number">2.12</span> Vectorized functions</h2>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="r-basics.html#cb11-1"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>)</span>
-<span id="cb11-2"><a href="r-basics.html#cb11-2"></a>x <span class="op">+</span><span class="st"> </span>x</span>
-<span id="cb11-3"><a href="r-basics.html#cb11-3"></a><span class="kw">sqrt</span>(x)</span>
-<span id="cb11-4"><a href="r-basics.html#cb11-4"></a><span class="kw">sin</span>(x)</span>
-<span id="cb11-5"><a href="r-basics.html#cb11-5"></a><span class="kw">log</span>(x)</span>
-<span id="cb11-6"><a href="r-basics.html#cb11-6"></a>x<span class="op">-</span><span class="kw">mean</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="r-basics.html#cb15-1"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>)</span>
+<span id="cb15-2"><a href="r-basics.html#cb15-2"></a>x <span class="op">+</span><span class="st"> </span>x</span>
+<span id="cb15-3"><a href="r-basics.html#cb15-3"></a><span class="kw">sqrt</span>(x)</span>
+<span id="cb15-4"><a href="r-basics.html#cb15-4"></a><span class="kw">sin</span>(x)</span>
+<span id="cb15-5"><a href="r-basics.html#cb15-5"></a><span class="kw">log</span>(x)</span>
+<span id="cb15-6"><a href="r-basics.html#cb15-6"></a>x<span class="op">-</span><span class="kw">mean</span>(x)</span></code></pre></div>
 </div>
 <div id="help" class="section level2">
 <h2><span class="header-section-number">2.13</span> Help</h2>
 <ul>
 <li>R의 장점 중 하나 (예제 포함)</li>
 </ul>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="r-basics.html#cb12-1"></a>?</span>
-<span id="cb12-2"><a href="r-basics.html#cb12-2"></a>?mean</span>
-<span id="cb12-3"><a href="r-basics.html#cb12-3"></a><span class="kw">help</span>(<span class="st">&quot;mean&quot;</span>)</span>
-<span id="cb12-4"><a href="r-basics.html#cb12-4"></a><span class="kw">example</span>(<span class="st">&quot;mean&quot;</span>)</span>
-<span id="cb12-5"><a href="r-basics.html#cb12-5"></a><span class="kw">help.search</span>(<span class="st">&quot;mean&quot;</span>)</span>
-<span id="cb12-6"><a href="r-basics.html#cb12-6"></a><span class="kw">help</span>(<span class="dt">package=</span><span class="st">&quot;MASS&quot;</span>)</span></code></pre></div>
-</div>
-<div id="rstudio-workspace" class="section level2">
-<h2><span class="header-section-number">2.14</span> RStudio workspace</h2>
-<p><img src="images/01/01-17.PNG" />
-<img src="images/01/rstudio-ide-1.png" />
-<img src="images/01/rstudio-ide-2.png" /></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="r-basics.html#cb16-1"></a>?</span>
+<span id="cb16-2"><a href="r-basics.html#cb16-2"></a>?mean</span>
+<span id="cb16-3"><a href="r-basics.html#cb16-3"></a><span class="kw">help</span>(<span class="st">&quot;mean&quot;</span>)</span>
+<span id="cb16-4"><a href="r-basics.html#cb16-4"></a><span class="kw">example</span>(<span class="st">&quot;mean&quot;</span>)</span>
+<span id="cb16-5"><a href="r-basics.html#cb16-5"></a><span class="kw">help.search</span>(<span class="st">&quot;mean&quot;</span>)</span>
+<span id="cb16-6"><a href="r-basics.html#cb16-6"></a><span class="kw">help</span>(<span class="dt">package=</span><span class="st">&quot;MASS&quot;</span>)</span></code></pre></div>
 </div>
 <div id="r-packages" class="section level2">
-<h2><span class="header-section-number">2.15</span> R packages</h2>
+<h2><span class="header-section-number">2.14</span> R packages</h2>
 <ul>
-<li>R comes ready loaded with various libraries of functions called packages</li>
-<li>ex) sum() is in the “base” package and sd() in the “stats” package</li>
-<li>The packages can be found in numerous server locations on the web called repositories</li>
-<li>The Comprehensive R Archive Network (CRAN) <a href="http://cran.r-project.org/web/views/" class="uri">http://cran.r-project.org/web/views/</a></li>
-<li>Bioconductor specialised in genomics <a href="http://www.bioconductor.org/packages/release/bioc/" class="uri">http://www.bioconductor.org/packages/release/bioc/</a></li>
+<li>R 패키지는 함수들의 모음으로 다른 사람들이 만들어 놓은 함수를 가져와서 사용할 수 있음</li>
+<li>예) sum() 은 “base” package에 있고 sd() 함수는 “stats” package에서 제공</li>
+<li>패키지를 구할 수 있는 가장 대표적인 사이트</li>
+<li>The Comprehensive R Archive Network (CRAN) - <a href="http://cran.r-project.org/web/views/" class="uri">http://cran.r-project.org/web/views/</a></li>
+<li>Bioconductor - <a href="http://www.bioconductor.org/packages/release/bioc/" class="uri">http://www.bioconductor.org/packages/release/bioc/</a></li>
 </ul>
 <p><img src="images/01/01-18.PNG" /></p>
 <ul>
@@ -449,34 +454,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>UsingR package loading</li>
 </ul>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="r-basics.html#cb13-1"></a><span class="kw">library</span>(UsingR)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="r-basics.html#cb17-1"></a><span class="kw">library</span>(UsingR)</span>
+<span id="cb17-2"><a href="r-basics.html#cb17-2"></a><span class="kw">help</span>(<span class="dt">package=</span><span class="st">&quot;UsingR&quot;</span>)</span></code></pre></div>
 <ul>
 <li>R 설치 디렉토리</li>
 <li>R 패키지 설치 디렉토리</li>
 </ul>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="r-basics.html#cb14-1"></a><span class="kw">.libPaths</span>()</span>
-<span id="cb14-2"><a href="r-basics.html#cb14-2"></a><span class="kw">path.package</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="r-basics.html#cb18-1"></a><span class="kw">.libPaths</span>()</span>
+<span id="cb18-2"><a href="r-basics.html#cb18-2"></a><span class="kw">path.package</span>()</span></code></pre></div>
 <p><img src="images/01/01-20.PNG" /></p>
 </div>
 <div id="data-sets" class="section level2">
-<h2><span class="header-section-number">2.16</span> Data sets</h2>
+<h2><span class="header-section-number">2.15</span> Data sets</h2>
 <ul>
-<li>Packages include accompanying data sets</li>
-<li>R has a datasets package that is loaded automatically</li>
-<li>The data function produces a copy of dataset in user’s workspace</li>
+<li>일반적으로 패키지 안에 관련된 데이터도 같이 저장</li>
+<li>data() function를 이용해서 패키지 데이터를 사용자 작업공간에 복사해서 사용 가능</li>
 </ul>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="r-basics.html#cb15-1"></a><span class="kw">head</span>(rivers)</span>
-<span id="cb15-2"><a href="r-basics.html#cb15-2"></a><span class="kw">length</span>(rivers)</span>
-<span id="cb15-3"><a href="r-basics.html#cb15-3"></a><span class="kw">class</span>(rivers)</span>
-<span id="cb15-4"><a href="r-basics.html#cb15-4"></a><span class="kw">data</span>(rivers)</span>
-<span id="cb15-5"><a href="r-basics.html#cb15-5"></a><span class="kw">data</span>(<span class="dt">package=</span><span class="st">&quot;UsingR&quot;</span>)</span>
-<span id="cb15-6"><a href="r-basics.html#cb15-6"></a><span class="kw">library</span>(HistData)</span>
-<span id="cb15-7"><a href="r-basics.html#cb15-7"></a><span class="kw">head</span>(Cavendish)</span>
-<span id="cb15-8"><a href="r-basics.html#cb15-8"></a><span class="kw">str</span>(Cavendish)</span>
-<span id="cb15-9"><a href="r-basics.html#cb15-9"></a><span class="kw">head</span>(Cavendish<span class="op">$</span>density2)</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="r-basics.html#cb19-1"></a><span class="kw">head</span>(rivers)</span>
+<span id="cb19-2"><a href="r-basics.html#cb19-2"></a><span class="kw">length</span>(rivers)</span>
+<span id="cb19-3"><a href="r-basics.html#cb19-3"></a><span class="kw">class</span>(rivers)</span>
+<span id="cb19-4"><a href="r-basics.html#cb19-4"></a><span class="kw">data</span>(rivers)</span>
+<span id="cb19-5"><a href="r-basics.html#cb19-5"></a><span class="kw">data</span>(<span class="dt">package=</span><span class="st">&quot;UsingR&quot;</span>)</span>
+<span id="cb19-6"><a href="r-basics.html#cb19-6"></a><span class="kw">library</span>(HistData)</span>
+<span id="cb19-7"><a href="r-basics.html#cb19-7"></a><span class="kw">head</span>(Cavendish)</span>
+<span id="cb19-8"><a href="r-basics.html#cb19-8"></a><span class="kw">str</span>(Cavendish)</span>
+<span id="cb19-9"><a href="r-basics.html#cb19-9"></a><span class="kw">head</span>(Cavendish<span class="op">$</span>density2)</span></code></pre></div>
 </div>
 <div id="cheatsheet" class="section level2">
-<h2><span class="header-section-number">2.17</span> Cheatsheet</h2>
+<h2><span class="header-section-number">2.16</span> Cheatsheet</h2>
+<p><a href="https://rstudio.com/resources/cheatsheets/" class="uri">https://rstudio.com/resources/cheatsheets/</a></p>
 <p><img src="images/01/base-r_1.png" />
 <img src="images/01/base-r_2.png" /></p>
 
