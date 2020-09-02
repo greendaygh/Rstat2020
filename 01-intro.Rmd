@@ -148,7 +148,7 @@ And_aFew.People_RENOUNCEconvention <- 4
 
 ## Variable type of (storage) mode
 
-![](images/01-13.PNG)
+![](images/01/01-13.PNG)
 
 
 ## Variable - Vectors 
@@ -241,9 +241,9 @@ help(package="MASS")
 
 ## RStudio workspace
 
-![](images/01-17.PNG)
-![](images/rstudio-ide-1.png)
-![](images/rstudio-ide-2.png)
+![](images/01/01-17.PNG)
+![](images/01/rstudio-ide-1.png)
+![](images/01/rstudio-ide-2.png)
 
 
 ## R packages
@@ -255,11 +255,11 @@ help(package="MASS")
  + Bioconductor specialised in genomics http://www.bioconductor.org/packages/release/bioc/
  
 
-![](images/01-18.png)
+![](images/01/01-18.png)
 
 - UsingR package installation
 
-![](images/01-19.png)
+![](images/01/01-19.png)
 
 - UsingR package loading
 
@@ -276,7 +276,7 @@ path.package()
 ```
 
 
-![](images/01-20.png)
+![](images/01/01-20.png)
 
 ## Data sets
 
@@ -299,6 +299,6 @@ head(Cavendish$density2)
 
 ## Cheatsheet
 
-![](images/base-r_1.png)
-![](images/base-r_2.png)
+![](images/01/base-r_1.png)
+![](images/01/base-r_2.png)
 
