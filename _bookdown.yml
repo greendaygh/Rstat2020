@@ -1,0 +1,21 @@
+rmd_files: [
+  "index.Rmd", 
+  "02-Rintro.Rmd", 
+  "03-Rprogbasics.Rmd", 
+  "04-Rprogbasics.Rmd", 
+  "05-basic-plot.Rmd", 
+  "06-ggplot2.Rmd", 
+  "07-dplyr.Rmd",
+  "08-dplyr.Rmd",
+  "09-exercise.Rmd"
+]
+book_filename: "Rprog"
+repo: https://github.com/greendaygh/Rprog2020/
+output_dir: docs
+delete_merged_file: true
+language:
+  label:
+    fig: "FIGURE"
+    tab: "TABLE"
+  ui:
+    chapter_name: "Chapter "

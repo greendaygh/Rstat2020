@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 9 Exercise class | R 프로그래밍과 데이터 분석</title>
+  <meta name="description" content="UST lecture web site" />
+  <meta name="generator" content="bookdown 0.16.5 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 9 Exercise class | R 프로그래밍과 데이터 분석" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="UST lecture web site" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 9 Exercise class | R 프로그래밍과 데이터 분석" />
+  
+  <meta name="twitter:description" content="UST lecture web site" />
+  
+
+<meta name="author" content="한국생명공학연구원 김하성" />
+
+
+<meta name="date" content="2020-06-30" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="data-transformation-with-dplyr.html"/>
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">[2020 UST Lecture] R programming</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction 강의 개요</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#goal-강의-목표"><i class="fa fa-check"></i><b>1.1</b> Goal 강의 목표</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#this-course"><i class="fa fa-check"></i><b>1.2</b> This course</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#tips"><i class="fa fa-check"></i><b>1.3</b> Tips</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#references-books-참고-교제"><i class="fa fa-check"></i><b>1.4</b> References books 참고 교제</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#references-참고-자료"><i class="fa fa-check"></i><b>1.5</b> References 참고 자료</a></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#evaluation-평가-세부-항목"><i class="fa fa-check"></i><b>1.6</b> Evaluation 평가 세부 항목</a></li>
+<li class="chapter" data-level="1.7" data-path="index.html"><a href="index.html#schedule-강의-계획"><i class="fa fa-check"></i><b>1.7</b> Schedule 강의 계획</a></li>
+<li class="chapter" data-level="1.8" data-path="index.html"><a href="index.html#r-lecture-youtube-link"><i class="fa fa-check"></i><b>1.8</b> R Lecture Youtube Link</a>
+<ul>
+<li class="chapter" data-level="1.8.1" data-path="index.html"><a href="index.html#lecture-chapter-3"><i class="fa fa-check"></i><b>1.8.1</b> Lecture Chapter 3</a></li>
+<li class="chapter" data-level="1.8.2" data-path="index.html"><a href="index.html#lecture-chapter-4"><i class="fa fa-check"></i><b>1.8.2</b> Lecture Chapter 4</a></li>
+<li class="chapter" data-level="1.8.3" data-path="index.html"><a href="index.html#lecture-chapter-5"><i class="fa fa-check"></i><b>1.8.3</b> Lecture Chapter 5</a></li>
+<li class="chapter" data-level="1.8.4" data-path="index.html"><a href="index.html#lecture-chapter-6"><i class="fa fa-check"></i><b>1.8.4</b> Lecture Chapter 6</a></li>
+<li class="chapter" data-level="1.8.5" data-path="index.html"><a href="index.html#lecture-chapter-7"><i class="fa fa-check"></i><b>1.8.5</b> Lecture Chapter 7</a></li>
+<li class="chapter" data-level="1.8.6" data-path="index.html"><a href="index.html#lecture-chapter-8"><i class="fa fa-check"></i><b>1.8.6</b> Lecture Chapter 8</a></li>
+<li class="chapter" data-level="1.8.7" data-path="index.html"><a href="index.html#lecture-chapter-9"><i class="fa fa-check"></i><b>1.8.7</b> Lecture Chapter 9</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="r-basics.html"><a href="r-basics.html"><i class="fa fa-check"></i><b>2</b> R basics</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="r-basics.html"><a href="r-basics.html#what-is-r-rstudio"><i class="fa fa-check"></i><b>2.1</b> What is R / Rstudio</a></li>
+<li class="chapter" data-level="2.2" data-path="r-basics.html"><a href="r-basics.html#r-rstudio-installation"><i class="fa fa-check"></i><b>2.2</b> R / Rstudio installation</a></li>
+<li class="chapter" data-level="2.3" data-path="r-basics.html"><a href="r-basics.html#rstudio-interface"><i class="fa fa-check"></i><b>2.3</b> Rstudio interface</a></li>
+<li class="chapter" data-level="2.4" data-path="r-basics.html"><a href="r-basics.html#keyboard-shortcuts"><i class="fa fa-check"></i><b>2.4</b> Keyboard shortcuts</a></li>
+<li class="chapter" data-level="2.5" data-path="r-basics.html"><a href="r-basics.html#set-working-directory"><i class="fa fa-check"></i><b>2.5</b> Set working directory</a></li>
+<li class="chapter" data-level="2.6" data-path="r-basics.html"><a href="r-basics.html#hello-world"><i class="fa fa-check"></i><b>2.6</b> Hello world</a></li>
+<li class="chapter" data-level="2.7" data-path="r-basics.html"><a href="r-basics.html#help"><i class="fa fa-check"></i><b>2.7</b> Help</a></li>
+<li class="chapter" data-level="2.8" data-path="r-basics.html"><a href="r-basics.html#rstudio-workspace"><i class="fa fa-check"></i><b>2.8</b> RStudio workspace</a></li>
+<li class="chapter" data-level="2.9" data-path="r-basics.html"><a href="r-basics.html#r-packages"><i class="fa fa-check"></i><b>2.9</b> R packages</a></li>
+<li class="chapter" data-level="2.10" data-path="r-basics.html"><a href="r-basics.html#data-sets"><i class="fa fa-check"></i><b>2.10</b> Data sets</a></li>
+<li class="chapter" data-level="2.11" data-path="r-basics.html"><a href="r-basics.html#cheatsheet"><i class="fa fa-check"></i><b>2.11</b> Cheatsheet</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="r-programming-basics-i.html"><a href="r-programming-basics-i.html"><i class="fa fa-check"></i><b>3</b> R programming basics I</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="r-programming-basics-i.html"><a href="r-programming-basics-i.html#terminology"><i class="fa fa-check"></i><b>3.1</b> Terminology</a></li>
+<li class="chapter" data-level="3.2" data-path="r-programming-basics-i.html"><a href="r-programming-basics-i.html#r-console-script"><i class="fa fa-check"></i><b>3.2</b> R console script</a></li>
+<li class="chapter" data-level="3.3" data-path="r-programming-basics-i.html"><a href="r-programming-basics-i.html#what-is-a-programming-language"><i class="fa fa-check"></i><b>3.3</b> What is a programming language</a></li>
+<li class="chapter" data-level="3.4" data-path="r-programming-basics-i.html"><a href="r-programming-basics-i.html#variables-and-values"><i class="fa fa-check"></i><b>3.4</b> Variables and values</a></li>
+<li class="chapter" data-level="3.5" data-path="r-programming-basics-i.html"><a href="r-programming-basics-i.html#object-variable-type-of-storage-mode"><i class="fa fa-check"></i><b>3.5</b> Object (variable) type of (storage) mode</a></li>
+<li class="chapter" data-level="3.6" data-path="r-programming-basics-i.html"><a href="r-programming-basics-i.html#levels-of-measurement"><i class="fa fa-check"></i><b>3.6</b> Levels of measurement</a></li>
+<li class="chapter" data-level="3.7" data-path="r-programming-basics-i.html"><a href="r-programming-basics-i.html#object---vectors"><i class="fa fa-check"></i><b>3.7</b> Object - Vectors</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="r-programming-basics-i.html"><a href="r-programming-basics-i.html#exercise-3-1"><i class="fa fa-check"></i><b>3.7.1</b> Exercise 3-1</a></li>
+<li class="chapter" data-level="3.7.2" data-path="r-programming-basics-i.html"><a href="r-programming-basics-i.html#exercise-3-2"><i class="fa fa-check"></i><b>3.7.2</b> Exercise 3-2</a></li>
+<li class="chapter" data-level="3.7.3" data-path="r-programming-basics-i.html"><a href="r-programming-basics-i.html#exercise-3-3"><i class="fa fa-check"></i><b>3.7.3</b> Exercise 3-3</a></li>
+</ul></li>
+<li class="chapter" data-level="3.8" data-path="r-programming-basics-i.html"><a href="r-programming-basics-i.html#object---matrix"><i class="fa fa-check"></i><b>3.8</b> Object - matrix</a>
+<ul>
+<li class="chapter" data-level="3.8.1" data-path="r-programming-basics-i.html"><a href="r-programming-basics-i.html#exercise-3-4"><i class="fa fa-check"></i><b>3.8.1</b> Exercise 3-4</a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="r-programming-basics-i.html"><a href="r-programming-basics-i.html#object---data.frame"><i class="fa fa-check"></i><b>3.9</b> Object - data.frame</a></li>
+<li class="chapter" data-level="3.10" data-path="r-programming-basics-i.html"><a href="r-programming-basics-i.html#object---list"><i class="fa fa-check"></i><b>3.10</b> Object - list</a></li>
+<li class="chapter" data-level="3.11" data-path="r-programming-basics-i.html"><a href="r-programming-basics-i.html#missing-values"><i class="fa fa-check"></i><b>3.11</b> Missing values</a></li>
+<li class="chapter" data-level="3.12" data-path="r-programming-basics-i.html"><a href="r-programming-basics-i.html#useful-functions-i"><i class="fa fa-check"></i><b>3.12</b> Useful functions I</a>
+<ul>
+<li class="chapter" data-level="3.12.1" data-path="r-programming-basics-i.html"><a href="r-programming-basics-i.html#exercise-3-5"><i class="fa fa-check"></i><b>3.12.1</b> Exercise 3-5</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="r-programming-basics-ii.html"><a href="r-programming-basics-ii.html"><i class="fa fa-check"></i><b>4</b> R programming basics II</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="r-programming-basics-ii.html"><a href="r-programming-basics-ii.html#a-script-in-r"><i class="fa fa-check"></i><b>4.1</b> A script in R</a></li>
+<li class="chapter" data-level="4.2" data-path="r-programming-basics-ii.html"><a href="r-programming-basics-ii.html#functions"><i class="fa fa-check"></i><b>4.2</b> Functions</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="r-programming-basics-ii.html"><a href="r-programming-basics-ii.html#exercise-4-1"><i class="fa fa-check"></i><b>4.2.1</b> Exercise 4-1</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="r-programming-basics-ii.html"><a href="r-programming-basics-ii.html#vectorized-functions"><i class="fa fa-check"></i><b>4.3</b> Vectorized functions</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="r-programming-basics-ii.html"><a href="r-programming-basics-ii.html#exercise-4-2"><i class="fa fa-check"></i><b>4.3.1</b> Exercise 4-2</a></li>
+<li class="chapter" data-level="4.3.2" data-path="r-programming-basics-ii.html"><a href="r-programming-basics-ii.html#exercise-4-3"><i class="fa fa-check"></i><b>4.3.2</b> Exercise 4-3</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="r-programming-basics-ii.html"><a href="r-programming-basics-ii.html#if-statements"><i class="fa fa-check"></i><b>4.4</b> if statements</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="r-programming-basics-ii.html"><a href="r-programming-basics-ii.html#exercise-4-4"><i class="fa fa-check"></i><b>4.4.1</b> Exercise 4-4</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="r-programming-basics-ii.html"><a href="r-programming-basics-ii.html#for-while-repeat"><i class="fa fa-check"></i><b>4.5</b> for, while, repeat</a></li>
+<li class="chapter" data-level="4.6" data-path="r-programming-basics-ii.html"><a href="r-programming-basics-ii.html#avoiding-loops"><i class="fa fa-check"></i><b>4.6</b> Avoiding Loops</a></li>
+<li class="chapter" data-level="4.7" data-path="r-programming-basics-ii.html"><a href="r-programming-basics-ii.html#object-oriented-programming-advanced"><i class="fa fa-check"></i><b>4.7</b> Object Oriented Programming (Advanced)</a></li>
+<li class="chapter" data-level="4.8" data-path="r-programming-basics-ii.html"><a href="r-programming-basics-ii.html#usuful-functions-ii"><i class="fa fa-check"></i><b>4.8</b> Usuful functions II</a>
+<ul>
+<li class="chapter" data-level="4.8.1" data-path="r-programming-basics-ii.html"><a href="r-programming-basics-ii.html#exercise-4-5"><i class="fa fa-check"></i><b>4.8.1</b> Exercise 4-5</a></li>
+</ul></li>
+<li class="chapter" data-level="4.9" data-path="r-programming-basics-ii.html"><a href="r-programming-basics-ii.html#file-read-and-write"><i class="fa fa-check"></i><b>4.9</b> File read and write</a>
+<ul>
+<li class="chapter" data-level="4.9.1" data-path="r-programming-basics-ii.html"><a href="r-programming-basics-ii.html#exercise-4-6"><i class="fa fa-check"></i><b>4.9.1</b> Exercise 4-6</a></li>
+</ul></li>
+<li class="chapter" data-level="4.10" data-path="r-programming-basics-ii.html"><a href="r-programming-basics-ii.html#excel-file-read-and-data-plotting"><i class="fa fa-check"></i><b>4.10</b> Excel file read and data plotting</a>
+<ul>
+<li class="chapter" data-level="4.10.1" data-path="r-programming-basics-ii.html"><a href="r-programming-basics-ii.html#exercise-4-7-barplot-with-error-bars"><i class="fa fa-check"></i><b>4.10.1</b> Exercise 4-7 barplot with error bars</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="r-graphics-basics.html"><a href="r-graphics-basics.html"><i class="fa fa-check"></i><b>5</b> R graphics basics</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="r-graphics-basics.html"><a href="r-graphics-basics.html#scatter-plot"><i class="fa fa-check"></i><b>5.1</b> scatter plot</a></li>
+<li class="chapter" data-level="5.2" data-path="r-graphics-basics.html"><a href="r-graphics-basics.html#histogram"><i class="fa fa-check"></i><b>5.2</b> histogram</a></li>
+<li class="chapter" data-level="5.3" data-path="r-graphics-basics.html"><a href="r-graphics-basics.html#boxplot"><i class="fa fa-check"></i><b>5.3</b> boxplot</a></li>
+<li class="chapter" data-level="5.4" data-path="r-graphics-basics.html"><a href="r-graphics-basics.html#barplot"><i class="fa fa-check"></i><b>5.4</b> barplot</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="r-graphics-basics.html"><a href="r-graphics-basics.html#exercise-5-1"><i class="fa fa-check"></i><b>5.4.1</b> Exercise 5-1</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="r-graphics-basics.html"><a href="r-graphics-basics.html#draw-multiple-graphs-in-the-same-plot"><i class="fa fa-check"></i><b>5.5</b> Draw multiple graphs in the same plot</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="r-graphics-basics.html"><a href="r-graphics-basics.html#exercise-5-2"><i class="fa fa-check"></i><b>5.5.1</b> Exercise 5-2</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="r-graphics-basics.html"><a href="r-graphics-basics.html#barplot-for-multiplate-reader-data"><i class="fa fa-check"></i><b>5.6</b> Barplot for multiplate reader data</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="r-graphics-ggplot2.html"><a href="r-graphics-ggplot2.html"><i class="fa fa-check"></i><b>6</b> R graphics ggplot2</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="r-graphics-ggplot2.html"><a href="r-graphics-ggplot2.html#basics"><i class="fa fa-check"></i><b>6.1</b> Basics</a></li>
+<li class="chapter" data-level="6.2" data-path="r-graphics-ggplot2.html"><a href="r-graphics-ggplot2.html#facets"><i class="fa fa-check"></i><b>6.2</b> Facets</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="r-graphics-ggplot2.html"><a href="r-graphics-ggplot2.html#exercise-6.1"><i class="fa fa-check"></i><b>6.2.1</b> Exercise 6.1</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="r-graphics-ggplot2.html"><a href="r-graphics-ggplot2.html#bar-graph"><i class="fa fa-check"></i><b>6.3</b> Bar graph</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="r-graphics-ggplot2.html"><a href="r-graphics-ggplot2.html#exercise-6.2"><i class="fa fa-check"></i><b>6.3.1</b> Exercise 6.2</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="r-graphics-ggplot2.html"><a href="r-graphics-ggplot2.html#line-graph"><i class="fa fa-check"></i><b>6.4</b> Line graph</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="r-graphics-ggplot2.html"><a href="r-graphics-ggplot2.html#exercise-6.3"><i class="fa fa-check"></i><b>6.4.1</b> Exercise 6.3</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="r-graphics-ggplot2.html"><a href="r-graphics-ggplot2.html#smoothing"><i class="fa fa-check"></i><b>6.5</b> Smoothing</a></li>
+<li class="chapter" data-level="6.6" data-path="r-graphics-ggplot2.html"><a href="r-graphics-ggplot2.html#statstics-and-positions"><i class="fa fa-check"></i><b>6.6</b> Statstics and positions</a></li>
+<li class="chapter" data-level="6.7" data-path="r-graphics-ggplot2.html"><a href="r-graphics-ggplot2.html#themes-labels-and-scales"><i class="fa fa-check"></i><b>6.7</b> Themes, Labels, and Scales</a>
+<ul>
+<li class="chapter" data-level="6.7.1" data-path="r-graphics-ggplot2.html"><a href="r-graphics-ggplot2.html#exercise-6.4"><i class="fa fa-check"></i><b>6.7.1</b> Exercise 6.4</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="data-transformation-basics.html"><a href="data-transformation-basics.html"><i class="fa fa-check"></i><b>7</b> Data transformation basics</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="data-transformation-basics.html"><a href="data-transformation-basics.html#subset-and-filter"><i class="fa fa-check"></i><b>7.1</b> subset and filter</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="data-transformation-basics.html"><a href="data-transformation-basics.html#exercise-7.1"><i class="fa fa-check"></i><b>7.1.1</b> Exercise 7.1</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="data-transformation-basics.html"><a href="data-transformation-basics.html#merging-and-split"><i class="fa fa-check"></i><b>7.2</b> merging and split</a></li>
+<li class="chapter" data-level="7.3" data-path="data-transformation-basics.html"><a href="data-transformation-basics.html#transforming-data"><i class="fa fa-check"></i><b>7.3</b> transforming data</a></li>
+<li class="chapter" data-level="7.4" data-path="data-transformation-basics.html"><a href="data-transformation-basics.html#analysis-example-babies"><i class="fa fa-check"></i><b>7.4</b> Analysis example (babies)</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="data-transformation-basics.html"><a href="data-transformation-basics.html#exercise-7.2"><i class="fa fa-check"></i><b>7.4.1</b> Exercise 7.2</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="data-transformation-basics.html"><a href="data-transformation-basics.html#apply"><i class="fa fa-check"></i><b>7.5</b> apply</a>
+<ul>
+<li class="chapter" data-level="7.5.1" data-path="data-transformation-basics.html"><a href="data-transformation-basics.html#exercise-7.3"><i class="fa fa-check"></i><b>7.5.1</b> Exercise 7.3</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html"><i class="fa fa-check"></i><b>8</b> Data transformation with dplyr</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#long-and-wide-data-structure"><i class="fa fa-check"></i><b>8.1</b> Long and wide data structure</a></li>
+<li class="chapter" data-level="8.2" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#dplyr---pipe-operator"><i class="fa fa-check"></i><b>8.2</b> dplyr - pipe operator</a></li>
+<li class="chapter" data-level="8.3" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#dplyr---important-functions"><i class="fa fa-check"></i><b>8.3</b> dplyr - Important functions</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#filter"><i class="fa fa-check"></i><b>8.3.1</b> filter</a></li>
+<li class="chapter" data-level="8.3.2" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#arrange"><i class="fa fa-check"></i><b>8.3.2</b> arrange</a></li>
+<li class="chapter" data-level="8.3.3" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#select"><i class="fa fa-check"></i><b>8.3.3</b> select</a></li>
+<li class="chapter" data-level="8.3.4" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#mutate"><i class="fa fa-check"></i><b>8.3.4</b> mutate</a></li>
+<li class="chapter" data-level="8.3.5" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#summarise"><i class="fa fa-check"></i><b>8.3.5</b> summarise</a></li>
+<li class="chapter" data-level="8.3.6" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#join"><i class="fa fa-check"></i><b>8.3.6</b> join</a></li>
+<li class="chapter" data-level="8.3.7" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#code-comparison"><i class="fa fa-check"></i><b>8.3.7</b> code comparison</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="data-transformation-with-dplyr.html"><a href="data-transformation-with-dplyr.html#dplyr-example-iris"><i class="fa fa-check"></i><b>8.4</b> dplyr example iris</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="exercise-class.html"><a href="exercise-class.html"><i class="fa fa-check"></i><b>9</b> Exercise class</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="exercise-class.html"><a href="exercise-class.html#exercise-7.3-1"><i class="fa fa-check"></i><b>9.1</b> Exercise 7.3</a></li>
+<li class="chapter" data-level="9.2" data-path="exercise-class.html"><a href="exercise-class.html#exercise-9.1"><i class="fa fa-check"></i><b>9.2</b> Exercise 9.1</a></li>
+<li class="chapter" data-level="9.3" data-path="exercise-class.html"><a href="exercise-class.html#exercise-9.2"><i class="fa fa-check"></i><b>9.3</b> Exercise 9.2</a></li>
+<li class="chapter" data-level="9.4" data-path="exercise-class.html"><a href="exercise-class.html#exercise-9.3"><i class="fa fa-check"></i><b>9.4</b> Exercise 9.3</a></li>
+<li class="chapter" data-level="9.5" data-path="exercise-class.html"><a href="exercise-class.html#exercise-9.4"><i class="fa fa-check"></i><b>9.5</b> Exercise 9.4</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R 프로그래밍과 데이터 분석</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="exercise-class" class="section level1">
+<h1><span class="header-section-number">Chapter 9</span> Exercise class</h1>
+<div id="exercise-7.3-1" class="section level2">
+<h2><span class="header-section-number">9.1</span> Exercise 7.3</h2>
+<p>연습문제 7.3</p>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="exercise-class.html#cb167-1"></a>g &lt;-<span class="st"> </span><span class="kw">factor</span>(airquality<span class="op">$</span>Month)</span>
+<span id="cb167-2"><a href="exercise-class.html#cb167-2"></a>airq_split &lt;-<span class="st"> </span><span class="kw">split</span>(airquality, g)</span>
+<span id="cb167-3"><a href="exercise-class.html#cb167-3"></a>df &lt;-<span class="st"> </span>airq_split[[<span class="dv">1</span>]]</span>
+<span id="cb167-4"><a href="exercise-class.html#cb167-4"></a></span>
+<span id="cb167-5"><a href="exercise-class.html#cb167-5"></a>ozone_func &lt;-<span class="st"> </span><span class="cf">function</span>(df){</span>
+<span id="cb167-6"><a href="exercise-class.html#cb167-6"></a>  oz_mean &lt;-<span class="st"> </span><span class="kw">mean</span>(df<span class="op">$</span>Ozone, <span class="dt">na.rm=</span>T)</span>
+<span id="cb167-7"><a href="exercise-class.html#cb167-7"></a>  <span class="kw">return</span>(oz_mean)</span>
+<span id="cb167-8"><a href="exercise-class.html#cb167-8"></a>}</span>
+<span id="cb167-9"><a href="exercise-class.html#cb167-9"></a></span>
+<span id="cb167-10"><a href="exercise-class.html#cb167-10"></a><span class="kw">ozone_func</span>(df)</span>
+<span id="cb167-11"><a href="exercise-class.html#cb167-11"></a>ozone_means &lt;-<span class="st"> </span><span class="kw">unlist</span>(<span class="kw">lapply</span>(airq_split, ozone_func))</span></code></pre></div>
+</div>
+<div id="exercise-9.1" class="section level2">
+<h2><span class="header-section-number">9.2</span> Exercise 9.1</h2>
+<p>airquality 데이터의 모든 변수에 대한 월별 평균 및 편차 구하기 (dplyr 함수 이용)</p>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="exercise-class.html#cb168-1"></a>airquality <span class="op">%&gt;%</span><span class="st"> </span>str</span>
+<span id="cb168-2"><a href="exercise-class.html#cb168-2"></a>airquality <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb168-3"><a href="exercise-class.html#cb168-3"></a><span class="st">  </span><span class="kw">group_by</span>(Month) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb168-4"><a href="exercise-class.html#cb168-4"></a><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">ozone_mean=</span><span class="kw">mean</span>(Ozone, <span class="dt">na.rm=</span>T), <span class="dt">temp_mean=</span><span class="kw">mean</span>(Temp, <span class="dt">na.rm=</span>T))</span>
+<span id="cb168-5"><a href="exercise-class.html#cb168-5"></a></span>
+<span id="cb168-6"><a href="exercise-class.html#cb168-6"></a>airquality <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb168-7"><a href="exercise-class.html#cb168-7"></a><span class="st">  </span><span class="kw">group_by</span>(Month) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb168-8"><a href="exercise-class.html#cb168-8"></a><span class="st">  </span><span class="kw">summarise_all</span>(mean, <span class="dt">na.rm=</span>T)</span>
+<span id="cb168-9"><a href="exercise-class.html#cb168-9"></a></span>
+<span id="cb168-10"><a href="exercise-class.html#cb168-10"></a><span class="co">## mean</span></span>
+<span id="cb168-11"><a href="exercise-class.html#cb168-11"></a>aq_mean &lt;-<span class="st"> </span>airquality <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb168-12"><a href="exercise-class.html#cb168-12"></a><span class="st">  </span><span class="kw">group_by</span>(Month) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb168-13"><a href="exercise-class.html#cb168-13"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>Day) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb168-14"><a href="exercise-class.html#cb168-14"></a><span class="st">  </span><span class="kw">summarise_all</span>(mean, <span class="dt">na.rm=</span>T)</span>
+<span id="cb168-15"><a href="exercise-class.html#cb168-15"></a></span>
+<span id="cb168-16"><a href="exercise-class.html#cb168-16"></a><span class="co">## sd</span></span>
+<span id="cb168-17"><a href="exercise-class.html#cb168-17"></a>aq_sd &lt;-<span class="st"> </span>airquality <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb168-18"><a href="exercise-class.html#cb168-18"></a><span class="st">  </span><span class="kw">group_by</span>(Month) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb168-19"><a href="exercise-class.html#cb168-19"></a><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>Day) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb168-20"><a href="exercise-class.html#cb168-20"></a><span class="st">  </span><span class="kw">summarise_all</span>(sd, <span class="dt">na.rm=</span>T)</span></code></pre></div>
+</div>
+<div id="exercise-9.2" class="section level2">
+<h2><span class="header-section-number">9.3</span> Exercise 9.2</h2>
+<p>예제 9.1 데이터 막대그래프로 표현 (에러바 포함)</p>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="exercise-class.html#cb169-1"></a><span class="co">## melt and join</span></span>
+<span id="cb169-2"><a href="exercise-class.html#cb169-2"></a>aq_mean_mlt &lt;-<span class="st"> </span>aq_mean <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">melt</span>(<span class="dt">id.var=</span><span class="st">&quot;Month&quot;</span>) </span>
+<span id="cb169-3"><a href="exercise-class.html#cb169-3"></a>aq_sd_mlt &lt;-<span class="st"> </span>aq_sd <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">melt</span>(<span class="dt">id.var=</span><span class="st">&quot;Month&quot;</span>) </span>
+<span id="cb169-4"><a href="exercise-class.html#cb169-4"></a>aq_join &lt;-<span class="st"> </span><span class="kw">inner_join</span>(aq_mean_mlt, aq_sd_mlt, <span class="dt">by=</span><span class="kw">c</span>(<span class="st">&quot;Month&quot;</span>, <span class="st">&quot;variable&quot;</span>))</span>
+<span id="cb169-5"><a href="exercise-class.html#cb169-5"></a>aq_join <span class="op">%&gt;%</span><span class="st"> </span>head</span>
+<span id="cb169-6"><a href="exercise-class.html#cb169-6"></a><span class="kw">data.frame</span>(aq_mean_mlt, aq_sd_mlt<span class="op">$</span>value) <span class="op">%&gt;%</span><span class="st"> </span>head</span>
+<span id="cb169-7"><a href="exercise-class.html#cb169-7"></a></span>
+<span id="cb169-8"><a href="exercise-class.html#cb169-8"></a><span class="kw">ggplot</span>(aq_join, <span class="kw">aes</span>(<span class="dt">x=</span>Month, <span class="dt">y=</span>value.x, <span class="dt">fill=</span>variable)) <span class="op">+</span></span>
+<span id="cb169-9"><a href="exercise-class.html#cb169-9"></a><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="dt">position=</span><span class="st">&quot;dodge&quot;</span>) <span class="op">+</span></span>
+<span id="cb169-10"><a href="exercise-class.html#cb169-10"></a><span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymax=</span>value.x<span class="op">+</span>value.y, <span class="dt">ymin=</span>value.x<span class="op">-</span>value.y),</span>
+<span id="cb169-11"><a href="exercise-class.html#cb169-11"></a>                <span class="dt">position=</span><span class="kw">position_dodge</span>(<span class="fl">0.9</span>),</span>
+<span id="cb169-12"><a href="exercise-class.html#cb169-12"></a>                <span class="dt">width=</span><span class="fl">0.4</span>)</span></code></pre></div>
+</div>
+<div id="exercise-9.3" class="section level2">
+<h2><span class="header-section-number">9.4</span> Exercise 9.3</h2>
+<p>7.4 Babies dataset에서 data filtering 후 wt와 gestation의 산포도 그리기</p>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="exercise-class.html#cb170-1"></a><span class="kw">library</span>(UsingR)</span>
+<span id="cb170-2"><a href="exercise-class.html#cb170-2"></a><span class="kw">head</span>(babies)</span>
+<span id="cb170-3"><a href="exercise-class.html#cb170-3"></a></span>
+<span id="cb170-4"><a href="exercise-class.html#cb170-4"></a>babies <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>(wt, gestation, smoke) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb170-5"><a href="exercise-class.html#cb170-5"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>wt, <span class="dt">y=</span>gestation)) <span class="op">+</span></span>
+<span id="cb170-6"><a href="exercise-class.html#cb170-6"></a><span class="st">  </span><span class="kw">geom_point</span>()</span>
+<span id="cb170-7"><a href="exercise-class.html#cb170-7"></a></span>
+<span id="cb170-8"><a href="exercise-class.html#cb170-8"></a>b1 &lt;-<span class="st"> </span>babies <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>(wt, gestation, smoke) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb170-9"><a href="exercise-class.html#cb170-9"></a><span class="st">  </span><span class="kw">filter</span>(gestation<span class="op">!=</span><span class="dv">999</span> <span class="op">&amp;</span><span class="st"> </span>smoke<span class="op">!=</span><span class="dv">9</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb170-10"><a href="exercise-class.html#cb170-10"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">smokef=</span><span class="kw">factor</span>(smoke, <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;naver&quot;</span>, </span>
+<span id="cb170-11"><a href="exercise-class.html#cb170-11"></a>                                         <span class="st">&quot;smoke now&quot;</span>,</span>
+<span id="cb170-12"><a href="exercise-class.html#cb170-12"></a>                                         <span class="st">&quot;until current pre&quot;</span>,</span>
+<span id="cb170-13"><a href="exercise-class.html#cb170-13"></a>                                         <span class="st">&quot;once did, not now&quot;</span>)))</span>
+<span id="cb170-14"><a href="exercise-class.html#cb170-14"></a></span>
+<span id="cb170-15"><a href="exercise-class.html#cb170-15"></a>b1 <span class="op">%&gt;%</span><span class="st"> </span>str</span>
+<span id="cb170-16"><a href="exercise-class.html#cb170-16"></a></span>
+<span id="cb170-17"><a href="exercise-class.html#cb170-17"></a><span class="kw">plot</span>(b1<span class="op">$</span>smoke)</span>
+<span id="cb170-18"><a href="exercise-class.html#cb170-18"></a></span>
+<span id="cb170-19"><a href="exercise-class.html#cb170-19"></a><span class="kw">ggplot</span>(b1, <span class="kw">aes</span>(<span class="dt">x=</span>wt, <span class="dt">y=</span>gestation, <span class="dt">color=</span>smokef)) <span class="op">+</span></span>
+<span id="cb170-20"><a href="exercise-class.html#cb170-20"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb170-21"><a href="exercise-class.html#cb170-21"></a><span class="st">  </span><span class="kw">facet_wrap</span>(.<span class="op">~</span>smokef, <span class="dt">nrow=</span><span class="dv">2</span>) <span class="op">+</span></span>
+<span id="cb170-22"><a href="exercise-class.html#cb170-22"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&quot;lm&quot;</span>, <span class="dt">color=</span><span class="st">&quot;black&quot;</span>) <span class="op">+</span></span>
+<span id="cb170-23"><a href="exercise-class.html#cb170-23"></a><span class="st">  </span><span class="kw">theme_bw</span>()</span>
+<span id="cb170-24"><a href="exercise-class.html#cb170-24"></a></span>
+<span id="cb170-25"><a href="exercise-class.html#cb170-25"></a><span class="co"># average gestation in each smoke group </span></span>
+<span id="cb170-26"><a href="exercise-class.html#cb170-26"></a>b1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(smokef) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise</span>(<span class="kw">mean</span>(gestation))</span>
+<span id="cb170-27"><a href="exercise-class.html#cb170-27"></a></span>
+<span id="cb170-28"><a href="exercise-class.html#cb170-28"></a><span class="co"># correlation between gestation and wt in each smoke group</span></span>
+<span id="cb170-29"><a href="exercise-class.html#cb170-29"></a>b1 <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(smokef) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise</span>(<span class="kw">cor</span>(gestation, wt))</span></code></pre></div>
+</div>
+<div id="exercise-9.4" class="section level2">
+<h2><span class="header-section-number">9.5</span> Exercise 9.4</h2>
+<ul>
+<li>(Categorical) data generation</li>
+<li>Save the data to an excel file (생략)</li>
+<li>Read the data from the excel file (생략)</li>
+<li>Visualize the data using Boxplot (바이올린)</li>
+</ul>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="exercise-class.html#cb171-1"></a>n &lt;-<span class="st"> </span><span class="dv">200</span></span>
+<span id="cb171-2"><a href="exercise-class.html#cb171-2"></a>x1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n, <span class="dt">mean=</span><span class="dv">0</span>, <span class="dt">sd=</span><span class="dv">2</span>)</span>
+<span id="cb171-3"><a href="exercise-class.html#cb171-3"></a>x2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n, <span class="dt">mean=</span><span class="dv">5</span>, <span class="dt">sd=</span><span class="dv">2</span>)</span>
+<span id="cb171-4"><a href="exercise-class.html#cb171-4"></a>x &lt;-<span class="st"> </span><span class="kw">data.frame</span>(x1, x2)</span>
+<span id="cb171-5"><a href="exercise-class.html#cb171-5"></a><span class="kw">boxplot</span>(x)</span>
+<span id="cb171-6"><a href="exercise-class.html#cb171-6"></a>x_mlt &lt;-<span class="st"> </span><span class="kw">melt</span>(x)</span>
+<span id="cb171-7"><a href="exercise-class.html#cb171-7"></a><span class="kw">ggplot</span>(x_mlt, <span class="kw">aes</span>(<span class="dt">x=</span>variable, <span class="dt">y=</span>value)) <span class="op">+</span></span>
+<span id="cb171-8"><a href="exercise-class.html#cb171-8"></a><span class="st">  </span><span class="kw">geom_boxplot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="exercise-class.html#cb172-1"></a><span class="kw">ggplot</span>(x_mlt, <span class="kw">aes</span>(<span class="dt">x=</span>variable, <span class="dt">y=</span>value, <span class="dt">fill=</span>variable)) <span class="op">+</span></span>
+<span id="cb172-2"><a href="exercise-class.html#cb172-2"></a><span class="st">  </span><span class="kw">geom_violin</span>(<span class="dt">trim=</span><span class="ot">FALSE</span>) <span class="op">+</span></span>
+<span id="cb172-3"><a href="exercise-class.html#cb172-3"></a><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="dt">shape=</span><span class="dv">16</span>, <span class="dt">position=</span><span class="kw">position_jitter</span>(<span class="fl">0.2</span>), <span class="dt">color=</span><span class="st">&quot;#00000055&quot;</span>) <span class="op">+</span></span>
+<span id="cb172-4"><a href="exercise-class.html#cb172-4"></a><span class="st">  </span><span class="kw">scale_fill_brewer</span>(<span class="dt">palette=</span><span class="st">&quot;Blues&quot;</span>) <span class="op">+</span></span>
+<span id="cb172-5"><a href="exercise-class.html#cb172-5"></a><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">width=</span><span class="fl">0.1</span>, <span class="dt">fill=</span><span class="st">&quot;white&quot;</span>)<span class="op">+</span></span>
+<span id="cb172-6"><a href="exercise-class.html#cb172-6"></a><span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span></span>
+<span id="cb172-7"><a href="exercise-class.html#cb172-7"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y=</span><span class="st">&quot;value&quot;</span>, </span>
+<span id="cb172-8"><a href="exercise-class.html#cb172-8"></a>       <span class="dt">x=</span><span class="st">&quot;variable&quot;</span>,</span>
+<span id="cb172-9"><a href="exercise-class.html#cb172-9"></a>       <span class="dt">fill=</span><span class="kw">element_blank</span>()) <span class="op">+</span></span>
+<span id="cb172-10"><a href="exercise-class.html#cb172-10"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>, </span>
+<span id="cb172-11"><a href="exercise-class.html#cb172-11"></a>        <span class="dt">axis.text =</span> <span class="kw">element_text</span>(<span class="dt">size=</span><span class="dv">12</span>),</span>
+<span id="cb172-12"><a href="exercise-class.html#cb172-12"></a>        <span class="dt">axis.title=</span><span class="kw">element_text</span>(<span class="dt">size=</span><span class="dv">14</span>))</span></code></pre></div>
+<hr />
+<p><a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="크리에이티브 커먼즈 라이선스" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />이 저작물은 <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">크리에이티브 커먼즈 저작자표시-비영리-변경금지 4.0 국제 라이선스</a>에 따라 이용할 수 있습니다.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="data-transformation-with-dplyr.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
