@@ -169,6 +169,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.14" data-path="r-basics.html"><a href="r-basics.html#r-packages"><i class="fa fa-check"></i><b>2.14</b> R packages</a></li>
 <li class="chapter" data-level="2.15" data-path="r-basics.html"><a href="r-basics.html#data-sets"><i class="fa fa-check"></i><b>2.15</b> Data sets</a></li>
 <li class="chapter" data-level="2.16" data-path="r-basics.html"><a href="r-basics.html#cheatsheet"><i class="fa fa-check"></i><b>2.16</b> Cheatsheet</a></li>
+<li class="chapter" data-level="2.17" data-path="r-basics.html"><a href="r-basics.html#problems"><i class="fa fa-check"></i><b>2.17</b> Problems</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -359,6 +360,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
