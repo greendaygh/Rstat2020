@@ -1,5 +1,5 @@
 --- 
-title: "R 프로그래밍과 데이터 분석"
+title: "R로 배우는 기초통계"
 author: "한국생명공학연구원 김하성"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
@@ -12,28 +12,22 @@ description: "UST lecture web site"
 ---
 
 
-
 # Introduction 강의 개요 
-- 장소: 한국생명공학연구원 연구동 세미나실 1213호 (매주수요일 13:00~16:00)
+- 매주 목요일 강의노트, 동영상 업데이트 
 - 강사: 한국생명공학연구원 바이오합성연구센터 김하성
 - 연락처: 042-860-4372, haseong@kribb.re.kr (생명연 연구동 1143)
 - 강의site: https://greendaygh.github.io/Rstat2020/ 
 
 ## Goal 강의 목표
-- 이공계열 대학원생의 원활한 실험 설계와 데이터 분석을 위한 범용 프로그램 언어인 R의 사용법과 프로그래밍 기술의 습득이 목표. 특히 Data scientist를 위해 개발된 tidyverse와 ggplot2 패키지 사용법을 위주로 강의와 실습을 진행하며 후반부 대규모 서열 데이터를 이용한 실습을 통해 R의 활용 기술을 학습함
+- 이공계열 대학원생이 보다 쉽게 통계 이론을 습득하고 활용하는 능력을 배양하는데 주요 목적이 있음. 데이터 분석용 프로그래밍언어인 R을 기반으로 한 학습을 통하여 프로그래밍 기술과 함께 데이터를 분석하는 능력을 습득함으로써 이공계 연구에 있어서 필수인 통계적 사고의 기초를 다지는데 그 목적이 있음. 
 
 ## This course  
-- R 사용에 대한 기본 개념과 프로그래밍을 중심으로 필요시 기초 통계지식 강의
-- 실습 데이터로는 교제에서 제공되는 예제 데이터와 생물학 서열 등 대규모 데이터를 사용한 분석 진행
-- 모든 강의 시간 실습을 위한 개인 노트북 지참 필수
-- 강의 자료는 강의 웹사이트에 수업 전 업데이트됨  
-- 상황에 따라 강의 일정이 조정될 수 있음 
-- 과제물은 필요에 따라 수업 후 제공되며 다음 수업 전까지 메일로 제출 
+이 강좌는 온라인 (강의자료, 동영상) 강의를 기본으로 함. 기초 통계 이론의 개념 중심 설명과 R을 이용한 실습 예시가 강의자료와 동영상 형식으로 강의사이트에 제공됨. 매 회 강의에는 해당 강의 내용과 관련된 과제가 주어지며 이메일을 통해 문제 풀이를 제출 받음. 상황에 따라 강의 자료 및 동영상 업데이트 일정이 조정될 수 있음.
 
 ## Tips
 - 눈으로 이해하지 않고 스스로 실습 필수
 - 각 명령줄이 어떻게/왜 작동하는지 이해하기
-- 인터넷 검색을 통한 다른사람의 코드를 적극적으로 이해하고 적용 필요 
+- 인터넷 검색을 통한 다른사람의 코드 이해/적용 필요 
 
 ## References books 참고 교제 
 - Using R for Introductory Statistics by John Verzani
@@ -62,83 +56,31 @@ Murdoch (https://www.cambridge.org/core/books/first-course-in-statistical-progra
 
 
 ## Evaluation 평가 세부 항목
-- 출석 50% / 과제 50% / 80점 이상 S, 80점 미만 U 부여
+- 과제 100점
+- 성적부여기준: 70점 이상 S, 70점 미만 U 부여
 
 ## Schedule 강의 계획
 
-- 1주차 - Introduction and installation of R/Rstudio
-- 2주차 - R language basics I – Interface, operations, packages, help, NULL, NA, and NaN
-- 3주차 - R language basics II - data type and structure 
-- 4주차 - R language basics III – if, for, while
-- 5주차 - R programming – Maze Robot (function, matrix) I
-- 6주차 - R programming – Maze Robot (function, matrix) II
-- 7주차 - Data manipulation I - read, write, rbind, cbind, split, subset
-- 8주차 - Data manipulation II - dplyr, apply, reshape 
-- 9주차 - Visualizing data in R I – plot, hist
-- 10주차 - Visualizing data in R II – ggplot2
-- 11주차 - Visualizing data in R III – ggplot2
-- 12주차 - Shiny for interactive applications in R I
-- 13주차 - Shiny for interactive applications in R II 
-- 14주차 - Data analysis #1 
-- 15주차 - Data analysis #2 
-- 16주차 - Data analysis #3  
+- 1주차 - R basics / introduction of data
+- 2주차 - Univariate data – Summary statistics
+- 3주차 - Bivariate data – Correlation  / Independence  
+- 4주차 - Multivariate data – R data structure
+- 5주차 - Populations – Families of distributions
+- 6주차 - Sampling – Distribution and CLT
+- 7주차 - Statistical inference
+- 8주차 - Confidence intervals 
+- 9주차 - Significance test - parameteric
+- 10주차 - Significance test – non parametric
+- 11주차 - Goodness of fit - parametric
+- 12주차 - Goodness of fit – non parametirc
+- 13주차 - Linear regression – basics & simple LR 
+- 14주차 - Multiple linear regression 
+- 15주차 - Analysis of variance 
+- 16주차 - Logistic / Non-linear regression  
 
 ## R Lecture Youtube Link  
 
-### Lecture Chapter 3
-* 강의 Chapter 3-1 (vector)  https://youtu.be/Fif5LnalvUE
-* 강의 Chapter 3-2 (vector)  https://youtu.be/7-qVYzrKIlU
-* 강의 Chapter 3-3 (matrix)  https://youtu.be/t3-NaiMuaYs
-* 강의 Chapter 3-4 (data.frame, list)  https://youtu.be/w10jHp8A128
-* 강의 Chapter 3-5 (missing) https://youtu.be/tItpzjBMeDI
-* 강의 Chapter 3-6 (useful functions I) https://youtu.be/3AaZ0vqgNHk
-* 강의 Chapter 3-7 추가 (factor) https://youtu.be/Xxd38TM3XBs
-
-
-### Lecture Chapter 4
-* 강의 Chapter 4-1 (function) https://youtu.be/NrGe3V_UpAc 
-* 강의 Chapter 4-2 (function) https://youtu.be/vfaqzso883k
-* 강의 Chapter 4-3 (if) https://youtu.be/SMHFFYi7Akc
-* 강의 Chapter 4-4 (for) https://youtu.be/I9BZqbQCTiE
-* 강의 Chapter 4-5 (while repeat) https://youtu.be/fZj0ZAm2TPk
-* 강의 Chapter 4-6 (functions2) https://youtu.be/CYQO_k4qcU4
-* 강의 Chapter 4-7 (read write) https://youtu.be/I9BZqbQCTiE
-* 강의 Chapter 4-8 (readxl) https://youtu.be/_6ZzjvotTww
-* 강의 Chapter 4-9 (readxl2) https://youtu.be/7YLNrq5vFiw
-* 강의 Chapter 4-10 (readxl3) https://youtu.be/_1X3AGhCsCw
-
-
-### Lecture Chapter 5
-* 강의 Chapter 5-1 (graph) https://youtu.be/KdlAqVVFxoI 
-* 강의 Chapter 5-2 (graph) https://youtu.be/NXZlV-xnRTY
-* 강의 Chapter 5-3 (graph) https://youtu.be/NYwxIqC2kjU
-* 강의 Chapter 5-4 (graph) https://youtu.be/VBbPkvdd3K0
-* 강의 Chapter 5-5 (graph) https://youtu.be/5Nurf1z2JTo
-
-
-### Lecture Chapter 6
-* 강의 Chapter 6-1 (ggplot2 basics) https://youtu.be/551gss8ffuI
-* 강의 Chapter 6-2 (ggplot2 facet and barplot) https://youtu.be/DdiXq9juBpQ
-* 강의 Chapter 6-3 (ggplot2 bar and line graph) https://youtu.be/mCF-iU6XZxw
-* 강의 Chapter 6-4 (ggplot2 smoothing) https://youtu.be/ACvVxKJ1mOc 
-* 강의 Chapter 6-5 (ggplot2 statistics and positions) https://youtu.be/NCQdwLrhlkI 
-* 강의 Chapter 6-6 (ggplot2 theme) https://youtu.be/u-XcIHSFu9Q
-* 강의 Chapter 6-7 (ggplot2 theme and ex) https://youtu.be/NTAjYPVVH1c
-
-
-### Lecture Chapter 7
-* 강의 Chapter 7-1 (Data transformation basics) https://youtu.be/loG82uC89nQ
-* 강의 Chapter 7-2 (Data transformation basics) https://youtu.be/Arbz7Nt_eKE
-* 강의 Chapter 7-3 (Data transformation basics) https://youtu.be/r9Q_P-n0gLI
-
-
-### Lecture Chapter 8
-* 강의 Chapter 8-1 (dplyr) https://youtu.be/geXHum2wwns
-* 강의 Chapter 8-2 (dplyr) https://youtu.be/eioDf3oA4AE
-* 강의 Chapter 8-3 (dplyr) https://youtu.be/WOLotZYhZeE
-* 강의 Chapter 8-4 (dplyr) https://youtu.be/BOFAxazZv60
-
-### Lecture Chapter 9
-* 강의 Chapter 9-1 (shiny) https://youtu.be/cr09Wafv92U
-* 강의 Chapter 9-2 (shiny) https://youtu.be/gW5br2j9p1E
+### Lecture Chapter 1
+* 1-1
+* 
 

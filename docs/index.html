@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>R로 배우는 기초통계</title>
+  <meta name="description" content="UST lecture web site" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="R로 배우는 기초통계" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="UST lecture web site" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="R로 배우는 기초통계" />
+  
+  <meta name="twitter:description" content="UST lecture web site" />
+  
+
+<meta name="author" content="한국생명공학연구원 김하성" />
+
+
+<meta name="date" content="2020-09-02" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">[2020 UST Lecture] R programming</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="#introduction-강의-개요"><i class="fa fa-check"></i><b>1</b> Introduction 강의 개요</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="#goal-강의-목표"><i class="fa fa-check"></i><b>1.1</b> Goal 강의 목표</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="#this-course"><i class="fa fa-check"></i><b>1.2</b> This course</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="#tips"><i class="fa fa-check"></i><b>1.3</b> Tips</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="#references-books-참고-교제"><i class="fa fa-check"></i><b>1.4</b> References books 참고 교제</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="#references-참고-자료"><i class="fa fa-check"></i><b>1.5</b> References 참고 자료</a></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="#evaluation-평가-세부-항목"><i class="fa fa-check"></i><b>1.6</b> Evaluation 평가 세부 항목</a></li>
+<li class="chapter" data-level="1.7" data-path="index.html"><a href="#schedule-강의-계획"><i class="fa fa-check"></i><b>1.7</b> Schedule 강의 계획</a></li>
+<li class="chapter" data-level="1.8" data-path="index.html"><a href="#r-lecture-youtube-link"><i class="fa fa-check"></i><b>1.8</b> R Lecture Youtube Link</a>
+<ul>
+<li class="chapter" data-level="1.8.1" data-path="index.html"><a href="#lecture-chapter-1"><i class="fa fa-check"></i><b>1.8.1</b> Lecture Chapter 1</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R로 배우는 기초통계</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">R로 배우는 기초통계</h1>
+<p class="author"><em>한국생명공학연구원 김하성</em></p>
+<p class="date"><em>2020-09-02</em></p>
+</div>
+<div id="introduction-강의-개요" class="section level1">
+<h1><span class="header-section-number">Chapter 1</span> Introduction 강의 개요</h1>
+<ul>
+<li>매주 목요일 강의노트, 동영상 업데이트</li>
+<li>강사: 한국생명공학연구원 바이오합성연구센터 김하성</li>
+<li>연락처: 042-860-4372, <a href="mailto:haseong@kribb.re.kr" class="email">haseong@kribb.re.kr</a> (생명연 연구동 1143)</li>
+<li>강의site: <a href="https://greendaygh.github.io/Rstat2020/" class="uri">https://greendaygh.github.io/Rstat2020/</a></li>
+</ul>
+<div id="goal-강의-목표" class="section level2">
+<h2><span class="header-section-number">1.1</span> Goal 강의 목표</h2>
+<ul>
+<li>이공계열 대학원생이 보다 쉽게 통계 이론을 습득하고 활용하는 능력을 배양하는데 주요 목적이 있음. 데이터 분석용 프로그래밍언어인 R을 기반으로 한 학습을 통하여 프로그래밍 기술과 함께 데이터를 분석하는 능력을 습득함으로써 이공계 연구에 있어서 필수인 통계적 사고의 기초를 다지는데 그 목적이 있음.</li>
+</ul>
+</div>
+<div id="this-course" class="section level2">
+<h2><span class="header-section-number">1.2</span> This course</h2>
+<p>이 강좌는 온라인 (강의자료, 동영상) 강의를 기본으로 함. 기초 통계 이론의 개념 중심 설명과 R을 이용한 실습 예시가 강의자료와 동영상 형식으로 강의사이트에 제공됨. 매 회 강의에는 해당 강의 내용과 관련된 과제가 주어지며 이메일을 통해 문제 풀이를 제출 받음. 상황에 따라 강의 자료 및 동영상 업데이트 일정이 조정될 수 있음.</p>
+</div>
+<div id="tips" class="section level2">
+<h2><span class="header-section-number">1.3</span> Tips</h2>
+<ul>
+<li>눈으로 이해하지 않고 스스로 실습 필수</li>
+<li>각 명령줄이 어떻게/왜 작동하는지 이해하기</li>
+<li>인터넷 검색을 통한 다른사람의 코드 이해/적용 필요</li>
+</ul>
+</div>
+<div id="references-books-참고-교제" class="section level2">
+<h2><span class="header-section-number">1.4</span> References books 참고 교제</h2>
+<ul>
+<li>Using R for Introductory Statistics by John Verzani
+<ul>
+<li>Free version of 1st Edition
+<ul>
+<li><a href="https://cran.r-project.org/doc/contrib/Verzani-SimpleR.pdf" class="uri">https://cran.r-project.org/doc/contrib/Verzani-SimpleR.pdf</a></li>
+<li><a href="http://cbb.sjtu.edu.cn/~mywu/bi217/usingR.pdf" class="uri">http://cbb.sjtu.edu.cn/~mywu/bi217/usingR.pdf</a></li>
+</ul></li>
+<li>Second edition
+<ul>
+<li><a href="https://www.crcpress.com/Using-R-for-Introductory-Statistics-Second-Edition/Verzani/p/book/9781466590731" class="uri">https://www.crcpress.com/Using-R-for-Introductory-Statistics-Second-Edition/Verzani/p/book/9781466590731</a></li>
+</ul></li>
+</ul></li>
+<li>R for Data Science (<a href="https://r4ds.had.co.nz" class="uri">https://r4ds.had.co.nz</a>, <a href="https://github.com/hadley" class="uri">https://github.com/hadley</a>)</li>
+<li>Bioinformatics Data Skills by Vince Buffalo (<a href="http://2.droppdf.com/files/5aTvl/bioinformatics-data-skills.pdf" class="uri">http://2.droppdf.com/files/5aTvl/bioinformatics-data-skills.pdf</a>)</li>
+<li>First Course in Statistical Programming with R by Braun and
+Murdoch (<a href="https://www.cambridge.org/core/books/first-course-in-statistical-programming-with-r/C9F088122AB40517B07FA77F2F0FDE2F" class="uri">https://www.cambridge.org/core/books/first-course-in-statistical-programming-with-r/C9F088122AB40517B07FA77F2F0FDE2F</a>)</li>
+<li>Introductory Statistics with R by Dalgaard (<a href="http://www.academia.dk/BiologiskAntropologi/Epidemiologi/PDF/Introductory_Statistics_with_R__2nd_ed.pdf" class="uri">http://www.academia.dk/BiologiskAntropologi/Epidemiologi/PDF/Introductory_Statistics_with_R__2nd_ed.pdf</a>)</li>
+<li>Modern Applied Statistics with S by Venables and Ripley (<a href="http://www.bagualu.net/wordpress/wp-content/uploads/2015/10/Modern_Applied_Statistics_With_S.pdf" class="uri">http://www.bagualu.net/wordpress/wp-content/uploads/2015/10/Modern_Applied_Statistics_With_S.pdf</a>)</li>
+<li>일반통계학 (영지문화사, 김우철 외)</li>
+</ul>
+</div>
+<div id="references-참고-자료" class="section level2">
+<h2><span class="header-section-number">1.5</span> References 참고 자료</h2>
+<ul>
+<li><a href="https://resources.rstudio.com/" class="uri">https://resources.rstudio.com/</a></li>
+<li><a href="http://shiny.rstudio.com/tutorial/" class="uri">http://shiny.rstudio.com/tutorial/</a></li>
+<li>R 홈페이지 <a href="https://www.r-project.org/" class="uri">https://www.r-project.org/</a></li>
+<li>Rstudio 홈페이지 <a href="https://www.rstudio.com/" class="uri">https://www.rstudio.com/</a></li>
+<li>Packages for biologists <a href="https://www.bioconductor.org/" class="uri">https://www.bioconductor.org/</a></li>
+<li>R 기본 문서들 (소개, 사용, 설치, 운영) <a href="https://cran.r-project.org/manuals.html" class="uri">https://cran.r-project.org/manuals.html</a></li>
+<li>R ebooks <a href="https://bookdown.org/" class="uri">https://bookdown.org/</a></li>
+<li>Cheat Sheets <a href="https://www.rstudio.com/resources/cheatsheets/" class="uri">https://www.rstudio.com/resources/cheatsheets/</a></li>
+</ul>
+</div>
+<div id="evaluation-평가-세부-항목" class="section level2">
+<h2><span class="header-section-number">1.6</span> Evaluation 평가 세부 항목</h2>
+<ul>
+<li>과제 100점</li>
+<li>성적부여기준: 70점 이상 S, 70점 미만 U 부여</li>
+</ul>
+</div>
+<div id="schedule-강의-계획" class="section level2">
+<h2><span class="header-section-number">1.7</span> Schedule 강의 계획</h2>
+<ul>
+<li>1주차 - R basics / introduction of data</li>
+<li>2주차 - Univariate data – Summary statistics</li>
+<li>3주차 - Bivariate data – Correlation / Independence<br />
+</li>
+<li>4주차 - Multivariate data – R data structure</li>
+<li>5주차 - Populations – Families of distributions</li>
+<li>6주차 - Sampling – Distribution and CLT</li>
+<li>7주차 - Statistical inference</li>
+<li>8주차 - Confidence intervals</li>
+<li>9주차 - Significance test - parameteric</li>
+<li>10주차 - Significance test – non parametric</li>
+<li>11주차 - Goodness of fit - parametric</li>
+<li>12주차 - Goodness of fit – non parametirc</li>
+<li>13주차 - Linear regression – basics &amp; simple LR</li>
+<li>14주차 - Multiple linear regression</li>
+<li>15주차 - Analysis of variance</li>
+<li>16주차 - Logistic / Non-linear regression</li>
+</ul>
+</div>
+<div id="r-lecture-youtube-link" class="section level2">
+<h2><span class="header-section-number">1.8</span> R Lecture Youtube Link</h2>
+<div id="lecture-chapter-1" class="section level3">
+<h3><span class="header-section-number">1.8.1</span> Lecture Chapter 1</h3>
+<ul>
+<li>1-1</li>
+<li></li>
+</ul>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

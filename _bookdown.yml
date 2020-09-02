@@ -1,16 +1,8 @@
 rmd_files: [
-  "index.Rmd", 
-  "02-Rintro.Rmd", 
-  "03-Rprogbasics.Rmd", 
-  "04-Rprogbasics.Rmd", 
-  "05-basic-plot.Rmd", 
-  "06-ggplot2.Rmd", 
-  "07-dplyr.Rmd",
-  "08-dplyr.Rmd",
-  "09-exercise.Rmd"
+  "index.Rmd"
 ]
-book_filename: "Rprog"
-repo: https://github.com/greendaygh/Rprog2020/
+book_filename: "Rstat"
+repo: https://github.com/greendaygh/Rstat2020/
 output_dir: docs
 delete_merged_file: true
 language:
