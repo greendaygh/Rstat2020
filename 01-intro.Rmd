@@ -12,7 +12,7 @@ Despite being a much more specialized language than the others, it’s maintaine
 https://spectrum.ieee.org/computing/software/the-top-programming-languages-2019
 
 
-R은 데이터를 통계분석에 널리 사용되는데 이는 데이터를 눈으로 확인하기 위한 visualization 이나 벡터 연산 등의 강력한 기능 때문에 점점 더 많은 사람들이 사용하고 있습니다. 기존에는 속도나 확장성이 다른 언어들에 비해 단점으로 지적되었으나 R 언어의 계속적인 개발과 업데이트로 이러한 단점들이 빠르게 보완되고 있습니다. R 사용을 위해서는 R 언어의 코어 프로그램을 먼저 설치하고 그 다음 R 언어용 IDE인 RStudio 설치가 필요합니다.  
+R은 통계분석에 널리 사용되는데 이는 데이터 가시화를 위한 그래픽 기능이나 벡터 연산 등의 편리함 때문에 점점 더 많은 사람들이 사용하고 있습니다. 기존에는 느린 속도나 부족한 확장성이 다른 언어들에 비해 단점으로 지적되었으나 R 언어의 계속적인 개발과 업데이트로 이러한 단점들이 빠르게 극복되고 있습니다. R 사용을 위해서는 R 언어의 코어 프로그램을 먼저 설치하고 그 다음 R 언어용 IDE인 RStudio 설치가 필요합니다.  
 
 ![](images/01/22.PNG)  
 
@@ -20,37 +20,23 @@ R은 데이터를 통계분석에 널리 사용되는데 이는 데이터를 눈
 
 ## R / Rstudio installation
 
+### R 설치
 - R 사이트에 접속 후 (https://www.r-project.org/) 좌측 메뉴 상단에 위치한 CRAN 클릭. 
-![](images/01/01-01.PNG)  
-
 - 미러 사이트 목록에서 Korea의 아무 사이트나 들어감
-![](images/01/01-02.PNG)  
-
 - Download R for Windows를 클릭 후 base 링크 들어가서 
-![](images/01/01-03.PNG)  
-![](images/01/01-04.PNG)  
-
-- Download R 3.6.3 for Windows 링크로 실행 프로그램 다운로드 (2020.3 현재 R 버전은 3.6.3). 로컬 컴퓨터에 Download 된 R-3.6.3-win.exe 를 실행하고 설치 프로그램의 지시에 따라 R 언어 소프트웨어 설치를 완료합니다. 
-
-![](images/01/01-05.PNG)  
-
+- Download R x.x.x for Windows 링크 클릭으로 실행 프로그램 다운로드 - 로컬 컴퓨터에 Download 된 R-x.x.x-win.exe 를 실행
+- 설치 가이드에 따라 R 언어 소프트웨어 설치 완료
 
  
-- Rstudio는 R 언어를 위한 오픈소스 기반 통합개발환경(IDE)으로 R 프로그래밍을 위한 편리한 기능들을 제공해 줍니다. 다음 사이트에 접속 (https://www.rstudio.com/), 상단의 Products > RStudio 클릭
-![](images/01/01-06.PNG)  
-
+### Rstudio 설치
+Rstudio는 R 언어를 위한 오픈소스 기반 통합개발환경(IDE)으로 R 프로그래밍을 위한 편리한 기능들을 제공해 줍니다. 
+- 사이트에 접속 (https://www.rstudio.com/), 상단의 Products > RStudio 클릭
 - RStudio Desktop 선택
-![](images/01/01-07.PNG)  
-
 - Download RStudio Desktop 클릭
-![](images/01/01-08.PNG)  
-
 - RStudio Desktop Free 버전의 Download를 선택하고
-![](images/01/01-09.PNG)  
-
-- Download RStudio for Windows (2020.03현재 version 1.2.5033) 클릭, 다운로드. 로컬 컴퓨터에 다운로드된 RStudio-1.2.5033.exe를 실행하고 설치 가이드에 따라 설치 완료합니다. 
-![](images/01/01-10.PNG)  
-
+- Download RStudio for Windows 클릭, 다운로드
+- 로컬 컴퓨터에 다운로드된 RStudio-x.x.x.exe 실행
+- 설치 가이드에 따라 설치 완료
 
 
 ## Rstudio interface

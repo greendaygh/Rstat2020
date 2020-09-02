@@ -150,7 +150,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2" data-path="r-basics.html"><a href="r-basics.html"><i class="fa fa-check"></i><b>2</b> R basics</a>
 <ul>
 <li class="chapter" data-level="2.1" data-path="r-basics.html"><a href="r-basics.html#what-is-r-rstudio"><i class="fa fa-check"></i><b>2.1</b> What is R / Rstudio</a></li>
-<li class="chapter" data-level="2.2" data-path="r-basics.html"><a href="r-basics.html#r-rstudio-installation"><i class="fa fa-check"></i><b>2.2</b> R / Rstudio installation</a></li>
+<li class="chapter" data-level="2.2" data-path="r-basics.html"><a href="r-basics.html#r-rstudio-installation"><i class="fa fa-check"></i><b>2.2</b> R / Rstudio installation</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="r-basics.html"><a href="r-basics.html#r-설치"><i class="fa fa-check"></i><b>2.2.1</b> R 설치</a></li>
+<li class="chapter" data-level="2.2.2" data-path="r-basics.html"><a href="r-basics.html#rstudio-설치"><i class="fa fa-check"></i><b>2.2.2</b> Rstudio 설치</a></li>
+</ul></li>
 <li class="chapter" data-level="2.3" data-path="r-basics.html"><a href="r-basics.html#rstudio-interface"><i class="fa fa-check"></i><b>2.3</b> Rstudio interface</a></li>
 <li class="chapter" data-level="2.4" data-path="r-basics.html"><a href="r-basics.html#keyboard-shortcuts"><i class="fa fa-check"></i><b>2.4</b> Keyboard shortcuts</a></li>
 <li class="chapter" data-level="2.5" data-path="r-basics.html"><a href="r-basics.html#r-programming-basics-and-terminology"><i class="fa fa-check"></i><b>2.5</b> R programming basics and terminology</a></li>
@@ -196,35 +200,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="images/01/topproglang.jpeg" width="450" /></p>
 <p>Despite being a much more specialized language than the others, it’s maintained its popularity in recent years due to the world being awash in an ever-growing pile of big data.
 <a href="https://spectrum.ieee.org/computing/software/the-top-programming-languages-2019" class="uri">https://spectrum.ieee.org/computing/software/the-top-programming-languages-2019</a></p>
-<p>R은 데이터를 통계분석에 널리 사용되는데 이는 데이터를 눈으로 확인하기 위한 visualization 이나 벡터 연산 등의 강력한 기능 때문에 점점 더 많은 사람들이 사용하고 있습니다. 기존에는 속도나 확장성이 다른 언어들에 비해 단점으로 지적되었으나 R 언어의 계속적인 개발과 업데이트로 이러한 단점들이 빠르게 보완되고 있습니다. R 사용을 위해서는 R 언어의 코어 프로그램을 먼저 설치하고 그 다음 R 언어용 IDE인 RStudio 설치가 필요합니다.</p>
+<p>R은 통계분석에 널리 사용되는데 이는 데이터 가시화를 위한 그래픽 기능이나 벡터 연산 등의 편리함 때문에 점점 더 많은 사람들이 사용하고 있습니다. 기존에는 느린 속도나 부족한 확장성이 다른 언어들에 비해 단점으로 지적되었으나 R 언어의 계속적인 개발과 업데이트로 이러한 단점들이 빠르게 극복되고 있습니다. R 사용을 위해서는 R 언어의 코어 프로그램을 먼저 설치하고 그 다음 R 언어용 IDE인 RStudio 설치가 필요합니다.</p>
 <p><img src="images/01/22.PNG" /></p>
 <p><img src="images/01/23.PNG" /></p>
 </div>
 <div id="r-rstudio-installation" class="section level2">
 <h2><span class="header-section-number">2.2</span> R / Rstudio installation</h2>
+<div id="r-설치" class="section level3">
+<h3><span class="header-section-number">2.2.1</span> R 설치</h3>
 <ul>
-<li><p>R 사이트에 접속 후 (<a href="https://www.r-project.org/" class="uri">https://www.r-project.org/</a>) 좌측 메뉴 상단에 위치한 CRAN 클릭.
-<img src="images/01/01-01.PNG" /></p></li>
-<li><p>미러 사이트 목록에서 Korea의 아무 사이트나 들어감
-<img src="images/01/01-02.PNG" /></p></li>
-<li><p>Download R for Windows를 클릭 후 base 링크 들어가서
-<img src="images/01/01-03.PNG" /><br />
-<img src="images/01/01-04.PNG" /></p></li>
-<li><p>Download R 3.6.3 for Windows 링크로 실행 프로그램 다운로드 (2020.3 현재 R 버전은 3.6.3). 로컬 컴퓨터에 Download 된 R-3.6.3-win.exe 를 실행하고 설치 프로그램의 지시에 따라 R 언어 소프트웨어 설치를 완료합니다.</p></li>
+<li>R 사이트에 접속 후 (<a href="https://www.r-project.org/" class="uri">https://www.r-project.org/</a>) 좌측 메뉴 상단에 위치한 CRAN 클릭.</li>
+<li>미러 사이트 목록에서 Korea의 아무 사이트나 들어감</li>
+<li>Download R for Windows를 클릭 후 base 링크 들어가서</li>
+<li>Download R x.x.x for Windows 링크 클릭으로 실행 프로그램 다운로드 - 로컬 컴퓨터에 Download 된 R-x.x.x-win.exe 를 실행</li>
+<li>설치 가이드에 따라 R 언어 소프트웨어 설치 완료</li>
 </ul>
-<p><img src="images/01/01-05.PNG" /></p>
-<ul>
-<li><p>Rstudio는 R 언어를 위한 오픈소스 기반 통합개발환경(IDE)으로 R 프로그래밍을 위한 편리한 기능들을 제공해 줍니다. 다음 사이트에 접속 (<a href="https://www.rstudio.com/" class="uri">https://www.rstudio.com/</a>), 상단의 Products &gt; RStudio 클릭
-<img src="images/01/01-06.PNG" /></p></li>
-<li><p>RStudio Desktop 선택
-<img src="images/01/01-07.PNG" /></p></li>
-<li><p>Download RStudio Desktop 클릭
-<img src="images/01/01-08.PNG" /></p></li>
-<li><p>RStudio Desktop Free 버전의 Download를 선택하고
-<img src="images/01/01-09.PNG" /></p></li>
-<li><p>Download RStudio for Windows (2020.03현재 version 1.2.5033) 클릭, 다운로드. 로컬 컴퓨터에 다운로드된 RStudio-1.2.5033.exe를 실행하고 설치 가이드에 따라 설치 완료합니다.
-<img src="images/01/01-10.PNG" /></p></li>
-</ul>
+</div>
+<div id="rstudio-설치" class="section level3">
+<h3><span class="header-section-number">2.2.2</span> Rstudio 설치</h3>
+<p>Rstudio는 R 언어를 위한 오픈소스 기반 통합개발환경(IDE)으로 R 프로그래밍을 위한 편리한 기능들을 제공해 줍니다.
+- 사이트에 접속 (<a href="https://www.rstudio.com/" class="uri">https://www.rstudio.com/</a>), 상단의 Products &gt; RStudio 클릭
+- RStudio Desktop 선택
+- Download RStudio Desktop 클릭
+- RStudio Desktop Free 버전의 Download를 선택하고
+- Download RStudio for Windows 클릭, 다운로드
+- 로컬 컴퓨터에 다운로드된 RStudio-x.x.x.exe 실행
+- 설치 가이드에 따라 설치 완료</p>
+</div>
 </div>
 <div id="rstudio-interface" class="section level2">
 <h2><span class="header-section-number">2.3</span> Rstudio interface</h2>
