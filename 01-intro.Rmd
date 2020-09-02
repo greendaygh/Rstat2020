@@ -75,18 +75,18 @@ Rstudio는 R 언어를 위한 오픈소스 기반 통합개발환경(IDE)으로 
 
 - Console: 명령어 입력하는 창 
 - Code: R 프로그래밍 변수/제어문 모음   
-- Objects (개체, variable): 값이 (데이터) 저장되는 장소 
+- Objects (개체, variable): 값이 (데이터) 저장되는 장소
 - Data types: Integers, doubles/numerics, logicals, and characters.
 - Object (Variable) types:
   - Vectors: 값들의 모임 combine function c() EX: c(6, 11, 13, 31, 90, 92)
   - Factors: 범주형 데이터 저장 장소
-  - Data frames: 2D matrix 형태 데이터 자장 장소 
+  - Data frames: 2D matrix 형태 데이터 저장 장소 
 - Conditionals (조건, 제어):
   - if: ==, & (AND), | (OR) Ex: (2 + 1 == 3) & (2 + 1 == 4) 
   - for, while: 반복 수
 - Functions (함수, commands): 특정 일 수행, 함수이름 - 입력값 (arguments) - 출력값 (output) 으로 구성 
 
-## Set working directory  
+## Set a working directory  
 
 - 시작 전 항상 작업 디렉토리 설정 
 - 예를 들어 c:\ 아래 새로운 디렉토리 rstat01 을 만들고 작업공간으로 설정  
@@ -99,8 +99,7 @@ getwd()
 dir()
 ```
 
-- 또는 아래와 같이 RStudio 메뉴 에서 설정 
-![](images/01-12.PNG)  
+- RStudio > Session > Set Working Directory > Choose Directory
 
 
 ## R coding practice 
@@ -116,7 +115,7 @@ dir()
 
 ## Variables and values 
 
-- R is a programming language 
+- 프로그래밍 언에어서 변수, 값 개념 
 - Assignment operator ( `<-` OR `=` )
   - Valid object name `<-` value 
   - 단축키: `Alt + -` (the minus sign)
@@ -132,9 +131,10 @@ pi
 ```
 
 - 변수이름 작명법 
-  - Characters (letters), numbers,  “_”,  “.”
-  - A and a are different symbols
-  - Names are effectively unlimited in length
+  - 문자, 숫자, “_”,  “.” 등으로 구성
+  - 대소문자 구분
+  - 가독성, 의미있는 변수 이름 
+  - 길이 제한 없음
 
 ```{r, eval=F}
 i_use_snake_case <- 1

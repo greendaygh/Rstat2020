@@ -158,7 +158,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.3" data-path="r-basics.html"><a href="r-basics.html#rstudio-interface"><i class="fa fa-check"></i><b>2.3</b> Rstudio interface</a></li>
 <li class="chapter" data-level="2.4" data-path="r-basics.html"><a href="r-basics.html#keyboard-shortcuts"><i class="fa fa-check"></i><b>2.4</b> Keyboard shortcuts</a></li>
 <li class="chapter" data-level="2.5" data-path="r-basics.html"><a href="r-basics.html#r-programming-basics-and-terminology"><i class="fa fa-check"></i><b>2.5</b> R programming basics and terminology</a></li>
-<li class="chapter" data-level="2.6" data-path="r-basics.html"><a href="r-basics.html#set-working-directory"><i class="fa fa-check"></i><b>2.6</b> Set working directory</a></li>
+<li class="chapter" data-level="2.6" data-path="r-basics.html"><a href="r-basics.html#set-a-working-directory"><i class="fa fa-check"></i><b>2.6</b> Set a working directory</a></li>
 <li class="chapter" data-level="2.7" data-path="r-basics.html"><a href="r-basics.html#r-coding-practice"><i class="fa fa-check"></i><b>2.7</b> R coding practice</a></li>
 <li class="chapter" data-level="2.8" data-path="r-basics.html"><a href="r-basics.html#variables-and-values"><i class="fa fa-check"></i><b>2.8</b> Variables and values</a></li>
 <li class="chapter" data-level="2.9" data-path="r-basics.html"><a href="r-basics.html#variable-type-of-storage-mode"><i class="fa fa-check"></i><b>2.9</b> Variable type of (storage) mode</a></li>
@@ -278,7 +278,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Vectors: 값들의 모임 combine function c() EX: c(6, 11, 13, 31, 90, 92)</li>
 <li>Factors: 범주형 데이터 저장 장소</li>
-<li>Data frames: 2D matrix 형태 데이터 자장 장소</li>
+<li>Data frames: 2D matrix 형태 데이터 저장 장소</li>
 </ul></li>
 <li>Conditionals (조건, 제어):
 <ul>
@@ -288,8 +288,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Functions (함수, commands): 특정 일 수행, 함수이름 - 입력값 (arguments) - 출력값 (output) 으로 구성</li>
 </ul>
 </div>
-<div id="set-working-directory" class="section level2">
-<h2><span class="header-section-number">2.6</span> Set working directory</h2>
+<div id="set-a-working-directory" class="section level2">
+<h2><span class="header-section-number">2.6</span> Set a working directory</h2>
 <ul>
 <li>시작 전 항상 작업 디렉토리 설정</li>
 <li>예를 들어 c: 아래 새로운 디렉토리 rstat01 을 만들고 작업공간으로 설정</li>
@@ -300,8 +300,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-4"><a href="r-basics.html#cb2-4"></a><span class="kw">getwd</span>()</span>
 <span id="cb2-5"><a href="r-basics.html#cb2-5"></a><span class="kw">dir</span>()</span></code></pre></div>
 <ul>
-<li>또는 아래와 같이 RStudio 메뉴 에서 설정
-<img src="images/01-12.PNG" /></li>
+<li>RStudio &gt; Session &gt; Set Working Directory &gt; Choose Directory</li>
 </ul>
 </div>
 <div id="r-coding-practice" class="section level2">
@@ -319,7 +318,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="variables-and-values" class="section level2">
 <h2><span class="header-section-number">2.8</span> Variables and values</h2>
 <ul>
-<li>R is a programming language</li>
+<li>프로그래밍 언에어서 변수, 값 개념</li>
 <li>Assignment operator ( <code>&lt;-</code> OR <code>=</code> )
 <ul>
 <li>Valid object name <code>&lt;-</code> value</li>
@@ -336,9 +335,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>변수이름 작명법
 <ul>
-<li>Characters (letters), numbers, “_”, “.”</li>
-<li>A and a are different symbols</li>
-<li>Names are effectively unlimited in length</li>
+<li>문자, 숫자, “_”, “.” 등으로 구성</li>
+<li>대소문자 구분</li>
+<li>가독성, 의미있는 변수 이름</li>
+<li>길이 제한 없음</li>
 </ul></li>
 </ul>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="r-basics.html#cb5-1"></a>i_use_snake_case &lt;-<span class="st"> </span><span class="dv">1</span></span>

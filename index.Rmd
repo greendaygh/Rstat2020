@@ -86,5 +86,3 @@ Murdoch (https://www.cambridge.org/core/books/first-course-in-statistical-progra
 
 ### Lecture Chapter 1
 * 1-1
-* 
-
