@@ -1,0 +1,21 @@
+
+## Categorical data
+
+- Tabulating data
+
+```{r, eval=F}
+
+x <- babies$smoke
+x <- factor(x, labels=c("never", "now", "until current", "once, quit", "unknown"))
+table(x)
+out <- table(x)
+prop <- 100*out/sum(out)
+round(prop, digits=2)
+barplot(out)
+barplot(prop)
+dotplot(out)
+dotplot(prop)
+pie(out)
+
+```
+

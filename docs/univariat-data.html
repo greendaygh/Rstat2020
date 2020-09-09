@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Univariat data | R로 배우는 기초통계</title>
+  <meta name="description" content="UST lecture web site" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Univariat data | R로 배우는 기초통계" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="UST lecture web site" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Univariat data | R로 배우는 기초통계" />
+  
+  <meta name="twitter:description" content="UST lecture web site" />
+  
+
+<meta name="author" content="한국생명공학연구원 김하성" />
+
+
+<meta name="date" content="2020-09-09" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="r-basics.html"/>
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./"> Introduction to statistics with R </a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction 강의 개요</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#goal-강의-목표"><i class="fa fa-check"></i><b>1.1</b> Goal 강의 목표</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#this-course"><i class="fa fa-check"></i><b>1.2</b> This course</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#tips"><i class="fa fa-check"></i><b>1.3</b> Tips</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#references-books-참고-교제"><i class="fa fa-check"></i><b>1.4</b> References books 참고 교제</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#references-참고-자료"><i class="fa fa-check"></i><b>1.5</b> References 참고 자료</a></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#evaluation-평가-세부-항목"><i class="fa fa-check"></i><b>1.6</b> Evaluation 평가 세부 항목</a></li>
+<li class="chapter" data-level="1.7" data-path="index.html"><a href="index.html#schedule-강의-계획"><i class="fa fa-check"></i><b>1.7</b> Schedule 강의 계획</a></li>
+<li class="chapter" data-level="1.8" data-path="index.html"><a href="index.html#r-lecture-youtube-link"><i class="fa fa-check"></i><b>1.8</b> R Lecture Youtube Link</a>
+<ul>
+<li class="chapter" data-level="1.8.1" data-path="index.html"><a href="index.html#lecture-chapter-1"><i class="fa fa-check"></i><b>1.8.1</b> Lecture Chapter 1</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="r-basics.html"><a href="r-basics.html"><i class="fa fa-check"></i><b>2</b> R basics</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="r-basics.html"><a href="r-basics.html#what-is-r-rstudio"><i class="fa fa-check"></i><b>2.1</b> What is R / Rstudio</a></li>
+<li class="chapter" data-level="2.2" data-path="r-basics.html"><a href="r-basics.html#r-rstudio-installation"><i class="fa fa-check"></i><b>2.2</b> R / Rstudio installation</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="r-basics.html"><a href="r-basics.html#r-설치"><i class="fa fa-check"></i><b>2.2.1</b> R 설치</a></li>
+<li class="chapter" data-level="2.2.2" data-path="r-basics.html"><a href="r-basics.html#rstudio-설치"><i class="fa fa-check"></i><b>2.2.2</b> Rstudio 설치</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="r-basics.html"><a href="r-basics.html#rstudio-interface"><i class="fa fa-check"></i><b>2.3</b> Rstudio interface</a></li>
+<li class="chapter" data-level="2.4" data-path="r-basics.html"><a href="r-basics.html#keyboard-shortcuts"><i class="fa fa-check"></i><b>2.4</b> Keyboard shortcuts</a></li>
+<li class="chapter" data-level="2.5" data-path="r-basics.html"><a href="r-basics.html#r-programming-basics-and-terminology"><i class="fa fa-check"></i><b>2.5</b> R programming basics and terminology</a></li>
+<li class="chapter" data-level="2.6" data-path="r-basics.html"><a href="r-basics.html#set-a-working-directory"><i class="fa fa-check"></i><b>2.6</b> Set a working directory</a></li>
+<li class="chapter" data-level="2.7" data-path="r-basics.html"><a href="r-basics.html#r-coding-practice"><i class="fa fa-check"></i><b>2.7</b> R coding practice</a></li>
+<li class="chapter" data-level="2.8" data-path="r-basics.html"><a href="r-basics.html#variables-and-values"><i class="fa fa-check"></i><b>2.8</b> Variables and values</a></li>
+<li class="chapter" data-level="2.9" data-path="r-basics.html"><a href="r-basics.html#variable-type-of-storage-mode"><i class="fa fa-check"></i><b>2.9</b> Variable type of (storage) mode</a></li>
+<li class="chapter" data-level="2.10" data-path="r-basics.html"><a href="r-basics.html#variable---vectors"><i class="fa fa-check"></i><b>2.10</b> Variable - Vectors</a></li>
+<li class="chapter" data-level="2.11" data-path="r-basics.html"><a href="r-basics.html#functions"><i class="fa fa-check"></i><b>2.11</b> Functions</a></li>
+<li class="chapter" data-level="2.12" data-path="r-basics.html"><a href="r-basics.html#vectorized-functions"><i class="fa fa-check"></i><b>2.12</b> Vectorized functions</a></li>
+<li class="chapter" data-level="2.13" data-path="r-basics.html"><a href="r-basics.html#help"><i class="fa fa-check"></i><b>2.13</b> Help</a></li>
+<li class="chapter" data-level="2.14" data-path="r-basics.html"><a href="r-basics.html#r-packages"><i class="fa fa-check"></i><b>2.14</b> R packages</a></li>
+<li class="chapter" data-level="2.15" data-path="r-basics.html"><a href="r-basics.html#data-sets"><i class="fa fa-check"></i><b>2.15</b> Data sets</a></li>
+<li class="chapter" data-level="2.16" data-path="r-basics.html"><a href="r-basics.html#cheatsheet"><i class="fa fa-check"></i><b>2.16</b> Cheatsheet</a></li>
+<li class="chapter" data-level="2.17" data-path="r-basics.html"><a href="r-basics.html#problems"><i class="fa fa-check"></i><b>2.17</b> Problems</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="univariat-data.html"><a href="univariat-data.html"><i class="fa fa-check"></i><b>3</b> Univariat data</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="univariat-data.html"><a href="univariat-data.html#introduction"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="univariat-data.html"><a href="univariat-data.html#data-vectors"><i class="fa fa-check"></i><b>3.2</b> Data vectors</a></li>
+<li class="chapter" data-level="3.3" data-path="univariat-data.html"><a href="univariat-data.html#data-type"><i class="fa fa-check"></i><b>3.3</b> Data type</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="univariat-data.html"><a href="univariat-data.html#example---recoding-values"><i class="fa fa-check"></i><b>3.3.1</b> Example - Recoding values</a></li>
+<li class="chapter" data-level="3.3.2" data-path="univariat-data.html"><a href="univariat-data.html#example---average-distance-from-center"><i class="fa fa-check"></i><b>3.3.2</b> Example - Average distance from center</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="r-basics.html"><a href="r-basics.html#functions"><i class="fa fa-check"></i><b>3.4</b> Functions</a></li>
+<li class="chapter" data-level="3.5" data-path="univariat-data.html"><a href="univariat-data.html#numeric-summaries"><i class="fa fa-check"></i><b>3.5</b> Numeric summaries</a></li>
+<li class="chapter" data-level="3.6" data-path="univariat-data.html"><a href="univariat-data.html#center"><i class="fa fa-check"></i><b>3.6</b> Center</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="univariat-data.html"><a href="univariat-data.html#sample-mean"><i class="fa fa-check"></i><b>3.6.1</b> Sample mean</a></li>
+<li class="chapter" data-level="3.6.2" data-path="univariat-data.html"><a href="univariat-data.html#measure-of-position"><i class="fa fa-check"></i><b>3.6.2</b> Measure of Position</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="univariat-data.html"><a href="univariat-data.html#spread"><i class="fa fa-check"></i><b>3.7</b> Spread</a></li>
+<li class="chapter" data-level="3.8" data-path="univariat-data.html"><a href="univariat-data.html#shape"><i class="fa fa-check"></i><b>3.8</b> Shape</a></li>
+<li class="chapter" data-level="3.9" data-path="univariat-data.html"><a href="univariat-data.html#viewing-the-shape"><i class="fa fa-check"></i><b>3.9</b> Viewing the shape</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R로 배우는 기초통계</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="univariat-data" class="section level1">
+<h1><span class="header-section-number">Chapter 3</span> Univariat data</h1>
+<div id="introduction" class="section level2">
+<h2><span class="header-section-number">3.1</span> Introduction</h2>
+<ul>
+<li>Statistics: 데이터 분석을 통한 예측. 즉, 데이터를 수집, 정리하여 이로부터 미지의 사실에 대한 신빙성 있는 추론을 수행하는 과정</li>
+</ul>
+<p><img src="images/02/04-2.png" /></p>
+<ul>
+<li>Data - 사실을 나타내는 수치</li>
+<li>맥도너 정보경제학 (1963)
+<ul>
+<li>지혜 (wisdom) : 패턴화된 지식</li>
+<li>지식 (knowledge) : 가치있는 정보</li>
+<li>정보 (information) : 의미있는 데이터</li>
+<li>데이터 (data) : 단순한 사실의 나열</li>
+</ul></li>
+<li>Univariate (단변량): Single variable</li>
+</ul>
+<p><span class="math display">\[ x_1, x_2, ..., x_n \]</span></p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="univariat-data.html#cb22-1"></a><span class="kw">library</span>(UsingR)</span>
+<span id="cb22-2"><a href="univariat-data.html#cb22-2"></a>exec.pay</span>
+<span id="cb22-3"><a href="univariat-data.html#cb22-3"></a>?exec.pay</span></code></pre></div>
+<ul>
+<li>데이터의 속성에 따른 구분</li>
+<li>범주형 - 질적 데이터, 숫자로 나타낼 수 있으나 의미 없음
+<ul>
+<li>명목형 (Nominal) - 사람 이름</li>
+<li>순서형 (Ordinal) – 달리기 도착 순서</li>
+</ul></li>
+<li>수치형 - 숫자로 나타내며 데이터 속성을 그대로 지님님
+<ul>
+<li>구간형 (Interval) – 선수1, 선수2 종점통과 시간</li>
+<li>비율형 (Ratio) – 출발시간 기준 종점 통과 시간</li>
+</ul></li>
+</ul>
+<p><img src="images/02/01.png" /></p>
+<ul>
+<li>Data type in R
+<ul>
+<li>Numeric data types (수치형)
+<ul>
+<li>Discrete (이산형) data - 카운트, 횟수</li>
+<li>Continuous (연속형) data - 키, 몸무게, Cannot be shared</li>
+</ul></li>
+<li>Factors data - Categories to group the data (범주형)</li>
+<li>Character data - Identifiers (범주형)</li>
+<li>Date and time (수치형)</li>
+</ul></li>
+</ul>
+</div>
+<div id="data-vectors" class="section level2">
+<h2><span class="header-section-number">3.2</span> Data vectors</h2>
+<ul>
+<li>Using combine function</li>
+</ul>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="univariat-data.html#cb23-1"></a><span class="co">#The number of whale beachings in Texas during the 1990s</span></span>
+<span id="cb23-2"><a href="univariat-data.html#cb23-2"></a>whale &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">74</span>, <span class="dv">122</span>, <span class="dv">235</span>, <span class="dv">111</span>, <span class="dv">292</span>, <span class="dv">111</span>, <span class="dv">211</span>, <span class="dv">133</span>, <span class="dv">156</span>, <span class="dv">79</span>)</span>
+<span id="cb23-3"><a href="univariat-data.html#cb23-3"></a><span class="co">#Object `whale` is a data vector == (univariate) data set</span></span>
+<span id="cb23-4"><a href="univariat-data.html#cb23-4"></a></span>
+<span id="cb23-5"><a href="univariat-data.html#cb23-5"></a><span class="co"># The size </span></span>
+<span id="cb23-6"><a href="univariat-data.html#cb23-6"></a><span class="kw">length</span>(whale)</span>
+<span id="cb23-7"><a href="univariat-data.html#cb23-7"></a><span class="kw">sum</span>(whale)</span>
+<span id="cb23-8"><a href="univariat-data.html#cb23-8"></a><span class="kw">sum</span>(whale)<span class="op">/</span><span class="kw">length</span>(whale)</span>
+<span id="cb23-9"><a href="univariat-data.html#cb23-9"></a><span class="kw">mean</span>(whale)</span></code></pre></div>
+<ul>
+<li>Vectorization</li>
+</ul>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="univariat-data.html#cb24-1"></a>whale <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(whale)</span>
+<span id="cb24-2"><a href="univariat-data.html#cb24-2"></a>whale<span class="op">^</span><span class="dv">2</span> <span class="op">-</span><span class="st"> </span><span class="kw">mean</span>(whale)</span>
+<span id="cb24-3"><a href="univariat-data.html#cb24-3"></a><span class="kw">sqrt</span>(whale)</span></code></pre></div>
+<ul>
+<li>Adding values to a vector variable</li>
+</ul>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="univariat-data.html#cb25-1"></a>x &lt;-<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb25-2"><a href="univariat-data.html#cb25-2"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(x, <span class="dv">2</span>)</span>
+<span id="cb25-3"><a href="univariat-data.html#cb25-3"></a>x</span>
+<span id="cb25-4"><a href="univariat-data.html#cb25-4"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(x, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">4</span>)</span>
+<span id="cb25-5"><a href="univariat-data.html#cb25-5"></a>x</span></code></pre></div>
+<ul>
+<li>Missing/NULL values
+<ul>
+<li>NA: Not available, The value is missing</li>
+<li>NULL: a reserved value</li>
+<li>NaN: Not a number (0/0)</li>
+<li>Inf: (1/0)</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="univariat-data.html#cb26-1"></a>hip_cost &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10500</span>, <span class="dv">45000</span>, <span class="dv">74100</span>, <span class="ot">NA</span>, <span class="dv">83500</span>)</span>
+<span id="cb26-2"><a href="univariat-data.html#cb26-2"></a><span class="kw">sum</span>(hip_cost)</span>
+<span id="cb26-3"><a href="univariat-data.html#cb26-3"></a><span class="kw">sum</span>(hip_cost, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)</span>
+<span id="cb26-4"><a href="univariat-data.html#cb26-4"></a>?sum</span></code></pre></div>
+<ul>
+<li>Attributes: names in data vectors</li>
+</ul>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="univariat-data.html#cb27-1"></a><span class="kw">head</span>(precip)</span>
+<span id="cb27-2"><a href="univariat-data.html#cb27-2"></a><span class="kw">class</span>(precip)</span>
+<span id="cb27-3"><a href="univariat-data.html#cb27-3"></a><span class="kw">length</span>(precip)</span>
+<span id="cb27-4"><a href="univariat-data.html#cb27-4"></a><span class="kw">names</span>(precip)</span>
+<span id="cb27-5"><a href="univariat-data.html#cb27-5"></a><span class="kw">order</span>(<span class="kw">names</span>(precip))</span>
+<span id="cb27-6"><a href="univariat-data.html#cb27-6"></a></span>
+<span id="cb27-7"><a href="univariat-data.html#cb27-7"></a>test_scores &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">100</span>, <span class="dv">90</span>, <span class="dv">80</span>)</span>
+<span id="cb27-8"><a href="univariat-data.html#cb27-8"></a><span class="kw">names</span>(test_scores) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Alice&quot;</span>, <span class="st">&quot;Bob&quot;</span>, <span class="st">&quot;Shirley&quot;</span>)</span></code></pre></div>
+<ul>
+<li>Indexing</li>
+</ul>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="univariat-data.html#cb28-1"></a><span class="kw">head</span>(precip)</span>
+<span id="cb28-2"><a href="univariat-data.html#cb28-2"></a>precip[<span class="dv">1</span>]</span>
+<span id="cb28-3"><a href="univariat-data.html#cb28-3"></a>precip[<span class="dv">2</span><span class="op">:</span><span class="dv">10</span>]</span>
+<span id="cb28-4"><a href="univariat-data.html#cb28-4"></a>precip[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>)]</span>
+<span id="cb28-5"><a href="univariat-data.html#cb28-5"></a>precip[<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb28-6"><a href="univariat-data.html#cb28-6"></a>precip[<span class="st">&quot;Seattle Tacoma&quot;</span>]</span>
+<span id="cb28-7"><a href="univariat-data.html#cb28-7"></a>precip[<span class="kw">c</span>(<span class="st">&quot;Seattle Tacoma&quot;</span>, <span class="st">&quot;Portland&quot;</span>)]</span>
+<span id="cb28-8"><a href="univariat-data.html#cb28-8"></a>precip[<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="dv">10</span></span></code></pre></div>
+<ul>
+<li>Functions for generating structured data</li>
+</ul>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="univariat-data.html#cb29-1"></a><span class="dv">1</span><span class="op">:</span><span class="dv">5</span></span>
+<span id="cb29-2"><a href="univariat-data.html#cb29-2"></a><span class="kw">seq</span>(<span class="dv">1</span>,<span class="dv">5</span>, <span class="dt">by=</span><span class="dv">1</span>)</span>
+<span id="cb29-3"><a href="univariat-data.html#cb29-3"></a><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">100</span>, <span class="dt">by=</span><span class="dv">10</span>)</span>
+<span id="cb29-4"><a href="univariat-data.html#cb29-4"></a><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">100</span>, <span class="dt">length.out=</span><span class="dv">11</span>)</span>
+<span id="cb29-5"><a href="univariat-data.html#cb29-5"></a>?seq</span>
+<span id="cb29-6"><a href="univariat-data.html#cb29-6"></a><span class="kw">rep</span>(<span class="dv">5</span>, times10)</span>
+<span id="cb29-7"><a href="univariat-data.html#cb29-7"></a><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">times=</span><span class="dv">4</span>)</span></code></pre></div>
+</div>
+<div id="data-type" class="section level2">
+<h2><span class="header-section-number">3.3</span> Data type</h2>
+<ul>
+<li>Numeric data</li>
+</ul>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="univariat-data.html#cb30-1"></a><span class="kw">class</span>(<span class="dv">1</span>)</span>
+<span id="cb30-2"><a href="univariat-data.html#cb30-2"></a><span class="kw">class</span>(pi)</span>
+<span id="cb30-3"><a href="univariat-data.html#cb30-3"></a><span class="kw">class</span>(<span class="kw">seq</span>(<span class="dv">1</span>,<span class="dv">5</span>,<span class="dt">by=</span><span class="dv">1</span>))</span></code></pre></div>
+<ul>
+<li>Character data</li>
+</ul>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="univariat-data.html#cb31-1"></a>ch &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Lincoln&quot;</span>, <span class="st">&quot;said&quot;</span>, <span class="st">&quot;and&quot;</span>)</span>
+<span id="cb31-2"><a href="univariat-data.html#cb31-2"></a><span class="kw">class</span>(ch)</span></code></pre></div>
+<ul>
+<li>Combining strings - paste function</li>
+</ul>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="univariat-data.html#cb32-1"></a><span class="kw">paste</span>(<span class="st">&quot;X&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</span>
+<span id="cb32-2"><a href="univariat-data.html#cb32-2"></a><span class="kw">paste</span>(<span class="st">&quot;X&quot;</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">sep=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb32-3"><a href="univariat-data.html#cb32-3"></a><span class="kw">paste</span>(<span class="st">&quot;The&quot;</span>, <span class="st">&quot;quick&quot;</span>, <span class="st">&quot;brown&quot;</span>, <span class="st">&quot;fox&quot;</span>)</span>
+<span id="cb32-4"><a href="univariat-data.html#cb32-4"></a><span class="kw">paste</span>(<span class="kw">c</span>(<span class="st">&quot;The&quot;</span>, <span class="st">&quot;quick&quot;</span>, <span class="st">&quot;brown&quot;</span>, <span class="st">&quot;fox&quot;</span>))</span>
+<span id="cb32-5"><a href="univariat-data.html#cb32-5"></a><span class="kw">paste</span>(<span class="kw">c</span>(<span class="st">&quot;The&quot;</span>, <span class="st">&quot;quick&quot;</span>, <span class="st">&quot;brown&quot;</span>, <span class="st">&quot;fox&quot;</span>), <span class="dt">collapse=</span><span class="st">&quot; &quot;</span>)</span>
+<span id="cb32-6"><a href="univariat-data.html#cb32-6"></a>x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span></span>
+<span id="cb32-7"><a href="univariat-data.html#cb32-7"></a><span class="kw">paste</span>(x)</span>
+<span id="cb32-8"><a href="univariat-data.html#cb32-8"></a><span class="kw">paste</span>(x, <span class="dt">collapse=</span><span class="st">&quot;:&quot;</span>)</span></code></pre></div>
+<ul>
+<li>Factors</li>
+</ul>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="univariat-data.html#cb33-1"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Red&quot;</span>, <span class="st">&quot;Blue&quot;</span>, <span class="st">&quot;Yellow&quot;</span>, <span class="st">&quot;Green&quot;</span>, <span class="st">&quot;Blue&quot;</span>, <span class="st">&quot;Green&quot;</span>)</span>
+<span id="cb33-2"><a href="univariat-data.html#cb33-2"></a>y &lt;-<span class="st"> </span><span class="kw">factor</span>(x)</span>
+<span id="cb33-3"><a href="univariat-data.html#cb33-3"></a>y</span></code></pre></div>
+<ul>
+<li>Adding a level</li>
+</ul>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="univariat-data.html#cb34-1"></a><span class="kw">levels</span>(y)</span>
+<span id="cb34-2"><a href="univariat-data.html#cb34-2"></a>y[<span class="dv">1</span>] &lt;-<span class="st"> &quot;Gold&quot;</span></span>
+<span id="cb34-3"><a href="univariat-data.html#cb34-3"></a>y</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="univariat-data.html#cb35-1"></a><span class="kw">levels</span>(y) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">levels</span>(y), <span class="st">&quot;Gold&quot;</span>)</span>
+<span id="cb35-2"><a href="univariat-data.html#cb35-2"></a><span class="kw">levels</span>(y)</span>
+<span id="cb35-3"><a href="univariat-data.html#cb35-3"></a>y</span>
+<span id="cb35-4"><a href="univariat-data.html#cb35-4"></a>y[<span class="dv">1</span>] &lt;-<span class="st"> &quot;Gold&quot;</span></span>
+<span id="cb35-5"><a href="univariat-data.html#cb35-5"></a>y</span></code></pre></div>
+<ul>
+<li>Odered factors (ex. 위치 바꾸기)</li>
+</ul>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="univariat-data.html#cb36-1"></a><span class="co">#library(UsingR)</span></span>
+<span id="cb36-2"><a href="univariat-data.html#cb36-2"></a><span class="kw">str</span>(Cars93)</span>
+<span id="cb36-3"><a href="univariat-data.html#cb36-3"></a>x &lt;-<span class="st"> </span>Cars93<span class="op">$</span>Origin</span>
+<span id="cb36-4"><a href="univariat-data.html#cb36-4"></a><span class="kw">plot</span>(x)</span>
+<span id="cb36-5"><a href="univariat-data.html#cb36-5"></a><span class="kw">levels</span>(x) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;non-USA&quot;</span>, <span class="st">&quot;USA&quot;</span>)</span>
+<span id="cb36-6"><a href="univariat-data.html#cb36-6"></a><span class="kw">levels</span>(x)</span>
+<span id="cb36-7"><a href="univariat-data.html#cb36-7"></a><span class="kw">plot</span>(x)</span></code></pre></div>
+<ul>
+<li>Logical data
+<ul>
+<li>TRUE and FALSE</li>
+<li>“is” functions</li>
+<li>Comparison by <code>&lt;</code>, <code>&lt;=</code>, <code>==</code>, <code>!=</code>, <code>&gt;=</code>, <code>&gt;</code></li>
+<li>Combination by <code>!</code>, <code>&amp;</code>, <code>|</code></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="univariat-data.html#cb37-1"></a><span class="kw">is.na</span>(<span class="dv">1</span>)</span>
+<span id="cb37-2"><a href="univariat-data.html#cb37-2"></a><span class="kw">is.numeric</span>(<span class="dv">1</span>)</span>
+<span id="cb37-3"><a href="univariat-data.html#cb37-3"></a><span class="kw">is.logical</span>(<span class="ot">TRUE</span>)</span>
+<span id="cb37-4"><a href="univariat-data.html#cb37-4"></a></span>
+<span id="cb37-5"><a href="univariat-data.html#cb37-5"></a>pi <span class="op">&lt;</span><span class="st"> </span><span class="dv">3</span></span>
+<span id="cb37-6"><a href="univariat-data.html#cb37-6"></a>precip <span class="op">&lt;</span><span class="st"> </span><span class="dv">30</span></span>
+<span id="cb37-7"><a href="univariat-data.html#cb37-7"></a><span class="kw">which</span>(precip <span class="op">&lt;</span><span class="st"> </span><span class="dv">30</span>)</span>
+<span id="cb37-8"><a href="univariat-data.html#cb37-8"></a><span class="kw">any</span>(precip <span class="op">&lt;</span><span class="st"> </span><span class="dv">30</span>)</span>
+<span id="cb37-9"><a href="univariat-data.html#cb37-9"></a><span class="kw">all</span>(precip <span class="op">&lt;</span><span class="st"> </span><span class="dv">30</span>)</span>
+<span id="cb37-10"><a href="univariat-data.html#cb37-10"></a><span class="kw">any</span>(<span class="dv">39</span> <span class="op">==</span><span class="st"> </span>precip)</span>
+<span id="cb37-11"><a href="univariat-data.html#cb37-11"></a><span class="kw">which</span>(<span class="dv">39</span> <span class="op">==</span><span class="st"> </span>precip)</span>
+<span id="cb37-12"><a href="univariat-data.html#cb37-12"></a><span class="kw">sum</span>(precip <span class="op">&lt;</span><span class="st"> </span><span class="dv">30</span>)</span>
+<span id="cb37-13"><a href="univariat-data.html#cb37-13"></a><span class="kw">sum</span>(<span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">TRUE</span>))</span>
+<span id="cb37-14"><a href="univariat-data.html#cb37-14"></a></span>
+<span id="cb37-15"><a href="univariat-data.html#cb37-15"></a>x &lt;-<span class="st"> </span>Cars93<span class="op">$</span>Origin</span>
+<span id="cb37-16"><a href="univariat-data.html#cb37-16"></a>x <span class="op">==</span><span class="st"> &quot;USA&quot;</span> </span>
+<span id="cb37-17"><a href="univariat-data.html#cb37-17"></a><span class="kw">which</span>(x <span class="op">==</span><span class="st"> &quot;USA&quot;</span>)</span>
+<span id="cb37-18"><a href="univariat-data.html#cb37-18"></a>i &lt;-<span class="st"> </span><span class="kw">which</span>(x <span class="op">==</span><span class="st"> &quot;USA&quot;</span>)</span>
+<span id="cb37-19"><a href="univariat-data.html#cb37-19"></a>x[i]</span>
+<span id="cb37-20"><a href="univariat-data.html#cb37-20"></a></span>
+<span id="cb37-21"><a href="univariat-data.html#cb37-21"></a>x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">100</span></span>
+<span id="cb37-22"><a href="univariat-data.html#cb37-22"></a>x <span class="op">&lt;</span><span class="st"> </span><span class="dv">10</span></span>
+<span id="cb37-23"><a href="univariat-data.html#cb37-23"></a>x <span class="op">&gt;</span><span class="st"> </span><span class="dv">90</span></span>
+<span id="cb37-24"><a href="univariat-data.html#cb37-24"></a>x <span class="op">&lt;</span><span class="st"> </span><span class="dv">10</span> <span class="op">|</span><span class="st"> </span>x <span class="op">&gt;</span><span class="dv">90</span></span>
+<span id="cb37-25"><a href="univariat-data.html#cb37-25"></a><span class="kw">which</span>(x <span class="op">&lt;</span><span class="st"> </span><span class="dv">10</span> <span class="op">|</span><span class="st"> </span>x <span class="op">&gt;</span><span class="dv">90</span>)</span>
+<span id="cb37-26"><a href="univariat-data.html#cb37-26"></a>i &lt;-<span class="st"> </span><span class="kw">which</span>(x <span class="op">&lt;</span><span class="st"> </span><span class="dv">10</span> <span class="op">|</span><span class="st"> </span>x <span class="op">&gt;</span><span class="dv">90</span>)</span>
+<span id="cb37-27"><a href="univariat-data.html#cb37-27"></a>x[i]</span>
+<span id="cb37-28"><a href="univariat-data.html#cb37-28"></a>x[x <span class="op">&lt;</span><span class="st"> </span><span class="dv">10</span> <span class="op">|</span><span class="st"> </span>x <span class="op">&gt;</span><span class="dv">90</span>]</span></code></pre></div>
+<ul>
+<li>Date and time
+<ul>
+<li>Unixtime, POSIX time</li>
+<li>1970년 1월 1일 00:00:00 협정 세계시(UTC) 부터의 경과 시간을 초로 환산</li>
+<li>32비트로 표현된 유닉스 시간은 1970년 1월 1일 00:00 (UTC)에서 2,147,483,647 (231 - 1) 지난 후인 2038년 1월 19일 03:14:08 UTC에 2038년 문제를 발생시킨다. 이는 산술 오버플로와 관련 있는 문제이다. –wiki-</li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="univariat-data.html#cb38-1"></a><span class="kw">library</span>(lubridate)</span>
+<span id="cb38-2"><a href="univariat-data.html#cb38-2"></a>current_time &lt;-<span class="st"> </span><span class="kw">now</span>() <span class="co"># record since 1970</span></span>
+<span id="cb38-3"><a href="univariat-data.html#cb38-3"></a><span class="kw">as.numeric</span>(current_time)</span>
+<span id="cb38-4"><a href="univariat-data.html#cb38-4"></a><span class="kw">as.numeric</span>(<span class="kw">now</span>())</span>
+<span id="cb38-5"><a href="univariat-data.html#cb38-5"></a><span class="kw">month</span>(current_time)</span></code></pre></div>
+<div id="example---recoding-values" class="section level3">
+<h3><span class="header-section-number">3.3.1</span> Example - Recoding values</h3>
+<p>다음은 신생아들의 키를 나타내는 data set 이다. 오류 값을 찾아내고 이들 값을 <code>NA</code>로 바꾼 후 평균 값을 구하라.</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="univariat-data.html#cb39-1"></a>x &lt;-<span class="st"> </span>babies<span class="op">$</span>dwt</span>
+<span id="cb39-2"><a href="univariat-data.html#cb39-2"></a>x</span></code></pre></div>
+</div>
+<div id="example---average-distance-from-center" class="section level3">
+<h3><span class="header-section-number">3.3.2</span> Example - Average distance from center</h3>
+<p><img src="images/02/02.png" /></p>
+<p><span class="math display">\[\begin{equation}
+(| x_1 - \bar{x} | + |x_2 - \bar{x}| + ... + |x_n - \bar{x}| )/n
+\end{equation}\]</span></p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="univariat-data.html#cb40-1"></a>x &lt;-<span class="st"> </span>rivers</span></code></pre></div>
+</div>
+</div>
+<div id="functions" class="section level2">
+<h2><span class="header-section-number">3.4</span> Functions</h2>
+<ul>
+<li>Define a function</li>
+</ul>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="univariat-data.html#cb41-1"></a>my_mean &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
+<span id="cb41-2"><a href="univariat-data.html#cb41-2"></a>	total &lt;-<span class="st"> </span><span class="kw">sum</span>(x)</span>
+<span id="cb41-3"><a href="univariat-data.html#cb41-3"></a>	n &lt;-<span class="st"> </span><span class="kw">length</span>(x)</span>
+<span id="cb41-4"><a href="univariat-data.html#cb41-4"></a>	<span class="kw">return</span>(total<span class="op">/</span>n)</span>
+<span id="cb41-5"><a href="univariat-data.html#cb41-5"></a>}</span></code></pre></div>
+<ul>
+<li>Write a function named <code>get_dist</code> for the example 3.3.2, and use it for the <code>rivers</code> data</li>
+</ul>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="univariat-data.html#cb42-1"></a>get_dist &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
+<span id="cb42-2"><a href="univariat-data.html#cb42-2"></a>	<span class="kw">return</span>()</span>
+<span id="cb42-3"><a href="univariat-data.html#cb42-3"></a>}</span></code></pre></div>
+</div>
+<div id="numeric-summaries" class="section level2">
+<h2><span class="header-section-number">3.5</span> Numeric summaries</h2>
+<center>
+<img src="images/02/05.png" />
+<img src="images/02/04.png" />
+<br>
+<br>
+<img src="images/02/06.png" />
+</center>
+<ul>
+<li>대푯값</li>
+<li>Center – commonly known as “average” or “mean” but not the only one.
+<ul>
+<li>median, mode, etc</li>
+</ul></li>
+<li>Spread – Variability of a data set.
+<ul>
+<li>No variability – mean is everything</li>
+<li>Large variability – mean informs much less</li>
+<li>confidence of interpretation from knowing center</li>
+<li>Distance from center</li>
+</ul></li>
+<li>Shape – Degree of interpretation from knowing center and spread.
+<ul>
+<li>eg. bell shape – two sides are equally likely, large values are rather unlikely and values tend to cluster near the center.</li>
+</ul></li>
+</ul>
+</div>
+<div id="center" class="section level2">
+<h2><span class="header-section-number">3.6</span> Center</h2>
+<center>
+<img src="images/02/07.png" />
+</center>
+<div id="sample-mean" class="section level3">
+<h3><span class="header-section-number">3.6.1</span> Sample mean</h3>
+<p><span class="math display">\[ \bar{x} = \frac{1}{n} (x_1 + x_2 + ... + x_n) = \frac{1}{n}\sum_i{x_i} \]</span></p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="univariat-data.html#cb43-1"></a><span class="kw">head</span>(kid.weights)</span>
+<span id="cb43-2"><a href="univariat-data.html#cb43-2"></a><span class="kw">str</span>(kid.weights)</span>
+<span id="cb43-3"><a href="univariat-data.html#cb43-3"></a>wts &lt;-<span class="st"> </span>kid.weights<span class="op">$</span>weight</span>
+<span id="cb43-4"><a href="univariat-data.html#cb43-4"></a><span class="kw">length</span>(wts)</span>
+<span id="cb43-5"><a href="univariat-data.html#cb43-5"></a><span class="kw">plot</span>(wts)</span>
+<span id="cb43-6"><a href="univariat-data.html#cb43-6"></a><span class="kw">mean</span>(wts)</span>
+<span id="cb43-7"><a href="univariat-data.html#cb43-7"></a>devs &lt;-<span class="st"> </span>wts – <span class="kw">mean</span>(wts) <span class="co"># deviation, centering</span></span>
+<span id="cb43-8"><a href="univariat-data.html#cb43-8"></a><span class="kw">plot</span>(wts)</span>
+<span id="cb43-9"><a href="univariat-data.html#cb43-9"></a><span class="kw">mean</span>(wts)</span></code></pre></div>
+<ul>
+<li>Trimmed mean</li>
+</ul>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="univariat-data.html#cb44-1"></a><span class="kw">mean</span>(wts)</span>
+<span id="cb44-2"><a href="univariat-data.html#cb44-2"></a>wts[wts<span class="op">&lt;</span><span class="dv">120</span>]</span>
+<span id="cb44-3"><a href="univariat-data.html#cb44-3"></a><span class="kw">mean</span>(wts[wts<span class="op">&lt;=</span><span class="dv">120</span>])</span>
+<span id="cb44-4"><a href="univariat-data.html#cb44-4"></a><span class="kw">mean</span>(wts, <span class="dt">trim=</span><span class="fl">0.8</span>)</span></code></pre></div>
+</div>
+<div id="measure-of-position" class="section level3">
+<h3><span class="header-section-number">3.6.2</span> Measure of Position</h3>
+<ul>
+<li>_p_th Quantile - 특정 값으로 이 값보다 작은 데이터의 비율이 100∙p 퍼센트, 큰 데이터의 비율은 100∙(1- p) 퍼센트</li>
+<li>Median - Splits the data in half <em>p</em>=0.5</li>
+<li>Percentiles - The same as quantile but its scale is 0 to 100</li>
+</ul>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="univariat-data.html#cb45-1"></a>x &lt;-<span class="st"> </span><span class="dv">0</span><span class="op">:</span><span class="dv">5</span></span>
+<span id="cb45-2"><a href="univariat-data.html#cb45-2"></a><span class="kw">length</span>(x)</span>
+<span id="cb45-3"><a href="univariat-data.html#cb45-3"></a><span class="kw">quantile</span>(x, <span class="fl">0.25</span>)</span>
+<span id="cb45-4"><a href="univariat-data.html#cb45-4"></a><span class="kw">median</span>(x)</span>
+<span id="cb45-5"><a href="univariat-data.html#cb45-5"></a><span class="kw">quantile</span>(x, <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">by=</span><span class="fl">0.2</span>))</span>
+<span id="cb45-6"><a href="univariat-data.html#cb45-6"></a><span class="kw">quantile</span>(x)</span></code></pre></div>
+<ul>
+<li>Robustness</li>
+</ul>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="univariat-data.html#cb46-1"></a><span class="kw">mean</span>(wts)</span>
+<span id="cb46-2"><a href="univariat-data.html#cb46-2"></a><span class="kw">median</span>(wts)</span>
+<span id="cb46-3"><a href="univariat-data.html#cb46-3"></a><span class="kw">plot</span>(wts)</span>
+<span id="cb46-4"><a href="univariat-data.html#cb46-4"></a><span class="kw">abline</span>(<span class="dt">h=</span><span class="kw">mean</span>(wts), <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb46-5"><a href="univariat-data.html#cb46-5"></a><span class="kw">abline</span>(<span class="dt">h=</span><span class="kw">median</span>(wts), <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>)</span>
+<span id="cb46-6"><a href="univariat-data.html#cb46-6"></a>wts2 &lt;-<span class="st"> </span>wts[wts<span class="op">&lt;</span><span class="dv">120</span>]</span>
+<span id="cb46-7"><a href="univariat-data.html#cb46-7"></a><span class="kw">abline</span>(<span class="dt">h=</span><span class="kw">mean</span>(wts2), <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">lty=</span><span class="dv">2</span>)</span></code></pre></div>
+<ul>
+<li>Boxplot</li>
+</ul>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="univariat-data.html#cb47-1"></a>x &lt;-<span class="st"> </span><span class="dv">0</span><span class="op">:</span><span class="dv">5</span></span>
+<span id="cb47-2"><a href="univariat-data.html#cb47-2"></a><span class="kw">quantile</span>(x)</span>
+<span id="cb47-3"><a href="univariat-data.html#cb47-3"></a><span class="kw">boxplot</span>(x)</span>
+<span id="cb47-4"><a href="univariat-data.html#cb47-4"></a><span class="kw">text</span>(<span class="dt">x=</span><span class="fl">1.3</span>, <span class="dt">y=</span><span class="kw">quantile</span>(x, <span class="fl">0.25</span>), <span class="dt">labels =</span> <span class="st">&quot;1사분위수&quot;</span>)</span>
+<span id="cb47-5"><a href="univariat-data.html#cb47-5"></a><span class="kw">text</span>(<span class="dt">x=</span><span class="fl">1.3</span>, <span class="dt">y=</span><span class="kw">quantile</span>(x, <span class="fl">0.5</span>), <span class="dt">labels =</span> <span class="st">&quot;2사분위수&quot;</span>)</span>
+<span id="cb47-6"><a href="univariat-data.html#cb47-6"></a><span class="kw">text</span>(<span class="dt">x=</span><span class="fl">1.3</span>, <span class="dt">y=</span><span class="kw">quantile</span>(x, <span class="fl">0.75</span>), <span class="dt">labels =</span> <span class="st">&quot;3사분위수&quot;</span>)</span></code></pre></div>
+<p><img src="images/02/03.png" /></p>
+</div>
+</div>
+<div id="spread" class="section level2">
+<h2><span class="header-section-number">3.7</span> Spread</h2>
+<center>
+<img src="images/02/08.png" />
+</center>
+<ul>
+<li>Range - the distance between the smallest and largest values</li>
+<li>Sample variance
+<ul>
+<li>Distance - <span class="math display">\[ d_i = x_i - \bar{x} \]</span></li>
+</ul></li>
+</ul>
+<p><span class="math display">\[\begin{equation}
+ s^2 = \frac{1}{n-1}\sum_i(x_i - \bar{x})^2
+\end{equation}\]</span></p>
+<ul>
+<li>Sample standard deviation
+<ul>
+<li>측정값들이 평균에서 떨어진 정도
+<span class="math display">\[\begin{equation}
+ \sqrt{s^2} = sqrt{ \frac{1}{n-1}\sum_i(x_i - \bar{x})^2 }
+\end{equation}\]</span></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="univariat-data.html#cb48-1"></a>wts &lt;-<span class="st"> </span>kid.weights<span class="op">$</span>weight</span>
+<span id="cb48-2"><a href="univariat-data.html#cb48-2"></a><span class="kw">var</span>(wts)</span>
+<span id="cb48-3"><a href="univariat-data.html#cb48-3"></a><span class="kw">sd</span>(wts)</span>
+<span id="cb48-4"><a href="univariat-data.html#cb48-4"></a></span>
+<span id="cb48-5"><a href="univariat-data.html#cb48-5"></a><span class="kw">plot</span>(wts)</span>
+<span id="cb48-6"><a href="univariat-data.html#cb48-6"></a><span class="kw">boxplot</span>(wts)</span>
+<span id="cb48-7"><a href="univariat-data.html#cb48-7"></a><span class="kw">hist</span>(wts)</span>
+<span id="cb48-8"><a href="univariat-data.html#cb48-8"></a><span class="kw">hist</span>(wts, <span class="dt">breaks =</span> <span class="dv">50</span>)</span>
+<span id="cb48-9"><a href="univariat-data.html#cb48-9"></a><span class="kw">hist</span>(wts, <span class="dv">50</span>)</span>
+<span id="cb48-10"><a href="univariat-data.html#cb48-10"></a><span class="kw">abline</span>(<span class="dt">v=</span><span class="kw">mean</span>(wts), <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<ul>
+<li>z-score
+<ul>
+<li>How big (small) is the value relative to the others</li>
+<li><span class="math inline">\(z=3\)</span> 이 값은 평균에 비해 3 표준편차만큼 크다</li>
+</ul></li>
+</ul>
+<p><span class="math display">\[\begin{equation}
+ z_i = \frac{x_i - \bar{x}}{s}
+\end{equation}\]</span></p>
+<ul>
+<li>Example - z score
+wts의 z 값을 구하는 함수를 만들고 histogram을 그리시오</li>
+</ul>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="univariat-data.html#cb49-1"></a>wts &lt;-<span class="st"> </span>kid.weights<span class="op">$</span>weight</span></code></pre></div>
+<ul>
+<li>Interquartile range (IQR)
+<ul>
+<li>Middle 50% of the data</li>
+<li>Difference between Q3 and Q1</li>
+</ul></li>
+</ul>
+<center>
+<img src="images/02/10.png" />
+</center>
+<ul>
+<li>Example - IQR<br />
+wts 변수 값들의 IQR 을 구하시오</li>
+</ul>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="univariat-data.html#cb50-1"></a>wts &lt;-<span class="st"> </span>kid.weights<span class="op">$</span>weight</span></code></pre></div>
+</div>
+<div id="shape" class="section level2">
+<h2><span class="header-section-number">3.8</span> Shape</h2>
+<center>
+<img src="images/02/09.png" />
+</center>
+<ul>
+<li>Symmetry and skew</li>
+</ul>
+<p><span class="math display">\[\begin{equation}
+ sample skewness = \sqrt{n} \frac{\sum{(x_i - \bar{x})^2}}{(\sum{(x_i - \bar{x})^2)^{3/2}}} = \frac{1}{n}\sum{z_i^3}
+\end{equation}\]</span></p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="univariat-data.html#cb51-1"></a>myskew &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
+<span id="cb51-2"><a href="univariat-data.html#cb51-2"></a>  n &lt;-<span class="st"> </span><span class="kw">length</span>(x)</span>
+<span id="cb51-3"><a href="univariat-data.html#cb51-3"></a>  z &lt;-<span class="st"> </span>(x<span class="op">-</span><span class="kw">mean</span>(x))<span class="op">/</span><span class="kw">sd</span>(x)</span>
+<span id="cb51-4"><a href="univariat-data.html#cb51-4"></a>  <span class="kw">return</span>(<span class="kw">sum</span>(z<span class="op">^</span><span class="dv">3</span>)<span class="op">/</span>n)</span>
+<span id="cb51-5"><a href="univariat-data.html#cb51-5"></a>}</span>
+<span id="cb51-6"><a href="univariat-data.html#cb51-6"></a></span>
+<span id="cb51-7"><a href="univariat-data.html#cb51-7"></a>wts &lt;-<span class="st"> </span>kid.weights<span class="op">$</span>weight</span>
+<span id="cb51-8"><a href="univariat-data.html#cb51-8"></a><span class="kw">hist</span>(wts, <span class="dv">50</span>)</span>
+<span id="cb51-9"><a href="univariat-data.html#cb51-9"></a><span class="kw">myskew</span>(wts)</span>
+<span id="cb51-10"><a href="univariat-data.html#cb51-10"></a></span>
+<span id="cb51-11"><a href="univariat-data.html#cb51-11"></a>z &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="kw">length</span>(wts))</span>
+<span id="cb51-12"><a href="univariat-data.html#cb51-12"></a><span class="kw">hist</span>(z, <span class="dt">br=</span><span class="dv">50</span>)</span>
+<span id="cb51-13"><a href="univariat-data.html#cb51-13"></a><span class="kw">myskew</span>(z)</span></code></pre></div>
+<ul>
+<li>Sample excess kurtosis
+<ul>
+<li>Measure of tails</li>
+</ul></li>
+</ul>
+<p><span class="math display">\[\begin{equation}
+ sample excess kurtosis = n \frac{\sum{(x_i - \bar{x})^4}}{(\sum{(x_i - \bar{x})^2)^2}} -3 = \frac{1}{n}\sum{z_i^4} - 3
+\end{equation}\]</span></p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="univariat-data.html#cb52-1"></a>mykurtosis &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
+<span id="cb52-2"><a href="univariat-data.html#cb52-2"></a>  n &lt;-<span class="st"> </span><span class="kw">length</span>(x)</span>
+<span id="cb52-3"><a href="univariat-data.html#cb52-3"></a>  z &lt;-<span class="st"> </span>(x<span class="op">-</span><span class="kw">mean</span>(x))<span class="op">/</span><span class="kw">sd</span>(x)</span>
+<span id="cb52-4"><a href="univariat-data.html#cb52-4"></a>  <span class="kw">return</span>(<span class="kw">sum</span>(z<span class="op">^</span><span class="dv">4</span>)<span class="op">/</span>n <span class="op">-</span><span class="st"> </span><span class="dv">3</span>)</span>
+<span id="cb52-5"><a href="univariat-data.html#cb52-5"></a>}</span>
+<span id="cb52-6"><a href="univariat-data.html#cb52-6"></a></span>
+<span id="cb52-7"><a href="univariat-data.html#cb52-7"></a>wts &lt;-<span class="st"> </span>kid.weights<span class="op">$</span>weight</span>
+<span id="cb52-8"><a href="univariat-data.html#cb52-8"></a><span class="kw">hist</span>(wts, <span class="dv">50</span>)</span>
+<span id="cb52-9"><a href="univariat-data.html#cb52-9"></a><span class="kw">mykurtosis</span>(wts)</span>
+<span id="cb52-10"><a href="univariat-data.html#cb52-10"></a></span>
+<span id="cb52-11"><a href="univariat-data.html#cb52-11"></a>z &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="kw">length</span>(wts))</span>
+<span id="cb52-12"><a href="univariat-data.html#cb52-12"></a><span class="kw">hist</span>(z, <span class="dt">br=</span><span class="dv">50</span>)</span>
+<span id="cb52-13"><a href="univariat-data.html#cb52-13"></a><span class="kw">mykurtosis</span>(z)</span></code></pre></div>
+</div>
+<div id="viewing-the-shape" class="section level2">
+<h2><span class="header-section-number">3.9</span> Viewing the shape</h2>
+<ul>
+<li>Dot plots – Trouble with repeated values, only used for small data sets</li>
+<li>Stem and leaf plot – Shows range, median, shape. But only for small data sets. trouble with clustered data. Rounding</li>
+<li>Histogram – Break up an interval, for each subinterval the number of data points are counted</li>
+<li>Density plots</li>
+</ul>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="univariat-data.html#cb53-1"></a>wts &lt;-<span class="st"> </span>kid.weights<span class="op">$</span>weight</span>
+<span id="cb53-2"><a href="univariat-data.html#cb53-2"></a>xrange &lt;-<span class="st"> </span><span class="kw">range</span>(wts)</span>
+<span id="cb53-3"><a href="univariat-data.html#cb53-3"></a>den &lt;-<span class="st"> </span><span class="kw">density</span>(wts)</span>
+<span id="cb53-4"><a href="univariat-data.html#cb53-4"></a><span class="kw">plot</span>(den, <span class="dt">xlim=</span>xrange, <span class="dt">xlab=</span><span class="st">&quot;densities&quot;</span>, <span class="dt">main=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<p><img src="images/02/11.png" /></p>
+<ul>
+<li>Boxplots
+<ul>
+<li>It shows center, spread, shape</li>
+<li>Five-number summary of a univariate data set: min, max, Q1, Q3, and median</li>
+<li>These are good summary of even very large data sets.</li>
+<li>Outliers – 1.5 x IQR</li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="r-basics.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

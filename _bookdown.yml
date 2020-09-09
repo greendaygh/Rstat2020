@@ -1,6 +1,7 @@
 rmd_files: [
   "index.Rmd",
-  "01-intro.Rmd"
+  "01-intro.Rmd",
+  "02-univar.Rmd"
 ]
 book_filename: "Rstat"
 repo: https://github.com/greendaygh/Rstat2020/
