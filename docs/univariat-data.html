@@ -190,6 +190,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.7" data-path="univariat-data.html"><a href="univariat-data.html#spread"><i class="fa fa-check"></i><b>3.7</b> Spread</a></li>
 <li class="chapter" data-level="3.8" data-path="univariat-data.html"><a href="univariat-data.html#shape"><i class="fa fa-check"></i><b>3.8</b> Shape</a></li>
 <li class="chapter" data-level="3.9" data-path="univariat-data.html"><a href="univariat-data.html#viewing-the-shape"><i class="fa fa-check"></i><b>3.9</b> Viewing the shape</a></li>
+<li class="chapter" data-level="3.10" data-path="r-basics.html"><a href="r-basics.html#problems"><i class="fa fa-check"></i><b>3.10</b> Problems</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -378,16 +379,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb35-4"><a href="univariat-data.html#cb35-4"></a>y[<span class="dv">1</span>] &lt;-<span class="st"> &quot;Gold&quot;</span></span>
 <span id="cb35-5"><a href="univariat-data.html#cb35-5"></a>y</span></code></pre></div>
 <ul>
-<li>Odered factors (ex. 위치 바꾸기)</li>
-</ul>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="univariat-data.html#cb36-1"></a><span class="co">#library(UsingR)</span></span>
-<span id="cb36-2"><a href="univariat-data.html#cb36-2"></a><span class="kw">str</span>(Cars93)</span>
-<span id="cb36-3"><a href="univariat-data.html#cb36-3"></a>x &lt;-<span class="st"> </span>Cars93<span class="op">$</span>Origin</span>
-<span id="cb36-4"><a href="univariat-data.html#cb36-4"></a><span class="kw">plot</span>(x)</span>
-<span id="cb36-5"><a href="univariat-data.html#cb36-5"></a><span class="kw">levels</span>(x) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;non-USA&quot;</span>, <span class="st">&quot;USA&quot;</span>)</span>
-<span id="cb36-6"><a href="univariat-data.html#cb36-6"></a><span class="kw">levels</span>(x)</span>
-<span id="cb36-7"><a href="univariat-data.html#cb36-7"></a><span class="kw">plot</span>(x)</span></code></pre></div>
-<ul>
 <li>Logical data
 <ul>
 <li>TRUE and FALSE</li>
@@ -396,34 +387,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Combination by <code>!</code>, <code>&amp;</code>, <code>|</code></li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="univariat-data.html#cb37-1"></a><span class="kw">is.na</span>(<span class="dv">1</span>)</span>
-<span id="cb37-2"><a href="univariat-data.html#cb37-2"></a><span class="kw">is.numeric</span>(<span class="dv">1</span>)</span>
-<span id="cb37-3"><a href="univariat-data.html#cb37-3"></a><span class="kw">is.logical</span>(<span class="ot">TRUE</span>)</span>
-<span id="cb37-4"><a href="univariat-data.html#cb37-4"></a></span>
-<span id="cb37-5"><a href="univariat-data.html#cb37-5"></a>pi <span class="op">&lt;</span><span class="st"> </span><span class="dv">3</span></span>
-<span id="cb37-6"><a href="univariat-data.html#cb37-6"></a>precip <span class="op">&lt;</span><span class="st"> </span><span class="dv">30</span></span>
-<span id="cb37-7"><a href="univariat-data.html#cb37-7"></a><span class="kw">which</span>(precip <span class="op">&lt;</span><span class="st"> </span><span class="dv">30</span>)</span>
-<span id="cb37-8"><a href="univariat-data.html#cb37-8"></a><span class="kw">any</span>(precip <span class="op">&lt;</span><span class="st"> </span><span class="dv">30</span>)</span>
-<span id="cb37-9"><a href="univariat-data.html#cb37-9"></a><span class="kw">all</span>(precip <span class="op">&lt;</span><span class="st"> </span><span class="dv">30</span>)</span>
-<span id="cb37-10"><a href="univariat-data.html#cb37-10"></a><span class="kw">any</span>(<span class="dv">39</span> <span class="op">==</span><span class="st"> </span>precip)</span>
-<span id="cb37-11"><a href="univariat-data.html#cb37-11"></a><span class="kw">which</span>(<span class="dv">39</span> <span class="op">==</span><span class="st"> </span>precip)</span>
-<span id="cb37-12"><a href="univariat-data.html#cb37-12"></a><span class="kw">sum</span>(precip <span class="op">&lt;</span><span class="st"> </span><span class="dv">30</span>)</span>
-<span id="cb37-13"><a href="univariat-data.html#cb37-13"></a><span class="kw">sum</span>(<span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">TRUE</span>))</span>
-<span id="cb37-14"><a href="univariat-data.html#cb37-14"></a></span>
-<span id="cb37-15"><a href="univariat-data.html#cb37-15"></a>x &lt;-<span class="st"> </span>Cars93<span class="op">$</span>Origin</span>
-<span id="cb37-16"><a href="univariat-data.html#cb37-16"></a>x <span class="op">==</span><span class="st"> &quot;USA&quot;</span> </span>
-<span id="cb37-17"><a href="univariat-data.html#cb37-17"></a><span class="kw">which</span>(x <span class="op">==</span><span class="st"> &quot;USA&quot;</span>)</span>
-<span id="cb37-18"><a href="univariat-data.html#cb37-18"></a>i &lt;-<span class="st"> </span><span class="kw">which</span>(x <span class="op">==</span><span class="st"> &quot;USA&quot;</span>)</span>
-<span id="cb37-19"><a href="univariat-data.html#cb37-19"></a>x[i]</span>
-<span id="cb37-20"><a href="univariat-data.html#cb37-20"></a></span>
-<span id="cb37-21"><a href="univariat-data.html#cb37-21"></a>x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">100</span></span>
-<span id="cb37-22"><a href="univariat-data.html#cb37-22"></a>x <span class="op">&lt;</span><span class="st"> </span><span class="dv">10</span></span>
-<span id="cb37-23"><a href="univariat-data.html#cb37-23"></a>x <span class="op">&gt;</span><span class="st"> </span><span class="dv">90</span></span>
-<span id="cb37-24"><a href="univariat-data.html#cb37-24"></a>x <span class="op">&lt;</span><span class="st"> </span><span class="dv">10</span> <span class="op">|</span><span class="st"> </span>x <span class="op">&gt;</span><span class="dv">90</span></span>
-<span id="cb37-25"><a href="univariat-data.html#cb37-25"></a><span class="kw">which</span>(x <span class="op">&lt;</span><span class="st"> </span><span class="dv">10</span> <span class="op">|</span><span class="st"> </span>x <span class="op">&gt;</span><span class="dv">90</span>)</span>
-<span id="cb37-26"><a href="univariat-data.html#cb37-26"></a>i &lt;-<span class="st"> </span><span class="kw">which</span>(x <span class="op">&lt;</span><span class="st"> </span><span class="dv">10</span> <span class="op">|</span><span class="st"> </span>x <span class="op">&gt;</span><span class="dv">90</span>)</span>
-<span id="cb37-27"><a href="univariat-data.html#cb37-27"></a>x[i]</span>
-<span id="cb37-28"><a href="univariat-data.html#cb37-28"></a>x[x <span class="op">&lt;</span><span class="st"> </span><span class="dv">10</span> <span class="op">|</span><span class="st"> </span>x <span class="op">&gt;</span><span class="dv">90</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="univariat-data.html#cb36-1"></a><span class="kw">is.na</span>(<span class="dv">1</span>)</span>
+<span id="cb36-2"><a href="univariat-data.html#cb36-2"></a><span class="kw">is.numeric</span>(<span class="dv">1</span>)</span>
+<span id="cb36-3"><a href="univariat-data.html#cb36-3"></a><span class="kw">is.logical</span>(<span class="ot">TRUE</span>)</span>
+<span id="cb36-4"><a href="univariat-data.html#cb36-4"></a></span>
+<span id="cb36-5"><a href="univariat-data.html#cb36-5"></a>pi <span class="op">&lt;</span><span class="st"> </span><span class="dv">3</span></span>
+<span id="cb36-6"><a href="univariat-data.html#cb36-6"></a>precip <span class="op">&lt;</span><span class="st"> </span><span class="dv">30</span></span>
+<span id="cb36-7"><a href="univariat-data.html#cb36-7"></a><span class="kw">which</span>(precip <span class="op">&lt;</span><span class="st"> </span><span class="dv">30</span>)</span>
+<span id="cb36-8"><a href="univariat-data.html#cb36-8"></a><span class="kw">any</span>(precip <span class="op">&lt;</span><span class="st"> </span><span class="dv">30</span>)</span>
+<span id="cb36-9"><a href="univariat-data.html#cb36-9"></a><span class="kw">all</span>(precip <span class="op">&lt;</span><span class="st"> </span><span class="dv">30</span>)</span>
+<span id="cb36-10"><a href="univariat-data.html#cb36-10"></a><span class="kw">any</span>(<span class="dv">39</span> <span class="op">==</span><span class="st"> </span>precip)</span>
+<span id="cb36-11"><a href="univariat-data.html#cb36-11"></a><span class="kw">which</span>(<span class="dv">39</span> <span class="op">==</span><span class="st"> </span>precip)</span>
+<span id="cb36-12"><a href="univariat-data.html#cb36-12"></a><span class="kw">sum</span>(precip <span class="op">&lt;</span><span class="st"> </span><span class="dv">30</span>)</span>
+<span id="cb36-13"><a href="univariat-data.html#cb36-13"></a><span class="kw">sum</span>(<span class="kw">c</span>(<span class="ot">TRUE</span>, <span class="ot">TRUE</span>))</span>
+<span id="cb36-14"><a href="univariat-data.html#cb36-14"></a></span>
+<span id="cb36-15"><a href="univariat-data.html#cb36-15"></a>x &lt;-<span class="st"> </span>Cars93<span class="op">$</span>Origin</span>
+<span id="cb36-16"><a href="univariat-data.html#cb36-16"></a>x <span class="op">==</span><span class="st"> &quot;USA&quot;</span> </span>
+<span id="cb36-17"><a href="univariat-data.html#cb36-17"></a><span class="kw">which</span>(x <span class="op">==</span><span class="st"> &quot;USA&quot;</span>)</span>
+<span id="cb36-18"><a href="univariat-data.html#cb36-18"></a>i &lt;-<span class="st"> </span><span class="kw">which</span>(x <span class="op">==</span><span class="st"> &quot;USA&quot;</span>)</span>
+<span id="cb36-19"><a href="univariat-data.html#cb36-19"></a>x[i]</span>
+<span id="cb36-20"><a href="univariat-data.html#cb36-20"></a></span>
+<span id="cb36-21"><a href="univariat-data.html#cb36-21"></a>x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">100</span></span>
+<span id="cb36-22"><a href="univariat-data.html#cb36-22"></a>x <span class="op">&lt;</span><span class="st"> </span><span class="dv">10</span></span>
+<span id="cb36-23"><a href="univariat-data.html#cb36-23"></a>x <span class="op">&gt;</span><span class="st"> </span><span class="dv">90</span></span>
+<span id="cb36-24"><a href="univariat-data.html#cb36-24"></a>x <span class="op">&lt;</span><span class="st"> </span><span class="dv">10</span> <span class="op">|</span><span class="st"> </span>x <span class="op">&gt;</span><span class="dv">90</span></span>
+<span id="cb36-25"><a href="univariat-data.html#cb36-25"></a><span class="kw">which</span>(x <span class="op">&lt;</span><span class="st"> </span><span class="dv">10</span> <span class="op">|</span><span class="st"> </span>x <span class="op">&gt;</span><span class="dv">90</span>)</span>
+<span id="cb36-26"><a href="univariat-data.html#cb36-26"></a>i &lt;-<span class="st"> </span><span class="kw">which</span>(x <span class="op">&lt;</span><span class="st"> </span><span class="dv">10</span> <span class="op">|</span><span class="st"> </span>x <span class="op">&gt;</span><span class="dv">90</span>)</span>
+<span id="cb36-27"><a href="univariat-data.html#cb36-27"></a>x[i]</span>
+<span id="cb36-28"><a href="univariat-data.html#cb36-28"></a>x[x <span class="op">&lt;</span><span class="st"> </span><span class="dv">10</span> <span class="op">|</span><span class="st"> </span>x <span class="op">&gt;</span><span class="dv">90</span>]</span></code></pre></div>
 <ul>
 <li>Date and time
 <ul>
@@ -432,16 +423,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>32비트로 표현된 유닉스 시간은 1970년 1월 1일 00:00 (UTC)에서 2,147,483,647 (231 - 1) 지난 후인 2038년 1월 19일 03:14:08 UTC에 2038년 문제를 발생시킨다. 이는 산술 오버플로와 관련 있는 문제이다. –wiki-</li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="univariat-data.html#cb38-1"></a><span class="kw">library</span>(lubridate)</span>
-<span id="cb38-2"><a href="univariat-data.html#cb38-2"></a>current_time &lt;-<span class="st"> </span><span class="kw">now</span>() <span class="co"># record since 1970</span></span>
-<span id="cb38-3"><a href="univariat-data.html#cb38-3"></a><span class="kw">as.numeric</span>(current_time)</span>
-<span id="cb38-4"><a href="univariat-data.html#cb38-4"></a><span class="kw">as.numeric</span>(<span class="kw">now</span>())</span>
-<span id="cb38-5"><a href="univariat-data.html#cb38-5"></a><span class="kw">month</span>(current_time)</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="univariat-data.html#cb37-1"></a><span class="kw">library</span>(lubridate)</span>
+<span id="cb37-2"><a href="univariat-data.html#cb37-2"></a>current_time &lt;-<span class="st"> </span><span class="kw">now</span>() <span class="co"># record since 1970</span></span>
+<span id="cb37-3"><a href="univariat-data.html#cb37-3"></a><span class="kw">as.numeric</span>(current_time)</span>
+<span id="cb37-4"><a href="univariat-data.html#cb37-4"></a><span class="kw">as.numeric</span>(<span class="kw">now</span>())</span>
+<span id="cb37-5"><a href="univariat-data.html#cb37-5"></a><span class="kw">month</span>(current_time)</span></code></pre></div>
 <div id="example---recoding-values" class="section level3">
 <h3><span class="header-section-number">3.3.1</span> Example - Recoding values</h3>
 <p>다음은 신생아들의 키를 나타내는 data set 이다. 오류 값을 찾아내고 이들 값을 <code>NA</code>로 바꾼 후 평균 값을 구하라.</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="univariat-data.html#cb39-1"></a>x &lt;-<span class="st"> </span>babies<span class="op">$</span>dwt</span>
-<span id="cb39-2"><a href="univariat-data.html#cb39-2"></a>x</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="univariat-data.html#cb38-1"></a>x &lt;-<span class="st"> </span>babies<span class="op">$</span>dwt</span>
+<span id="cb38-2"><a href="univariat-data.html#cb38-2"></a>x</span></code></pre></div>
 </div>
 <div id="example---average-distance-from-center" class="section level3">
 <h3><span class="header-section-number">3.3.2</span> Example - Average distance from center</h3>
@@ -449,7 +440,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><span class="math display">\[\begin{equation}
 (| x_1 - \bar{x} | + |x_2 - \bar{x}| + ... + |x_n - \bar{x}| )/n
 \end{equation}\]</span></p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="univariat-data.html#cb40-1"></a>x &lt;-<span class="st"> </span>rivers</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="univariat-data.html#cb39-1"></a>x &lt;-<span class="st"> </span>rivers</span></code></pre></div>
 </div>
 </div>
 <div id="functions" class="section level2">
@@ -457,17 +448,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Define a function</li>
 </ul>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="univariat-data.html#cb41-1"></a>my_mean &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
-<span id="cb41-2"><a href="univariat-data.html#cb41-2"></a>	total &lt;-<span class="st"> </span><span class="kw">sum</span>(x)</span>
-<span id="cb41-3"><a href="univariat-data.html#cb41-3"></a>	n &lt;-<span class="st"> </span><span class="kw">length</span>(x)</span>
-<span id="cb41-4"><a href="univariat-data.html#cb41-4"></a>	<span class="kw">return</span>(total<span class="op">/</span>n)</span>
-<span id="cb41-5"><a href="univariat-data.html#cb41-5"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="univariat-data.html#cb40-1"></a>my_mean &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
+<span id="cb40-2"><a href="univariat-data.html#cb40-2"></a>	total &lt;-<span class="st"> </span><span class="kw">sum</span>(x)</span>
+<span id="cb40-3"><a href="univariat-data.html#cb40-3"></a>	n &lt;-<span class="st"> </span><span class="kw">length</span>(x)</span>
+<span id="cb40-4"><a href="univariat-data.html#cb40-4"></a>	<span class="kw">return</span>(total<span class="op">/</span>n)</span>
+<span id="cb40-5"><a href="univariat-data.html#cb40-5"></a>}</span></code></pre></div>
 <ul>
 <li>Write a function named <code>get_dist</code> for the example 3.3.2, and use it for the <code>rivers</code> data</li>
 </ul>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="univariat-data.html#cb42-1"></a>get_dist &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
-<span id="cb42-2"><a href="univariat-data.html#cb42-2"></a>	<span class="kw">return</span>()</span>
-<span id="cb42-3"><a href="univariat-data.html#cb42-3"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="univariat-data.html#cb41-1"></a>get_dist &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
+<span id="cb41-2"><a href="univariat-data.html#cb41-2"></a>	<span class="kw">return</span>()</span>
+<span id="cb41-3"><a href="univariat-data.html#cb41-3"></a>}</span></code></pre></div>
 </div>
 <div id="numeric-summaries" class="section level2">
 <h2><span class="header-section-number">3.5</span> Numeric summaries</h2>
@@ -505,22 +496,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="sample-mean" class="section level3">
 <h3><span class="header-section-number">3.6.1</span> Sample mean</h3>
 <p><span class="math display">\[ \bar{x} = \frac{1}{n} (x_1 + x_2 + ... + x_n) = \frac{1}{n}\sum_i{x_i} \]</span></p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="univariat-data.html#cb43-1"></a><span class="kw">head</span>(kid.weights)</span>
-<span id="cb43-2"><a href="univariat-data.html#cb43-2"></a><span class="kw">str</span>(kid.weights)</span>
-<span id="cb43-3"><a href="univariat-data.html#cb43-3"></a>wts &lt;-<span class="st"> </span>kid.weights<span class="op">$</span>weight</span>
-<span id="cb43-4"><a href="univariat-data.html#cb43-4"></a><span class="kw">length</span>(wts)</span>
-<span id="cb43-5"><a href="univariat-data.html#cb43-5"></a><span class="kw">plot</span>(wts)</span>
-<span id="cb43-6"><a href="univariat-data.html#cb43-6"></a><span class="kw">mean</span>(wts)</span>
-<span id="cb43-7"><a href="univariat-data.html#cb43-7"></a>devs &lt;-<span class="st"> </span>wts – <span class="kw">mean</span>(wts) <span class="co"># deviation, centering</span></span>
-<span id="cb43-8"><a href="univariat-data.html#cb43-8"></a><span class="kw">plot</span>(wts)</span>
-<span id="cb43-9"><a href="univariat-data.html#cb43-9"></a><span class="kw">mean</span>(wts)</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="univariat-data.html#cb42-1"></a><span class="kw">head</span>(kid.weights)</span>
+<span id="cb42-2"><a href="univariat-data.html#cb42-2"></a><span class="kw">str</span>(kid.weights)</span>
+<span id="cb42-3"><a href="univariat-data.html#cb42-3"></a>wts &lt;-<span class="st"> </span>kid.weights<span class="op">$</span>weight</span>
+<span id="cb42-4"><a href="univariat-data.html#cb42-4"></a><span class="kw">length</span>(wts)</span>
+<span id="cb42-5"><a href="univariat-data.html#cb42-5"></a><span class="kw">plot</span>(wts)</span>
+<span id="cb42-6"><a href="univariat-data.html#cb42-6"></a><span class="kw">mean</span>(wts)</span>
+<span id="cb42-7"><a href="univariat-data.html#cb42-7"></a>devs &lt;-<span class="st"> </span>wts – <span class="kw">mean</span>(wts) <span class="co"># deviation, centering</span></span>
+<span id="cb42-8"><a href="univariat-data.html#cb42-8"></a><span class="kw">plot</span>(wts)</span>
+<span id="cb42-9"><a href="univariat-data.html#cb42-9"></a><span class="kw">mean</span>(wts)</span></code></pre></div>
 <ul>
 <li>Trimmed mean</li>
 </ul>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="univariat-data.html#cb44-1"></a><span class="kw">mean</span>(wts)</span>
-<span id="cb44-2"><a href="univariat-data.html#cb44-2"></a>wts[wts<span class="op">&lt;</span><span class="dv">120</span>]</span>
-<span id="cb44-3"><a href="univariat-data.html#cb44-3"></a><span class="kw">mean</span>(wts[wts<span class="op">&lt;=</span><span class="dv">120</span>])</span>
-<span id="cb44-4"><a href="univariat-data.html#cb44-4"></a><span class="kw">mean</span>(wts, <span class="dt">trim=</span><span class="fl">0.8</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="univariat-data.html#cb43-1"></a><span class="kw">mean</span>(wts)</span>
+<span id="cb43-2"><a href="univariat-data.html#cb43-2"></a>wts[wts<span class="op">&lt;</span><span class="dv">120</span>]</span>
+<span id="cb43-3"><a href="univariat-data.html#cb43-3"></a><span class="kw">mean</span>(wts[wts<span class="op">&lt;=</span><span class="dv">120</span>])</span>
+<span id="cb43-4"><a href="univariat-data.html#cb43-4"></a><span class="kw">mean</span>(wts, <span class="dt">trim=</span><span class="fl">0.8</span>)</span></code></pre></div>
 </div>
 <div id="measure-of-position" class="section level3">
 <h3><span class="header-section-number">3.6.2</span> Measure of Position</h3>
@@ -529,31 +520,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Median - Splits the data in half <em>p</em>=0.5</li>
 <li>Percentiles - The same as quantile but its scale is 0 to 100</li>
 </ul>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="univariat-data.html#cb45-1"></a>x &lt;-<span class="st"> </span><span class="dv">0</span><span class="op">:</span><span class="dv">5</span></span>
-<span id="cb45-2"><a href="univariat-data.html#cb45-2"></a><span class="kw">length</span>(x)</span>
-<span id="cb45-3"><a href="univariat-data.html#cb45-3"></a><span class="kw">quantile</span>(x, <span class="fl">0.25</span>)</span>
-<span id="cb45-4"><a href="univariat-data.html#cb45-4"></a><span class="kw">median</span>(x)</span>
-<span id="cb45-5"><a href="univariat-data.html#cb45-5"></a><span class="kw">quantile</span>(x, <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">by=</span><span class="fl">0.2</span>))</span>
-<span id="cb45-6"><a href="univariat-data.html#cb45-6"></a><span class="kw">quantile</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="univariat-data.html#cb44-1"></a>x &lt;-<span class="st"> </span><span class="dv">0</span><span class="op">:</span><span class="dv">5</span></span>
+<span id="cb44-2"><a href="univariat-data.html#cb44-2"></a><span class="kw">length</span>(x)</span>
+<span id="cb44-3"><a href="univariat-data.html#cb44-3"></a><span class="kw">quantile</span>(x, <span class="fl">0.25</span>)</span>
+<span id="cb44-4"><a href="univariat-data.html#cb44-4"></a><span class="kw">median</span>(x)</span>
+<span id="cb44-5"><a href="univariat-data.html#cb44-5"></a><span class="kw">quantile</span>(x, <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">by=</span><span class="fl">0.2</span>))</span>
+<span id="cb44-6"><a href="univariat-data.html#cb44-6"></a><span class="kw">quantile</span>(x)</span></code></pre></div>
 <ul>
 <li>Robustness</li>
 </ul>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="univariat-data.html#cb46-1"></a><span class="kw">mean</span>(wts)</span>
-<span id="cb46-2"><a href="univariat-data.html#cb46-2"></a><span class="kw">median</span>(wts)</span>
-<span id="cb46-3"><a href="univariat-data.html#cb46-3"></a><span class="kw">plot</span>(wts)</span>
-<span id="cb46-4"><a href="univariat-data.html#cb46-4"></a><span class="kw">abline</span>(<span class="dt">h=</span><span class="kw">mean</span>(wts), <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</span>
-<span id="cb46-5"><a href="univariat-data.html#cb46-5"></a><span class="kw">abline</span>(<span class="dt">h=</span><span class="kw">median</span>(wts), <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>)</span>
-<span id="cb46-6"><a href="univariat-data.html#cb46-6"></a>wts2 &lt;-<span class="st"> </span>wts[wts<span class="op">&lt;</span><span class="dv">120</span>]</span>
-<span id="cb46-7"><a href="univariat-data.html#cb46-7"></a><span class="kw">abline</span>(<span class="dt">h=</span><span class="kw">mean</span>(wts2), <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">lty=</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="univariat-data.html#cb45-1"></a><span class="kw">mean</span>(wts)</span>
+<span id="cb45-2"><a href="univariat-data.html#cb45-2"></a><span class="kw">median</span>(wts)</span>
+<span id="cb45-3"><a href="univariat-data.html#cb45-3"></a><span class="kw">plot</span>(wts)</span>
+<span id="cb45-4"><a href="univariat-data.html#cb45-4"></a><span class="kw">abline</span>(<span class="dt">h=</span><span class="kw">mean</span>(wts), <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb45-5"><a href="univariat-data.html#cb45-5"></a><span class="kw">abline</span>(<span class="dt">h=</span><span class="kw">median</span>(wts), <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>)</span>
+<span id="cb45-6"><a href="univariat-data.html#cb45-6"></a>wts2 &lt;-<span class="st"> </span>wts[wts<span class="op">&lt;</span><span class="dv">120</span>]</span>
+<span id="cb45-7"><a href="univariat-data.html#cb45-7"></a><span class="kw">abline</span>(<span class="dt">h=</span><span class="kw">mean</span>(wts2), <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">lty=</span><span class="dv">2</span>)</span></code></pre></div>
 <ul>
 <li>Boxplot</li>
 </ul>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="univariat-data.html#cb47-1"></a>x &lt;-<span class="st"> </span><span class="dv">0</span><span class="op">:</span><span class="dv">5</span></span>
-<span id="cb47-2"><a href="univariat-data.html#cb47-2"></a><span class="kw">quantile</span>(x)</span>
-<span id="cb47-3"><a href="univariat-data.html#cb47-3"></a><span class="kw">boxplot</span>(x)</span>
-<span id="cb47-4"><a href="univariat-data.html#cb47-4"></a><span class="kw">text</span>(<span class="dt">x=</span><span class="fl">1.3</span>, <span class="dt">y=</span><span class="kw">quantile</span>(x, <span class="fl">0.25</span>), <span class="dt">labels =</span> <span class="st">&quot;1사분위수&quot;</span>)</span>
-<span id="cb47-5"><a href="univariat-data.html#cb47-5"></a><span class="kw">text</span>(<span class="dt">x=</span><span class="fl">1.3</span>, <span class="dt">y=</span><span class="kw">quantile</span>(x, <span class="fl">0.5</span>), <span class="dt">labels =</span> <span class="st">&quot;2사분위수&quot;</span>)</span>
-<span id="cb47-6"><a href="univariat-data.html#cb47-6"></a><span class="kw">text</span>(<span class="dt">x=</span><span class="fl">1.3</span>, <span class="dt">y=</span><span class="kw">quantile</span>(x, <span class="fl">0.75</span>), <span class="dt">labels =</span> <span class="st">&quot;3사분위수&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="univariat-data.html#cb46-1"></a>x &lt;-<span class="st"> </span><span class="dv">0</span><span class="op">:</span><span class="dv">5</span></span>
+<span id="cb46-2"><a href="univariat-data.html#cb46-2"></a><span class="kw">quantile</span>(x)</span>
+<span id="cb46-3"><a href="univariat-data.html#cb46-3"></a><span class="kw">boxplot</span>(x)</span>
+<span id="cb46-4"><a href="univariat-data.html#cb46-4"></a><span class="kw">text</span>(<span class="dt">x=</span><span class="fl">1.3</span>, <span class="dt">y=</span><span class="kw">quantile</span>(x, <span class="fl">0.25</span>), <span class="dt">labels =</span> <span class="st">&quot;1사분위수&quot;</span>)</span>
+<span id="cb46-5"><a href="univariat-data.html#cb46-5"></a><span class="kw">text</span>(<span class="dt">x=</span><span class="fl">1.3</span>, <span class="dt">y=</span><span class="kw">quantile</span>(x, <span class="fl">0.5</span>), <span class="dt">labels =</span> <span class="st">&quot;2사분위수&quot;</span>)</span>
+<span id="cb46-6"><a href="univariat-data.html#cb46-6"></a><span class="kw">text</span>(<span class="dt">x=</span><span class="fl">1.3</span>, <span class="dt">y=</span><span class="kw">quantile</span>(x, <span class="fl">0.75</span>), <span class="dt">labels =</span> <span class="st">&quot;3사분위수&quot;</span>)</span></code></pre></div>
 <p><img src="images/02/03.png" /></p>
 </div>
 </div>
@@ -581,16 +572,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 \end{equation}\]</span></li>
 </ul></li>
 </ul>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="univariat-data.html#cb48-1"></a>wts &lt;-<span class="st"> </span>kid.weights<span class="op">$</span>weight</span>
-<span id="cb48-2"><a href="univariat-data.html#cb48-2"></a><span class="kw">var</span>(wts)</span>
-<span id="cb48-3"><a href="univariat-data.html#cb48-3"></a><span class="kw">sd</span>(wts)</span>
-<span id="cb48-4"><a href="univariat-data.html#cb48-4"></a></span>
-<span id="cb48-5"><a href="univariat-data.html#cb48-5"></a><span class="kw">plot</span>(wts)</span>
-<span id="cb48-6"><a href="univariat-data.html#cb48-6"></a><span class="kw">boxplot</span>(wts)</span>
-<span id="cb48-7"><a href="univariat-data.html#cb48-7"></a><span class="kw">hist</span>(wts)</span>
-<span id="cb48-8"><a href="univariat-data.html#cb48-8"></a><span class="kw">hist</span>(wts, <span class="dt">breaks =</span> <span class="dv">50</span>)</span>
-<span id="cb48-9"><a href="univariat-data.html#cb48-9"></a><span class="kw">hist</span>(wts, <span class="dv">50</span>)</span>
-<span id="cb48-10"><a href="univariat-data.html#cb48-10"></a><span class="kw">abline</span>(<span class="dt">v=</span><span class="kw">mean</span>(wts), <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="univariat-data.html#cb47-1"></a>wts &lt;-<span class="st"> </span>kid.weights<span class="op">$</span>weight</span>
+<span id="cb47-2"><a href="univariat-data.html#cb47-2"></a><span class="kw">var</span>(wts)</span>
+<span id="cb47-3"><a href="univariat-data.html#cb47-3"></a><span class="kw">sd</span>(wts)</span>
+<span id="cb47-4"><a href="univariat-data.html#cb47-4"></a></span>
+<span id="cb47-5"><a href="univariat-data.html#cb47-5"></a><span class="kw">plot</span>(wts)</span>
+<span id="cb47-6"><a href="univariat-data.html#cb47-6"></a><span class="kw">boxplot</span>(wts)</span>
+<span id="cb47-7"><a href="univariat-data.html#cb47-7"></a><span class="kw">hist</span>(wts)</span>
+<span id="cb47-8"><a href="univariat-data.html#cb47-8"></a><span class="kw">hist</span>(wts, <span class="dt">breaks =</span> <span class="dv">50</span>)</span>
+<span id="cb47-9"><a href="univariat-data.html#cb47-9"></a><span class="kw">hist</span>(wts, <span class="dv">50</span>)</span>
+<span id="cb47-10"><a href="univariat-data.html#cb47-10"></a><span class="kw">abline</span>(<span class="dt">v=</span><span class="kw">mean</span>(wts), <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
 <ul>
 <li>z-score
 <ul>
@@ -605,7 +596,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Example - z score
 wts의 z 값을 구하는 함수를 만들고 histogram을 그리시오</li>
 </ul>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="univariat-data.html#cb49-1"></a>wts &lt;-<span class="st"> </span>kid.weights<span class="op">$</span>weight</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="univariat-data.html#cb48-1"></a>wts &lt;-<span class="st"> </span>kid.weights<span class="op">$</span>weight</span></code></pre></div>
 <ul>
 <li>Interquartile range (IQR)
 <ul>
@@ -620,7 +611,7 @@ wts의 z 값을 구하는 함수를 만들고 histogram을 그리시오</li>
 <li>Example - IQR<br />
 wts 변수 값들의 IQR 을 구하시오</li>
 </ul>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="univariat-data.html#cb50-1"></a>wts &lt;-<span class="st"> </span>kid.weights<span class="op">$</span>weight</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="univariat-data.html#cb49-1"></a>wts &lt;-<span class="st"> </span>kid.weights<span class="op">$</span>weight</span></code></pre></div>
 </div>
 <div id="shape" class="section level2">
 <h2><span class="header-section-number">3.8</span> Shape</h2>
@@ -633,19 +624,19 @@ wts 변수 값들의 IQR 을 구하시오</li>
 <p><span class="math display">\[\begin{equation}
  sample skewness = \sqrt{n} \frac{\sum{(x_i - \bar{x})^2}}{(\sum{(x_i - \bar{x})^2)^{3/2}}} = \frac{1}{n}\sum{z_i^3}
 \end{equation}\]</span></p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="univariat-data.html#cb51-1"></a>myskew &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
-<span id="cb51-2"><a href="univariat-data.html#cb51-2"></a>  n &lt;-<span class="st"> </span><span class="kw">length</span>(x)</span>
-<span id="cb51-3"><a href="univariat-data.html#cb51-3"></a>  z &lt;-<span class="st"> </span>(x<span class="op">-</span><span class="kw">mean</span>(x))<span class="op">/</span><span class="kw">sd</span>(x)</span>
-<span id="cb51-4"><a href="univariat-data.html#cb51-4"></a>  <span class="kw">return</span>(<span class="kw">sum</span>(z<span class="op">^</span><span class="dv">3</span>)<span class="op">/</span>n)</span>
-<span id="cb51-5"><a href="univariat-data.html#cb51-5"></a>}</span>
-<span id="cb51-6"><a href="univariat-data.html#cb51-6"></a></span>
-<span id="cb51-7"><a href="univariat-data.html#cb51-7"></a>wts &lt;-<span class="st"> </span>kid.weights<span class="op">$</span>weight</span>
-<span id="cb51-8"><a href="univariat-data.html#cb51-8"></a><span class="kw">hist</span>(wts, <span class="dv">50</span>)</span>
-<span id="cb51-9"><a href="univariat-data.html#cb51-9"></a><span class="kw">myskew</span>(wts)</span>
-<span id="cb51-10"><a href="univariat-data.html#cb51-10"></a></span>
-<span id="cb51-11"><a href="univariat-data.html#cb51-11"></a>z &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="kw">length</span>(wts))</span>
-<span id="cb51-12"><a href="univariat-data.html#cb51-12"></a><span class="kw">hist</span>(z, <span class="dt">br=</span><span class="dv">50</span>)</span>
-<span id="cb51-13"><a href="univariat-data.html#cb51-13"></a><span class="kw">myskew</span>(z)</span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="univariat-data.html#cb50-1"></a>myskew &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
+<span id="cb50-2"><a href="univariat-data.html#cb50-2"></a>  n &lt;-<span class="st"> </span><span class="kw">length</span>(x)</span>
+<span id="cb50-3"><a href="univariat-data.html#cb50-3"></a>  z &lt;-<span class="st"> </span>(x<span class="op">-</span><span class="kw">mean</span>(x))<span class="op">/</span><span class="kw">sd</span>(x)</span>
+<span id="cb50-4"><a href="univariat-data.html#cb50-4"></a>  <span class="kw">return</span>(<span class="kw">sum</span>(z<span class="op">^</span><span class="dv">3</span>)<span class="op">/</span>n)</span>
+<span id="cb50-5"><a href="univariat-data.html#cb50-5"></a>}</span>
+<span id="cb50-6"><a href="univariat-data.html#cb50-6"></a></span>
+<span id="cb50-7"><a href="univariat-data.html#cb50-7"></a>wts &lt;-<span class="st"> </span>kid.weights<span class="op">$</span>weight</span>
+<span id="cb50-8"><a href="univariat-data.html#cb50-8"></a><span class="kw">hist</span>(wts, <span class="dv">50</span>)</span>
+<span id="cb50-9"><a href="univariat-data.html#cb50-9"></a><span class="kw">myskew</span>(wts)</span>
+<span id="cb50-10"><a href="univariat-data.html#cb50-10"></a></span>
+<span id="cb50-11"><a href="univariat-data.html#cb50-11"></a>z &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="kw">length</span>(wts))</span>
+<span id="cb50-12"><a href="univariat-data.html#cb50-12"></a><span class="kw">hist</span>(z, <span class="dt">br=</span><span class="dv">50</span>)</span>
+<span id="cb50-13"><a href="univariat-data.html#cb50-13"></a><span class="kw">myskew</span>(z)</span></code></pre></div>
 <ul>
 <li>Sample excess kurtosis
 <ul>
@@ -655,19 +646,19 @@ wts 변수 값들의 IQR 을 구하시오</li>
 <p><span class="math display">\[\begin{equation}
  sample excess kurtosis = n \frac{\sum{(x_i - \bar{x})^4}}{(\sum{(x_i - \bar{x})^2)^2}} -3 = \frac{1}{n}\sum{z_i^4} - 3
 \end{equation}\]</span></p>
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="univariat-data.html#cb52-1"></a>mykurtosis &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
-<span id="cb52-2"><a href="univariat-data.html#cb52-2"></a>  n &lt;-<span class="st"> </span><span class="kw">length</span>(x)</span>
-<span id="cb52-3"><a href="univariat-data.html#cb52-3"></a>  z &lt;-<span class="st"> </span>(x<span class="op">-</span><span class="kw">mean</span>(x))<span class="op">/</span><span class="kw">sd</span>(x)</span>
-<span id="cb52-4"><a href="univariat-data.html#cb52-4"></a>  <span class="kw">return</span>(<span class="kw">sum</span>(z<span class="op">^</span><span class="dv">4</span>)<span class="op">/</span>n <span class="op">-</span><span class="st"> </span><span class="dv">3</span>)</span>
-<span id="cb52-5"><a href="univariat-data.html#cb52-5"></a>}</span>
-<span id="cb52-6"><a href="univariat-data.html#cb52-6"></a></span>
-<span id="cb52-7"><a href="univariat-data.html#cb52-7"></a>wts &lt;-<span class="st"> </span>kid.weights<span class="op">$</span>weight</span>
-<span id="cb52-8"><a href="univariat-data.html#cb52-8"></a><span class="kw">hist</span>(wts, <span class="dv">50</span>)</span>
-<span id="cb52-9"><a href="univariat-data.html#cb52-9"></a><span class="kw">mykurtosis</span>(wts)</span>
-<span id="cb52-10"><a href="univariat-data.html#cb52-10"></a></span>
-<span id="cb52-11"><a href="univariat-data.html#cb52-11"></a>z &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="kw">length</span>(wts))</span>
-<span id="cb52-12"><a href="univariat-data.html#cb52-12"></a><span class="kw">hist</span>(z, <span class="dt">br=</span><span class="dv">50</span>)</span>
-<span id="cb52-13"><a href="univariat-data.html#cb52-13"></a><span class="kw">mykurtosis</span>(z)</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="univariat-data.html#cb51-1"></a>mykurtosis &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
+<span id="cb51-2"><a href="univariat-data.html#cb51-2"></a>  n &lt;-<span class="st"> </span><span class="kw">length</span>(x)</span>
+<span id="cb51-3"><a href="univariat-data.html#cb51-3"></a>  z &lt;-<span class="st"> </span>(x<span class="op">-</span><span class="kw">mean</span>(x))<span class="op">/</span><span class="kw">sd</span>(x)</span>
+<span id="cb51-4"><a href="univariat-data.html#cb51-4"></a>  <span class="kw">return</span>(<span class="kw">sum</span>(z<span class="op">^</span><span class="dv">4</span>)<span class="op">/</span>n <span class="op">-</span><span class="st"> </span><span class="dv">3</span>)</span>
+<span id="cb51-5"><a href="univariat-data.html#cb51-5"></a>}</span>
+<span id="cb51-6"><a href="univariat-data.html#cb51-6"></a></span>
+<span id="cb51-7"><a href="univariat-data.html#cb51-7"></a>wts &lt;-<span class="st"> </span>kid.weights<span class="op">$</span>weight</span>
+<span id="cb51-8"><a href="univariat-data.html#cb51-8"></a><span class="kw">hist</span>(wts, <span class="dv">50</span>)</span>
+<span id="cb51-9"><a href="univariat-data.html#cb51-9"></a><span class="kw">mykurtosis</span>(wts)</span>
+<span id="cb51-10"><a href="univariat-data.html#cb51-10"></a></span>
+<span id="cb51-11"><a href="univariat-data.html#cb51-11"></a>z &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="kw">length</span>(wts))</span>
+<span id="cb51-12"><a href="univariat-data.html#cb51-12"></a><span class="kw">hist</span>(z, <span class="dt">br=</span><span class="dv">50</span>)</span>
+<span id="cb51-13"><a href="univariat-data.html#cb51-13"></a><span class="kw">mykurtosis</span>(z)</span></code></pre></div>
 </div>
 <div id="viewing-the-shape" class="section level2">
 <h2><span class="header-section-number">3.9</span> Viewing the shape</h2>
@@ -677,10 +668,10 @@ wts 변수 값들의 IQR 을 구하시오</li>
 <li>Histogram – Break up an interval, for each subinterval the number of data points are counted</li>
 <li>Density plots</li>
 </ul>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="univariat-data.html#cb53-1"></a>wts &lt;-<span class="st"> </span>kid.weights<span class="op">$</span>weight</span>
-<span id="cb53-2"><a href="univariat-data.html#cb53-2"></a>xrange &lt;-<span class="st"> </span><span class="kw">range</span>(wts)</span>
-<span id="cb53-3"><a href="univariat-data.html#cb53-3"></a>den &lt;-<span class="st"> </span><span class="kw">density</span>(wts)</span>
-<span id="cb53-4"><a href="univariat-data.html#cb53-4"></a><span class="kw">plot</span>(den, <span class="dt">xlim=</span>xrange, <span class="dt">xlab=</span><span class="st">&quot;densities&quot;</span>, <span class="dt">main=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="univariat-data.html#cb52-1"></a>wts &lt;-<span class="st"> </span>kid.weights<span class="op">$</span>weight</span>
+<span id="cb52-2"><a href="univariat-data.html#cb52-2"></a>xrange &lt;-<span class="st"> </span><span class="kw">range</span>(wts)</span>
+<span id="cb52-3"><a href="univariat-data.html#cb52-3"></a>den &lt;-<span class="st"> </span><span class="kw">density</span>(wts)</span>
+<span id="cb52-4"><a href="univariat-data.html#cb52-4"></a><span class="kw">plot</span>(den, <span class="dt">xlim=</span>xrange, <span class="dt">xlab=</span><span class="st">&quot;densities&quot;</span>, <span class="dt">main=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
 <p><img src="images/02/11.png" /></p>
 <ul>
 <li>Boxplots
@@ -691,6 +682,9 @@ wts 변수 값들의 IQR 을 구하시오</li>
 <li>Outliers – 1.5 x IQR</li>
 </ul></li>
 </ul>
+</div>
+<div id="problems" class="section level2">
+<h2><span class="header-section-number">3.10</span> Problems</h2>
 
 </div>
 </div>

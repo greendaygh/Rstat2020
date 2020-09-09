@@ -178,18 +178,7 @@ y
 y[1] <- "Gold"
 y
 ```
- - Odered factors (ex. 위치 바꾸기)
- 
-```{r, eval=F}
-#library(UsingR)
-str(Cars93)
-x <- Cars93$Origin
-plot(x)
-levels(x) <- c("non-USA", "USA")
-levels(x)
-plot(x)
-```
- 
+
  - Logical data
    + TRUE and FALSE
    + "is" functions
