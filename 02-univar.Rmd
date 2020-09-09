@@ -200,12 +200,6 @@ which(39 == precip)
 sum(precip < 30)
 sum(c(TRUE, TRUE))
 
-x <- Cars93$Origin
-x == "USA" 
-which(x == "USA")
-i <- which(x == "USA")
-x[i]
-
 x <- 1:100
 x < 10
 x > 90
@@ -229,28 +223,6 @@ current_time <- now() # record since 1970
 as.numeric(current_time)
 as.numeric(now())
 month(current_time)
-```
-
-
-### Example - Recoding values  
-다음은 신생아들의 키를 나타내는 data set 이다. 오류 값을 찾아내고 이들 값을 `NA`로 바꾼 후 평균 값을 구하라. 
-```{r, eval=F}
-x <- babies$dwt
-x
-```
-
-
-### Example - Average distance from center  
-
-![](images/02/02.png)
-
-\begin{equation}
-(| x_1 - \bar{x} | + |x_2 - \bar{x}| + ... + |x_n - \bar{x}| )/n
-\end{equation}
-
-```{r, eval=F}
-x <- rivers
-
 ```
 
 
@@ -518,5 +490,27 @@ plot(den, xlim=xrange, xlab="densities", main="")
 
 ## Problems
 
+
+
+### 01 Recoding values  
+다음은 신생아들의 키를 나타내는 data set 이다. 오류 값을 찾아내고 이들 값을 `NA`로 바꾼 후 평균 값을 구하라. 
+```{r, eval=F}
+x <- babies$dwt
+x
+```
+
+
+### 02 Average distance from center  
+
+![](images/02/02.png)
+
+\begin{equation}
+(| x_1 - \bar{x} | + |x_2 - \bar{x}| + ... + |x_n - \bar{x}| )/n
+\end{equation}
+
+```{r, eval=F}
+x <- rivers
+
+```
 
 
