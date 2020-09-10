@@ -1,7 +1,7 @@
 
 # Univariat data
 
-## Introduction
+## Introduction 2
 - Statistics: 데이터 분석을 통한 예측. 즉, 데이터를 수집, 정리하여 이로부터 미지의 사실에 대한 신빙성 있는 추론을 수행하는 과정
 
 ![](images/02/04-2.png)
@@ -226,7 +226,7 @@ month(current_time)
 ```
 
 
-## Functions
+## Functions 2
 
 - Define a function
 
@@ -250,6 +250,39 @@ get_dist <- function(x){
 
 ```
 
+## Miscellaneous 1
+
+랜덤 문자열 만들기 
+
+```{r, eval=F}
+LETTERS
+x <- sample(LETTERS, 10)
+x_paste <- paste(x, collapse="")
+
+random_string_generator <- function(n){
+  x <- sample(LETTERS, n)
+  x_paste <- paste(x, collapse="")
+  return(x_paste)
+}
+
+random_string_generator(20)
+random_strings <- replicate(10, random_string_generator(5))
+
+
+```
+
+
+특정 문자로 시작하는 데이터 뽑기
+
+```{r, eval=F}
+
+i <- grep("^D", random_strings)
+random_strings[i]
+
+i <- grep("D$", random_strings)
+random_strings[i]
+```
+
 
 
 ## Numeric summaries
@@ -261,7 +294,7 @@ get_dist <- function(x){
 ![](images/02/06.png)
 </center>
 
-- 대푯값 
+- 대푯값 (요약값)
 - Center – commonly known as “average” or “mean” but not the only one. 
   + median, mode, etc
   
@@ -275,7 +308,7 @@ get_dist <- function(x){
   + eg. bell shape – two sides are equally likely, large values are rather unlikely and values tend to cluster near the center.
 
 
-## Center
+## Center for a univariat variable
 
 <center>
 ![](images/02/07.png)
@@ -329,6 +362,7 @@ abline(h=mean(wts), col="red")
 abline(h=median(wts), col="blue")
 wts2 <- wts[wts<120]
 abline(h=mean(wts2), col="red", lty=2)
+abline(h=median(wts2), col="blue", lty=2)
 ```
 
 - Boxplot
@@ -345,7 +379,7 @@ text(x=1.3, y=quantile(x, 0.75), labels = "3사분위수")
 ![](images/02/03.png)
 
 
-## Spread 
+## Spread for a univariat variable
 
 <center>
 ![](images/02/08.png)
@@ -362,7 +396,7 @@ text(x=1.3, y=quantile(x, 0.75), labels = "3사분위수")
 - Sample standard deviation
   + 측정값들이 평균에서 떨어진 정도 
 \begin{equation}
- \sqrt{s^2} = sqrt{ \frac{1}{n-1}\sum_i(x_i - \bar{x})^2 }
+ \sqrt{s^2} = \sqrt{ \frac{1}{n-1}\sum_i(x_i - \bar{x})^2 }
 \end{equation}
 
   
@@ -414,7 +448,7 @@ wts <- kid.weights$weight
 
 
 
-## Shape
+## Shape for a univariat variable
 
 <center>
 ![](images/02/09.png)
@@ -488,29 +522,23 @@ plot(den, xlim=xrange, xlab="densities", main="")
   + These are good summary of even very large data sets. 
   + Outliers – 1.5 x IQR 
 
-## Problems
+## Problems 02
+
+1) `seq` 또는 `rep` 함수를 사용해서 다음 서열들을 만들고 `x` 변수에 저장하시오 
+
+1-1) "a", "a", "a", "a", "a"
+1-2) 1, 3, 5, 7, ..., 99
+1-3) 1, 1, 1, 2, 2, 2, 3, 3, 3
+1-4) 1, 2, 3, 4, 5, 4, 3, 2, 1
 
 
 
-### 01 Recoding values  
-다음은 신생아들의 키를 나타내는 data set 이다. 오류 값을 찾아내고 이들 값을 `NA`로 바꾼 후 평균 값을 구하라. 
+
+2) Recoding values  
+
+다음은 신생아들의 키를 나타내는 data set 이다. 오류 값을 찾아내고 이들 값을 `NA`로 바꾼 후 평균 값을 구하시오 (`babies` 데이터셋은 `UsingR` 패키지에 있으며 오류값은 999 입니다다)
 ```{r, eval=F}
 x <- babies$dwt
 x
 ```
-
-
-### 02 Average distance from center  
-
-![](images/02/02.png)
-
-\begin{equation}
-(| x_1 - \bar{x} | + |x_2 - \bar{x}| + ... + |x_n - \bar{x}| )/n
-\end{equation}
-
-```{r, eval=F}
-x <- rivers
-
-```
-
 
