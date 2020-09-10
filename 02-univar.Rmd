@@ -288,7 +288,7 @@ random_strings[i]
 ## Numeric summaries
 <center>
 ![](images/02/05.png)
-![](images/02/04.png)
+![](images/02/04-2.png)
 <br>
 <br>
 ![](images/02/06.png)
@@ -423,7 +423,7 @@ abline(v=mean(wts), col="red")
 
 
 - Example - z score
-wts의 z 값을 구하는 함수를 만들고 histogram을 그리시오  
+wts의 z 값을 구하는 함수를 만들고 histogram을 그리시오 
 
 ```{r, eval=F}
 wts <- kid.weights$weight
@@ -439,6 +439,59 @@ wts <- kid.weights$weight
 ![](images/02/10.png)
 </center>
 
+
+
+## Problems 02
+
+1) `seq` 또는 `rep` 함수를 사용해서 다음 서열들을 만들고 `x` 변수에 저장하시오 
+
+1-1) "a", "a", "a", "a", "a" 
+
+1-2) 1, 3, 5, 7, ..., 99
+
+1-3) 1, 1, 1, 2, 2, 2, 3, 3, 3
+
+1-4) 1, 2, 3, 4, 5, 4, 3, 2, 1
+
+<br>
+<br>
+
+2) Recording values  
+
+다음은 신생아들의 키를 나타내는 data set 이다. 오류 값을 찾아내고 이들 값을 `NA`로 바꾼 후 평균 값을 구하시오 (`babies` 데이터셋은 `UsingR` 패키지에 있으며 오류값은 999 입니다)
+```{r, eval=F}
+x <- babies$dwt
+x
+```
+
+
+<br>
+<br>
+
+3) `precip` 데이터는 미국 도시들의 연간 평균 강수량을 저장한 데이터이다. `precip`에서 "J"로 시작하는 도시이름을 찾고 해당 도시들의 평균 강수량을 구하시오 
+
+<br>
+<br>
+
+4) 위 강수량 데이터 `precip`에서 연평균 강수량이 50 이상인 도시를 뽑고 해당 도시들의 강수량에 따라서 순서대로 나열하시오 
+
+<br>
+<br>
+
+5) 특정 숫자가 짝수인지를 검사하는 방법은 해당 숫자를 2로 나누어 나머지가 0인지 확인하는 방법이다. `2 %% 2 == 0` 위와 같은 코드로 이를 구현할 수 있다. 다음 변수의 값들 중 짝수의 개수를 구하는 코드를 작성하시오 (1줄 코드임). 
+
+```{r, eval=F}
+x <- c(12, 3, 4, 2, 28, 11, 8, 9, 51, 89)
+```
+
+<br>
+<br>
+
+6) `bumpers` 데이터셋은 (`UsingR` 패키지) 자동차 범퍼를 교환하는데 필요한 비용을 나타낸다. 평균과 중간값, 표준편차를 구하고 교체 비용이 가장 비싼 차와 가장 싼 차가 어떤 차들인지 찾으시오. 
+
+
+
+
 - Example - IQR  
 wts 변수 값들의 IQR 을 구하시오 
 
@@ -447,98 +500,4 @@ wts <- kid.weights$weight
 ```
 
 
-
-## Shape for a univariat variable
-
-<center>
-![](images/02/09.png)
-</center>
- 
-- Symmetry and skew
-
-\begin{equation}
- sample skewness = \sqrt{n} \frac{\sum{(x_i - \bar{x})^2}}{(\sum{(x_i - \bar{x})^2)^{3/2}}} = \frac{1}{n}\sum{z_i^3}
-\end{equation}
-
-
-```{r, eval=F}
-myskew <- function(x){
-  n <- length(x)
-  z <- (x-mean(x))/sd(x)
-  return(sum(z^3)/n)
-}
-
-wts <- kid.weights$weight
-hist(wts, 50)
-myskew(wts)
-
-z <- rnorm(length(wts))
-hist(z, br=50)
-myskew(z)
-```
-
-- Sample excess kurtosis 
-  + Measure of tails
-  
-\begin{equation}
- sample excess kurtosis = n \frac{\sum{(x_i - \bar{x})^4}}{(\sum{(x_i - \bar{x})^2)^2}} -3 = \frac{1}{n}\sum{z_i^4} - 3
-\end{equation}
-
-```{r, eval=F}
-mykurtosis <- function(x){
-  n <- length(x)
-  z <- (x-mean(x))/sd(x)
-  return(sum(z^4)/n - 3)
-}
-
-wts <- kid.weights$weight
-hist(wts, 50)
-mykurtosis(wts)
-
-z <- rnorm(length(wts))
-hist(z, br=50)
-mykurtosis(z)
-```
-
-## Viewing the shape
-
-- Dot plots – Trouble with repeated values, only used for small data sets
-- Stem and leaf plot – Shows range, median, shape. But only for small data sets. trouble with clustered data. Rounding
-- Histogram – Break up an interval, for each subinterval the number of data points are counted
-- Density plots 
-
-```{r, eval=F}
-wts <- kid.weights$weight
-xrange <- range(wts)
-den <- density(wts)
-plot(den, xlim=xrange, xlab="densities", main="")
-```
-
-![](images/02/11.png)
-
-- Boxplots 
-  + It shows center, spread, shape
-  + Five-number summary of a univariate data set: min, max, Q1, Q3, and median
-  + These are good summary of even very large data sets. 
-  + Outliers – 1.5 x IQR 
-
-## Problems 02
-
-1) `seq` 또는 `rep` 함수를 사용해서 다음 서열들을 만들고 `x` 변수에 저장하시오 
-
-1-1) "a", "a", "a", "a", "a"
-1-2) 1, 3, 5, 7, ..., 99
-1-3) 1, 1, 1, 2, 2, 2, 3, 3, 3
-1-4) 1, 2, 3, 4, 5, 4, 3, 2, 1
-
-
-
-
-2) Recoding values  
-
-다음은 신생아들의 키를 나타내는 data set 이다. 오류 값을 찾아내고 이들 값을 `NA`로 바꾼 후 평균 값을 구하시오 (`babies` 데이터셋은 `UsingR` 패키지에 있으며 오류값은 999 입니다다)
-```{r, eval=F}
-x <- babies$dwt
-x
-```
 

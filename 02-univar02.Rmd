@@ -1,4 +1,83 @@
 
+
+
+## Shape for a univariat variable
+
+<center>
+![](images/02/09.png)
+</center>
+ 
+- Symmetry and skew
+
+\begin{equation}
+ sample skewness = \sqrt{n} \frac{\sum{(x_i - \bar{x})^2}}{(\sum{(x_i - \bar{x})^2)^{3/2}}} = \frac{1}{n}\sum{z_i^3}
+\end{equation}
+
+
+```{r, eval=F}
+myskew <- function(x){
+  n <- length(x)
+  z <- (x-mean(x))/sd(x)
+  return(sum(z^3)/n)
+}
+
+wts <- kid.weights$weight
+hist(wts, 50)
+myskew(wts)
+
+z <- rnorm(length(wts))
+hist(z, br=50)
+myskew(z)
+```
+
+- Sample excess kurtosis 
+  + Measure of tails
+  
+\begin{equation}
+ sample excess kurtosis = n \frac{\sum{(x_i - \bar{x})^4}}{(\sum{(x_i - \bar{x})^2)^2}} -3 = \frac{1}{n}\sum{z_i^4} - 3
+\end{equation}
+
+```{r, eval=F}
+mykurtosis <- function(x){
+  n <- length(x)
+  z <- (x-mean(x))/sd(x)
+  return(sum(z^4)/n - 3)
+}
+
+wts <- kid.weights$weight
+hist(wts, 50)
+mykurtosis(wts)
+
+z <- rnorm(length(wts))
+hist(z, br=50)
+mykurtosis(z)
+```
+
+## Viewing the shape
+
+- Dot plots – Trouble with repeated values, only used for small data sets
+- Stem and leaf plot – Shows range, median, shape. But only for small data sets. trouble with clustered data. Rounding
+- Histogram – Break up an interval, for each subinterval the number of data points are counted
+- Density plots 
+
+```{r, eval=F}
+wts <- kid.weights$weight
+xrange <- range(wts)
+den <- density(wts)
+plot(den, xlim=xrange, xlab="densities", main="")
+```
+
+![](images/02/11.png)
+
+- Boxplots 
+  + It shows center, spread, shape
+  + Five-number summary of a univariate data set: min, max, Q1, Q3, and median
+  + These are good summary of even very large data sets. 
+  + Outliers – 1.5 x IQR 
+
+
+
+
 ## Categorical data
 
 - Tabulating data
