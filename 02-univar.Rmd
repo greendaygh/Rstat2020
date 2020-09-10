@@ -240,7 +240,7 @@ my_mean <- function(x){
 
 ```
 
-- Write a function named `get_dist` for the example 3.3.2, and use it for the `rivers` data
+- Write a function named `get_dist` and use it for the `rivers` data
 
 ```{r, eval=F}
 
