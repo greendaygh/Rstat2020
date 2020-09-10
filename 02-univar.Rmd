@@ -492,8 +492,7 @@ x <- c(12, 3, 4, 2, 28, 11, 8, 9, 51, 89)
 
 
 
-- Example - IQR  
-wts 변수 값들의 IQR 을 구하시오 
+7) 다음 `wts` 변수 값들의 center를 나타내는 평균, 중간값과 spread를 나타내는 분산, 표준편차, IQR 을 구하시오 
 
 ```{r, eval=F}
 wts <- kid.weights$weight
