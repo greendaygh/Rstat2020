@@ -24,7 +24,7 @@
 <meta name="author" content="한국생명공학연구원 김하성" />
 
 
-<meta name="date" content="2020-09-17" />
+<meta name="date" content="2020-09-18" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -146,6 +146,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="1.8.1" data-path="index.html"><a href="index.html#lecture-chapter-1"><i class="fa fa-check"></i><b>1.8.1</b> Lecture Chapter 1</a></li>
 <li class="chapter" data-level="1.8.2" data-path="index.html"><a href="index.html#lecture-2"><i class="fa fa-check"></i><b>1.8.2</b> Lecture 2</a></li>
+<li class="chapter" data-level="1.8.3" data-path="index.html"><a href="index.html#lecture-3"><i class="fa fa-check"></i><b>1.8.3</b> Lecture 3</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="r-basics.html"><a href="r-basics.html"><i class="fa fa-check"></i><b>2</b> R basics</a>
@@ -734,7 +735,7 @@ wts의 z 값을 구하는 함수를 만들고 histogram을 그리시오</li>
 <p>도수분포표를 나타낸 그림으로 데이터를 특정 범위의 그룹으로 짝짓고 해당 범위와 그룹의 크기에 해당하는 막대를 그린 그래프입니다.</p>
 <div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="univariat-data.html#cb54-1"></a>x &lt;-<span class="st"> </span>faithful<span class="op">$</span>waiting</span>
 <span id="cb54-2"><a href="univariat-data.html#cb54-2"></a><span class="kw">hist</span>(x)</span>
-<span id="cb54-3"><a href="univariat-data.html#cb54-3"></a><span class="kw">hist</span>(x, <span class="dt">breaks =</span> <span class="dv">20</span>)</span>
+<span id="cb54-3"><a href="univariat-data.html#cb54-3"></a><span class="kw">hist</span>(x, <span class="dt">breaks =</span> <span class="dv">1000</span>)</span>
 <span id="cb54-4"><a href="univariat-data.html#cb54-4"></a><span class="kw">hist</span>(x, <span class="dt">breaks =</span> <span class="dv">20</span>, <span class="dt">freq=</span><span class="ot">FALSE</span>)</span>
 <span id="cb54-5"><a href="univariat-data.html#cb54-5"></a><span class="kw">hist</span>(x, <span class="dt">breaks =</span> <span class="dv">20</span>, <span class="dt">freq=</span><span class="ot">FALSE</span>, <span class="dt">main=</span><span class="st">&quot;Histogram&quot;</span>)</span>
 <span id="cb54-6"><a href="univariat-data.html#cb54-6"></a><span class="kw">hist</span>(x, <span class="dt">breaks =</span> <span class="dv">20</span>, <span class="dt">freq=</span><span class="ot">FALSE</span>, <span class="dt">main=</span><span class="st">&quot;Histogram&quot;</span>, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">100</span>))</span>

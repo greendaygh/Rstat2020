@@ -562,7 +562,7 @@ mykurtosis(z)
 ```{r, eval=F}
 x <- faithful$waiting
 hist(x)
-hist(x, breaks = 20)
+hist(x, breaks = 1000)
 hist(x, breaks = 20, freq=FALSE)
 hist(x, breaks = 20, freq=FALSE, main="Histogram")
 hist(x, breaks = 20, freq=FALSE, main="Histogram", xlim=c(0, 100))
