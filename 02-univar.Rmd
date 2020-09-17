@@ -500,3 +500,163 @@ wts <- kid.weights$weight
 
 
 
+
+## Shape for a univariat variable
+
+<center>
+![](images/02/09.png)
+</center>
+ 
+- Symmetry and skew
+
+\begin{equation}
+ \text{sample skewness} = \sqrt{n} \frac{\sum{(x_i - \bar{x})^2}}{(\sum{(x_i - \bar{x})^2)^{3/2}}} = \frac{1}{n}\sum{z_i^3}
+\end{equation}
+
+
+```{r, eval=F}
+myskew <- function(x){
+  n <- length(x)
+  z <- (x-mean(x))/sd(x)
+  return(sum(z^3)/n)
+}
+
+wts <- kid.weights$weight
+hist(wts, 50)
+myskew(wts)
+
+z <- rnorm(length(wts))
+hist(z, br=50)
+myskew(z)
+```
+
+- Sample excess kurtosis 
+  + Measure of tails
+  
+\begin{equation}
+  \text{sample excess kurtosis} = n \frac{\sum{(x_i - \bar{x})^4}}{(\sum{(x_i - \bar{x})^2)^2}} -3 = \frac{1}{n}\sum{z_i^4} - 3
+\end{equation}
+
+```{r, eval=F}
+mykurtosis <- function(x){
+  n <- length(x)
+  z <- (x-mean(x))/sd(x)
+  return(sum(z^4)/n - 3)
+}
+
+wts <- kid.weights$weight
+hist(wts, 50)
+mykurtosis(wts)
+
+z <- rnorm(length(wts))
+hist(z, br=50)
+mykurtosis(z)
+```
+
+## Viewing the shape
+
+### Histogram 
+
+도수분포표를 나타낸 그림으로 데이터를 특정 범위의 그룹으로 짝짓고 해당 범위와 그룹의 크기에 해당하는 막대를 그린 그래프입니다. 
+
+```{r, eval=F}
+x <- faithful$waiting
+hist(x)
+hist(x, breaks = 20)
+hist(x, breaks = 20, freq=FALSE)
+hist(x, breaks = 20, freq=FALSE, main="Histogram")
+hist(x, breaks = 20, freq=FALSE, main="Histogram", xlim=c(0, 100))
+hist(x, breaks = 20, freq=FALSE, main="Histogram", xlim=c(0, 100), ylim=c(0, 0.1))
+```
+
+히스토그램은 center (mean, median), spread (Variance, IQR), shape (tail)을 모두 볼 수 있는 그래프입니다. 그리는 방법은 전체 범위의 데이터가 포함되도록 범위를 정하고 동일 같격으로 구분되는 계급의 개수를 정한 후 해당 계급에 속하는 데이터의 개수를 세어 도수를 구합니다. 다음은 도수 분포표를 만드는 코드 입니다.
+
+```{r, eval=F}
+x <- faithful$waiting
+bins <- seq(40, 100, by=5)
+out <- cut(x, breaks=bins)
+table(out)
+plot(table(out))
+```
+
+
+### Density plots 
+
+히스토그램을 갖는 하나의 단변량 변수가 있을 때 특정 값이 선택될 확률은 히스토그램의 해당 계급의 도수값을 전체로 나눈 값이라고 할 수 있습니다. 그런나 연속적인 구간이나 시간의 경우에는 히스토그램보다는 density plot이 요약값을 보기에 더 적합합니다. 
+
+
+```{r, eval=F}
+wts <- kid.weights$weight
+xrange <- range(wts)
+den <- density(wts)
+plot(den, xlim=xrange, xlab="densities", main="")
+```
+
+![](images/02/11.png)
+
+### Boxplots 
+상자그림 또는 상자 수염 그림으로 불리는 boxplot은 다섯개의 주요 요약값을 (min, max, Q1, Q3, and median) 보여주며 대규모 데이터를 한 눈에 비교할 수 있는 좋은 방법 입니다. 
+
+```{r, eval=F}
+boxplot(kid.weights)
+boxplot(kid.weights$weight)
+
+#install.packages("vioplot")
+library(vioplot)
+vioplot(kid.weights)
+vioplot(kid.weights, col=c("#3CAEA3", "#F6D55C", "#ED553B"), rectCol=c("gray"), main="Kids")
+?vioplot
+
+#console
+par(mfrow=c(1,2))
+plot(density(kid.weights$weight))
+vioplot(kid.weights$weight)
+
+```
+
+
+## Quantile graph
+
+quantile plot은 일반적으로 두 개의 변수의 분포를 비교하는데 사용됩니다. 본 단원의 단일 변수의 경우 해당 변수의 분포가 정규분포인지를 검사하는데 사용될 수 있습니다.  
+```{r, eval=F}
+x <- rep(Macdonell$finger, Macdonell$frequency)
+qqnorm(x)
+hist(x, br=50)
+
+hist(Galton$child, br=50)
+x <- jitter(Galton$child, factor=5)
+hist(x, br=50)
+qqnorm(x)
+
+y <- rnorm(10000, mean(x), sd(x))
+hist(y, br=50)
+qqnorm(y)
+
+## overlay
+plot(density(x))
+lines(density(y), col="red")
+```
+
+
+## Categorical data
+
+단일 변수에서 범주형 데이터는 테이블 형태로 요약값 정보를 볼 수 있습니다. 
+
+```{r, eval=F}
+
+x <- babies$smoke
+x <- factor(x, labels=c("never", "now", "until current", "once, quit", "unknown"))
+table(x)
+out <- table(x)
+prop <- 100*out/sum(out)
+round(prop, digits=2)
+barplot(out)
+barplot(prop)
+dotplot(out)
+dotplot(prop)
+pie(out)
+
+```
+
+
+

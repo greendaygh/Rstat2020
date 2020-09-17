@@ -1,6 +1,4 @@
 
-
-
 ## Shape for a univariat variable
 
 <center>
