@@ -24,7 +24,7 @@
 <meta name="author" content="한국생명공학연구원 김하성" />
 
 
-<meta name="date" content="2020-09-18" />
+<meta name="date" content="2020-09-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -220,6 +220,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.3.5" data-path="bivariate-data.html"><a href="bivariate-data.html#the-method-of-least-squares"><i class="fa fa-check"></i><b>4.3.5</b> The method of least squares</a></li>
 </ul></li>
 <li class="chapter" data-level="4.4" data-path="bivariate-data.html"><a href="bivariate-data.html#problems-03"><i class="fa fa-check"></i><b>4.4</b> Problems 03</a></li>
+<li class="chapter" data-level="4.5" data-path="bivariate-data.html"><a href="bivariate-data.html#bivariate-categorical-data"><i class="fa fa-check"></i><b>4.5</b> Bivariate categorical data</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="bivariate-data.html"><a href="bivariate-data.html#contingency-tables"><i class="fa fa-check"></i><b>4.5.1</b> Contingency tables</a></li>
+<li class="chapter" data-level="4.5.2" data-path="bivariate-data.html"><a href="bivariate-data.html#marginal-distributions"><i class="fa fa-check"></i><b>4.5.2</b> Marginal distributions</a></li>
+<li class="chapter" data-level="4.5.3" data-path="bivariate-data.html"><a href="bivariate-data.html#conditional-distributions"><i class="fa fa-check"></i><b>4.5.3</b> Conditional distributions</a></li>
+<li class="chapter" data-level="4.5.4" data-path="bivariate-data.html"><a href="bivariate-data.html#graphical-summaries-of-contingency-tables"><i class="fa fa-check"></i><b>4.5.4</b> Graphical summaries of contingency tables</a></li>
+<li class="chapter" data-level="4.5.5" data-path="bivariate-data.html"><a href="bivariate-data.html#measures-of-association-for-categorical-data"><i class="fa fa-check"></i><b>4.5.5</b> Measures of association for categorical data</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="bivariate-data.html"><a href="bivariate-data.html#problems-04"><i class="fa fa-check"></i><b>4.6</b> Problems 04</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -488,36 +497,63 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><span class="math display">\[ \hat{y}_i = b_0 + b_1 x_i \]</span>
 <span class="math display">\[ residual = y_i - \hat{y}_i \]</span></p>
 <p><span class="math inline">\(\beta\)</span> 값은 최소제곱추정법이라는 방법으로 구할 수 있는데 이 방법은 각 점에서의 잔차를 최소화 하는 선분을 (회귀선) 구하는 과정이며 <span class="math inline">\(\beta\)</span>는 해당 선분의 기울기로 볼 수 있습니다. 즉, 추정에 의해서 구해진 회귀선은 <code>squared residual</code>을 최소화 하는 선분이라고 해석할 수 있습니다.</p>
+<p><span class="math display">\[ \arg\min_b\sum_i{(y_i - (b_0 + b_1 x_i))^2} \]</span></p>
 <p><img src="images/03/10.PNG" /></p>
 <p>선분 <span class="math inline">\(\hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x\)</span>의 최소 제곱법에 의한 <span class="math inline">\(\beta_0\)</span>와 <span class="math inline">\(\beta_1\)</span>의 추정값 <span class="math inline">\(\hat{\beta}_0\)</span>와 <span class="math inline">\(\hat{\beta}_1\)</span>은 다음과 같이 정의 됩니다.</p>
 <p><span class="math display">\[ \hat{\beta}_1 = \frac{\sum(x_i - \bar{x})(y_i-\bar{y})}{\sum(x_i - \bar{x})^2} = cor(x,y)\frac{s_y}{s_x}\]</span></p>
 <p><span class="math display">\[ \hat{\beta}_0 = \hat{y} - \hat{\beta}_1 x \]</span></p>
 <p>위 두 식에서 회귀선분의 기울기인 <span class="math inline">\(\hat{\beta}_1\)</span>은 상관계수에 <span class="math inline">\(s_y / s_x\)</span>를 곱한 수로 1만큼 x 축으로 변할 때 변화하는 y 값의 평균 변화량으로 해석하면 되겠습니다. 또한 상관계수와는 달리 설명변수와 반응변수인 <span class="math inline">\(x\)</span>와 <span class="math inline">\(y\)</span>가 바뀔경우 값이 달라지며 여전히 잔차의 합은 0가 됩니다. R에서는 다음과 같이 <code>lm</code> 함수를 사용하며 이 함수에 대한 더 자세한 내용은 11장에서 다시 배우게 되겠습니다.</p>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="bivariate-data.html#cb81-1"></a>?lm</span>
-<span id="cb81-2"><a href="bivariate-data.html#cb81-2"></a>out &lt;-<span class="st"> </span><span class="kw">lm</span>(maxrate <span class="op">~</span><span class="st"> </span>age, <span class="dt">data=</span>heartrate)</span>
-<span id="cb81-3"><a href="bivariate-data.html#cb81-3"></a>out</span>
-<span id="cb81-4"><a href="bivariate-data.html#cb81-4"></a></span>
-<span id="cb81-5"><a href="bivariate-data.html#cb81-5"></a><span class="co">## visualize fitted line</span></span>
-<span id="cb81-6"><a href="bivariate-data.html#cb81-6"></a><span class="kw">names</span>(out)</span>
-<span id="cb81-7"><a href="bivariate-data.html#cb81-7"></a><span class="kw">summary</span>(out)</span>
-<span id="cb81-8"><a href="bivariate-data.html#cb81-8"></a><span class="kw">plot</span>(maxrate <span class="op">~</span><span class="st"> </span>age, <span class="dt">data=</span>heartrate)</span>
-<span id="cb81-9"><a href="bivariate-data.html#cb81-9"></a><span class="kw">abline</span>(out)</span>
-<span id="cb81-10"><a href="bivariate-data.html#cb81-10"></a></span>
-<span id="cb81-11"><a href="bivariate-data.html#cb81-11"></a><span class="co">## residuals</span></span>
-<span id="cb81-12"><a href="bivariate-data.html#cb81-12"></a><span class="kw">sum</span>(<span class="kw">resid</span>(out))</span>
-<span id="cb81-13"><a href="bivariate-data.html#cb81-13"></a><span class="kw">sum</span>(out<span class="op">$</span>residuals)</span>
-<span id="cb81-14"><a href="bivariate-data.html#cb81-14"></a>res &lt;-<span class="st"> </span>heartrate<span class="op">$</span>maxrate <span class="op">-</span><span class="st"> </span>out<span class="op">$</span>fitted.values</span>
-<span id="cb81-15"><a href="bivariate-data.html#cb81-15"></a><span class="kw">sum</span>(res)</span>
-<span id="cb81-16"><a href="bivariate-data.html#cb81-16"></a></span>
-<span id="cb81-17"><a href="bivariate-data.html#cb81-17"></a><span class="co">## fitted values</span></span>
-<span id="cb81-18"><a href="bivariate-data.html#cb81-18"></a>age &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">30</span>, <span class="dv">40</span>)</span>
-<span id="cb81-19"><a href="bivariate-data.html#cb81-19"></a>out<span class="op">$</span>coefficients[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>out<span class="op">$</span>coefficients[<span class="dv">2</span>]<span class="op">*</span>age</span>
-<span id="cb81-20"><a href="bivariate-data.html#cb81-20"></a><span class="kw">predict</span>(out, <span class="kw">data.frame</span>(age))</span>
-<span id="cb81-21"><a href="bivariate-data.html#cb81-21"></a><span class="kw">head</span>(heartrate)</span>
-<span id="cb81-22"><a href="bivariate-data.html#cb81-22"></a><span class="kw">predict</span>(out, <span class="kw">data.frame</span>(<span class="dt">age=</span><span class="dv">30</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="bivariate-data.html#cb81-1"></a><span class="kw">library</span>(UsingR)</span>
+<span id="cb81-2"><a href="bivariate-data.html#cb81-2"></a>?lm</span>
+<span id="cb81-3"><a href="bivariate-data.html#cb81-3"></a>out &lt;-<span class="st"> </span><span class="kw">lm</span>(maxrate <span class="op">~</span><span class="st"> </span>age, <span class="dt">data=</span>heartrate)</span>
+<span id="cb81-4"><a href="bivariate-data.html#cb81-4"></a>out</span>
+<span id="cb81-5"><a href="bivariate-data.html#cb81-5"></a></span>
+<span id="cb81-6"><a href="bivariate-data.html#cb81-6"></a><span class="co">## visualize fitted line</span></span>
+<span id="cb81-7"><a href="bivariate-data.html#cb81-7"></a><span class="kw">names</span>(out)</span>
+<span id="cb81-8"><a href="bivariate-data.html#cb81-8"></a><span class="kw">summary</span>(out)</span>
+<span id="cb81-9"><a href="bivariate-data.html#cb81-9"></a><span class="kw">plot</span>(maxrate <span class="op">~</span><span class="st"> </span>age, <span class="dt">data=</span>heartrate)</span>
+<span id="cb81-10"><a href="bivariate-data.html#cb81-10"></a><span class="kw">abline</span>(out)</span>
+<span id="cb81-11"><a href="bivariate-data.html#cb81-11"></a></span>
+<span id="cb81-12"><a href="bivariate-data.html#cb81-12"></a><span class="co">## residuals</span></span>
+<span id="cb81-13"><a href="bivariate-data.html#cb81-13"></a><span class="kw">sum</span>(<span class="kw">resid</span>(out))</span>
+<span id="cb81-14"><a href="bivariate-data.html#cb81-14"></a><span class="kw">sum</span>(out<span class="op">$</span>residuals)</span>
+<span id="cb81-15"><a href="bivariate-data.html#cb81-15"></a>res &lt;-<span class="st"> </span>heartrate<span class="op">$</span>maxrate <span class="op">-</span><span class="st"> </span>out<span class="op">$</span>fitted.values</span>
+<span id="cb81-16"><a href="bivariate-data.html#cb81-16"></a><span class="kw">sum</span>(res)</span>
+<span id="cb81-17"><a href="bivariate-data.html#cb81-17"></a></span>
+<span id="cb81-18"><a href="bivariate-data.html#cb81-18"></a><span class="co">## fitted values</span></span>
+<span id="cb81-19"><a href="bivariate-data.html#cb81-19"></a>age &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">30</span>, <span class="dv">40</span>)</span>
+<span id="cb81-20"><a href="bivariate-data.html#cb81-20"></a>out<span class="op">$</span>coefficients[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>out<span class="op">$</span>coefficients[<span class="dv">2</span>]<span class="op">*</span>age</span>
+<span id="cb81-21"><a href="bivariate-data.html#cb81-21"></a><span class="kw">predict</span>(out, <span class="kw">data.frame</span>(age))</span>
+<span id="cb81-22"><a href="bivariate-data.html#cb81-22"></a><span class="kw">head</span>(heartrate)</span>
+<span id="cb81-23"><a href="bivariate-data.html#cb81-23"></a><span class="kw">predict</span>(out, <span class="kw">data.frame</span>(<span class="dt">age=</span><span class="dv">30</span>))</span></code></pre></div>
+<p>선형 추세선 외에 smoother를 이용한 곡선 추세선을 그릴 수 있습니다. 회귀 선분의 경우 전체 데이터에 대해서 <span class="math inline">\(b\)</span>를 구한 후 추세선을 그리나 전체 데이터가 아닌 일부 데이터에 대해서 회귀 선분을 그리고 그 선분들을 연결하면 곡선 형태의 추세선을 그릴 수 있습니다. <code>loess</code> 함수를 이용하면 local polynomial regression을 수행 할 수 있습니다.</p>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="bivariate-data.html#cb82-1"></a>f &lt;-<span class="st"> </span>child <span class="op">~</span><span class="st"> </span>parent</span>
+<span id="cb82-2"><a href="bivariate-data.html#cb82-2"></a><span class="kw">plot</span>(f, <span class="dt">data=</span>Galton, <span class="dt">col=</span><span class="kw">rgb</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>, <span class="dt">alpha=</span><span class="fl">0.25</span>))</span>
+<span id="cb82-3"><a href="bivariate-data.html#cb82-3"></a>res.lm &lt;-<span class="st"> </span><span class="kw">lm</span>(f, <span class="dt">data=</span>Galton)</span>
+<span id="cb82-4"><a href="bivariate-data.html#cb82-4"></a><span class="kw">abline</span>(res.lm, <span class="dt">lty=</span><span class="dv">1</span>, <span class="dt">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb82-5"><a href="bivariate-data.html#cb82-5"></a></span>
+<span id="cb82-6"><a href="bivariate-data.html#cb82-6"></a><span class="co">## loess</span></span>
+<span id="cb82-7"><a href="bivariate-data.html#cb82-7"></a>res.loess &lt;-<span class="st"> </span><span class="kw">loess</span>(f, <span class="dt">data=</span>Galton, <span class="dt">degree=</span><span class="dv">1</span>)</span>
+<span id="cb82-8"><a href="bivariate-data.html#cb82-8"></a>x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">64</span>, <span class="dv">73</span>, <span class="dt">length=</span><span class="dv">20</span>)</span>
+<span id="cb82-9"><a href="bivariate-data.html#cb82-9"></a>newdata &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">parent=</span>x)</span>
+<span id="cb82-10"><a href="bivariate-data.html#cb82-10"></a>predicted &lt;-<span class="st"> </span><span class="kw">predict</span>(res.loess, newdata)</span>
+<span id="cb82-11"><a href="bivariate-data.html#cb82-11"></a><span class="kw">lines</span>(predicted<span class="op">~</span>x, <span class="dt">lty=</span><span class="dv">2</span>, <span class="dt">lwd=</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="bivariate-data.html#cb83-1"></a>parent2 &lt;-<span class="st"> </span><span class="kw">jitter</span>(Galton<span class="op">$</span>parent)</span>
+<span id="cb83-2"><a href="bivariate-data.html#cb83-2"></a>child2 &lt;-<span class="st"> </span><span class="kw">jitter</span>(Galton<span class="op">$</span>child)</span>
+<span id="cb83-3"><a href="bivariate-data.html#cb83-3"></a>dat &lt;-<span class="st"> </span><span class="kw">data.frame</span>(parent2, child2)</span>
+<span id="cb83-4"><a href="bivariate-data.html#cb83-4"></a>f &lt;-<span class="st"> </span>child2 <span class="op">~</span><span class="st"> </span>parent2</span>
+<span id="cb83-5"><a href="bivariate-data.html#cb83-5"></a><span class="kw">plot</span>(f, <span class="dt">data=</span>dat, <span class="dt">col=</span><span class="kw">rgb</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>, <span class="dt">alpha=</span><span class="fl">0.25</span>))</span>
+<span id="cb83-6"><a href="bivariate-data.html#cb83-6"></a>res.lm &lt;-<span class="st"> </span><span class="kw">lm</span>(f, <span class="dt">data=</span>dat)</span>
+<span id="cb83-7"><a href="bivariate-data.html#cb83-7"></a><span class="kw">abline</span>(res.lm, <span class="dt">lty=</span><span class="dv">1</span>, <span class="dt">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb83-8"><a href="bivariate-data.html#cb83-8"></a></span>
+<span id="cb83-9"><a href="bivariate-data.html#cb83-9"></a><span class="co">## loess</span></span>
+<span id="cb83-10"><a href="bivariate-data.html#cb83-10"></a>res.loess &lt;-<span class="st"> </span><span class="kw">loess</span>(f, <span class="dt">data=</span>dat, <span class="dt">degree=</span><span class="dv">1</span>)</span>
+<span id="cb83-11"><a href="bivariate-data.html#cb83-11"></a>x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">64</span>, <span class="dv">73</span>, <span class="dt">length=</span><span class="dv">20</span>)</span>
+<span id="cb83-12"><a href="bivariate-data.html#cb83-12"></a>newdata &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">parent2=</span>x)</span>
+<span id="cb83-13"><a href="bivariate-data.html#cb83-13"></a>predicted &lt;-<span class="st"> </span><span class="kw">predict</span>(res.loess, newdata)</span>
+<span id="cb83-14"><a href="bivariate-data.html#cb83-14"></a><span class="kw">lines</span>(predicted<span class="op">~</span>x, <span class="dt">lty=</span><span class="dv">2</span>, <span class="dt">lwd=</span><span class="dv">2</span>, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
 <ul>
-<li><p>Example: fit 데이터에서 abdomen 과 wrist의 산점도를 그리고 선형모형을 적합한 후 추세선을 그리시오. 17cm wrist 크기를 갖는 사람은 얼마의 abdomen의 값을 가질지 예측하시오.</p></li>
-<li><p>correlation vs. association vs. relation</p></li>
+<li>correlation vs. association vs. relation</li>
 </ul>
 <div class="figure">
 <img src="images/03/13.PNG" alt="" />
@@ -529,7 +565,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="problems-03" class="section level2">
 <h2><span class="header-section-number">4.4</span> Problems 03</h2>
 <p>1-1) 다음 데이터를 <code>age</code> 변수에 저장하고 mean, median, variance 를 구하시오</p>
-<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="bivariate-data.html#cb82-1"></a>{<span class="dv">7</span>,   <span class="dv">9</span>,   <span class="dv">2</span>,  <span class="dv">64</span>,  <span class="dv">41</span>,  <span class="dv">60</span>,  <span class="dv">82</span>,  <span class="dv">31</span>,  <span class="dv">38</span>,  <span class="dv">25</span>,  <span class="dv">52</span>,  <span class="dv">68</span>,  <span class="dv">67</span>}</span></code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="bivariate-data.html#cb84-1"></a>{<span class="dv">7</span>,   <span class="dv">9</span>,   <span class="dv">2</span>,  <span class="dv">64</span>,  <span class="dv">41</span>,  <span class="dv">60</span>,  <span class="dv">82</span>,  <span class="dv">31</span>,  <span class="dv">38</span>,  <span class="dv">25</span>,  <span class="dv">52</span>,  <span class="dv">68</span>,  <span class="dv">67</span>}</span></code></pre></div>
 <p>1-2) 위 age 데이터를 z-score로 변환 하고 zage 변수에 저장하시오</p>
 <p>1-3) age와 zage 두 데이터셋에 대한 각각의 <code>boxplot</code>을 그리고 중간값을 출력하시오</p>
 <p>2-1) 다음 데이터를 list 타입의 변수, <code>record</code>에 저장하시오</p>
@@ -539,12 +575,172 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>2-2) 위 데이터를 <code>boxplot</code>을 이용해서 비교하시오</p>
 <p>3-1) <code>UsingR</code>의 <code>stud.recs</code> 데이터를 읽어들이고 <code>sat.v</code>와 <code>sat.m</code> 변수를 각각 <code>x</code>, <code>y</code>에 저장 후 각각의 density plot을 겹쳐서 그리고 center가 같은지 비교하시오</p>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="bivariate-data.html#cb83-1"></a><span class="kw">library</span>(UsingR)</span>
-<span id="cb83-2"><a href="bivariate-data.html#cb83-2"></a><span class="kw">str</span>(stud.recs)</span>
-<span id="cb83-3"><a href="bivariate-data.html#cb83-3"></a>x &lt;-<span class="st"> </span>stud.recs<span class="op">$</span>sat.v</span>
-<span id="cb83-4"><a href="bivariate-data.html#cb83-4"></a>y &lt;-<span class="st"> </span>stud.recs<span class="op">$</span>sat.m</span></code></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="bivariate-data.html#cb85-1"></a><span class="kw">library</span>(UsingR)</span>
+<span id="cb85-2"><a href="bivariate-data.html#cb85-2"></a><span class="kw">str</span>(stud.recs)</span>
+<span id="cb85-3"><a href="bivariate-data.html#cb85-3"></a>x &lt;-<span class="st"> </span>stud.recs<span class="op">$</span>sat.v</span>
+<span id="cb85-4"><a href="bivariate-data.html#cb85-4"></a>y &lt;-<span class="st"> </span>stud.recs<span class="op">$</span>sat.m</span></code></pre></div>
 <p>3-2) 위 데이터에서 <code>x</code>와 <code>y</code>의 shape이 같은지 비교하기 위한 적당한 그래프를 그리시오</p>
 <p>4-1) UsingR 패키지의 <code>fat</code>에는 체지방 데이터와 BMI 스코어가 <code>body.fat</code>과 <code>BMI</code>에 저장되어 있다. 두 변수의 관계를 나타내는 산포도를 그리고 상관계수를 구하시오.</p>
+</div>
+<div id="bivariate-categorical-data" class="section level2">
+<h2><span class="header-section-number">4.5</span> Bivariate categorical data</h2>
+<p>두 종류의 짝데이터가 모두 범주형일 경우에 그 연관성을 정량화하는 방법에 대해서 알아보겠습니다.</p>
+<div id="contingency-tables" class="section level3">
+<h3><span class="header-section-number">4.5.1</span> Contingency tables</h3>
+<p>범주형 데이터에는 summarized 된 데이터와 unsummarized 된 데이터가 있을 수 있으며 두 경우에 분석하는 전략이 다를 수 있습니다. 일반적으로 범주형 데이터는 각 샘플의 그룹 정보를 표시하여 나타내며 분석을 위해서는 이러한 그룹 정보를 기준으로 각 그룹에 해당하는 샘플의 갯수를 카운팅하여 contingency table (분할표)로 변환하여 분석을 수행하게 됩니다. 두 범주형 변수의 경우는 two-way contingency table로 나타낼 수 있습니다.</p>
+<p><img src="images/03/11.PNG" /></p>
+<p>R에서는 다음과 같은 다양한 방법으로 테이블을 만듭니다.</p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="bivariate-data.html#cb86-1"></a><span class="kw">rbind</span>(<span class="kw">c</span>(<span class="dv">56</span>,<span class="dv">8</span>), <span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">16</span>))</span>
+<span id="cb86-2"><a href="bivariate-data.html#cb86-2"></a><span class="kw">cbind</span>(<span class="kw">c</span>(<span class="dv">56</span>,<span class="dv">2</span>), <span class="kw">c</span>(<span class="dv">8</span>,<span class="dv">16</span>))</span>
+<span id="cb86-3"><a href="bivariate-data.html#cb86-3"></a></span>
+<span id="cb86-4"><a href="bivariate-data.html#cb86-4"></a>seatbelts &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">56</span>, <span class="dv">2</span>, <span class="dv">8</span>, <span class="dv">16</span>), <span class="dt">nrow=</span><span class="dv">2</span>)</span>
+<span id="cb86-5"><a href="bivariate-data.html#cb86-5"></a><span class="kw">rownames</span>(seatbelts) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;buckled&quot;</span>,<span class="st">&quot;unbuckled&quot;</span>)</span>
+<span id="cb86-6"><a href="bivariate-data.html#cb86-6"></a><span class="kw">colnames</span>(seatbelts) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;buckled&quot;</span>,<span class="st">&quot;unbuckled&quot;</span>)</span>
+<span id="cb86-7"><a href="bivariate-data.html#cb86-7"></a>seatbelts</span>
+<span id="cb86-8"><a href="bivariate-data.html#cb86-8"></a></span>
+<span id="cb86-9"><a href="bivariate-data.html#cb86-9"></a><span class="kw">rownames</span>(seatbelts) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;pa_buckled&quot;</span>,<span class="st">&quot;pa_unbuckled&quot;</span>)</span>
+<span id="cb86-10"><a href="bivariate-data.html#cb86-10"></a><span class="kw">colnames</span>(seatbelts) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;ch_buckled&quot;</span>,<span class="st">&quot;ch_unbuckled&quot;</span>)</span>
+<span id="cb86-11"><a href="bivariate-data.html#cb86-11"></a>seatbelts</span>
+<span id="cb86-12"><a href="bivariate-data.html#cb86-12"></a></span>
+<span id="cb86-13"><a href="bivariate-data.html#cb86-13"></a><span class="kw">dimnames</span>(seatbelts) &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">parent=</span><span class="kw">c</span>(<span class="st">&quot;buckled&quot;</span>,<span class="st">&quot;unbuckled&quot;</span>),</span>
+<span id="cb86-14"><a href="bivariate-data.html#cb86-14"></a><span class="dt">child=</span><span class="kw">c</span>(<span class="st">&quot;buckled&quot;</span>,<span class="st">&quot;unbuckled&quot;</span>))</span>
+<span id="cb86-15"><a href="bivariate-data.html#cb86-15"></a>seatbelts</span></code></pre></div>
+<p>Unsummarized 데이터의 경우는 다음과 같이 <code>table</code>함수를 사용하여 해당 범주에 속하는 데이터의 갯수를 카운팅하고 테이블을 만듭니다.</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="bivariate-data.html#cb87-1"></a><span class="kw">head</span>(grades)</span>
+<span id="cb87-2"><a href="bivariate-data.html#cb87-2"></a><span class="kw">str</span>(grades)</span>
+<span id="cb87-3"><a href="bivariate-data.html#cb87-3"></a>mytbl &lt;-<span class="st"> </span><span class="kw">table</span>(grades<span class="op">$</span>prev, grades<span class="op">$</span>grade)</span></code></pre></div>
+</div>
+<div id="marginal-distributions" class="section level3">
+<h3><span class="header-section-number">4.5.2</span> Marginal distributions</h3>
+<p>분할표를 이용한 두 범주형 변수의 연관성을 정량화 하기 전에 알아야할 두 가지 개념 중 하나는 주변분포 (marginal distribution)이고 다른 하나는 조건부분포 (conditional distributoin) 입니다. two-way 테이블은 두 개의 변수에 대한 요약 정보를 나타내며 각 변수들의 분표를 독립적으로 정량화 한 경우를 주변분포라고 합니다. R에서는 <code>colSums</code>, <code>rowSums</code> 또는 <code>margin.table</code>을 이용하여 계산 할 수 있습니다.</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="bivariate-data.html#cb88-1"></a>mytbl</span>
+<span id="cb88-2"><a href="bivariate-data.html#cb88-2"></a><span class="kw">rowSums</span>(mytbl)</span>
+<span id="cb88-3"><a href="bivariate-data.html#cb88-3"></a>x &lt;-<span class="st"> </span><span class="kw">margin.table</span>(mytbl, <span class="dt">margin=</span><span class="dv">1</span>)</span>
+<span id="cb88-4"><a href="bivariate-data.html#cb88-4"></a><span class="kw">hist</span>(x, <span class="dt">br=</span><span class="dv">10</span>)</span>
+<span id="cb88-5"><a href="bivariate-data.html#cb88-5"></a></span>
+<span id="cb88-6"><a href="bivariate-data.html#cb88-6"></a><span class="kw">colSums</span>(mytbl)</span>
+<span id="cb88-7"><a href="bivariate-data.html#cb88-7"></a>x &lt;-<span class="st"> </span><span class="kw">margin.table</span>(mytbl, <span class="dt">margin=</span><span class="dv">2</span>)</span>
+<span id="cb88-8"><a href="bivariate-data.html#cb88-8"></a><span class="kw">hist</span>(x, <span class="dt">br=</span><span class="dv">10</span>)</span></code></pre></div>
+</div>
+<div id="conditional-distributions" class="section level3">
+<h3><span class="header-section-number">4.5.3</span> Conditional distributions</h3>
+<p>조건부 분포는 분할표의 하나의 row에 대해서 다른 row와 비교하는 경우를 생각하면 됩니다. 즉 위 안전벨트 데이터에서 부모가 벨트를 맬 경우와 매지 않을 경우 각각에 대한 아이들의 벨트 착용 비율을 말합니다.</p>
+<p><span class="math display">\[ p(C=b|P=b) = \frac{p(C=b, P=b)}{p(P=b)} \]</span></p>
+<p>R에서는 Marginal 분포 값으로 각 해당하는 cell의 값을 나누어 비율을 계산할 수 있습니다. Seatbelt 데이터의 경우 부모가 벨트를 착용할 경우 아이들이 착용하는 비율이 0.875이고 부모가 착용하지 않을 때 아이들이 착용하는 비율은 0.11로 차이가 보임을 알 수 있습니다.</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="bivariate-data.html#cb89-1"></a><span class="kw">prop.table</span>(seatbelts)</span>
+<span id="cb89-2"><a href="bivariate-data.html#cb89-2"></a>seatbelts<span class="op">/</span><span class="kw">sum</span>(seatbelts)</span>
+<span id="cb89-3"><a href="bivariate-data.html#cb89-3"></a></span>
+<span id="cb89-4"><a href="bivariate-data.html#cb89-4"></a><span class="kw">prop.table</span>(seatbelts, <span class="dt">margin=</span><span class="dv">1</span>)</span>
+<span id="cb89-5"><a href="bivariate-data.html#cb89-5"></a><span class="kw">prop.table</span>(seatbelts, <span class="dt">margin=</span><span class="dv">2</span>)</span></code></pre></div>
+<p>R 이 제공하는 <code>xtabs</code> 함수를 사용하면 위와 같은 계산을 쉽게 할 수 있습니다. 다음 <code>Fingerprints</code> 데이터는 whorls 와 Loops의 갯수의 조합에 해당하는 사람들의 수를 세어놓은 데이터입니다. <code>NA</code>를 제외하고 테이블을 만들기 위해서는 각 카테고리별로 테이블을 나누고 해당 cell에 맞는 값을 할당하는 복잡한 과정이 필요하지만 <code>xtabs</code> 함수를 사용하면 위 과정을 쉽게 수행할 수 있습니다.</p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="bivariate-data.html#cb90-1"></a><span class="kw">head</span>(Fingerprints)</span>
+<span id="cb90-2"><a href="bivariate-data.html#cb90-2"></a><span class="kw">tail</span>(Fingerprints)</span>
+<span id="cb90-3"><a href="bivariate-data.html#cb90-3"></a></span>
+<span id="cb90-4"><a href="bivariate-data.html#cb90-4"></a><span class="co">## without xtabs</span></span>
+<span id="cb90-5"><a href="bivariate-data.html#cb90-5"></a>idx &lt;-<span class="st"> </span><span class="op">!</span><span class="kw">is.na</span>(Fingerprints<span class="op">$</span>count)</span>
+<span id="cb90-6"><a href="bivariate-data.html#cb90-6"></a>Fingerprints[idx,]</span>
+<span id="cb90-7"><a href="bivariate-data.html#cb90-7"></a>whorls &lt;-<span class="st"> </span><span class="kw">rep</span>(Fingerprints<span class="op">$</span>Whorls[idx], Fingerprints<span class="op">$</span>count[idx])</span>
+<span id="cb90-8"><a href="bivariate-data.html#cb90-8"></a>loops &lt;-<span class="st"> </span><span class="kw">rep</span>(Fingerprints<span class="op">$</span>Loops[idx], Fingerprints<span class="op">$</span>count[idx])</span>
+<span id="cb90-9"><a href="bivariate-data.html#cb90-9"></a><span class="kw">table</span>(whorls, loops)</span>
+<span id="cb90-10"><a href="bivariate-data.html#cb90-10"></a></span>
+<span id="cb90-11"><a href="bivariate-data.html#cb90-11"></a><span class="co">## with xtabs</span></span>
+<span id="cb90-12"><a href="bivariate-data.html#cb90-12"></a><span class="kw">xtabs</span>(count <span class="op">~</span><span class="st"> </span>Whorls <span class="op">+</span><span class="st"> </span>Loops, Fingerprints)</span>
+<span id="cb90-13"><a href="bivariate-data.html#cb90-13"></a><span class="kw">xtabs</span>(count <span class="op">~</span><span class="st"> </span>., Fingerprints)</span></code></pre></div>
+<p><code>xtabs</code>의 formula에 count 데이터가 없을 경우 공란으로 비워두면 자동으로 해당되는 범주의 갯수를 계산해서 분할표를 만들어줍니다.</p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="bivariate-data.html#cb91-1"></a><span class="kw">str</span>(Cars93)</span>
+<span id="cb91-2"><a href="bivariate-data.html#cb91-2"></a><span class="kw">xtabs</span>( <span class="op">~</span><span class="st"> </span>Origin <span class="op">+</span><span class="st"> </span>Type, Cars93)</span></code></pre></div>
+</div>
+<div id="graphical-summaries-of-contingency-tables" class="section level3">
+<h3><span class="header-section-number">4.5.4</span> Graphical summaries of contingency tables</h3>
+<p>테이블 데이터를 가시화 하는 가장 쉬운 방법은 <code>barplot</code> 함수를 이용하는 것 입니다.</p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="bivariate-data.html#cb92-1"></a><span class="kw">barplot</span>(seatbelts)</span>
+<span id="cb92-2"><a href="bivariate-data.html#cb92-2"></a><span class="kw">barplot</span>(seatbelts, <span class="dt">beside=</span>T)</span>
+<span id="cb92-3"><a href="bivariate-data.html#cb92-3"></a><span class="kw">barplot</span>(seatbelts, <span class="dt">beside=</span>T, <span class="dt">legend=</span><span class="kw">rownames</span>(seatbelts))</span>
+<span id="cb92-4"><a href="bivariate-data.html#cb92-4"></a><span class="kw">barplot</span>(seatbelts, <span class="dt">beside=</span>T, <span class="dt">legend=</span><span class="kw">rownames</span>(seatbelts), <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>))</span></code></pre></div>
+<p><code>mosaic plot</code>은 <code>barplot</code>을 확장한 개념입니다. titanic 예제는 타이타닉호에 탑승했던 승객들의 객실 등급과 생존 유무 등을 정리해 놓은 데이터셋 입니다. mosaic plot을 통해서 Sex와 Survived 의 관계를 관측할 수 있으며 이를 확장하여 Class에 대한 분류를 더 하여 정보를 비교할 수 있습니다.</p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="bivariate-data.html#cb93-1"></a>titanic &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(Titanic)</span>
+<span id="cb93-2"><a href="bivariate-data.html#cb93-2"></a><span class="kw">head</span>(titanic)</span>
+<span id="cb93-3"><a href="bivariate-data.html#cb93-3"></a>tbl &lt;-<span class="st"> </span><span class="kw">xtabs</span>(Freq <span class="op">~</span><span class="st"> </span>Survived <span class="op">+</span><span class="st"> </span>Class, <span class="dt">data=</span>titanic, <span class="dt">subset=</span>Sex<span class="op">==</span><span class="st">&quot;Female&quot;</span>)</span>
+<span id="cb93-4"><a href="bivariate-data.html#cb93-4"></a><span class="kw">mosaicplot</span>(tbl)</span>
+<span id="cb93-5"><a href="bivariate-data.html#cb93-5"></a>tbl &lt;-<span class="st"> </span><span class="kw">xtabs</span>(Freq <span class="op">~</span><span class="st"> </span>Survived <span class="op">+</span><span class="st"> </span>Class, <span class="dt">data=</span>titanic)</span>
+<span id="cb93-6"><a href="bivariate-data.html#cb93-6"></a><span class="kw">mosaicplot</span>(tbl)</span>
+<span id="cb93-7"><a href="bivariate-data.html#cb93-7"></a></span>
+<span id="cb93-8"><a href="bivariate-data.html#cb93-8"></a><span class="kw">xtabs</span>(Freq <span class="op">~</span><span class="st"> </span>Sex, titanic)</span>
+<span id="cb93-9"><a href="bivariate-data.html#cb93-9"></a>tbl &lt;-<span class="st"> </span><span class="kw">xtabs</span>(Freq <span class="op">~</span><span class="st"> </span>Sex <span class="op">+</span><span class="st"> </span>Survived, titanic)</span>
+<span id="cb93-10"><a href="bivariate-data.html#cb93-10"></a><span class="kw">mosaicplot</span>(tbl)</span>
+<span id="cb93-11"><a href="bivariate-data.html#cb93-11"></a>tbl &lt;-<span class="st"> </span><span class="kw">xtabs</span>(Freq <span class="op">~</span><span class="st"> </span>Sex <span class="op">+</span><span class="st"> </span>Survived <span class="op">+</span><span class="st"> </span>Class, titanic)</span>
+<span id="cb93-12"><a href="bivariate-data.html#cb93-12"></a><span class="kw">mosaicplot</span>(tbl)</span></code></pre></div>
+</div>
+<div id="measures-of-association-for-categorical-data" class="section level3">
+<h3><span class="header-section-number">4.5.5</span> Measures of association for categorical data</h3>
+<p>타이타닉 데이터에서 객실 등급과 생존율의 그룹별 사람수를 보면 다음과 같이 등급별로 생존 비율이 크게 다른 패턴을 가짐을 알 수 있습니다. 이는 두 변수가 서로 상관되어 있음을 의미하는데 비록 이 변수들이 숫자형 변수는 아니지만 자연스럽게 그룹별로 정렬될 수 있고 따라서 그룹별 비율을 비교하므로써 상관성에 대한 유무를 판단할 수 있습니다.</p>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="bivariate-data.html#cb94-1"></a><span class="kw">mosaicplot</span>(<span class="kw">xtabs</span>(Freq <span class="op">~</span><span class="st"> </span>Class <span class="op">+</span><span class="st"> </span>Survived, <span class="dt">data=</span>titanic))</span></code></pre></div>
+<p>Kendal tau correlation은 concordant/discordant pair를 이용한 정량적 연관성 측정값으로 다음과 같이 계산 할 수 있습니다. 특정 관측 데이터 pair (x1, y1)과 (x2, y2)가 있을 때 x1과 y1이 x2, y2에 비해서 둘 다 높은 (또는 낮은) rank에 위치할 경우 concordant 하다고 하며 반대로 x2 또는 y2 둘 중 하나는 높으나 다른 하나는 낮은 또는 그 반대인 경우 discordant 한 것으로 정의 됩니다. 피어슨 상관성과 같은 -1부터 1사이의 값을 가지며 0은 연관이 전혀 없는 경우를 말합니다.</p>
+<p><span class="math display">\[ \tau = \frac{Number ~ of ~ concordant ~ pair - Number ~ of ~ discordant ~ pair}{n(n-1)/2} \]</span></p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="bivariate-data.html#cb95-1"></a>y &lt;-<span class="st"> </span><span class="kw">rep</span>(titanic<span class="op">$</span>Survived, titanic<span class="op">$</span>Freq)</span>
+<span id="cb95-2"><a href="bivariate-data.html#cb95-2"></a>y &lt;-<span class="st"> </span><span class="kw">ordered</span>(y)</span>
+<span id="cb95-3"><a href="bivariate-data.html#cb95-3"></a>x &lt;-<span class="st"> </span><span class="kw">rep</span>(titanic<span class="op">$</span>Class, titanic<span class="op">$</span>Freq)</span>
+<span id="cb95-4"><a href="bivariate-data.html#cb95-4"></a>x &lt;-<span class="st"> </span><span class="kw">ordered</span>(x)</span>
+<span id="cb95-5"><a href="bivariate-data.html#cb95-5"></a><span class="kw">as.numeric</span>(y)</span>
+<span id="cb95-6"><a href="bivariate-data.html#cb95-6"></a><span class="kw">as.numeric</span>(x)</span>
+<span id="cb95-7"><a href="bivariate-data.html#cb95-7"></a><span class="kw">cor</span>(<span class="kw">as.numeric</span>(y), <span class="kw">as.numeric</span>(x), <span class="dt">method=</span><span class="st">&quot;kendall&quot;</span>)</span></code></pre></div>
+<p>The chi-squared statistics 는 가장 널리 쓰이는 범주형 자료의 연관성 척도로 다음과 같이 정의됩니다. 수식의 “o”와 “e”는 각각 관측값과 예측값을 나타냅니다. 이 값이 클 경우 연관이 크다는 것이고 크고 작음에 대한 검증은 10장에서 다시 다루기로 합니다.</p>
+<p><span class="math display">\[ chi-squared ~ statistic = \sum \frac{(f_o - f_e)^2}{f_e} \]</span></p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="bivariate-data.html#cb96-1"></a>f &lt;-<span class="st"> </span>Freq <span class="op">~</span><span class="st"> </span>Survived <span class="op">+</span><span class="st"> </span>Class</span>
+<span id="cb96-2"><a href="bivariate-data.html#cb96-2"></a>tbl &lt;-<span class="st"> </span><span class="kw">xtabs</span>(f, <span class="dt">data=</span>titanic, <span class="dt">subset=</span><span class="kw">c</span>(Sex<span class="op">==</span><span class="st">&quot;Female&quot;</span>))</span>
+<span id="cb96-3"><a href="bivariate-data.html#cb96-3"></a><span class="kw">summary</span>(tbl)</span></code></pre></div>
+<p><code>seatbelt</code> 데이터 부모와 아이들의 안전벨트를 매는 두 사건 (변수)가 독립이라면 <span class="math inline">\(p(C, P) == p(C)p(P)\)</span> 즉, 결합확률이 각 확률을 곱한 것과 같고 기대값은 확률 x 전체 사건의 수(<span class="math inline">\(N\)</span>) 이므로 다시 적으면 <span class="math inline">\(N p(C,P) == N p(C)p(P)\)</span> 입니다. 여기서 <span class="math inline">\(N p(C,P)\)</span>는 우리가 관측한 값으로 볼 수 있고 <span class="math inline">\(N p(C) p(P)\)</span>는 독립을 가정한 상태에서 기대값이라고 볼 수 있습니다.</p>
+<p><img src="images/03/15.png" /></p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="bivariate-data.html#cb97-1"></a>seatbelts &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">56</span>, <span class="dv">2</span>, <span class="dv">8</span>, <span class="dv">16</span>), <span class="dt">nrow=</span><span class="dv">2</span>)</span>
+<span id="cb97-2"><a href="bivariate-data.html#cb97-2"></a><span class="kw">rownames</span>(seatbelts) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;pa_buckled&quot;</span>,<span class="st">&quot;pa_unbuckled&quot;</span>)</span>
+<span id="cb97-3"><a href="bivariate-data.html#cb97-3"></a><span class="kw">colnames</span>(seatbelts) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;ch_buckled&quot;</span>,<span class="st">&quot;ch_unbuckled&quot;</span>)</span>
+<span id="cb97-4"><a href="bivariate-data.html#cb97-4"></a>seatbelts</span>
+<span id="cb97-5"><a href="bivariate-data.html#cb97-5"></a></span>
+<span id="cb97-6"><a href="bivariate-data.html#cb97-6"></a>fo &lt;-<span class="st"> </span>seatbelts</span>
+<span id="cb97-7"><a href="bivariate-data.html#cb97-7"></a>fo</span>
+<span id="cb97-8"><a href="bivariate-data.html#cb97-8"></a><span class="co">## marginal probability</span></span>
+<span id="cb97-9"><a href="bivariate-data.html#cb97-9"></a>margin_rows &lt;-<span class="st"> </span><span class="kw">rowSums</span>(fo)<span class="op">/</span><span class="kw">sum</span>(fo)</span>
+<span id="cb97-10"><a href="bivariate-data.html#cb97-10"></a>margin_cols &lt;-<span class="st"> </span><span class="kw">colSums</span>(fo)<span class="op">/</span><span class="kw">sum</span>(fo)</span>
+<span id="cb97-11"><a href="bivariate-data.html#cb97-11"></a></span>
+<span id="cb97-12"><a href="bivariate-data.html#cb97-12"></a>fe &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">2</span>,) </span>
+<span id="cb97-13"><a href="bivariate-data.html#cb97-13"></a><span class="kw">rownames</span>(fe) &lt;-<span class="st"> </span><span class="kw">rownames</span>(fo)</span>
+<span id="cb97-14"><a href="bivariate-data.html#cb97-14"></a><span class="kw">colnames</span>(fe) &lt;-<span class="st"> </span><span class="kw">rownames</span>(fo)</span>
+<span id="cb97-15"><a href="bivariate-data.html#cb97-15"></a><span class="co">## expected numbers</span></span>
+<span id="cb97-16"><a href="bivariate-data.html#cb97-16"></a>fe[<span class="dv">1</span>,<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">sum</span>(fo)<span class="op">*</span>margin_rows[<span class="dv">1</span>]<span class="op">*</span>margin_cols[<span class="dv">1</span>]</span>
+<span id="cb97-17"><a href="bivariate-data.html#cb97-17"></a>fe[<span class="dv">1</span>,<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">sum</span>(fo)<span class="op">*</span>margin_rows[<span class="dv">1</span>]<span class="op">*</span>margin_cols[<span class="dv">2</span>]</span>
+<span id="cb97-18"><a href="bivariate-data.html#cb97-18"></a>fe[<span class="dv">2</span>,<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">sum</span>(fo)<span class="op">*</span>margin_rows[<span class="dv">2</span>]<span class="op">*</span>margin_cols[<span class="dv">1</span>]</span>
+<span id="cb97-19"><a href="bivariate-data.html#cb97-19"></a>fe[<span class="dv">2</span>,<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">sum</span>(fo)<span class="op">*</span>margin_rows[<span class="dv">2</span>]<span class="op">*</span>margin_cols[<span class="dv">2</span>]</span>
+<span id="cb97-20"><a href="bivariate-data.html#cb97-20"></a></span>
+<span id="cb97-21"><a href="bivariate-data.html#cb97-21"></a><span class="kw">sum</span>((fo<span class="op">-</span>fe)<span class="op">^</span><span class="dv">2</span> <span class="op">/</span><span class="st"> </span>fe)</span>
+<span id="cb97-22"><a href="bivariate-data.html#cb97-22"></a></span>
+<span id="cb97-23"><a href="bivariate-data.html#cb97-23"></a><span class="co">## use chisq.test function</span></span>
+<span id="cb97-24"><a href="bivariate-data.html#cb97-24"></a><span class="kw">chisq.test</span>(fo, <span class="dt">correct=</span>F)</span></code></pre></div>
+</div>
+</div>
+<div id="problems-04" class="section level2">
+<h2><span class="header-section-number">4.6</span> Problems 04</h2>
+<ol style="list-style-type: decimal">
+<li><p><code>batting(UsingR)</code> 데이터는 2002년 메이저리그 통계자료이다. 스트라이크아웃 (SO)와 홈런 (HR)의 상관계수를 구하고 산점도를 그리시오.</p></li>
+<li><p><code>fat(UsingR)</code> 데이터에서 복부둘레(abdomen)와 손목둘레(wrist)를 각각 반응변수(y)와 설명변수(x)로 놓고 선형 모형을 적합하시오. 손목 둘레가 17인 사람의 복부 둘레를 예측하시오.</p></li>
+</ol>
+<p>03-1) <code>UScereal</code> 데이터셋은 미국 식료품점의 선반에 진열된 시리얼 제품의 정보에 대한 데이터임. 시리얼 생산 브랜드와 (<code>UScereal$mfr</code>) 디스플레이되는 floor 층 수 (<code>UScereal$shelf</code>) 관계를 나타내는 테이블을 구해서 <code>tbl</code> 변수에 저장하고 출력하시오</p>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="bivariate-data.html#cb98-1"></a><span class="kw">library</span>(MASS)</span>
+<span id="cb98-2"><a href="bivariate-data.html#cb98-2"></a><span class="kw">head</span>(UScereal)</span>
+<span id="cb98-3"><a href="bivariate-data.html#cb98-3"></a><span class="kw">str</span>(UScereal)</span>
+<span id="cb98-4"><a href="bivariate-data.html#cb98-4"></a>?UScereal</span></code></pre></div>
+<p>03-2) 브랜드와 진열 층 수와의 관계를 <code>barplot</code>으로 표현하시오
+03-3) 테이블의 각 cell 별 기대값을 구하고 chisqure 값을 구하시오</p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="bivariate-data.html#cb99-1"></a>tbl &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(<span class="kw">table</span>(UScereal<span class="op">$</span>mfr, UScereal<span class="op">$</span>shelf))</span>
+<span id="cb99-2"><a href="bivariate-data.html#cb99-2"></a><span class="kw">barplot</span>(tbl, <span class="dt">beside=</span>T)</span>
+<span id="cb99-3"><a href="bivariate-data.html#cb99-3"></a>colvals &lt;-<span class="st"> </span><span class="kw">colSums</span>(tbl)<span class="op">/</span><span class="kw">sum</span>(tbl)</span>
+<span id="cb99-4"><a href="bivariate-data.html#cb99-4"></a>rowvals &lt;-<span class="st"> </span><span class="kw">rowSums</span>(tbl)<span class="op">/</span><span class="kw">sum</span>(tbl)</span>
+<span id="cb99-5"><a href="bivariate-data.html#cb99-5"></a>fl1_exp &lt;-<span class="st"> </span>rowvals <span class="op">*</span><span class="st"> </span>colvals[<span class="dv">1</span>] <span class="op">*</span><span class="st"> </span><span class="kw">sum</span>(tbl)</span>
+<span id="cb99-6"><a href="bivariate-data.html#cb99-6"></a>fl2_exp &lt;-<span class="st"> </span>rowvals <span class="op">*</span><span class="st"> </span>colvals[<span class="dv">2</span>] <span class="op">*</span><span class="st"> </span><span class="kw">sum</span>(tbl)</span>
+<span id="cb99-7"><a href="bivariate-data.html#cb99-7"></a>fl3_exp &lt;-<span class="st"> </span>rowvals <span class="op">*</span><span class="st"> </span>colvals[<span class="dv">3</span>] <span class="op">*</span><span class="st"> </span><span class="kw">sum</span>(tbl)</span>
+<span id="cb99-8"><a href="bivariate-data.html#cb99-8"></a>tbl_exp &lt;-<span class="st"> </span><span class="kw">data.frame</span>(fl1_exp, fl2_exp, fl3_exp)</span>
+<span id="cb99-9"><a href="bivariate-data.html#cb99-9"></a>chisq_val &lt;-<span class="st"> </span><span class="kw">sum</span>(((tbl<span class="op">-</span>tbl_exp)<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span>tbl_exp)</span>
+<span id="cb99-10"><a href="bivariate-data.html#cb99-10"></a>chsq &lt;-<span class="st"> </span><span class="kw">chisq.test</span>(tbl)</span>
+<span id="cb99-11"><a href="bivariate-data.html#cb99-11"></a><span class="kw">c</span>(<span class="dt">computed=</span>chisq_val, chsq<span class="op">$</span>statistic)</span></code></pre></div>
 
 </div>
 </div>

@@ -388,6 +388,8 @@ $$ residual = y_i - \hat{y}_i $$
 
 $\beta$ 값은 최소제곱추정법이라는 방법으로 구할 수 있는데 이 방법은 각 점에서의 잔차를 최소화 하는 선분을 (회귀선) 구하는 과정이며 $\beta$는 해당 선분의 기울기로 볼 수 있습니다. 즉, 추정에 의해서 구해진 회귀선은 `squared residual`을 최소화 하는 선분이라고 해석할 수 있습니다. 
 
+$$ \arg\min_b\sum_i{(y_i - (b_0 + b_1 x_i))^2} $$
+
 
 ![](images/03/10.png) 
 
@@ -404,6 +406,7 @@ $$ \hat{\beta}_0 = \hat{y} - \hat{\beta}_1 x $$
 
 
 ```{r eval=F}
+library(UsingR)
 ?lm
 out <- lm(maxrate ~ age, data=heartrate)
 out
@@ -428,13 +431,50 @@ head(heartrate)
 predict(out, data.frame(age=30))
 ```
 
-- Example: fit 데이터에서 abdomen 과 wrist의 산점도를 그리고 선형모형을 적합한 후 추세선을 그리시오. 17cm wrist 크기를 갖는 사람은 얼마의 abdomen의 값을 가질지 예측하시오. 
+선형 추세선 외에 smoother를 이용한 곡선 추세선을 그릴 수 있습니다. 회귀 선분의 경우 전체 데이터에 대해서 $b$를 구한 후 추세선을 그리나 전체 데이터가 아닌 일부 데이터에 대해서 회귀 선분을 그리고 그 선분들을 연결하면 곡선 형태의 추세선을 그릴 수 있습니다. `loess` 함수를 이용하면 local polynomial regression을 수행 할 수 있습니다. 
+
+```{r, eval=FALSE}
+f <- child ~ parent
+plot(f, data=Galton, col=rgb(0,0,0, alpha=0.25))
+res.lm <- lm(f, data=Galton)
+abline(res.lm, lty=1, lwd=2)
+
+## loess
+res.loess <- loess(f, data=Galton, degree=1)
+x <- seq(64, 73, length=20)
+newdata <- data.frame(parent=x)
+predicted <- predict(res.loess, newdata)
+lines(predicted~x, lty=2, lwd=2)
+```
+
+```{r, eval=FALSE}
+parent2 <- jitter(Galton$parent)
+child2 <- jitter(Galton$child)
+dat <- data.frame(parent2, child2)
+f <- child2 ~ parent2
+plot(f, data=dat, col=rgb(0,0,0, alpha=0.25))
+res.lm <- lm(f, data=dat)
+abline(res.lm, lty=1, lwd=2)
+
+## loess
+res.loess <- loess(f, data=dat, degree=1)
+x <- seq(64, 73, length=20)
+newdata <- data.frame(parent2=x)
+predicted <- predict(res.loess, newdata)
+lines(predicted~x, lty=2, lwd=2, col="red")
+
+```
+
 
 - correlation vs. association vs. relation
 
 ![https://stats.stackexchange.com/questions/371747/association-relationship-and-correlation](images/03/13.PNG)
 
 ![](images/03/14.PNG)
+
+
+
+
 
 
 ## Problems 03 
@@ -491,5 +531,245 @@ y <- stud.recs$sat.m
 
 
 
+## Bivariate categorical data
+
+두 종류의 짝데이터가 모두 범주형일 경우에 그 연관성을 정량화하는 방법에 대해서 알아보겠습니다. 
+
+### Contingency tables
+
+범주형 데이터에는 summarized 된 데이터와 unsummarized  된 데이터가 있을 수 있으며 두 경우에 분석하는 전략이 다를 수 있습니다. 일반적으로 범주형 데이터는 각 샘플의 그룹 정보를 표시하여 나타내며 분석을 위해서는 이러한 그룹 정보를 기준으로 각 그룹에 해당하는 샘플의 갯수를 카운팅하여 contingency table (분할표)로 변환하여 분석을 수행하게 됩니다. 두 범주형 변수의 경우는 two-way contingency table로 나타낼 수 있습니다. 
+
+
+
+![](images/03/11.PNG)
+
+
+R에서는 다음과 같은 다양한 방법으로 테이블을 만듭니다. 
+
+
+```{r, eval=F}
+rbind(c(56,8), c(2,16))
+cbind(c(56,2), c(8,16))
+
+seatbelts <- matrix(c(56, 2, 8, 16), nrow=2)
+rownames(seatbelts) <- c("buckled","unbuckled")
+colnames(seatbelts) <- c("buckled","unbuckled")
+seatbelts
+
+rownames(seatbelts) <- c("pa_buckled","pa_unbuckled")
+colnames(seatbelts) <- c("ch_buckled","ch_unbuckled")
+seatbelts
+
+dimnames(seatbelts) <- list(parent=c("buckled","unbuckled"),
+child=c("buckled","unbuckled"))
+seatbelts
+```
+
+Unsummarized 데이터의 경우는 다음과 같이 `table`함수를 사용하여 해당 범주에 속하는 데이터의 갯수를 카운팅하고 테이블을 만듭니다. 
+
+
+```{r, eval=F}
+head(grades)
+str(grades)
+mytbl <- table(grades$prev, grades$grade)
+```
+
+### Marginal distributions 
+
+분할표를 이용한 두 범주형 변수의 연관성을 정량화 하기 전에 알아야할 두 가지 개념 중 하나는 주변분포 (marginal distribution)이고 다른 하나는 조건부분포 (conditional distributoin) 입니다. two-way 테이블은 두 개의 변수에 대한 요약 정보를 나타내며 각 변수들의 분표를 독립적으로 정량화 한 경우를 주변분포라고 합니다. R에서는 `colSums`, `rowSums` 또는 `margin.table`을 이용하여 계산 할 수 있습니다. 
+
+```{r, eval=F}
+mytbl
+rowSums(mytbl)
+x <- margin.table(mytbl, margin=1)
+hist(x, br=10)
+
+colSums(mytbl)
+x <- margin.table(mytbl, margin=2)
+hist(x, br=10)
+```
+
+
+### Conditional distributions
+
+조건부 분포는 분할표의 하나의 row에 대해서 다른 row와 비교하는 경우를 생각하면 됩니다. 즉 위 안전벨트 데이터에서 부모가 벨트를 맬 경우와 매지 않을 경우 각각에 대한 아이들의 벨트 착용 비율을 말합니다. 
+
+$$ p(C=b|P=b) = \frac{p(C=b, P=b)}{p(P=b)} $$
+
+
+R에서는 Marginal 분포 값으로 각 해당하는  cell의 값을 나누어 비율을 계산할 수 있습니다. Seatbelt 데이터의 경우 부모가 벨트를 착용할 경우 아이들이 착용하는 비율이 0.875이고 부모가 착용하지 않을 때 아이들이 착용하는 비율은 0.11로 차이가 보임을 알 수 있습니다. 
+
+
+```{r, eval=F}
+prop.table(seatbelts)
+seatbelts/sum(seatbelts)
+
+prop.table(seatbelts, margin=1)
+prop.table(seatbelts, margin=2)
+
+```
+
+R 이 제공하는 `xtabs` 함수를 사용하면 위와 같은 계산을 쉽게 할 수 있습니다. 다음 `Fingerprints` 데이터는 whorls 와 Loops의 갯수의 조합에 해당하는 사람들의 수를 세어놓은 데이터입니다. `NA`를 제외하고 테이블을 만들기 위해서는 각 카테고리별로 테이블을 나누고 해당 cell에 맞는 값을 할당하는 복잡한 과정이 필요하지만 `xtabs` 함수를 사용하면 위 과정을 쉽게 수행할 수 있습니다.  
+
+
+```{r, eval=F}
+head(Fingerprints)
+tail(Fingerprints)
+
+## without xtabs
+idx <- !is.na(Fingerprints$count)
+Fingerprints[idx,]
+whorls <- rep(Fingerprints$Whorls[idx], Fingerprints$count[idx])
+loops <- rep(Fingerprints$Loops[idx], Fingerprints$count[idx])
+table(whorls, loops)
+
+## with xtabs
+xtabs(count ~ Whorls + Loops, Fingerprints)
+xtabs(count ~ ., Fingerprints)
+```
+
+`xtabs`의 formula에 count 데이터가 없을 경우 공란으로 비워두면 자동으로 해당되는 범주의 갯수를 계산해서 분할표를 만들어줍니다. 
+
+```{r, eval=F}
+str(Cars93)
+xtabs( ~ Origin + Type, Cars93)
+```
+
+
+### Graphical summaries of contingency tables
+
+테이블 데이터를 가시화 하는 가장 쉬운 방법은 `barplot` 함수를 이용하는 것 입니다. 
+
+```{r, eval=F}
+barplot(seatbelts)
+barplot(seatbelts, beside=T)
+barplot(seatbelts, beside=T, legend=rownames(seatbelts))
+barplot(seatbelts, beside=T, legend=rownames(seatbelts), col=c("red", "blue"))
+
+```
+
+`mosaic plot`은 `barplot`을 확장한 개념입니다. titanic 예제는 타이타닉호에 탑승했던 승객들의 객실 등급과 생존 유무 등을 정리해 놓은 데이터셋 입니다. mosaic plot을 통해서 Sex와 Survived 의 관계를 관측할 수 있으며 이를 확장하여 Class에 대한 분류를 더 하여 정보를 비교할 수 있습니다.  
+
+
+```{r, eval=F}
+titanic <- as.data.frame(Titanic)
+head(titanic)
+tbl <- xtabs(Freq ~ Survived + Class, data=titanic, subset=Sex=="Female")
+mosaicplot(tbl)
+tbl <- xtabs(Freq ~ Survived + Class, data=titanic)
+mosaicplot(tbl)
+
+xtabs(Freq ~ Sex, titanic)
+tbl <- xtabs(Freq ~ Sex + Survived, titanic)
+mosaicplot(tbl)
+tbl <- xtabs(Freq ~ Sex + Survived + Class, titanic)
+mosaicplot(tbl)
+```
+
+
+### Measures of association for categorical data
+
+타이타닉 데이터에서 객실 등급과 생존율의 그룹별 사람수를 보면 다음과 같이 등급별로 생존 비율이 크게 다른 패턴을 가짐을 알 수 있습니다. 이는 두 변수가 서로 상관되어 있음을 의미하는데 비록 이 변수들이 숫자형 변수는 아니지만 자연스럽게 그룹별로 정렬될 수 있고 따라서 그룹별 비율을 비교하므로써 상관성에 대한 유무를 판단할 수 있습니다. 
+
+```{r, eval=F}
+mosaicplot(xtabs(Freq ~ Class + Survived, data=titanic))
+```
+
+
+Kendal tau correlation은 concordant/discordant pair를 이용한 정량적 연관성 측정값으로 다음과 같이 계산 할 수 있습니다. 특정 관측 데이터 pair (x1, y1)과 (x2, y2)가 있을 때 x1과 y1이 x2, y2에 비해서 둘 다 높은 (또는 낮은) rank에 위치할 경우 concordant 하다고 하며 반대로 x2 또는 y2 둘 중 하나는 높으나 다른 하나는 낮은 또는 그 반대인 경우 discordant 한 것으로 정의 됩니다. 피어슨 상관성과 같은 -1부터 1사이의 값을 가지며 0은 연관이 전혀 없는 경우를 말합니다.
+
+
+$$ \tau = \frac{Number ~ of ~ concordant ~ pair - Number ~ of ~ discordant ~ pair}{n(n-1)/2} $$
+
+```{r, eval=F}
+
+y <- rep(titanic$Survived, titanic$Freq)
+y <- ordered(y)
+x <- rep(titanic$Class, titanic$Freq)
+x <- ordered(x)
+as.numeric(y)
+as.numeric(x)
+cor(as.numeric(y), as.numeric(x), method="kendall")
+
+```
+
+
+The chi-squared statistics 는 가장 널리 쓰이는 범주형 자료의 연관성 척도로 다음과 같이 정의됩니다. 수식의 "o"와 "e"는 각각 관측값과 예측값을 나타냅니다. 이 값이 클 경우 연관이 크다는 것이고 크고 작음에 대한 검증은 10장에서 다시 다루기로 합니다. 
+
+$$ chi-squared ~ statistic = \sum \frac{(f_o - f_e)^2}{f_e} $$
+
+
+```{r, eval=FALSE}
+f <- Freq ~ Survived + Class
+tbl <- xtabs(f, data=titanic, subset=c(Sex=="Female"))
+summary(tbl)
+```
+
+
+`seatbelt` 데이터 부모와 아이들의 안전벨트를 매는 두 사건 (변수)가 독립이라면 $p(C, P) == p(C)p(P)$ 즉, 결합확률이 각 확률을 곱한 것과 같고 기대값은 확률 x 전체 사건의 수($N$) 이므로 다시 적으면 $N p(C,P) == N p(C)p(P)$ 입니다. 여기서 $N p(C,P)$는 우리가 관측한 값으로 볼 수 있고 $N p(C) p(P)$는 독립을 가정한 상태에서 기대값이라고 볼 수 있습니다.
+
+![](images/03/15.PNG)
+
+
+```{r, eval=F}
+
+seatbelts <- matrix(c(56, 2, 8, 16), nrow=2)
+rownames(seatbelts) <- c("pa_buckled","pa_unbuckled")
+colnames(seatbelts) <- c("ch_buckled","ch_unbuckled")
+seatbelts
+
+fo <- seatbelts
+fo
+## marginal probability
+margin_rows <- rowSums(fo)/sum(fo)
+margin_cols <- colSums(fo)/sum(fo)
+
+fe <- matrix(0, 2, 2,) 
+rownames(fe) <- rownames(fo)
+colnames(fe) <- rownames(fo)
+## expected numbers
+fe[1,1] <- sum(fo)*margin_rows[1]*margin_cols[1]
+fe[1,2] <- sum(fo)*margin_rows[1]*margin_cols[2]
+fe[2,1] <- sum(fo)*margin_rows[2]*margin_cols[1]
+fe[2,2] <- sum(fo)*margin_rows[2]*margin_cols[2]
+
+sum((fo-fe)^2 / fe)
+
+## use chisq.test function
+chisq.test(fo, correct=F)
+```
+
+
+## Problems 04
+
+01) `batting(UsingR)` 데이터는 2002년 메이저리그 통계자료이다. 스트라이크아웃 (SO)와 홈런 (HR)의 상관계수를 구하고 산점도를 그리시오.  
+
+02) `fat(UsingR)` 데이터에서 복부둘레(abdomen)와 손목둘레(wrist)를 각각 반응변수(y)와 설명변수(x)로 놓고 선형 모형을 적합하시오. 손목 둘레가 17인 사람의 복부 둘레를 예측하시오. 
+
+03-1) `UScereal` 데이터셋은 미국 식료품점의 선반에 진열된 시리얼 제품의 정보에 대한 데이터임. 시리얼 생산 브랜드와 (`UScereal$mfr`) 디스플레이되는 floor 층 수 (`UScereal$shelf`) 관계를 나타내는 테이블을 구해서 `tbl` 변수에 저장하고 출력하시오
+
+```{r, eval=F}
+library(MASS)
+head(UScereal)
+str(UScereal)
+?UScereal
+```
+
+03-2) 브랜드와 진열 층 수와의 관계를 `barplot`으로 표현하시오
+03-3) 테이블의 각 cell 별 기대값을 구하고 chisqure  값을 구하시오
+
+```{r, eval=F}
+tbl <- as.matrix(table(UScereal$mfr, UScereal$shelf))
+barplot(tbl, beside=T)
+colvals <- colSums(tbl)/sum(tbl)
+rowvals <- rowSums(tbl)/sum(tbl)
+fl1_exp <- rowvals * colvals[1] * sum(tbl)
+fl2_exp <- rowvals * colvals[2] * sum(tbl)
+fl3_exp <- rowvals * colvals[3] * sum(tbl)
+tbl_exp <- data.frame(fl1_exp, fl2_exp, fl3_exp)
+chisq_val <- sum(((tbl-tbl_exp)^2)/tbl_exp)
+chsq <- chisq.test(tbl)
+c(computed=chisq_val, chsq$statistic)
+```
 
 
