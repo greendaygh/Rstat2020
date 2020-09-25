@@ -742,9 +742,9 @@ chisq.test(fo, correct=F)
 
 ## Problems 04
 
-01) `batting(UsingR)` 데이터는 2002년 메이저리그 통계자료이다. 스트라이크아웃 (SO)와 홈런 (HR)의 상관계수를 구하고 산점도를 그리시오.  
+01-1) `batting(UsingR)` 데이터는 2002년 메이저리그 통계자료이다. 스트라이크아웃 (SO)와 홈런 (HR)의 상관계수를 구하고 산점도를 그리시오.  
 
-02) `fat(UsingR)` 데이터에서 복부둘레(abdomen)와 손목둘레(wrist)를 각각 반응변수(y)와 설명변수(x)로 놓고 선형 모형을 적합하시오. 손목 둘레가 17인 사람의 복부 둘레를 예측하시오. 
+02-1) `fat(UsingR)` 데이터에서 복부둘레(abdomen)와 손목둘레(wrist)를 각각 반응변수(y)와 설명변수(x)로 놓고 선형 모형을 적합하시오. 손목 둘레가 17인 사람의 복부 둘레를 예측하시오. 
 
 03-1) `UScereal` 데이터셋은 미국 식료품점의 선반에 진열된 시리얼 제품의 정보에 대한 데이터임. 시리얼 생산 브랜드와 (`UScereal$mfr`) 디스플레이되는 floor 층 수 (`UScereal$shelf`) 관계를 나타내는 테이블을 구해서 `tbl` 변수에 저장하고 출력하시오
 
@@ -758,7 +758,12 @@ str(UScereal)
 03-2) 브랜드와 진열 층 수와의 관계를 `barplot`으로 표현하시오
 03-3) 테이블의 각 cell 별 기대값을 구하고 chisqure  값을 구하시오
 
+
 ```{r, eval=F}
+tbl <- as.matrix(table(UScereal$mfr, UScereal$shelf))
+```
+
+```{r, eval=F, echo=F}
 tbl <- as.matrix(table(UScereal$mfr, UScereal$shelf))
 barplot(tbl, beside=T)
 colvals <- colSums(tbl)/sum(tbl)
