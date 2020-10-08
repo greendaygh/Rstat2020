@@ -500,7 +500,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="data-transformation-basics.html#cb119-1"></a>df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">hour=</span><span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">8</span>),</span>
 <span id="cb119-2"><a href="data-transformation-basics.html#cb119-2"></a>                 <span class="dt">minute=</span><span class="kw">c</span>(<span class="dv">46</span>, <span class="dv">56</span>, <span class="dv">44</span>, <span class="dv">37</span>, <span class="dv">39</span>),</span>
 <span id="cb119-3"><a href="data-transformation-basics.html#cb119-3"></a>                 <span class="dt">second=</span><span class="kw">c</span>(<span class="dv">19</span>, <span class="dv">45</span>, <span class="dv">57</span>, <span class="dv">41</span>, <span class="dv">27</span>))</span></code></pre></div>
-<p>3-1) 다음은 앞에서 수행했던 <code>airquality</code> 데이터를 월별로 나눈 데이터셋임. 이 데이터셋을 이용하여 각 월별로 온도와 오존 농도의 평균값을 구하는 코드를 작성하시오. 단, Ozone과 Temp에서 <code>NA</code>를 제외한 데이터셋을 만들고 (<code>subset</code> 사용) Ozone, Temp, Month 변수를 선별 (<code>subset</code>사용), 그룹별로 데이터를 나눈 후 (<code>split</code> 사용) <code>lapply</code>, <code>colMeans</code> 함수를 사용하여 각 그룹별 평균을 구하시오.</p>
+<p>3-1) <code>airquality</code> 데이터를 월별로 나눈 데이터셋으로 월별로 온도와 오존 농도의 평균값을 구하는 코드를 작성하시오.
+- Ozone, Temp, Month 변수를 선별 (<code>subset</code>사용)한 <code>df1</code> 만들기
+- <code>df1</code>에서 Ozone과 Temp의 <code>NA</code>를 제외한 (<code>subset</code> 사용) 데이터셋 <code>df2</code> 만들기
+- <code>df2</code>의 Month 변수를 기준으로 데이터를 나누어 (<code>split</code> 사용) <code>df3</code> 만들기
+- <code>lapply</code>, <code>colMeans</code> 함수를 사용하여 <code>df3</code>의 그룹별, Ozone, Temp의 평균 계산
+- <code>matrix</code> 형태로 변형</p>
 <div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="data-transformation-basics.html#cb120-1"></a>df3</span></code></pre></div>
 <pre><code>## $`5`
 ##    Ozone     Temp    Month 
