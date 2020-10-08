@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 Data transformation basics | R로 배우는 기초통계</title>
+  <meta name="description" content="UST lecture web site" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 Data transformation basics | R로 배우는 기초통계" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="UST lecture web site" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 Data transformation basics | R로 배우는 기초통계" />
+  
+  <meta name="twitter:description" content="UST lecture web site" />
+  
+
+<meta name="author" content="한국생명공학연구원 김하성" />
+
+
+<meta name="date" content="2020-10-08" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="bivariate-data.html"/>
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./"> Introduction to statistics with R </a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction 강의 개요</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#goal-강의-목표"><i class="fa fa-check"></i><b>1.1</b> Goal 강의 목표</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#this-course"><i class="fa fa-check"></i><b>1.2</b> This course</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#tips"><i class="fa fa-check"></i><b>1.3</b> Tips</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#references-books-참고-교제"><i class="fa fa-check"></i><b>1.4</b> References books 참고 교제</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#references-참고-자료"><i class="fa fa-check"></i><b>1.5</b> References 참고 자료</a></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#evaluation-평가-세부-항목"><i class="fa fa-check"></i><b>1.6</b> Evaluation 평가 세부 항목</a></li>
+<li class="chapter" data-level="1.7" data-path="index.html"><a href="index.html#schedule-강의-계획"><i class="fa fa-check"></i><b>1.7</b> Schedule 강의 계획</a></li>
+<li class="chapter" data-level="1.8" data-path="index.html"><a href="index.html#r-lecture-youtube-link"><i class="fa fa-check"></i><b>1.8</b> R Lecture Youtube Link</a>
+<ul>
+<li class="chapter" data-level="1.8.1" data-path="index.html"><a href="index.html#lecture-chapter-1"><i class="fa fa-check"></i><b>1.8.1</b> Lecture Chapter 1</a></li>
+<li class="chapter" data-level="1.8.2" data-path="index.html"><a href="index.html#lecture-2"><i class="fa fa-check"></i><b>1.8.2</b> Lecture 2</a></li>
+<li class="chapter" data-level="1.8.3" data-path="index.html"><a href="index.html#lecture-3"><i class="fa fa-check"></i><b>1.8.3</b> Lecture 3</a></li>
+<li class="chapter" data-level="1.8.4" data-path="index.html"><a href="index.html#lecture-4"><i class="fa fa-check"></i><b>1.8.4</b> Lecture 4</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="r-basics.html"><a href="r-basics.html"><i class="fa fa-check"></i><b>2</b> R basics</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="r-basics.html"><a href="r-basics.html#what-is-r-rstudio"><i class="fa fa-check"></i><b>2.1</b> What is R / Rstudio</a></li>
+<li class="chapter" data-level="2.2" data-path="r-basics.html"><a href="r-basics.html#r-rstudio-installation"><i class="fa fa-check"></i><b>2.2</b> R / Rstudio installation</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="r-basics.html"><a href="r-basics.html#r-설치"><i class="fa fa-check"></i><b>2.2.1</b> R 설치</a></li>
+<li class="chapter" data-level="2.2.2" data-path="r-basics.html"><a href="r-basics.html#rstudio-설치"><i class="fa fa-check"></i><b>2.2.2</b> Rstudio 설치</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="r-basics.html"><a href="r-basics.html#rstudio-interface"><i class="fa fa-check"></i><b>2.3</b> Rstudio interface</a></li>
+<li class="chapter" data-level="2.4" data-path="r-basics.html"><a href="r-basics.html#keyboard-shortcuts"><i class="fa fa-check"></i><b>2.4</b> Keyboard shortcuts</a></li>
+<li class="chapter" data-level="2.5" data-path="r-basics.html"><a href="r-basics.html#r-programming-basics-and-terminology"><i class="fa fa-check"></i><b>2.5</b> R programming basics and terminology</a></li>
+<li class="chapter" data-level="2.6" data-path="r-basics.html"><a href="r-basics.html#set-a-working-directory"><i class="fa fa-check"></i><b>2.6</b> Set a working directory</a></li>
+<li class="chapter" data-level="2.7" data-path="r-basics.html"><a href="r-basics.html#r-coding-practice"><i class="fa fa-check"></i><b>2.7</b> R coding practice</a></li>
+<li class="chapter" data-level="2.8" data-path="r-basics.html"><a href="r-basics.html#variables-and-values"><i class="fa fa-check"></i><b>2.8</b> Variables and values</a></li>
+<li class="chapter" data-level="2.9" data-path="r-basics.html"><a href="r-basics.html#variable-type-of-storage-mode"><i class="fa fa-check"></i><b>2.9</b> Variable type of (storage) mode</a></li>
+<li class="chapter" data-level="2.10" data-path="r-basics.html"><a href="r-basics.html#variable---vectors"><i class="fa fa-check"></i><b>2.10</b> Variable - Vectors</a></li>
+<li class="chapter" data-level="2.11" data-path="r-basics.html"><a href="r-basics.html#functions"><i class="fa fa-check"></i><b>2.11</b> Functions</a></li>
+<li class="chapter" data-level="2.12" data-path="r-basics.html"><a href="r-basics.html#vectorized-functions"><i class="fa fa-check"></i><b>2.12</b> Vectorized functions</a></li>
+<li class="chapter" data-level="2.13" data-path="r-basics.html"><a href="r-basics.html#help"><i class="fa fa-check"></i><b>2.13</b> Help</a></li>
+<li class="chapter" data-level="2.14" data-path="r-basics.html"><a href="r-basics.html#r-packages"><i class="fa fa-check"></i><b>2.14</b> R packages</a></li>
+<li class="chapter" data-level="2.15" data-path="r-basics.html"><a href="r-basics.html#data-sets"><i class="fa fa-check"></i><b>2.15</b> Data sets</a></li>
+<li class="chapter" data-level="2.16" data-path="r-basics.html"><a href="r-basics.html#cheatsheet"><i class="fa fa-check"></i><b>2.16</b> Cheatsheet</a></li>
+<li class="chapter" data-level="2.17" data-path="r-basics.html"><a href="r-basics.html#problems"><i class="fa fa-check"></i><b>2.17</b> Problems</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="univariat-data.html"><a href="univariat-data.html"><i class="fa fa-check"></i><b>3</b> Univariat data</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="univariat-data.html"><a href="univariat-data.html#introduction-2"><i class="fa fa-check"></i><b>3.1</b> Introduction 2</a></li>
+<li class="chapter" data-level="3.2" data-path="univariat-data.html"><a href="univariat-data.html#data-vectors"><i class="fa fa-check"></i><b>3.2</b> Data vectors</a></li>
+<li class="chapter" data-level="3.3" data-path="univariat-data.html"><a href="univariat-data.html#data-type"><i class="fa fa-check"></i><b>3.3</b> Data type</a></li>
+<li class="chapter" data-level="3.4" data-path="univariat-data.html"><a href="univariat-data.html#functions-2"><i class="fa fa-check"></i><b>3.4</b> Functions 2</a></li>
+<li class="chapter" data-level="3.5" data-path="univariat-data.html"><a href="univariat-data.html#miscellaneous-1"><i class="fa fa-check"></i><b>3.5</b> Miscellaneous 1</a></li>
+<li class="chapter" data-level="3.6" data-path="univariat-data.html"><a href="univariat-data.html#numeric-summaries"><i class="fa fa-check"></i><b>3.6</b> Numeric summaries</a></li>
+<li class="chapter" data-level="3.7" data-path="univariat-data.html"><a href="univariat-data.html#center-for-a-univariat-variable"><i class="fa fa-check"></i><b>3.7</b> Center for a univariat variable</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="univariat-data.html"><a href="univariat-data.html#sample-mean"><i class="fa fa-check"></i><b>3.7.1</b> Sample mean</a></li>
+<li class="chapter" data-level="3.7.2" data-path="univariat-data.html"><a href="univariat-data.html#measure-of-position"><i class="fa fa-check"></i><b>3.7.2</b> Measure of Position</a></li>
+</ul></li>
+<li class="chapter" data-level="3.8" data-path="univariat-data.html"><a href="univariat-data.html#spread-for-a-univariat-variable"><i class="fa fa-check"></i><b>3.8</b> Spread for a univariat variable</a></li>
+<li class="chapter" data-level="3.9" data-path="univariat-data.html"><a href="univariat-data.html#problems-02"><i class="fa fa-check"></i><b>3.9</b> Problems 02</a></li>
+<li class="chapter" data-level="3.10" data-path="univariat-data.html"><a href="univariat-data.html#shape-for-a-univariat-variable"><i class="fa fa-check"></i><b>3.10</b> Shape for a univariat variable</a></li>
+<li class="chapter" data-level="3.11" data-path="univariat-data.html"><a href="univariat-data.html#viewing-the-shape"><i class="fa fa-check"></i><b>3.11</b> Viewing the shape</a>
+<ul>
+<li class="chapter" data-level="3.11.1" data-path="univariat-data.html"><a href="univariat-data.html#histogram"><i class="fa fa-check"></i><b>3.11.1</b> Histogram</a></li>
+<li class="chapter" data-level="3.11.2" data-path="univariat-data.html"><a href="univariat-data.html#density-plots"><i class="fa fa-check"></i><b>3.11.2</b> Density plots</a></li>
+<li class="chapter" data-level="3.11.3" data-path="univariat-data.html"><a href="univariat-data.html#boxplots"><i class="fa fa-check"></i><b>3.11.3</b> Boxplots</a></li>
+</ul></li>
+<li class="chapter" data-level="3.12" data-path="univariat-data.html"><a href="univariat-data.html#quantile-graph"><i class="fa fa-check"></i><b>3.12</b> Quantile graph</a></li>
+<li class="chapter" data-level="3.13" data-path="univariat-data.html"><a href="univariat-data.html#categorical-data"><i class="fa fa-check"></i><b>3.13</b> Categorical data</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="bivariate-data.html"><a href="bivariate-data.html"><i class="fa fa-check"></i><b>4</b> Bivariate data</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="bivariate-data.html"><a href="bivariate-data.html#introduction-3"><i class="fa fa-check"></i><b>4.1</b> Introduction 3</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="bivariate-data.html"><a href="bivariate-data.html#independence-samples"><i class="fa fa-check"></i><b>4.1.1</b> Independence samples</a></li>
+<li class="chapter" data-level="4.1.2" data-path="bivariate-data.html"><a href="bivariate-data.html#plot"><i class="fa fa-check"></i><b>4.1.2</b> plot</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="bivariate-data.html"><a href="bivariate-data.html#data-manipulation"><i class="fa fa-check"></i><b>4.2</b> Data manipulation</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="bivariate-data.html"><a href="bivariate-data.html#list"><i class="fa fa-check"></i><b>4.2.1</b> List</a></li>
+<li class="chapter" data-level="4.2.2" data-path="bivariate-data.html"><a href="bivariate-data.html#data-frame"><i class="fa fa-check"></i><b>4.2.2</b> Data frame</a></li>
+<li class="chapter" data-level="4.2.3" data-path="bivariate-data.html"><a href="bivariate-data.html#model-formulas"><i class="fa fa-check"></i><b>4.2.3</b> Model formulas</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="bivariate-data.html"><a href="bivariate-data.html#paired-data"><i class="fa fa-check"></i><b>4.3</b> Paired data</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="bivariate-data.html"><a href="bivariate-data.html#pearson-correlation"><i class="fa fa-check"></i><b>4.3.1</b> Pearson Correlation</a></li>
+<li class="chapter" data-level="4.3.2" data-path="bivariate-data.html"><a href="bivariate-data.html#spearman-correlation-coefficient"><i class="fa fa-check"></i><b>4.3.2</b> Spearman correlation coefficient</a></li>
+<li class="chapter" data-level="4.3.3" data-path="bivariate-data.html"><a href="bivariate-data.html#correlation-causation-and-association"><i class="fa fa-check"></i><b>4.3.3</b> Correlation, causation and association</a></li>
+<li class="chapter" data-level="4.3.4" data-path="bivariate-data.html"><a href="bivariate-data.html#trends"><i class="fa fa-check"></i><b>4.3.4</b> Trends</a></li>
+<li class="chapter" data-level="4.3.5" data-path="bivariate-data.html"><a href="bivariate-data.html#the-method-of-least-squares"><i class="fa fa-check"></i><b>4.3.5</b> The method of least squares</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="bivariate-data.html"><a href="bivariate-data.html#problems-03"><i class="fa fa-check"></i><b>4.4</b> Problems 03</a></li>
+<li class="chapter" data-level="4.5" data-path="bivariate-data.html"><a href="bivariate-data.html#bivariate-categorical-data"><i class="fa fa-check"></i><b>4.5</b> Bivariate categorical data</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="bivariate-data.html"><a href="bivariate-data.html#contingency-tables"><i class="fa fa-check"></i><b>4.5.1</b> Contingency tables</a></li>
+<li class="chapter" data-level="4.5.2" data-path="bivariate-data.html"><a href="bivariate-data.html#marginal-distributions"><i class="fa fa-check"></i><b>4.5.2</b> Marginal distributions</a></li>
+<li class="chapter" data-level="4.5.3" data-path="bivariate-data.html"><a href="bivariate-data.html#conditional-distributions"><i class="fa fa-check"></i><b>4.5.3</b> Conditional distributions</a></li>
+<li class="chapter" data-level="4.5.4" data-path="bivariate-data.html"><a href="bivariate-data.html#graphical-summaries-of-contingency-tables"><i class="fa fa-check"></i><b>4.5.4</b> Graphical summaries of contingency tables</a></li>
+<li class="chapter" data-level="4.5.5" data-path="bivariate-data.html"><a href="bivariate-data.html#measures-of-association-for-categorical-data"><i class="fa fa-check"></i><b>4.5.5</b> Measures of association for categorical data</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="bivariate-data.html"><a href="bivariate-data.html#problems-04"><i class="fa fa-check"></i><b>4.6</b> Problems 04</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="data-transformation-basics.html"><a href="data-transformation-basics.html"><i class="fa fa-check"></i><b>5</b> Data transformation basics</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="data-transformation-basics.html"><a href="data-transformation-basics.html#data-structures-in-r"><i class="fa fa-check"></i><b>5.1</b> Data structures in R</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="data-transformation-basics.html"><a href="data-transformation-basics.html#vectors"><i class="fa fa-check"></i><b>5.1.1</b> Vectors</a></li>
+<li class="chapter" data-level="5.1.2" data-path="data-transformation-basics.html"><a href="data-transformation-basics.html#lists"><i class="fa fa-check"></i><b>5.1.2</b> Lists</a></li>
+<li class="chapter" data-level="5.1.3" data-path="data-transformation-basics.html"><a href="data-transformation-basics.html#matrices"><i class="fa fa-check"></i><b>5.1.3</b> Matrices</a></li>
+<li class="chapter" data-level="5.1.4" data-path="data-transformation-basics.html"><a href="data-transformation-basics.html#data.frame"><i class="fa fa-check"></i><b>5.1.4</b> data.frame</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="data-transformation-basics.html"><a href="data-transformation-basics.html#subset-and-filter"><i class="fa fa-check"></i><b>5.2</b> subset and filter</a></li>
+<li class="chapter" data-level="5.3" data-path="data-transformation-basics.html"><a href="data-transformation-basics.html#merging-and-split"><i class="fa fa-check"></i><b>5.3</b> merging and split</a></li>
+<li class="chapter" data-level="5.4" data-path="data-transformation-basics.html"><a href="data-transformation-basics.html#transforming-data"><i class="fa fa-check"></i><b>5.4</b> transforming data</a></li>
+<li class="chapter" data-level="5.5" data-path="data-transformation-basics.html"><a href="data-transformation-basics.html#analysis-example-babies"><i class="fa fa-check"></i><b>5.5</b> Analysis example (babies)</a></li>
+<li class="chapter" data-level="5.6" data-path="data-transformation-basics.html"><a href="data-transformation-basics.html#apply"><i class="fa fa-check"></i><b>5.6</b> apply</a></li>
+<li class="chapter" data-level="5.7" data-path="data-transformation-basics.html"><a href="data-transformation-basics.html#problems-05"><i class="fa fa-check"></i><b>5.7</b> Problems 05</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R로 배우는 기초통계</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="data-transformation-basics" class="section level1">
+<h1><span class="header-section-number">Chapter 5</span> Data transformation basics</h1>
+<p>일반적인 데이터 분석은 데이터 전처리(변환), 가시화, 모델링(통계분석)의 반복적인 수행으로 진행될 수 있습니다.</p>
+<p><img src="images/07/data-science.png" /></p>
+<p><a href="https://r4ds.had.co.nz/" class="uri">https://r4ds.had.co.nz/</a></p>
+<p>R에서는 <code>data.frame</code> 형식의 데이터 타입이 주로 사용되며 (최근 <code>tibble</code>형식도 많이 사용됨) 따라서 <code>data.frame</code> 기반의 데이터를 다루기 위한 다양한 함수를 익힐 필요가 있습니다. 앞서 설명한 <code>ggplot2</code> 패키지는 가시화에 사용되는 대표적인 패키지이고 본 장에서는 <code>data.frame</code> 데이터의 전처리나 변환을 위한 함수들을 배워보겠습니다. 먼저 builtin 함수들을 중심으로 설명을 진행하고 이 후에 8장에서 <code>dplyr</code> 패키지에 대한 내용을 다루겠습니다. 앞 3장에서 배웠던 데이터를 저장하는 object의 종류를 먼저 간략히 정리해 봅니다.</p>
+<div id="data-structures-in-r" class="section level2">
+<h2><span class="header-section-number">5.1</span> Data structures in R</h2>
+<div id="vectors" class="section level3">
+<h3><span class="header-section-number">5.1.1</span> Vectors</h3>
+<p>같은 타입의 데이터를 (Numeric, character, factor, …) 저장한 오브젝트 타입으로 인덱스는 <code>[</code>, <code>]</code> 사용합니다.</p>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="data-transformation-basics.html#cb100-1"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">10.4</span>, <span class="fl">5.6</span>, <span class="fl">3.1</span>, <span class="fl">6.4</span>, <span class="fl">21.7</span>) </span>
+<span id="cb100-2"><a href="data-transformation-basics.html#cb100-2"></a><span class="kw">class</span>(x)</span>
+<span id="cb100-3"><a href="data-transformation-basics.html#cb100-3"></a><span class="kw">is.numeric</span>(x)</span>
+<span id="cb100-4"><a href="data-transformation-basics.html#cb100-4"></a>y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;X1&quot;</span>, <span class="st">&quot;Y2&quot;</span>,  <span class="st">&quot;X3&quot;</span>,  <span class="st">&quot;Y4&quot;</span>)</span>
+<span id="cb100-5"><a href="data-transformation-basics.html#cb100-5"></a><span class="kw">class</span>(y)</span>
+<span id="cb100-6"><a href="data-transformation-basics.html#cb100-6"></a><span class="kw">is.numeric</span>(y)</span>
+<span id="cb100-7"><a href="data-transformation-basics.html#cb100-7"></a>z &lt;-<span class="st"> </span><span class="kw">c</span>(T, F, F, T)</span>
+<span id="cb100-8"><a href="data-transformation-basics.html#cb100-8"></a><span class="kw">class</span>(z)</span>
+<span id="cb100-9"><a href="data-transformation-basics.html#cb100-9"></a><span class="kw">is.logical</span>(z)</span></code></pre></div>
+</div>
+<div id="lists" class="section level3">
+<h3><span class="header-section-number">5.1.2</span> Lists</h3>
+<p><code>list</code> 변수 타입은 <code>vector</code> 형태의 여러개의 element를 가질 수 있으며 각 element의 데이터는 문자나 숫자 어떤 데이터 타입도 가능하며 각 element vector의 길이가 모두 달라도 됩니다. list의 인덱싱에서 <code>[</code> <code>]</code>는 리스트를 반환하고 <code>[[</code> <code>]]</code>는 vector element들을 반환합니다.</p>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="data-transformation-basics.html#cb101-1"></a><span class="co">## list</span></span>
+<span id="cb101-2"><a href="data-transformation-basics.html#cb101-2"></a>parent_names &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Fred&quot;</span>, <span class="st">&quot;Mary&quot;</span>)</span>
+<span id="cb101-3"><a href="data-transformation-basics.html#cb101-3"></a>number_of_children &lt;-<span class="st"> </span><span class="dv">2</span></span>
+<span id="cb101-4"><a href="data-transformation-basics.html#cb101-4"></a>child_ages &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">9</span>)</span>
+<span id="cb101-5"><a href="data-transformation-basics.html#cb101-5"></a><span class="kw">data.frame</span>(parent_names, number_of_children, child_ages)</span>
+<span id="cb101-6"><a href="data-transformation-basics.html#cb101-6"></a>lst &lt;-<span class="st"> </span><span class="kw">list</span>(parent_names, number_of_children, child_ages)</span>
+<span id="cb101-7"><a href="data-transformation-basics.html#cb101-7"></a>lst[<span class="dv">1</span>]</span>
+<span id="cb101-8"><a href="data-transformation-basics.html#cb101-8"></a>lst[[<span class="dv">1</span>]]</span>
+<span id="cb101-9"><a href="data-transformation-basics.html#cb101-9"></a><span class="kw">class</span>(lst[<span class="dv">1</span>])</span>
+<span id="cb101-10"><a href="data-transformation-basics.html#cb101-10"></a><span class="kw">class</span>(lst[[<span class="dv">1</span>]])</span>
+<span id="cb101-11"><a href="data-transformation-basics.html#cb101-11"></a>lst[[<span class="dv">1</span>]][<span class="dv">1</span>]</span>
+<span id="cb101-12"><a href="data-transformation-basics.html#cb101-12"></a>lst[[<span class="dv">1</span>]][<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)]</span></code></pre></div>
+</div>
+<div id="matrices" class="section level3">
+<h3><span class="header-section-number">5.1.3</span> Matrices</h3>
+<p>같은 타입의 데이터로 채워진 2차원 행렬이며 인덱스는 <code>[i, j]</code> 형태로 i는 row, j는 column 을 가리킵니다. 메트릭스의 생성은 <code>matrix</code> 명령어를 사용하며 왼쪽부터 column 값을 모두 채우고 다음 컬럼 값을 채워 나가는 것이 기본 설정이며 <code>byrow=T</code> 를 통해 row를 먼저 채울수도 있습니다. row와 column 이름은 <code>rownames</code>와 <code>colnames</code>로 설정이 가능하며 <code>rbind</code>와 <code>cbind</code>로 두 행렬 또는 행렬과 백터를 연결할 수 있습니다 ( <code>rbind</code>와 <code>cbind</code>의 경우 행렬이 커지면 컴퓨터 리소스 많이 사용함).</p>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="data-transformation-basics.html#cb102-1"></a>mymat &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">0</span>, <span class="dt">nrow=</span><span class="dv">100</span>, <span class="dt">ncol=</span><span class="dv">3</span>) <span class="co"># 1</span></span>
+<span id="cb102-2"><a href="data-transformation-basics.html#cb102-2"></a>mymat[,<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">100</span> <span class="co"># 2</span></span>
+<span id="cb102-3"><a href="data-transformation-basics.html#cb102-3"></a>mymat[,<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span>,<span class="dv">200</span>,<span class="dv">2</span>) <span class="co"># 3</span></span>
+<span id="cb102-4"><a href="data-transformation-basics.html#cb102-4"></a>mymat[,<span class="dv">3</span>] &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">2</span>,<span class="dv">200</span>,<span class="dv">2</span>) <span class="co"># 4</span></span>
+<span id="cb102-5"><a href="data-transformation-basics.html#cb102-5"></a></span>
+<span id="cb102-6"><a href="data-transformation-basics.html#cb102-6"></a>m &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>), <span class="dt">nrow=</span><span class="dv">2</span>)</span>
+<span id="cb102-7"><a href="data-transformation-basics.html#cb102-7"></a>m</span>
+<span id="cb102-8"><a href="data-transformation-basics.html#cb102-8"></a>m &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>), <span class="dt">nrow=</span><span class="dv">2</span>, <span class="dt">byrow =</span> T)</span>
+<span id="cb102-9"><a href="data-transformation-basics.html#cb102-9"></a>m</span></code></pre></div>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="data-transformation-basics.html#cb103-1"></a>m &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="kw">c</span>(<span class="fl">1.1</span>, <span class="fl">1.2</span>, <span class="fl">1.3</span>), <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>)) <span class="co"># a 3 by 3 matrix</span></span>
+<span id="cb103-2"><a href="data-transformation-basics.html#cb103-2"></a><span class="kw">colnames</span>(m) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;y&quot;</span>, <span class="st">&quot;z&quot;</span>) <span class="co"># or cbind(x=..., ...)</span></span>
+<span id="cb103-3"><a href="data-transformation-basics.html#cb103-3"></a>m</span>
+<span id="cb103-4"><a href="data-transformation-basics.html#cb103-4"></a><span class="kw">dim</span>(m)</span></code></pre></div>
+</div>
+<div id="data.frame" class="section level3">
+<h3><span class="header-section-number">5.1.4</span> data.frame</h3>
+<p>data frame은 변수들의 집합으로 <code>list</code>형과 비슷하지만 각 변수 element들이 똑같은 길이를 가지고 matrix 형태로 표현되는 것이 다릅니다. 즉, 각 row는 샘플을 나타내고 각 column은 변수를 나타내며 각 변수들이 갖는 샘플의 개수 (row의 길이, vector 의 길이)는 같아야 합니다. 컬럼 한 줄이 하나의 변수 이므로 새로운 변수도 컬럼 형태로 붙여 넣을 수 있습니다. 변수들의 이름을 이용하여 <code>$</code> 기호로 각 변수들의 데이터에 접근 할 수 있고 matrix와 같이 <code>[i,j]</code> 형태의 인덱싱도 가능합니다. R 기반의 데이터 분석에서는 가장 선호되는 데이터 타입이라고 볼 수 있습니다.</p>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="data-transformation-basics.html#cb104-1"></a>ids &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span></span>
+<span id="cb104-2"><a href="data-transformation-basics.html#cb104-2"></a>ids</span>
+<span id="cb104-3"><a href="data-transformation-basics.html#cb104-3"></a>idnames &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;Name&quot;</span>, ids, <span class="dt">sep=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb104-4"><a href="data-transformation-basics.html#cb104-4"></a>idnames</span>
+<span id="cb104-5"><a href="data-transformation-basics.html#cb104-5"></a>students &lt;-<span class="st"> </span><span class="kw">data.frame</span>(ids, idnames)</span>
+<span id="cb104-6"><a href="data-transformation-basics.html#cb104-6"></a>students</span>
+<span id="cb104-7"><a href="data-transformation-basics.html#cb104-7"></a><span class="kw">class</span>(students<span class="op">$</span>ids)</span>
+<span id="cb104-8"><a href="data-transformation-basics.html#cb104-8"></a><span class="kw">class</span>(students<span class="op">$</span>idnames)</span>
+<span id="cb104-9"><a href="data-transformation-basics.html#cb104-9"></a>students<span class="op">$</span>idnames</span>
+<span id="cb104-10"><a href="data-transformation-basics.html#cb104-10"></a><span class="kw">str</span>(students)</span>
+<span id="cb104-11"><a href="data-transformation-basics.html#cb104-11"></a></span>
+<span id="cb104-12"><a href="data-transformation-basics.html#cb104-12"></a>students &lt;-<span class="st"> </span><span class="kw">data.frame</span>(ids, idnames, <span class="dt">stringsAsFactors =</span> F)</span>
+<span id="cb104-13"><a href="data-transformation-basics.html#cb104-13"></a><span class="kw">class</span>(students<span class="op">$</span>idnames)</span>
+<span id="cb104-14"><a href="data-transformation-basics.html#cb104-14"></a>students<span class="op">$</span>idnames</span>
+<span id="cb104-15"><a href="data-transformation-basics.html#cb104-15"></a>students[<span class="dv">1</span>,]</span>
+<span id="cb104-16"><a href="data-transformation-basics.html#cb104-16"></a><span class="kw">str</span>(students)</span></code></pre></div>
+<p><img src="images/04/06.PNG" /></p>
+</div>
+</div>
+<div id="subset-and-filter" class="section level2">
+<h2><span class="header-section-number">5.2</span> subset and filter</h2>
+<p>R에서 데이터 저장은 <code>data.frame</code>이나 <code>matrix</code> 타입을 일반적으로 사용합니다. 이 데이터의 일부 열 또는 행의 데이터만을 가져와서 별도로 저장하거나 분석이 필요할 경우가 있습니다. 이 때 인덱싱을 사용해서 일부 데이터를 선택하고 사용할 수 있으며 <code>subset</code>과 <code>filter</code> 함수도 이러한 선별 기능을 제공합니다. <code>subset</code>은 행과 열 모두를 선별할 수 있는 함수이고 <code>filter</code>는 열 (샘플)을 선택하는 함수입니다. 다음 <code>airquality</code> 데이터는 1973년 날짜별로 뉴욕의 공기질을 측정한 데이터 입니다. <code>NA</code>를 제외한 나머지 데이터만으로 새로운 데이터셋을 만들어 봅시다. <code>is.na</code>함수를 사용하면 해당 데이터가 <code>NA</code>일 경우 <code>TRUE</code>, <code>NA</code>가 아닐 경우 <code>FALSE</code> 를 반환해 줍니다.</p>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="data-transformation-basics.html#cb105-1"></a><span class="kw">is.na</span>(airquality<span class="op">$</span>Ozone)</span>
+<span id="cb105-2"><a href="data-transformation-basics.html#cb105-2"></a>ozone_complete1 &lt;-<span class="st"> </span>airquality[<span class="op">!</span><span class="kw">is.na</span>(airquality<span class="op">$</span>Ozone),]</span>
+<span id="cb105-3"><a href="data-transformation-basics.html#cb105-3"></a>ozone_complete2 &lt;-<span class="st"> </span><span class="kw">filter</span>(airquality, <span class="op">!</span><span class="kw">is.na</span>(airquality<span class="op">$</span>Ozone))</span>
+<span id="cb105-4"><a href="data-transformation-basics.html#cb105-4"></a>ozone_complete3 &lt;-<span class="st"> </span><span class="kw">subset</span>(airquality, <span class="op">!</span><span class="kw">is.na</span>(Ozone))</span></code></pre></div>
+<p>위 ozone_complete1와 ozone_complete2, ozone_complete3는 같은 결과를 보입니다. 그러나 ozone_complete1, 2보다는 ozone_complete3 코드가 훨씬 직관적이고 가독성이 높습니다. 특히 <code>airquality$ozone</code> 로 <code>$</code>를 사용하여 변수에 접근한 반면 subset 함수는 <code>Ozone</code>이라는 변수 이름을 사용해서 접근함으로써 코드의 간결성과 가독성을 유지할 수 있습니다. 또한 <code>subset</code>의 <code>select</code> 옵션을 이용해서 변수를 선택할 수도 있으며 <code>&amp;</code>(AND)와 <code>|</code>(OR) 연산자를 사용해서 조건을 두 개 이상 설정할 수 있습니다. 아래 <code>select</code> 옵션에서 <code>-</code>는 해당 변수를 제외한다는 의미 입니다.</p>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="data-transformation-basics.html#cb106-1"></a>ozone_complete4 &lt;-<span class="st"> </span><span class="kw">subset</span>(airquality, <span class="op">!</span><span class="kw">is.na</span>(ozone), <span class="dt">select=</span><span class="kw">c</span>(ozone, temp, month, day))</span>
+<span id="cb106-2"><a href="data-transformation-basics.html#cb106-2"></a>ozone_complete5 &lt;-<span class="st"> </span><span class="kw">subset</span>(airquality, <span class="op">!</span><span class="kw">is.na</span>(ozone) <span class="op">&amp;</span><span class="st"> </span><span class="op">!</span><span class="kw">is.na</span>(solar.r), <span class="dt">select=</span><span class="kw">c</span>(<span class="op">-</span>month, <span class="op">-</span>day))</span></code></pre></div>
+</div>
+<div id="merging-and-split" class="section level2">
+<h2><span class="header-section-number">5.3</span> merging and split</h2>
+<p><code>merge</code> 함수는 두 개 이상의 데이터셋을 통합하는 기능을 수행하는 함수입니다. 특히 <code>rbind</code>나 <code>cbind</code>와는 다르게, 결합하는 두 데이터에 공통적이거나 한 쪽의 데이터를 기준으로 결합을 수행 합니다. <code>?merge</code>를 참고하면 <code>by</code>, <code>by.x</code>, <code>by.y</code>, <code>all</code>, <code>all.x</code>, <code>all.y</code> 등의 옵션으로 이러한 설정을 수행할 수 있습니다. 간단한 예제를 통해서 이해해 보겠습니다.</p>
+<p>10명의 사람이 있고 이 사람들의 나이와 성별을 각각 나타낸 두 데이터셋이 있습니다. 그런데 df1은 나이만을 df2는 성별 정보만을 가지고 있으며 두 정보 모두 제공된 사람은 3명 (인덱스 4,5,6) 뿐입니다. 이제 merge를 이용해서 두 데이터셋을 결합해 보겠습니다.</p>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="data-transformation-basics.html#cb107-1"></a><span class="co">## merge</span></span>
+<span id="cb107-2"><a href="data-transformation-basics.html#cb107-2"></a>df1 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">id=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>), <span class="dt">age=</span><span class="kw">c</span>(<span class="dv">30</span>, <span class="dv">41</span>, <span class="dv">33</span>, <span class="dv">56</span>, <span class="dv">20</span>, <span class="dv">17</span>))</span>
+<span id="cb107-3"><a href="data-transformation-basics.html#cb107-3"></a>df2 &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">id=</span><span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>), <span class="dt">gender=</span><span class="kw">c</span>(<span class="st">&quot;f&quot;</span>, <span class="st">&quot;f&quot;</span>, <span class="st">&quot;m&quot;</span>, <span class="st">&quot;m&quot;</span>, <span class="st">&quot;f&quot;</span>, <span class="st">&quot;m&quot;</span>))</span>
+<span id="cb107-4"><a href="data-transformation-basics.html#cb107-4"></a></span>
+<span id="cb107-5"><a href="data-transformation-basics.html#cb107-5"></a>df_inner &lt;-<span class="st"> </span><span class="kw">merge</span>(df1, df2, <span class="dt">by=</span><span class="st">&quot;id&quot;</span>, <span class="dt">all=</span>F)</span>
+<span id="cb107-6"><a href="data-transformation-basics.html#cb107-6"></a>df_outer &lt;-<span class="st"> </span><span class="kw">merge</span>(df1, df2, <span class="dt">by=</span><span class="st">&quot;id&quot;</span>, <span class="dt">all=</span>T)</span>
+<span id="cb107-7"><a href="data-transformation-basics.html#cb107-7"></a>df_left_outer &lt;-<span class="st"> </span><span class="kw">merge</span>(df1, df2, <span class="dt">by=</span><span class="st">&quot;id&quot;</span>, <span class="dt">all.x=</span>T)</span>
+<span id="cb107-8"><a href="data-transformation-basics.html#cb107-8"></a>df_right_outer &lt;-<span class="st"> </span><span class="kw">merge</span>(df1, df2, <span class="dt">by=</span><span class="st">&quot;id&quot;</span>, <span class="dt">all.y=</span>T)</span></code></pre></div>
+<p>만약 두 데이터셋의 id가 다를 경우나 각각 다른 기준으로 결합해야 하는 경우는 <code>by</code>대신 <code>by.x</code>, <code>by.y</code> 옵션을 사용할 수 있습니다.</p>
+<p><code>split</code> 함수는 데이터를 특정 기준으로 나누는 역할을 하며 해당 기준은 factor 형 벡터 형태로 주어질 수 있습니다. 예를 들어 <code>airquality</code> 데이터의 <code>month</code> 변수를 기준으로 데이터를 분리해 보겠습니다.</p>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="data-transformation-basics.html#cb108-1"></a><span class="kw">str</span>(airquality)</span>
+<span id="cb108-2"><a href="data-transformation-basics.html#cb108-2"></a>g &lt;-<span class="st"> </span><span class="kw">factor</span>(airquality<span class="op">$</span>Month)</span>
+<span id="cb108-3"><a href="data-transformation-basics.html#cb108-3"></a>airq_split &lt;-<span class="st"> </span><span class="kw">split</span>(airquality, g)</span>
+<span id="cb108-4"><a href="data-transformation-basics.html#cb108-4"></a><span class="kw">class</span>(airq_split)</span>
+<span id="cb108-5"><a href="data-transformation-basics.html#cb108-5"></a><span class="kw">str</span>(airq_split)</span></code></pre></div>
+<p>위와 같이 <code>airq_split</code>은 길이가 5인 (5, 6, 7, 8, 9월) <code>list</code>타입이 되었고 각 요소는 서로 다른 size의 <code>data.frame</code>형으로 구성 된 것을 확인할 수 있습니다.</p>
+</div>
+<div id="transforming-data" class="section level2">
+<h2><span class="header-section-number">5.4</span> transforming data</h2>
+<p>R에서 기존 가지고 있는 데이터의 변경은 새로운 변수의 추가, 삭제, 변형과 샘플의 추가, 삭제, 변형을 생각해 볼 수 있습니다. 이러한 기능은 앞에서 배운 <code>merge</code>, <code>split</code>이나 <code>rbind</code>, <code>cbind</code>, 그리고 인덱싱을 활용한 값 변경 등의 방법을 이용할 수 있습니다. 또한 가장 직관적으로 필요한 변수들을 기존 데이터셋에서 추출한 후 <code>data.frame</code> 명령어를 사용해서 새로운 데이터셋으로 만들어주면 될 것 입니다.</p>
+<p>이러한 방법들 외에 <code>within</code>을 사용할 경우 특정 변수의 변형과 이를 반영한 새로운 데이터셋을 어렵지 않게 만들수 있습니다. <code>with</code> 함수의 사용 예와 함께 <code>within</code> 함수를 사용하여 데이터를 변형하는 예를 살펴봅니다. <code>with</code>나 <code>within</code> 함수는 R을 활용하는데 많이 사용되는 함수들은 아닙니다. 또한 이러한 기능들은 <code>dplyr</code> 등의 패키지에서 제공하는 경우가 많아서 필수적으로 익힐 부분은 아닙니다. 그러나 개념적인 이해를 돕기위한 좋은 도구들이며 여전히 고수준의 R 사용자들이 코드에 사용하고 있는 함수들이므로 알아두는 것이 좋습니다.</p>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="data-transformation-basics.html#cb109-1"></a><span class="co">## without with</span></span>
+<span id="cb109-2"><a href="data-transformation-basics.html#cb109-2"></a>ozone_complete &lt;-<span class="st"> </span>airquality[<span class="op">!</span><span class="kw">is.na</span>(airquality<span class="op">$</span>Ozone),<span class="st">&quot;Ozone&quot;</span>]</span>
+<span id="cb109-3"><a href="data-transformation-basics.html#cb109-3"></a>temp_complete &lt;-<span class="st"> </span>airquality[<span class="op">!</span><span class="kw">is.na</span>(airquality<span class="op">$</span>Temp),<span class="st">&quot;Temp&quot;</span>]</span>
+<span id="cb109-4"><a href="data-transformation-basics.html#cb109-4"></a><span class="kw">print</span>(<span class="kw">mean</span>(ozone_complete))</span>
+<span id="cb109-5"><a href="data-transformation-basics.html#cb109-5"></a><span class="kw">print</span>(<span class="kw">mean</span>(temp_complete))</span>
+<span id="cb109-6"><a href="data-transformation-basics.html#cb109-6"></a></span>
+<span id="cb109-7"><a href="data-transformation-basics.html#cb109-7"></a><span class="co">## with</span></span>
+<span id="cb109-8"><a href="data-transformation-basics.html#cb109-8"></a><span class="kw">with</span>(airquality, {</span>
+<span id="cb109-9"><a href="data-transformation-basics.html#cb109-9"></a>  <span class="kw">print</span>(<span class="kw">mean</span>(Ozone[<span class="op">!</span><span class="kw">is.na</span>(Ozone)]))</span>
+<span id="cb109-10"><a href="data-transformation-basics.html#cb109-10"></a>  <span class="kw">print</span>(<span class="kw">mean</span>(Temp[<span class="op">!</span><span class="kw">is.na</span>(Temp)]))</span>
+<span id="cb109-11"><a href="data-transformation-basics.html#cb109-11"></a>})</span></code></pre></div>
+<p>위 <code>with</code> 함수에서 보는바와 같이 <code>$</code>를 이용한 변수 접근 대신 <code>with</code>함수 내에서는 (<code>{</code>, <code>}</code> 안에서) 해당 <code>data.frame</code>에 있는 변수 이름을 직접 접근할 수 있으며 따라서 코드의 간결함과 가독성이 향상됩니다.</p>
+<p><code>within</code> 함수는 <code>with</code>함수와 같이 <code>{</code>, <code>}</code> 안에서 변수의 이름만으로 해당 변수에 접근이 가능하나 입력된 데이터와 변경된 변수(들)을 반환한다는 점이 다릅니다. 아래 예는 <code>airquality</code> 데이터의 화씨 (Fahrenheit) 온도를 섭씨 (Celsius) 온도로 변환해서 새로운 데이터셋을 만드는 코드입니다. <code>data.frame</code>을 이용한 코드와 비교해 보시기 바랍니다. 데이터셋 내에서 참조할 변수들이 많아질 경우 <code>airquality$xxx</code> 식의 코드를 줄이는 것 만으로도 코드의 가독성과 간결성을 유지할 수 있습니다.</p>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="data-transformation-basics.html#cb110-1"></a>newairquality &lt;-<span class="st"> </span><span class="kw">within</span>(airquality, {</span>
+<span id="cb110-2"><a href="data-transformation-basics.html#cb110-2"></a>  celsius =<span class="st"> </span><span class="kw">round</span>((<span class="dv">5</span><span class="op">*</span>(Temp<span class="dv">-32</span>))<span class="op">/</span><span class="dv">9</span>, <span class="dv">2</span>)</span>
+<span id="cb110-3"><a href="data-transformation-basics.html#cb110-3"></a>})</span>
+<span id="cb110-4"><a href="data-transformation-basics.html#cb110-4"></a><span class="kw">head</span>(newairquality)</span>
+<span id="cb110-5"><a href="data-transformation-basics.html#cb110-5"></a></span>
+<span id="cb110-6"><a href="data-transformation-basics.html#cb110-6"></a><span class="co">## data.frame</span></span>
+<span id="cb110-7"><a href="data-transformation-basics.html#cb110-7"></a>celsius &lt;-<span class="st"> </span><span class="kw">round</span>((<span class="dv">5</span><span class="op">*</span>(airquality<span class="op">$</span>Temp<span class="dv">-32</span>))<span class="op">/</span><span class="dv">9</span>, <span class="dv">2</span>)</span>
+<span id="cb110-8"><a href="data-transformation-basics.html#cb110-8"></a>newairquality &lt;-<span class="st"> </span><span class="kw">data.frame</span>(airquality, celsius)</span>
+<span id="cb110-9"><a href="data-transformation-basics.html#cb110-9"></a><span class="kw">head</span>(newairquality)</span></code></pre></div>
+</div>
+<div id="analysis-example-babies" class="section level2">
+<h2><span class="header-section-number">5.5</span> Analysis example (babies)</h2>
+<p><code>UsingR</code> 패키지의 <code>babies</code> 데이터를 이용해서 산모의 흡연 여부와 신생아 몸무게의 관계를 알아보는 분석을 수행해 보겠습니다. 본 강의를 통해 배우지 않은 내용들이 있지만 코드를 따라 가면서 참고하시기 바랍니다. 우선 <code>UsingR</code> 패키지를 로딩합니다. 산모의 임신 기간이 (gestation) 999로 표기된 데이터는 명백히 에러이며 이들을 <code>NA</code>로 처리합니다.</p>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="data-transformation-basics.html#cb111-1"></a><span class="kw">library</span>(UsingR)</span>
+<span id="cb111-2"><a href="data-transformation-basics.html#cb111-2"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb111-3"><a href="data-transformation-basics.html#cb111-3"></a><span class="kw">head</span>(babies)</span>
+<span id="cb111-4"><a href="data-transformation-basics.html#cb111-4"></a><span class="co">## a simple way to checkout the data</span></span>
+<span id="cb111-5"><a href="data-transformation-basics.html#cb111-5"></a><span class="kw">plot</span>(babies<span class="op">$</span>gestation)  </span>
+<span id="cb111-6"><a href="data-transformation-basics.html#cb111-6"></a><span class="co">## or using ggplot...</span></span>
+<span id="cb111-7"><a href="data-transformation-basics.html#cb111-7"></a><span class="kw">ggplot</span>(babies, <span class="kw">aes</span>(<span class="dt">x=</span><span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(gestation), <span class="dt">y=</span>gestation)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb111-8"><a href="data-transformation-basics.html#cb111-8"></a><span class="st">  </span><span class="kw">geom_point</span>()</span>
+<span id="cb111-9"><a href="data-transformation-basics.html#cb111-9"></a>babies<span class="op">$</span>gestation[babies<span class="op">$</span>gestation<span class="op">&gt;</span><span class="dv">900</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb111-10"><a href="data-transformation-basics.html#cb111-10"></a><span class="kw">str</span>(babies)</span></code></pre></div>
+<p>아래와 같이 <code>within</code> 함수를 사용해서 <code>babies$</code> 를 반복해서 입력해주는 불편함을 줄이고 가독성을 높입니다. 똑같은 방법으로 <code>dwt</code> (아빠의 몸무게) 변수의 에러값들에 대해서도 <code>NA</code> 처리를 할 수 있습니다.</p>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="data-transformation-basics.html#cb112-1"></a>new_babies &lt;-<span class="st"> </span><span class="kw">within</span>(babies, {</span>
+<span id="cb112-2"><a href="data-transformation-basics.html#cb112-2"></a>  gestation[gestation<span class="op">==</span><span class="dv">999</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb112-3"><a href="data-transformation-basics.html#cb112-3"></a>  dwt[dwt<span class="op">==</span><span class="dv">999</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb112-4"><a href="data-transformation-basics.html#cb112-4"></a>})</span>
+<span id="cb112-5"><a href="data-transformation-basics.html#cb112-5"></a><span class="kw">str</span>(new_babies)</span></code></pre></div>
+<p><code>smoke</code> 변수는 흡연 여부를 나타내는 범주형 변수로 0, 1, 2, 3 값은 의미가 없습니다. 사람이 읽을 수 있는 label을 붙인 <code>factor</code> 형 변수로 변환하는 코드도 함께 작성해 보겠습니다.</p>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="data-transformation-basics.html#cb113-1"></a><span class="kw">str</span>(babies<span class="op">$</span>smoke)</span>
+<span id="cb113-2"><a href="data-transformation-basics.html#cb113-2"></a>new_babies &lt;-<span class="st"> </span><span class="kw">within</span>(babies, {</span>
+<span id="cb113-3"><a href="data-transformation-basics.html#cb113-3"></a>  gestation[gestation<span class="op">==</span><span class="dv">999</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb113-4"><a href="data-transformation-basics.html#cb113-4"></a>  dwt[dwt<span class="op">==</span><span class="dv">999</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb113-5"><a href="data-transformation-basics.html#cb113-5"></a>  smoke =<span class="st"> </span><span class="kw">factor</span>(smoke)</span>
+<span id="cb113-6"><a href="data-transformation-basics.html#cb113-6"></a>  <span class="kw">levels</span>(smoke) =<span class="st"> </span><span class="kw">list</span>(</span>
+<span id="cb113-7"><a href="data-transformation-basics.html#cb113-7"></a>    <span class="st">&quot;never&quot;</span> =<span class="st"> </span><span class="dv">0</span>, </span>
+<span id="cb113-8"><a href="data-transformation-basics.html#cb113-8"></a>    <span class="st">&quot;smoke now&quot;</span> =<span class="st"> </span><span class="dv">1</span>, </span>
+<span id="cb113-9"><a href="data-transformation-basics.html#cb113-9"></a>    <span class="st">&quot;until current pregnancy&quot;</span> =<span class="st"> </span><span class="dv">2</span>,</span>
+<span id="cb113-10"><a href="data-transformation-basics.html#cb113-10"></a>    <span class="st">&quot;once did, not now&quot;</span> =<span class="st"> </span><span class="dv">3</span>)</span>
+<span id="cb113-11"><a href="data-transformation-basics.html#cb113-11"></a>  })</span>
+<span id="cb113-12"><a href="data-transformation-basics.html#cb113-12"></a><span class="kw">str</span>(new_babies<span class="op">$</span>smoke)</span></code></pre></div>
+</div>
+<div id="apply" class="section level2">
+<h2><span class="header-section-number">5.6</span> apply</h2>
+<p>앞서까지는 데이터를 변형할 때 사용하는 다양한 함수들을 살펴 보았습니다. <code>apply</code>는 데이터를 변형하기 위한 함수라기 보다는 데이터를 다룰 때 각 원소별, 그룹별, row, 또는 column 별로 반복적으로 수행되는 작업을 효율적으로 수행할 수 있도록 해주는 함수입니다. <code>apply</code> 계열의 함수를 적절히 사용하면 효율성이나 편리성 뿐만 아니라 코드의 간결성 등 많은 장점이 있습니다. 쉬운 이해를 위해 <code>colMean</code> 함수를 예로 들면 <code>colMean</code>은 column 또는 row 단위로 해당하는 모든 값들에 대해 평균을 계산해주는 함수이고 <code>apply</code>를 사용할 경우 다음과 같이 <code>apply</code> 함수와 <code>mean</code> 함수를 이용해서 같은 기능을 수행할 수 있습니다. 아래는 <code>babies</code> 데이터의 clearning 된 (위에서 만들었던) <code>new_babies</code> 데이터에 이어서 수행되는 내용입니다.</p>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="data-transformation-basics.html#cb114-1"></a><span class="kw">head</span>(new_babies)</span>
+<span id="cb114-2"><a href="data-transformation-basics.html#cb114-2"></a>df &lt;-<span class="st"> </span><span class="kw">subset</span>(new_babies, <span class="dt">select=</span><span class="kw">c</span>(gestation, wt, dwt))</span>
+<span id="cb114-3"><a href="data-transformation-basics.html#cb114-3"></a><span class="kw">colMeans</span>(df, <span class="dt">na.rm=</span>T)</span>
+<span id="cb114-4"><a href="data-transformation-basics.html#cb114-4"></a><span class="kw">apply</span>(df, <span class="dv">2</span>, mean, <span class="dt">na.rm=</span>T)</span></code></pre></div>
+<p>위와 같이 <code>colMeans</code>와 <code>apply</code>가 똑같은 결과를 보여주고 있습니다. 두 번째 인자인 margin의 값으로 (<code>?apply</code>참고) 여기서는 <code>2</code>가 사용되었으며 margin 값이 1인지 2인지에 따라서 다음과 같이 작동을 합니다.</p>
+<p><img src="images/07/01.png" /></p>
+<p><code>mean</code>외에도 다양한 함수들이 사용될 수 있으며 아래와 같이 임의의 함수를 만들어서 사용할 수 도 있습니다. 아래 코드에서는 <code>function(x)...</code>로 바로 함수의 정의를 넣어서 사용했으나 그 아래 <code>mysd</code> 함수와 같이 미리 함수 하나를 만들고 난 후 함수 이름을 이용해서 <code>apply</code>를 적용할 수 있습니다.</p>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="data-transformation-basics.html#cb115-1"></a><span class="kw">apply</span>(df, <span class="dv">2</span>, sd, <span class="dt">na.rm=</span>T)</span>
+<span id="cb115-2"><a href="data-transformation-basics.html#cb115-2"></a><span class="kw">apply</span>(df, <span class="dv">2</span>, <span class="cf">function</span>(x){ </span>
+<span id="cb115-3"><a href="data-transformation-basics.html#cb115-3"></a>  xmean &lt;-<span class="st"> </span><span class="kw">mean</span>(x, <span class="dt">na.rm=</span>T) </span>
+<span id="cb115-4"><a href="data-transformation-basics.html#cb115-4"></a>  <span class="kw">return</span>(xmean)</span>
+<span id="cb115-5"><a href="data-transformation-basics.html#cb115-5"></a>  })</span></code></pre></div>
+<p><code>apply</code> 함수는 특히 R에서 느리게 작동하는 loop (<code>for</code>, <code>while</code> 등) 문 대신 사용되어 큰 행렬에 대해서도 빠른 계산 속도를 보여줄 수 있습니다.</p>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="data-transformation-basics.html#cb116-1"></a>n &lt;-<span class="st"> </span><span class="dv">40</span></span>
+<span id="cb116-2"><a href="data-transformation-basics.html#cb116-2"></a>m &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">100</span>, n, <span class="dt">replace=</span>T), <span class="dt">ncol=</span><span class="dv">4</span>)</span>
+<span id="cb116-3"><a href="data-transformation-basics.html#cb116-3"></a>mysd &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
+<span id="cb116-4"><a href="data-transformation-basics.html#cb116-4"></a>  xmean &lt;-<span class="st"> </span><span class="kw">sum</span>(x)<span class="op">/</span><span class="kw">length</span>(x)</span>
+<span id="cb116-5"><a href="data-transformation-basics.html#cb116-5"></a>  tmpdif &lt;-<span class="st"> </span>x<span class="op">-</span>xmean</span>
+<span id="cb116-6"><a href="data-transformation-basics.html#cb116-6"></a>  xvar &lt;-<span class="st"> </span><span class="kw">sum</span>(tmpdif<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span>(<span class="kw">length</span>(x)<span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb116-7"><a href="data-transformation-basics.html#cb116-7"></a>  xsd &lt;-<span class="st"> </span><span class="kw">sqrt</span>(xvar)</span>
+<span id="cb116-8"><a href="data-transformation-basics.html#cb116-8"></a>  <span class="kw">return</span>(xsd)</span>
+<span id="cb116-9"><a href="data-transformation-basics.html#cb116-9"></a>}</span>
+<span id="cb116-10"><a href="data-transformation-basics.html#cb116-10"></a></span>
+<span id="cb116-11"><a href="data-transformation-basics.html#cb116-11"></a><span class="co">## for </span></span>
+<span id="cb116-12"><a href="data-transformation-basics.html#cb116-12"></a>results &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, <span class="kw">nrow</span>(m))</span>
+<span id="cb116-13"><a href="data-transformation-basics.html#cb116-13"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(m)){</span>
+<span id="cb116-14"><a href="data-transformation-basics.html#cb116-14"></a>  results[i] &lt;-<span class="st"> </span><span class="kw">mysd</span>(m[i,])</span>
+<span id="cb116-15"><a href="data-transformation-basics.html#cb116-15"></a>}</span>
+<span id="cb116-16"><a href="data-transformation-basics.html#cb116-16"></a><span class="kw">print</span>(results)</span>
+<span id="cb116-17"><a href="data-transformation-basics.html#cb116-17"></a><span class="kw">apply</span>(m, <span class="dv">1</span>, mysd)</span>
+<span id="cb116-18"><a href="data-transformation-basics.html#cb116-18"></a><span class="kw">apply</span>(m, <span class="dv">1</span>, sd)</span></code></pre></div>
+<p><code>apply</code> 함수 외에도 <code>sapply</code>, <code>lapply</code>, <code>mapply</code> 등의 다양한 <code>apply</code>계열 함수가 쓰일 수 있습니다. 먼저 <code>lapply</code>는 <code>matrix</code> 형태 데이터가 아닌 <code>list</code> 데이터에 사용되어 각 <code>list</code> 원소별로 주어진 기능을 반복해서 수행하며 <code>sapply</code>는 <code>lapply</code>와 유사하나 벡터, 리스트, 데이터프레임 등에 함수를 적용할 수 있고 그 결과를 벡터 또는 행렬로 반환합니다.</p>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="data-transformation-basics.html#cb117-1"></a>x &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">a=</span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">b=</span><span class="kw">exp</span>(<span class="op">-</span><span class="dv">3</span><span class="op">:</span><span class="dv">3</span>), <span class="dt">logic=</span><span class="kw">c</span>(T,T,F,T))</span>
+<span id="cb117-2"><a href="data-transformation-basics.html#cb117-2"></a><span class="kw">mean</span>(x<span class="op">$</span>a)</span>
+<span id="cb117-3"><a href="data-transformation-basics.html#cb117-3"></a><span class="kw">lapply</span>(x, mean)</span>
+<span id="cb117-4"><a href="data-transformation-basics.html#cb117-4"></a><span class="kw">sapply</span>(x, mean)</span>
+<span id="cb117-5"><a href="data-transformation-basics.html#cb117-5"></a></span>
+<span id="cb117-6"><a href="data-transformation-basics.html#cb117-6"></a>x &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">a=</span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">b=</span><span class="kw">exp</span>(<span class="op">-</span><span class="dv">4</span><span class="op">:</span><span class="dv">5</span>))</span>
+<span id="cb117-7"><a href="data-transformation-basics.html#cb117-7"></a><span class="kw">sapply</span>(x, mean)</span>
+<span id="cb117-8"><a href="data-transformation-basics.html#cb117-8"></a></span>
+<span id="cb117-9"><a href="data-transformation-basics.html#cb117-9"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">9</span>, <span class="dv">16</span>)</span>
+<span id="cb117-10"><a href="data-transformation-basics.html#cb117-10"></a><span class="kw">sapply</span>(x, sqrt)</span>
+<span id="cb117-11"><a href="data-transformation-basics.html#cb117-11"></a><span class="kw">sqrt</span>(x)</span>
+<span id="cb117-12"><a href="data-transformation-basics.html#cb117-12"></a></span>
+<span id="cb117-13"><a href="data-transformation-basics.html#cb117-13"></a>y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</span>
+<span id="cb117-14"><a href="data-transformation-basics.html#cb117-14"></a><span class="kw">sapply</span>(y, <span class="cf">function</span>(x){<span class="dv">2</span><span class="op">*</span>x})</span>
+<span id="cb117-15"><a href="data-transformation-basics.html#cb117-15"></a>y<span class="op">*</span><span class="dv">2</span></span></code></pre></div>
+<p>마지막 예제에서처럼 <code>sapply</code>나 <code>lapply</code>도 임의의 함수를 만들어 적용시킬 수도 있습니다. 자세히 살펴 보면 y는 10개의 값을 갖는 벡터이고 이 벡터의 각 원소 (값에) 함수를 반복해서 적용하는 것 입니다. 함수에서 <code>x</code>는 각 원소의 값을 차례차례 받는 역할을 하므로 1부터 10까지 값이 함수로 들어가 2를 곱한 수가 반환됩니다. 따라서 벡터연산을 하는 <code>y*2</code>와 결과가 같으나 원하는 함수를 정의해서 자유롭게 사용할 수 있다는 장점이 있습니다. 리스트의 경우는 다음과 같이 사용합니다.</p>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="data-transformation-basics.html#cb118-1"></a>y &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">a=</span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">b=</span><span class="kw">exp</span>(<span class="op">-</span><span class="dv">3</span><span class="op">:</span><span class="dv">3</span>), <span class="dt">logic=</span><span class="kw">c</span>(T,T,F,T))</span>
+<span id="cb118-2"><a href="data-transformation-basics.html#cb118-2"></a>myfunc &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
+<span id="cb118-3"><a href="data-transformation-basics.html#cb118-3"></a>  <span class="kw">return</span>(<span class="kw">mean</span>(x, <span class="dt">na.rm=</span>T))</span>
+<span id="cb118-4"><a href="data-transformation-basics.html#cb118-4"></a>}</span>
+<span id="cb118-5"><a href="data-transformation-basics.html#cb118-5"></a><span class="kw">lapply</span>(y, myfunc)</span>
+<span id="cb118-6"><a href="data-transformation-basics.html#cb118-6"></a><span class="kw">unlist</span>(<span class="kw">lapply</span>(y, myfunc))</span></code></pre></div>
+<p>즉, <code>myfunc</code>의 <code>x</code>가 list y의 각 원소들, y[[1]], y[[2]], y[[3]]를 각각 받아서 <code>mean</code> 연산을 수행해 줍니다. 결과로 각 <code>list</code> 원소들의 평균 값이 반환되며 <code>unlist</code> 함수는 <code>list</code> 형태의 반환 값을 <code>vector</code> 형태로 전환해 줍니다.</p>
+</div>
+<div id="problems-05" class="section level2">
+<h2><span class="header-section-number">5.7</span> Problems 05</h2>
+<p>1-1) airquality 데이터에서 <code>Temp</code>와 <code>Ozone</code> 변수로 이루어진 df라는 이름의 <code>data.frame</code>을 만드시오 (단 <code>NA</code>가 있는 샘플(열)은 모두 제외)</p>
+<p>2-1) 다음 df 의 hour, minute, second로 나누어진 값들을 초 단위로 변환하여 seconds라는 변수에 저장한 후 기존 df에 추가한 df2 데이터셋을 만드시오 (<code>within</code> 함수 이용)</p>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="data-transformation-basics.html#cb119-1"></a>df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">hour=</span><span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">8</span>),</span>
+<span id="cb119-2"><a href="data-transformation-basics.html#cb119-2"></a>                 <span class="dt">minute=</span><span class="kw">c</span>(<span class="dv">46</span>, <span class="dv">56</span>, <span class="dv">44</span>, <span class="dv">37</span>, <span class="dv">39</span>),</span>
+<span id="cb119-3"><a href="data-transformation-basics.html#cb119-3"></a>                 <span class="dt">second=</span><span class="kw">c</span>(<span class="dv">19</span>, <span class="dv">45</span>, <span class="dv">57</span>, <span class="dv">41</span>, <span class="dv">27</span>))</span></code></pre></div>
+<p>다음은 앞에서 수행했던 <code>airquality</code> 데이터를 월별로 나눈 데이터셋임. 이 데이터셋을 이용하여 각 월별로 온도와 오존 농도의 평균값을 저장한 <code>data.frame</code> 형식의 데이터를 만들기 위하여 다음 단계별 과정에 적절한 코드를 작성하시오</p>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="data-transformation-basics.html#cb120-1"></a><span class="co">## dataset</span></span>
+<span id="cb120-2"><a href="data-transformation-basics.html#cb120-2"></a>g &lt;-<span class="st"> </span><span class="kw">factor</span>(airquality<span class="op">$</span>month)</span>
+<span id="cb120-3"><a href="data-transformation-basics.html#cb120-3"></a>airq_split &lt;-<span class="st"> </span><span class="kw">split</span>(airquality, g)</span></code></pre></div>
+<p>3-1) 다음 <code>df</code>의 <code>ozone</code> 평균을 구하는 <code>ozone_func</code> 함수를 작성하시오 (단 입력은 <code>data.frame</code> 형식의 오브젝트를 받고 출력은 평균값 (정수 값 하나) 출력. <code>mean</code> 함수 사용시 데이터에 <code>NA</code>가 포함되어 있을 경우 <code>na.rm=T</code> 옵션 적용)</p>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="data-transformation-basics.html#cb121-1"></a><span class="co">## May data.frame</span></span>
+<span id="cb121-2"><a href="data-transformation-basics.html#cb121-2"></a>df &lt;-<span class="st"> </span>airq_split[[<span class="dv">1</span>]]</span>
+<span id="cb121-3"><a href="data-transformation-basics.html#cb121-3"></a><span class="co">#</span></span>
+<span id="cb121-4"><a href="data-transformation-basics.html#cb121-4"></a><span class="co"># write your code here for ozone_func function</span></span>
+<span id="cb121-5"><a href="data-transformation-basics.html#cb121-5"></a><span class="co">#</span></span>
+<span id="cb121-6"><a href="data-transformation-basics.html#cb121-6"></a></span>
+<span id="cb121-7"><a href="data-transformation-basics.html#cb121-7"></a><span class="co">## Usage</span></span>
+<span id="cb121-8"><a href="data-transformation-basics.html#cb121-8"></a><span class="kw">ozone_func</span>(df)</span>
+<span id="cb121-9"><a href="data-transformation-basics.html#cb121-9"></a><span class="co">## output</span></span>
+<span id="cb121-10"><a href="data-transformation-basics.html#cb121-10"></a><span class="co"># 23.61538</span></span></code></pre></div>
+<p>3-2) <code>lapply</code>와 <code>ozone_func</code> 함수를 사용하여 <code>airq_split</code> list 데이터의 월별 <code>ozone</code> 평균 값을 구하고 <code>ozone_means</code>에 <code>vector</code> 형식으로 저장하시오</p>
+<p>3-3) 위 3-1), 3-2)와 같은 방법으로 <code>temp_func</code> 함수를 만들고 월별 <code>temp</code>의 평균값을 <code>temp_means</code>에 <code>vector</code> 형식으로 저장하시오.</p>
+<p>3-4) 위에서 구해진 두 변수값들을 이용하여 <code>air_means</code> 라는 이름의 <code>data.frame</code>으로 저장하시오</p>
+<hr />
+<p><a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="크리에이티브 커먼즈 라이선스" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />이 저작물은 <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">크리에이티브 커먼즈 저작자표시-비영리-변경금지 4.0 국제 라이선스</a>에 따라 이용할 수 있습니다.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="bivariate-data.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
