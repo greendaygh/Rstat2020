@@ -123,5 +123,6 @@ Murdoch (https://www.cambridge.org/core/books/first-course-in-statistical-progra
 * 4-4 https://youtu.be/6N8i9uQ-6F8
 * 4-5 https://youtu.be/TbxHHHNWltE
 
-
+### Lecture 5
+* https://youtu.be/KhVJ1TtxPGA
 
