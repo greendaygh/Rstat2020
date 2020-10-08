@@ -351,11 +351,16 @@ df <- data.frame(hour=c(4, 7, 1, 5, 8),
                  second=c(19, 45, 57, 41, 27))
 ```
 
-3-1) `airquality` 데이터를 월별로 나눈 데이터셋으로 월별로 온도와 오존 농도의 평균값을 구하는 코드를 작성하시오. 
+3-1) `airquality`의 월별 온도와 오존농도의 평균값을 구하는 코드를 작성하시오. 
+
  - Ozone, Temp, Month 변수를 선별 (`subset`사용)한 `df1` 만들기 
+ 
  - `df1`에서 Ozone과 Temp의 `NA`를 제외한 (`subset` 사용) 데이터셋 `df2` 만들기
+ 
   - `df2`의 Month 변수를 기준으로 데이터를 나누어 (`split` 사용) `df3` 만들기 
+  
  - `lapply`, `colMeans` 함수를 사용하여 `df3`의 그룹별, Ozone, Temp의 평균 계산
+ 
  - `matrix` 형태로 변형
 
 ```{r, echo=F}
