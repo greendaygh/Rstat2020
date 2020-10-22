@@ -1,6 +1,8 @@
 
 # Data science and tidyverse 
 
+* https://youtu.be/zEGrUncFg4I
+
 tidyverse (https://www.tidyverse.org)는 데이터 사이언티스트를 위한 R 기반의 독창적인 패키지들의 모음입니다. Rstudio의 핵심 전문가인 해들리위컴이 (Hadley Wickham) 중심이 되어 만들어 졌으며 기존의 툴보다 쉽고 효율적으로 데이터 분석을 수행할 수 있습니다. 
 
 ![](images/08/tidyverse.JPG)
