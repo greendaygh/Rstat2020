@@ -24,7 +24,7 @@
 <meta name="author" content="한국생명공학연구원 김하성" />
 
 
-<meta name="date" content="2020-10-22" />
+<meta name="date" content="2020-10-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -258,6 +258,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6.3" data-path="data-science-and-tidyverse.html"><a href="data-science-and-tidyverse.html#code-comparison"><i class="fa fa-check"></i><b>6.3</b> code comparison</a></li>
 <li class="chapter" data-level="6.4" data-path="data-science-and-tidyverse.html"><a href="data-science-and-tidyverse.html#dplyr-example-iris"><i class="fa fa-check"></i><b>6.4</b> dplyr example iris</a></li>
+<li class="chapter" data-level="6.5" data-path="data-science-and-tidyverse.html"><a href="data-science-and-tidyverse.html#problems-06"><i class="fa fa-check"></i><b>6.5</b> Problems 06</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -436,41 +437,46 @@ matches(“(.)\1”) - 정규식, 반복되는 문자</p>
 <span id="cb139-2"><a href="data-science-and-tidyverse.html#cb139-2"></a><span class="st">  </span><span class="kw">group_by</span>(Species) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb139-3"><a href="data-science-and-tidyverse.html#cb139-3"></a><span class="st">  </span><span class="kw">summarise_all</span>(mean)</span></code></pre></div>
 <p>위에서 보듯 <code>dplyr</code> 패키지를 사용할 경우 그 결과는 같으나 코드의 가독성과 효율성면에서 장점을 보여줍니다. <code>iris</code> 데이터를 받아서 Species에 명시된 그룹으로 나누고 <code>mean</code> 함수를 모든 컬럼에 대해서 사용하라는 의미 입니다.</p>
-<p><code>ggplot</code>을 이용하여 각 평균에 대한 <code>barplot</code>을 그려보도록 하겠습니다. <code>ggplot</code>에서는 data만 명시해 주고 <code>geom_bar</code>에 <code>aes</code>와 <code>stat</code>을 모두 사용한 것이 다릅니다. ggplot 구문에서 지정해주는 <code>aes</code> 등의 옵션은 하위 geom_xxx 레이어들에 모두 적용이 되고 각 geom_xxx 레이어에서 지정해주는 <code>aes</code>는 해당 레이어에서만 효과를 나타냅니다.</p>
-<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="data-science-and-tidyverse.html#cb140-1"></a><span class="kw">library</span>(ggplot2)</span>
-<span id="cb140-2"><a href="data-science-and-tidyverse.html#cb140-2"></a></span>
-<span id="cb140-3"><a href="data-science-and-tidyverse.html#cb140-3"></a><span class="kw">ggplot</span>(iris_means_df) <span class="op">+</span></span>
-<span id="cb140-4"><a href="data-science-and-tidyverse.html#cb140-4"></a><span class="st">  </span><span class="kw">geom_bar</span>(<span class="kw">aes</span>(<span class="dt">x=</span>Species, <span class="dt">y=</span>Sepal.Length), <span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
 </div>
 <div id="dplyr-example-iris" class="section level2">
 <h2><span class="header-section-number">6.4</span> dplyr example iris</h2>
 <p><code>dplyr</code>패키지를 이용해서 <code>iris</code> 품종별로 꽃과 꽃받침의 넓이와 길이의 평균을 비교하는 bar그래프를 (error bar 포함) 그려보겠습니다.</p>
-<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="data-science-and-tidyverse.html#cb141-1"></a>iris_mean &lt;-<span class="st"> </span>iris <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb141-2"><a href="data-science-and-tidyverse.html#cb141-2"></a><span class="st">  </span><span class="kw">group_by</span>(Species) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb141-3"><a href="data-science-and-tidyverse.html#cb141-3"></a><span class="st">  </span><span class="kw">summarise_all</span>(mean)</span></code></pre></div>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="data-science-and-tidyverse.html#cb140-1"></a>iris_mean &lt;-<span class="st"> </span>iris <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb140-2"><a href="data-science-and-tidyverse.html#cb140-2"></a><span class="st">  </span><span class="kw">group_by</span>(Species) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb140-3"><a href="data-science-and-tidyverse.html#cb140-3"></a><span class="st">  </span><span class="kw">summarise_all</span>(mean)</span></code></pre></div>
 <p>이제 이 값들을 이용해서 barplot으로 그려봅니다. 그래프의 x축은 species별 Length나 Width mean 값으로 하고 y축은 각 해당하는 값들로 `stat=“identity”’로 넣어주면 될 듯 합니다. ggplot을 이용해서 그래프를 그리기 위한 long형 데이터로 전환해보면 다음과 같습니다.</p>
-<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="data-science-and-tidyverse.html#cb142-1"></a>iris_mean_mlt &lt;-<span class="st"> </span>iris_mean <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb142-2"><a href="data-science-and-tidyverse.html#cb142-2"></a><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="dt">cols =</span> <span class="op">-</span>Species)</span>
-<span id="cb142-3"><a href="data-science-and-tidyverse.html#cb142-3"></a></span>
-<span id="cb142-4"><a href="data-science-and-tidyverse.html#cb142-4"></a><span class="kw">ggplot</span>(iris_mean_mlt, <span class="kw">aes</span>(<span class="dt">x=</span>name, <span class="dt">y=</span>value, <span class="dt">fill=</span>Species)) <span class="op">+</span></span>
-<span id="cb142-5"><a href="data-science-and-tidyverse.html#cb142-5"></a><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="data-science-and-tidyverse.html#cb141-1"></a>iris_mean_mlt &lt;-<span class="st"> </span>iris_mean <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb141-2"><a href="data-science-and-tidyverse.html#cb141-2"></a><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="dt">cols =</span> <span class="op">-</span>Species)</span>
+<span id="cb141-3"><a href="data-science-and-tidyverse.html#cb141-3"></a></span>
+<span id="cb141-4"><a href="data-science-and-tidyverse.html#cb141-4"></a><span class="kw">ggplot</span>(iris_mean_mlt, <span class="kw">aes</span>(<span class="dt">x=</span>name, <span class="dt">y=</span>value, <span class="dt">fill=</span>Species)) <span class="op">+</span></span>
+<span id="cb141-5"><a href="data-science-and-tidyverse.html#cb141-5"></a><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>) </span></code></pre></div>
 <p>error bar 구현을 위해서는 각 그룹별 표준편차 <code>sd</code> 값이 필요합니다. 동일한 방법으로 sd 데이터를 구합니다.</p>
-<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="data-science-and-tidyverse.html#cb143-1"></a>iris_sd_mlt &lt;-<span class="st"> </span>iris <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb143-2"><a href="data-science-and-tidyverse.html#cb143-2"></a><span class="st">  </span><span class="kw">group_by</span>(Species) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb143-3"><a href="data-science-and-tidyverse.html#cb143-3"></a><span class="st">  </span><span class="kw">summarise_all</span>(sd) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb143-4"><a href="data-science-and-tidyverse.html#cb143-4"></a><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="op">-</span>Species)</span></code></pre></div>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="data-science-and-tidyverse.html#cb142-1"></a>iris_sd_mlt &lt;-<span class="st"> </span>iris <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb142-2"><a href="data-science-and-tidyverse.html#cb142-2"></a><span class="st">  </span><span class="kw">group_by</span>(Species) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb142-3"><a href="data-science-and-tidyverse.html#cb142-3"></a><span class="st">  </span><span class="kw">summarise_all</span>(sd) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb142-4"><a href="data-science-and-tidyverse.html#cb142-4"></a><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="op">-</span>Species)</span></code></pre></div>
 <p>이제 두 데이터를 병합 하겠습니다. 두 데이터를 병합할 때 key가 되는 변수가 필요하며 기본으로 동일한 이름을 가진 변수를 사용하지만 이 예제에서는 모든 변수가 동일한 이름을 가지고 있습니다. 따라서 by라는 옵션으로 key 변수를 지정해줄 수 있으며 다음과 같이 두 개 이상의 변수도 지정할 수 있습니다.</p>
-<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="data-science-and-tidyverse.html#cb144-1"></a>iris_new &lt;-<span class="st"> </span><span class="kw">left_join</span>(iris_mean_mlt, iris_sd_mlt, <span class="dt">by=</span><span class="kw">c</span>(<span class="st">&quot;Species&quot;</span>, <span class="st">&quot;name&quot;</span>)) </span>
-<span id="cb144-2"><a href="data-science-and-tidyverse.html#cb144-2"></a><span class="kw">head</span>(iris_new)</span></code></pre></div>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="data-science-and-tidyverse.html#cb143-1"></a>iris_new &lt;-<span class="st"> </span><span class="kw">left_join</span>(iris_mean_mlt, iris_sd_mlt, <span class="dt">by=</span><span class="kw">c</span>(<span class="st">&quot;Species&quot;</span>, <span class="st">&quot;name&quot;</span>)) </span>
+<span id="cb143-2"><a href="data-science-and-tidyverse.html#cb143-2"></a><span class="kw">head</span>(iris_new)</span></code></pre></div>
 <p>위와 같이 각 해당하는 샘플의 mean과 sd 값을 직접 비교해 보면 적절한 value 값들이 병합된 것을 알 수 있습니다. 단, <code>value</code>라는 변수 이름이 두 테이블에서 동일하게 사용되어 병합될 경우 value.x, value.y와 같이 자동으로 변수 이름이 다르게 할당 됩니다. 이제 위 데이터를 이용해서 barplot을 그려 보겠습니다.</p>
-<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="data-science-and-tidyverse.html#cb145-1"></a><span class="kw">ggplot</span>(iris_new, <span class="kw">aes</span>(<span class="dt">x=</span>name, <span class="dt">y=</span>value.x, <span class="dt">fill=</span>Species)) <span class="op">+</span></span>
-<span id="cb145-2"><a href="data-science-and-tidyverse.html#cb145-2"></a><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="dt">position=</span><span class="st">&quot;dodge&quot;</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="data-science-and-tidyverse.html#cb144-1"></a><span class="kw">ggplot</span>(iris_new, <span class="kw">aes</span>(<span class="dt">x=</span>name, <span class="dt">y=</span>value.x, <span class="dt">fill=</span>Species)) <span class="op">+</span></span>
+<span id="cb144-2"><a href="data-science-and-tidyverse.html#cb144-2"></a><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="dt">position=</span><span class="st">&quot;dodge&quot;</span>) </span></code></pre></div>
 <p>여기에 error bar를 추가하기 위해서는 다음과 같이 <code>geom_errorbar</code>라는 함수를 사용할 수 있습니다. 아래에서 <code>position_dodge(0.9)</code>는 error bar의 위치를 맞추기 위한 옵션으로 width를 사용할 경우는 일반적으로 <code>position_dodge(0.9)</code>를 사용한다고 외우는 것도 괜찮습니다.</p>
-<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="data-science-and-tidyverse.html#cb146-1"></a><span class="kw">ggplot</span>(iris_new, <span class="kw">aes</span>(<span class="dt">x=</span>name, <span class="dt">y=</span>value.x, <span class="dt">fill=</span>Species)) <span class="op">+</span></span>
-<span id="cb146-2"><a href="data-science-and-tidyverse.html#cb146-2"></a><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="dt">position=</span><span class="st">&quot;dodge&quot;</span>) <span class="op">+</span></span>
-<span id="cb146-3"><a href="data-science-and-tidyverse.html#cb146-3"></a><span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin=</span>value.x<span class="op">-</span>value.y, <span class="dt">ymax=</span>value.x<span class="op">+</span>value.y), </span>
-<span id="cb146-4"><a href="data-science-and-tidyverse.html#cb146-4"></a>              <span class="dt">position=</span><span class="kw">position_dodge</span>(<span class="fl">0.9</span>),</span>
-<span id="cb146-5"><a href="data-science-and-tidyverse.html#cb146-5"></a>              <span class="dt">width =</span> <span class="fl">0.4</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="data-science-and-tidyverse.html#cb145-1"></a><span class="kw">ggplot</span>(iris_new, <span class="kw">aes</span>(<span class="dt">x=</span>name, <span class="dt">y=</span>value.x, <span class="dt">fill=</span>Species)) <span class="op">+</span></span>
+<span id="cb145-2"><a href="data-science-and-tidyverse.html#cb145-2"></a><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="dt">position=</span><span class="st">&quot;dodge&quot;</span>) <span class="op">+</span></span>
+<span id="cb145-3"><a href="data-science-and-tidyverse.html#cb145-3"></a><span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="kw">aes</span>(<span class="dt">ymin=</span>value.x<span class="op">-</span>value.y, <span class="dt">ymax=</span>value.x<span class="op">+</span>value.y), </span>
+<span id="cb145-4"><a href="data-science-and-tidyverse.html#cb145-4"></a>              <span class="dt">position=</span><span class="kw">position_dodge</span>(<span class="fl">0.9</span>),</span>
+<span id="cb145-5"><a href="data-science-and-tidyverse.html#cb145-5"></a>              <span class="dt">width =</span> <span class="fl">0.4</span>)</span></code></pre></div>
+</div>
+<div id="problems-06" class="section level2">
+<h2><span class="header-section-number">6.5</span> Problems 06</h2>
+<p>6-1) <code>airquality</code> 데이터에서 <code>NA</code>가 포함된 샘플 (row)를 제거한 <code>myair</code> 라는 데이터셋을 생성하시오</p>
+<p>6-2) <code>myair</code> 데이터의 <code>Day</code> 변수를 제거한 후 새로운 데이터셋 <code>myair2</code> 데이터를 생성하시오</p>
+<p>6-3) <code>myair2</code> 데이터에서 월별로 모든 변수에 (Ozone, Solar.R, Wind, Temp) 대한 평균을 구한 후 <code>myair3</code> 변수에 저장하시오</p>
+<p>6-4) <code>myair3</code> 데이터를 long 형으로 바꾸고 <code>myair4</code>에 저장하시오</p>
+<p>6-5) <code>ggplot</code>으로 <code>myair4</code> 데이터의 월별 각 변수들의 평균 값들을 다음과 같은 bar 그래프로 그리시오</p>
+<p><img src="images/08/problem6.JPG" /></p>
+<p>6-5) 위 6-1)부터 6-5) 까지의 프로세스를 파이프로 묶어서 하나의 명령으로 수행하시오</p>
 <!-- ```{r, eval=F} -->
 <!-- ggplot(subdat.mlt, aes(x=device_name, y=value, fill=device_name)) + -->
 <!--   geom_violin(trim=FALSE) + -->
