@@ -4,7 +4,8 @@ rmd_files: [
   "02-univar.Rmd", 
   "03-bivar.Rmd",
   "07-dplyr.Rmd",
-  "08-dplyr.Rmd"
+  "08-dplyr.Rmd",
+  "09-population.Rmd"
 ]
 book_filename: "Rstat"
 repo: https://github.com/greendaygh/Rstat2020/

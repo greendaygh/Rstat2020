@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 7 Populations | R로 배우는 기초통계</title>
+  <meta name="description" content="UST lecture web site" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 7 Populations | R로 배우는 기초통계" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="UST lecture web site" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 7 Populations | R로 배우는 기초통계" />
+  
+  <meta name="twitter:description" content="UST lecture web site" />
+  
+
+<meta name="author" content="한국생명공학연구원 김하성" />
+
+
+<meta name="date" content="2020-10-29" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="multivariate-tydiverse.html"/>
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./"> Introduction to statistics with R </a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction 강의 개요</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#goal-강의-목표"><i class="fa fa-check"></i><b>1.1</b> Goal 강의 목표</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#this-course"><i class="fa fa-check"></i><b>1.2</b> This course</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#tips"><i class="fa fa-check"></i><b>1.3</b> Tips</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#references-books-참고-교제"><i class="fa fa-check"></i><b>1.4</b> References books 참고 교제</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#references-참고-자료"><i class="fa fa-check"></i><b>1.5</b> References 참고 자료</a></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#evaluation-평가-세부-항목"><i class="fa fa-check"></i><b>1.6</b> Evaluation 평가 세부 항목</a></li>
+<li class="chapter" data-level="1.7" data-path="index.html"><a href="index.html#schedule-강의-계획"><i class="fa fa-check"></i><b>1.7</b> Schedule 강의 계획</a></li>
+<li class="chapter" data-level="1.8" data-path="index.html"><a href="index.html#r-lecture-youtube-link"><i class="fa fa-check"></i><b>1.8</b> R Lecture Youtube Link</a>
+<ul>
+<li class="chapter" data-level="1.8.1" data-path="index.html"><a href="index.html#lecture-chapter-1"><i class="fa fa-check"></i><b>1.8.1</b> Lecture Chapter 1</a></li>
+<li class="chapter" data-level="1.8.2" data-path="index.html"><a href="index.html#lecture-2"><i class="fa fa-check"></i><b>1.8.2</b> Lecture 2</a></li>
+<li class="chapter" data-level="1.8.3" data-path="index.html"><a href="index.html#lecture-3"><i class="fa fa-check"></i><b>1.8.3</b> Lecture 3</a></li>
+<li class="chapter" data-level="1.8.4" data-path="index.html"><a href="index.html#lecture-4"><i class="fa fa-check"></i><b>1.8.4</b> Lecture 4</a></li>
+<li class="chapter" data-level="1.8.5" data-path="index.html"><a href="index.html#lecture-5"><i class="fa fa-check"></i><b>1.8.5</b> Lecture 5</a></li>
+<li class="chapter" data-level="1.8.6" data-path="index.html"><a href="index.html#lecture-6"><i class="fa fa-check"></i><b>1.8.6</b> Lecture 6</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="r-basics.html"><a href="r-basics.html"><i class="fa fa-check"></i><b>2</b> R basics</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="r-basics.html"><a href="r-basics.html#what-is-r-rstudio"><i class="fa fa-check"></i><b>2.1</b> What is R / Rstudio</a></li>
+<li class="chapter" data-level="2.2" data-path="r-basics.html"><a href="r-basics.html#r-rstudio-installation"><i class="fa fa-check"></i><b>2.2</b> R / Rstudio installation</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="r-basics.html"><a href="r-basics.html#r-설치"><i class="fa fa-check"></i><b>2.2.1</b> R 설치</a></li>
+<li class="chapter" data-level="2.2.2" data-path="r-basics.html"><a href="r-basics.html#rstudio-설치"><i class="fa fa-check"></i><b>2.2.2</b> Rstudio 설치</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="r-basics.html"><a href="r-basics.html#rstudio-interface"><i class="fa fa-check"></i><b>2.3</b> Rstudio interface</a></li>
+<li class="chapter" data-level="2.4" data-path="r-basics.html"><a href="r-basics.html#keyboard-shortcuts"><i class="fa fa-check"></i><b>2.4</b> Keyboard shortcuts</a></li>
+<li class="chapter" data-level="2.5" data-path="r-basics.html"><a href="r-basics.html#r-programming-basics-and-terminology"><i class="fa fa-check"></i><b>2.5</b> R programming basics and terminology</a></li>
+<li class="chapter" data-level="2.6" data-path="r-basics.html"><a href="r-basics.html#set-a-working-directory"><i class="fa fa-check"></i><b>2.6</b> Set a working directory</a></li>
+<li class="chapter" data-level="2.7" data-path="r-basics.html"><a href="r-basics.html#r-coding-practice"><i class="fa fa-check"></i><b>2.7</b> R coding practice</a></li>
+<li class="chapter" data-level="2.8" data-path="r-basics.html"><a href="r-basics.html#variables-and-values"><i class="fa fa-check"></i><b>2.8</b> Variables and values</a></li>
+<li class="chapter" data-level="2.9" data-path="r-basics.html"><a href="r-basics.html#variable-type-of-storage-mode"><i class="fa fa-check"></i><b>2.9</b> Variable type of (storage) mode</a></li>
+<li class="chapter" data-level="2.10" data-path="r-basics.html"><a href="r-basics.html#variable---vectors"><i class="fa fa-check"></i><b>2.10</b> Variable - Vectors</a></li>
+<li class="chapter" data-level="2.11" data-path="r-basics.html"><a href="r-basics.html#functions"><i class="fa fa-check"></i><b>2.11</b> Functions</a></li>
+<li class="chapter" data-level="2.12" data-path="r-basics.html"><a href="r-basics.html#vectorized-functions"><i class="fa fa-check"></i><b>2.12</b> Vectorized functions</a></li>
+<li class="chapter" data-level="2.13" data-path="r-basics.html"><a href="r-basics.html#help"><i class="fa fa-check"></i><b>2.13</b> Help</a></li>
+<li class="chapter" data-level="2.14" data-path="r-basics.html"><a href="r-basics.html#r-packages"><i class="fa fa-check"></i><b>2.14</b> R packages</a></li>
+<li class="chapter" data-level="2.15" data-path="r-basics.html"><a href="r-basics.html#data-sets"><i class="fa fa-check"></i><b>2.15</b> Data sets</a></li>
+<li class="chapter" data-level="2.16" data-path="r-basics.html"><a href="r-basics.html#cheatsheet"><i class="fa fa-check"></i><b>2.16</b> Cheatsheet</a></li>
+<li class="chapter" data-level="2.17" data-path="r-basics.html"><a href="r-basics.html#problems"><i class="fa fa-check"></i><b>2.17</b> Problems</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="univariat-data.html"><a href="univariat-data.html"><i class="fa fa-check"></i><b>3</b> Univariat data</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="univariat-data.html"><a href="univariat-data.html#introduction-2"><i class="fa fa-check"></i><b>3.1</b> Introduction 2</a></li>
+<li class="chapter" data-level="3.2" data-path="univariat-data.html"><a href="univariat-data.html#data-vectors"><i class="fa fa-check"></i><b>3.2</b> Data vectors</a></li>
+<li class="chapter" data-level="3.3" data-path="univariat-data.html"><a href="univariat-data.html#data-type"><i class="fa fa-check"></i><b>3.3</b> Data type</a></li>
+<li class="chapter" data-level="3.4" data-path="univariat-data.html"><a href="univariat-data.html#functions-2"><i class="fa fa-check"></i><b>3.4</b> Functions 2</a></li>
+<li class="chapter" data-level="3.5" data-path="univariat-data.html"><a href="univariat-data.html#miscellaneous-1"><i class="fa fa-check"></i><b>3.5</b> Miscellaneous 1</a></li>
+<li class="chapter" data-level="3.6" data-path="univariat-data.html"><a href="univariat-data.html#numeric-summaries"><i class="fa fa-check"></i><b>3.6</b> Numeric summaries</a></li>
+<li class="chapter" data-level="3.7" data-path="univariat-data.html"><a href="univariat-data.html#center-for-a-univariat-variable"><i class="fa fa-check"></i><b>3.7</b> Center for a univariat variable</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="univariat-data.html"><a href="univariat-data.html#sample-mean"><i class="fa fa-check"></i><b>3.7.1</b> Sample mean</a></li>
+<li class="chapter" data-level="3.7.2" data-path="univariat-data.html"><a href="univariat-data.html#measure-of-position"><i class="fa fa-check"></i><b>3.7.2</b> Measure of Position</a></li>
+</ul></li>
+<li class="chapter" data-level="3.8" data-path="univariat-data.html"><a href="univariat-data.html#spread-for-a-univariat-variable"><i class="fa fa-check"></i><b>3.8</b> Spread for a univariat variable</a></li>
+<li class="chapter" data-level="3.9" data-path="univariat-data.html"><a href="univariat-data.html#problems-02"><i class="fa fa-check"></i><b>3.9</b> Problems 02</a></li>
+<li class="chapter" data-level="3.10" data-path="univariat-data.html"><a href="univariat-data.html#shape-for-a-univariat-variable"><i class="fa fa-check"></i><b>3.10</b> Shape for a univariat variable</a></li>
+<li class="chapter" data-level="3.11" data-path="univariat-data.html"><a href="univariat-data.html#viewing-the-shape"><i class="fa fa-check"></i><b>3.11</b> Viewing the shape</a>
+<ul>
+<li class="chapter" data-level="3.11.1" data-path="univariat-data.html"><a href="univariat-data.html#histogram"><i class="fa fa-check"></i><b>3.11.1</b> Histogram</a></li>
+<li class="chapter" data-level="3.11.2" data-path="univariat-data.html"><a href="univariat-data.html#density-plots"><i class="fa fa-check"></i><b>3.11.2</b> Density plots</a></li>
+<li class="chapter" data-level="3.11.3" data-path="univariat-data.html"><a href="univariat-data.html#boxplots"><i class="fa fa-check"></i><b>3.11.3</b> Boxplots</a></li>
+</ul></li>
+<li class="chapter" data-level="3.12" data-path="univariat-data.html"><a href="univariat-data.html#quantile-graph"><i class="fa fa-check"></i><b>3.12</b> Quantile graph</a></li>
+<li class="chapter" data-level="3.13" data-path="univariat-data.html"><a href="univariat-data.html#categorical-data"><i class="fa fa-check"></i><b>3.13</b> Categorical data</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="bivariate-data.html"><a href="bivariate-data.html"><i class="fa fa-check"></i><b>4</b> Bivariate data</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="bivariate-data.html"><a href="bivariate-data.html#introduction-3"><i class="fa fa-check"></i><b>4.1</b> Introduction 3</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="bivariate-data.html"><a href="bivariate-data.html#independence-samples"><i class="fa fa-check"></i><b>4.1.1</b> Independence samples</a></li>
+<li class="chapter" data-level="4.1.2" data-path="bivariate-data.html"><a href="bivariate-data.html#plot"><i class="fa fa-check"></i><b>4.1.2</b> plot</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="bivariate-data.html"><a href="bivariate-data.html#data-manipulation"><i class="fa fa-check"></i><b>4.2</b> Data manipulation</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="bivariate-data.html"><a href="bivariate-data.html#list"><i class="fa fa-check"></i><b>4.2.1</b> List</a></li>
+<li class="chapter" data-level="4.2.2" data-path="bivariate-data.html"><a href="bivariate-data.html#data-frame"><i class="fa fa-check"></i><b>4.2.2</b> Data frame</a></li>
+<li class="chapter" data-level="4.2.3" data-path="bivariate-data.html"><a href="bivariate-data.html#model-formulas"><i class="fa fa-check"></i><b>4.2.3</b> Model formulas</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="bivariate-data.html"><a href="bivariate-data.html#paired-data"><i class="fa fa-check"></i><b>4.3</b> Paired data</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="bivariate-data.html"><a href="bivariate-data.html#pearson-correlation"><i class="fa fa-check"></i><b>4.3.1</b> Pearson Correlation</a></li>
+<li class="chapter" data-level="4.3.2" data-path="bivariate-data.html"><a href="bivariate-data.html#spearman-correlation-coefficient"><i class="fa fa-check"></i><b>4.3.2</b> Spearman correlation coefficient</a></li>
+<li class="chapter" data-level="4.3.3" data-path="bivariate-data.html"><a href="bivariate-data.html#correlation-causation-and-association"><i class="fa fa-check"></i><b>4.3.3</b> Correlation, causation and association</a></li>
+<li class="chapter" data-level="4.3.4" data-path="bivariate-data.html"><a href="bivariate-data.html#trends"><i class="fa fa-check"></i><b>4.3.4</b> Trends</a></li>
+<li class="chapter" data-level="4.3.5" data-path="bivariate-data.html"><a href="bivariate-data.html#the-method-of-least-squares"><i class="fa fa-check"></i><b>4.3.5</b> The method of least squares</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="bivariate-data.html"><a href="bivariate-data.html#problems-03"><i class="fa fa-check"></i><b>4.4</b> Problems 03</a></li>
+<li class="chapter" data-level="4.5" data-path="bivariate-data.html"><a href="bivariate-data.html#bivariate-categorical-data"><i class="fa fa-check"></i><b>4.5</b> Bivariate categorical data</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="bivariate-data.html"><a href="bivariate-data.html#contingency-tables"><i class="fa fa-check"></i><b>4.5.1</b> Contingency tables</a></li>
+<li class="chapter" data-level="4.5.2" data-path="bivariate-data.html"><a href="bivariate-data.html#marginal-distributions"><i class="fa fa-check"></i><b>4.5.2</b> Marginal distributions</a></li>
+<li class="chapter" data-level="4.5.3" data-path="bivariate-data.html"><a href="bivariate-data.html#conditional-distributions"><i class="fa fa-check"></i><b>4.5.3</b> Conditional distributions</a></li>
+<li class="chapter" data-level="4.5.4" data-path="bivariate-data.html"><a href="bivariate-data.html#graphical-summaries-of-contingency-tables"><i class="fa fa-check"></i><b>4.5.4</b> Graphical summaries of contingency tables</a></li>
+<li class="chapter" data-level="4.5.5" data-path="bivariate-data.html"><a href="bivariate-data.html#measures-of-association-for-categorical-data"><i class="fa fa-check"></i><b>4.5.5</b> Measures of association for categorical data</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="bivariate-data.html"><a href="bivariate-data.html#problems-04"><i class="fa fa-check"></i><b>4.6</b> Problems 04</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="data-transformation-basics.html"><a href="data-transformation-basics.html"><i class="fa fa-check"></i><b>5</b> Data transformation basics</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="data-transformation-basics.html"><a href="data-transformation-basics.html#data-structures-in-r"><i class="fa fa-check"></i><b>5.1</b> Data structures in R</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="data-transformation-basics.html"><a href="data-transformation-basics.html#vectors"><i class="fa fa-check"></i><b>5.1.1</b> Vectors</a></li>
+<li class="chapter" data-level="5.1.2" data-path="data-transformation-basics.html"><a href="data-transformation-basics.html#lists"><i class="fa fa-check"></i><b>5.1.2</b> Lists</a></li>
+<li class="chapter" data-level="5.1.3" data-path="data-transformation-basics.html"><a href="data-transformation-basics.html#matrices"><i class="fa fa-check"></i><b>5.1.3</b> Matrices</a></li>
+<li class="chapter" data-level="5.1.4" data-path="data-transformation-basics.html"><a href="data-transformation-basics.html#data.frame"><i class="fa fa-check"></i><b>5.1.4</b> data.frame</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="data-transformation-basics.html"><a href="data-transformation-basics.html#subset"><i class="fa fa-check"></i><b>5.2</b> subset</a></li>
+<li class="chapter" data-level="5.3" data-path="data-transformation-basics.html"><a href="data-transformation-basics.html#merging-and-split"><i class="fa fa-check"></i><b>5.3</b> merging and split</a></li>
+<li class="chapter" data-level="5.4" data-path="data-transformation-basics.html"><a href="data-transformation-basics.html#transforming-data"><i class="fa fa-check"></i><b>5.4</b> transforming data</a></li>
+<li class="chapter" data-level="5.5" data-path="data-transformation-basics.html"><a href="data-transformation-basics.html#analysis-example-babies"><i class="fa fa-check"></i><b>5.5</b> Analysis example (babies)</a></li>
+<li class="chapter" data-level="5.6" data-path="data-transformation-basics.html"><a href="data-transformation-basics.html#apply"><i class="fa fa-check"></i><b>5.6</b> apply</a></li>
+<li class="chapter" data-level="5.7" data-path="data-transformation-basics.html"><a href="data-transformation-basics.html#problems-05"><i class="fa fa-check"></i><b>5.7</b> Problems 05</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="multivariate-tydiverse.html"><a href="multivariate-tydiverse.html"><i class="fa fa-check"></i><b>6</b> Multivariate (tydiverse)</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="multivariate-tydiverse.html"><a href="multivariate-tydiverse.html#tidy-data-structure"><i class="fa fa-check"></i><b>6.1</b> Tidy data structure</a></li>
+<li class="chapter" data-level="6.2" data-path="multivariate-tydiverse.html"><a href="multivariate-tydiverse.html#data-manipulation-with-dplyr"><i class="fa fa-check"></i><b>6.2</b> Data manipulation with dplyr</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="multivariate-tydiverse.html"><a href="multivariate-tydiverse.html#dplyr---pipe-operator"><i class="fa fa-check"></i><b>6.2.1</b> dplyr - pipe operator</a></li>
+<li class="chapter" data-level="6.2.2" data-path="multivariate-tydiverse.html"><a href="multivariate-tydiverse.html#dplyr---important-functions"><i class="fa fa-check"></i><b>6.2.2</b> dplyr - Important functions</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="multivariate-tydiverse.html"><a href="multivariate-tydiverse.html#code-comparison"><i class="fa fa-check"></i><b>6.3</b> code comparison</a></li>
+<li class="chapter" data-level="6.4" data-path="multivariate-tydiverse.html"><a href="multivariate-tydiverse.html#dplyr-example-iris"><i class="fa fa-check"></i><b>6.4</b> dplyr example iris</a></li>
+<li class="chapter" data-level="6.5" data-path="multivariate-tydiverse.html"><a href="multivariate-tydiverse.html#problems-06"><i class="fa fa-check"></i><b>6.5</b> Problems 06</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="populations.html"><a href="populations.html"><i class="fa fa-check"></i><b>7</b> Populations</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="populations.html"><a href="populations.html#random-variable"><i class="fa fa-check"></i><b>7.1</b> Random variable</a></li>
+<li class="chapter" data-level="7.2" data-path="populations.html"><a href="populations.html#discrete-random-variable"><i class="fa fa-check"></i><b>7.2</b> Discrete random variable</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="populations.html"><a href="populations.html#probability-mass-function"><i class="fa fa-check"></i><b>7.2.1</b> Probability mass function</a></li>
+<li class="chapter" data-level="7.2.2" data-path="populations.html"><a href="populations.html#mean-and-standard-deviation-of-discrete-r.v."><i class="fa fa-check"></i><b>7.2.2</b> Mean and standard deviation of discrete R.V.</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="populations.html"><a href="populations.html#continuous-random-variable"><i class="fa fa-check"></i><b>7.3</b> Continuous random variable</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="populations.html"><a href="populations.html#probability-density-function"><i class="fa fa-check"></i><b>7.3.1</b> Probability density function</a></li>
+<li class="chapter" data-level="7.3.2" data-path="populations.html"><a href="populations.html#mean-and-standard-deviation-of-continuous-r.v."><i class="fa fa-check"></i><b>7.3.2</b> Mean and standard deviation of continuous R.V.</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="populations.html"><a href="populations.html#sampling-from-a-population"><i class="fa fa-check"></i><b>7.4</b> Sampling from a population</a></li>
+<li class="chapter" data-level="7.5" data-path="populations.html"><a href="populations.html#problems-07"><i class="fa fa-check"></i><b>7.5</b> Problems 07</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R로 배우는 기초통계</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="populations" class="section level1">
+<h1><span class="header-section-number">Chapter 7</span> Populations</h1>
+<p>2장 통계의 개념을 설명하면서 다음과 같은 그림을 설명했습니다. 모집단은 우리가 관측할 수 없는 전체집합이고 그 중 샘플링을 통해 표본과 표본의 대표값을 구하고 이 대표값으로 모집단의 대표값이나 분포를 추정하는 것이 통계 입니다. 본 장에서 새로 등장하는 개념은 확률변수 (Random variable) 입니다. 이번 강의에서는 확률변수의 개념을 확실히 이해하고 이에 따른 확률과 분포의 개념도 정립하는 시간을 갖도록 합니다.</p>
+<p><img src="images/02/04-2.png" /></p>
+<div id="random-variable" class="section level2">
+<h2><span class="header-section-number">7.1</span> Random variable</h2>
+<p>확률변수는 변수와 같지만 데이터가 들어있지 않은 빈 공간으로 보면 되며 population의 데이터가 들어올 가능성만을 갖는 변수로 이해하면 되겠습니다. 즉, population의 어떤 데이터도 샘플링되어 들어갈 수 있지만 아직 들어가 있지 않은 상태이며 따라서 특정 값이 들어갈 수 있는 경우의 수, 즉 확률만이 존재하므로 확률 변수라고 합니다.</p>
+<p>경우의 수는 임의 시행에서 어떤 사건이 일어날 수 있는 가짓수를 말하며 사건 E가 일어날 경우의 수는 <span class="math inline">\(n(E)\)</span> 로 나타냅니다. N을 모든 경우의 수가 일어날 수 있는 가짓수라 할 때 확률의 정의는 아래와 같습니다.</p>
+<p><span class="math display">\[ P(E) = \frac{n(E)}{N} \]</span><br />
+가짓수를 구할 때 두 사건 A, B가 동시에 일어나지 않는 경우, 즉 사건 A 또는 사건 B가 일어나는 경우의 수는 합의 법칙에 의해 두 경우의 수를 더해주고 두 사건이 동시에 일어날 때, 즉, 사건 A에 연이어 (동시에) 사건 B가 일어나는 경우의 수는 곱의 법칙에 의해 두 경우의 수를 곱해줍니다 .</p>
+<p>만약 모든 사건이 동일 확률로 일어나고 총 사건이 한정적이라고 가정하면 다음과 같은 규칙이 적용 됩니다.</p>
+<p><span class="math display">\[ 
+\begin{split}
+P(E) &amp; &gt; 0 \\
+\sum_{All} P(E) &amp; = 1 \\
+P(A \cup B) &amp; = P(A) + P(B) - P(A ~ \cap ~ B) 
+\end{split}
+\]</span></p>
+<p>여기서 만약 사건 A와 B가 배반사건 일 경우 A 또는 B가 일어날 확률은 <span class="math inline">\(P(A) + P(B)\)</span> 이며 만약 두 사건이 독립일 경우 A와 B가 동시에 일어날 확률은 <span class="math inline">\(P(A)p(B)\)</span> 입니다. 독립이라는 것은 하나의 사건이 일어날 확률이 다른 사건이 일어날 확률에 영향을 주지 않는 경우를 말합니다.</p>
+<p>다음 예에서 한 사람을 선택할 경우 그 사람이 남자일 확률, 그 사람이 heavy smoker일 확률, 그리고 남자이거나 heavy smoker 일 확률을 각각 구하시오</p>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="populations.html#cb146-1"></a><span class="kw">library</span>(UsingR)</span>
+<span id="cb146-2"><a href="populations.html#cb146-2"></a>tbl &lt;-<span class="st"> </span><span class="kw">xtabs</span>(<span class="op">~</span>Sex <span class="op">+</span><span class="st"> </span>Smoke, <span class="dt">data=</span>survey)</span>
+<span id="cb146-3"><a href="populations.html#cb146-3"></a>tbl</span>
+<span id="cb146-4"><a href="populations.html#cb146-4"></a><span class="co">#</span></span>
+<span id="cb146-5"><a href="populations.html#cb146-5"></a><span class="kw">sum</span>(tbl)</span>
+<span id="cb146-6"><a href="populations.html#cb146-6"></a><span class="co">#P(Male)</span></span>
+<span id="cb146-7"><a href="populations.html#cb146-7"></a><span class="kw">margin.table</span>(tbl, <span class="dv">1</span>)<span class="op">/</span><span class="kw">sum</span>(tbl)</span>
+<span id="cb146-8"><a href="populations.html#cb146-8"></a><span class="co">#P(Heavy)</span></span>
+<span id="cb146-9"><a href="populations.html#cb146-9"></a><span class="kw">margin.table</span>(tbl, <span class="dv">2</span>)<span class="op">/</span><span class="kw">sum</span>(tbl)</span></code></pre></div>
+<p>위 survey 데이터에서 Univariate 경우만을 생각해 보고 이 때 Random variable 의 개념을 알아봅니다.</p>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="populations.html#cb147-1"></a>smoke &lt;-<span class="st"> </span>survey<span class="op">$</span>Smoke</span>
+<span id="cb147-2"><a href="populations.html#cb147-2"></a>smoke</span></code></pre></div>
+<p>survey의 smoke를 pupulation 데이터라고 가정하고 <span class="math inline">\(X\)</span>를 해당 population에서 랜덤하게 sampling 한 변수라 하면 (확률 변수) <span class="math inline">\(X\)</span> 가 가질 수 있는 값은 4가지 입니다. 그러나 확률변수는 실제 값을 가지고 있지 않고 확률만을 가질 수 있으므로 <span class="math inline">\(P()\)</span>를 사용하여 <span class="math inline">\(P(X)\)</span> 라고 표현합니다. R 코드를 이용하여 다음 확률들을 구해봅시다.</p>
+<p><span class="math display">\[ 
+P(X=\text{&quot;Never&quot;}) =  \\
+P(X=\text{&quot;Heavy&quot;}) = \\
+P(X=\text{&quot;Occas&quot;}) = \\
+P(X=\text{&quot;Regul&quot;}) = 
+\]</span></p>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="populations.html#cb148-1"></a>smoke &lt;-<span class="st"> </span>survey<span class="op">$</span>Smoke</span>
+<span id="cb148-2"><a href="populations.html#cb148-2"></a>smoke</span>
+<span id="cb148-3"><a href="populations.html#cb148-3"></a><span class="kw">table</span>(smoke)<span class="op">/</span><span class="kw">length</span>(smoke)</span></code></pre></div>
+</div>
+<div id="discrete-random-variable" class="section level2">
+<h2><span class="header-section-number">7.2</span> Discrete random variable</h2>
+<p><span class="math inline">\(X\)</span> 를 이산형 확률변수라 하면 <span class="math inline">\(X\)</span>가 가질 수 있는 값은 <span class="math inline">\({0, 1, ..}\)</span> 또는 <span class="math inline">\({&quot;yes&quot;, &quot;no&quot;}\)</span> 등의 이산형 값을 가질 수 있으며 이 값들을 <span class="math inline">\(k\)</span>라 하면 <span class="math inline">\(P(X=k)&gt;0\)</span> 이며 <span class="math inline">\(X\)</span>의 분포는 이러한 확률들을 나열한 것으로 생각하면 됩니다. 즉, 이산형 확률변수 <span class="math inline">\(X\)</span>의 분포는 먼저 가능한 <span class="math inline">\(k\)</span>의 값들을 구한 후 <span class="math inline">\(p_k&gt;0\)</span>이고 <span class="math inline">\(\sum{k}=1\)</span>인 확률 <span class="math inline">\(p_k = P(X=k)\)</span>의 값을 명시하면 됩니다.</p>
+<p>동전 한 번 던지기, 가능한 경우의 수는? 확률 변수는? 분포는?</p>
+<p><span class="math display">\[
+P(X=0) = 1/2 \\
+P(X=1) = 1/2
+\]</span></p>
+<p>주머니에서 공 꺼내기 (G+R=N), 반복 허용해서 두 번 뽑을 때, <span class="math inline">\(X\)</span>를 빨간 공의 갯수라 하면, 가능한 경우의 수는? 분포는?</p>
+<p><span class="math display">\[
+\begin{split}
+P(X=0) &amp; = G/N \times G/N \\
+P(X=1) &amp; = R/N \times G/N + G/N \times R/N\\
+P(X=2) &amp; = R/N \times R/N \\
+\end{split}
+\]</span></p>
+<p><img src="images/06/03.png" /></p>
+<div id="probability-mass-function" class="section level3">
+<h3><span class="header-section-number">7.2.1</span> Probability mass function</h3>
+<p>그러나 확률 변수의 분포를 언급할 때마다 일일이 확률을 명시할 수 없으므로 이러한 확률을 나타내는 함수를 정의하여 사용할 수 있고 이를 확률 질량 함수 (probability mass function, PMF)라 합니다.</p>
+<p>앞서 동전 던지는 예제에서 PMF는?</p>
+<p><span class="math display">\[
+f_X(x) =  \begin{cases} 
+\frac{1}{2} ~~~~~ \text{where} ~ x \in \{0, 1\} \\
+0   ~~~~~~ \text{where} ~ x \notin \{0, 1\}
+\end{cases}
+\]</span></p>
+</div>
+<div id="mean-and-standard-deviation-of-discrete-r.v." class="section level3">
+<h3><span class="header-section-number">7.2.2</span> Mean and standard deviation of discrete R.V.</h3>
+<p>Dataset에서는 평균과 분산이 각각 center와 spread를 나타내는 대표값이였으나 확률 변수에서는 그 정의가 달라집니다. 모평균 (population mean)은 <span class="math inline">\(\mu\)</span>로 나타내며 확률 변수 <span class="math inline">\(X\)</span>에 대한 평균은 기댓값 (expected value)으로 불리우며 기호로는 다음과 같이 <span class="math inline">\(E(X)\)</span>로 나타낼 수 있습니다.</p>
+<p><span class="math display">\[
+\mu = E(X) = \sum x P(X=x) \\
+\]</span>
+이는 가중평균으로 모든 <span class="math inline">\(x\)</span> 값들에 대해서 <span class="math inline">\(P(X=x)\)</span>의 가중치를 비율로 곱한 후 더하면 됩니다. 참고로 기댓값은 다음과 같은 선형적 성질을 가지고 있습니다.</p>
+<ul>
+<li>가산성 <span class="math inline">\(E(X+Y) = E(X) + E(Y)\)</span></li>
+<li>동차성 <span class="math inline">\(E(cX) = cE(X)\)</span></li>
+</ul>
+<p>주사위를 한 번 던질 때 나올 수 있는 주사위의 수의 기댓값? (확률변수 <span class="math inline">\(X\)</span>?, 확률변수의 분포?, 확률변수의 기댓값?)</p>
+<ul>
+<li>확률변수: 주사위를 한 번 던질 때 나올 수 있는 주사위의 수</li>
+<li>가능한 경우의 수: {1, 2, 3, 4, 5, 6}</li>
+<li>확률 변수의 분포:</li>
+</ul>
+<p><span class="math display">\[
+\begin{split}
+P(X=1) &amp; = 1/6 \\
+P(X=2) &amp; = 1/6 \\
+P(X=3) &amp; = 1/6 \\
+P(X=4) &amp; = 1/6 \\
+P(X=5) &amp; = 1/6 \\
+P(X=6) &amp; = 1/6 \\
+\end{split}
+\]</span></p>
+<ul>
+<li>PMF:</li>
+</ul>
+<p><span class="math display">\[
+f_X(x) = 
+\begin{cases}
+1/6 ~~ \text{where} ~~ x \in \{1,2,3,4,5,6\} \\
+0 ~~ \text{where} ~~ x \notin \{1,2,3,4,5,6\}
+\end{cases}
+\]</span></p>
+<ul>
+<li>기댓값:</li>
+</ul>
+<p>모평균은 <span class="math inline">\(\mu\)</span>로 표현하며 다음과 같이 정의할 수 있습니다.<br />
+<span class="math display">\[ 
+\begin{split} 
+\mu  &amp; = E(X) \\
+&amp; = \sum_x{xP(X=x)} \\
+\end{split}
+\]</span></p>
+<p>모표준편차는 <span class="math inline">\(\sigma\)</span>로 표현하며 다음과 같이 정의할 수 있습니다
+<span class="math display">\[ 
+\begin{split} 
+\sigma^2  &amp; = VAR(X) \\
+&amp; = E[(X-\mu)^2] \\
+&amp; = E(X^2 - 2\mu X + \mu^2) \\
+&amp; = E(X^2) - 2\mu E(X) + \mu^2 \\
+&amp; = E(X^2) - E(X)^2 \\
+&amp; = \sum_x{x^2 P(X=x^2)} - (\sum_x{xP(X=x)})^2
+\end{split}
+\]</span>
+즉, 이 값은 <span class="math inline">\((X-\mu)^2\)</span>의 기댓값과 같습니다.</p>
+<p>주머니에서 공 꺼내기 (G+R=N), R을 빨강공의 갯수, G를 녹색 공의 갯수라 하고 N을 총 공의 갯수라 하자. 반복을 허용해서 두 번의 공을 뽑을 때 빨간 공의 갯수를 확률변수 <span class="math inline">\(X\)</span>라 하자. <span class="math inline">\(X\)</span>의 분포는?
+<span class="math display">\[
+\begin{split}
+P(X=0) &amp;= \frac{G}{N} \times \frac{G}{N} \\
+P(X=1) &amp;= \frac{G}{N} \frac{R}{N} + \frac{R}{N} \frac{G}{N} = 2 \frac{GR}{N^2} \\
+P(X=2) &amp;= \frac{R}{N} \frac{R}{N} = \frac{R^2}{N^2}
+\end{split}
+\]</span></p>
+<p>기댓값과 분산을 구하시오
+<span class="math display">\[
+\begin{split}
+E(X) &amp;= 0 \times P(X=0) + 1 \times P(X=1) + 2 \times P(X=2) \\
+&amp; = 2 \frac{G}{N}\frac{R}{N} + 2(\frac{R}{N})^2 \\
+&amp; = 2 \frac{(N-R)R}{N^2} + 2 \frac{R^2}{N^2} \\
+&amp; = 2 \frac{NR}{N^2} - 2 \frac{R^2}{N^2} + 2 \frac{R^2}{N^2} \\
+&amp; = 2 \frac{R}{N} \\
+\end{split}
+\]</span>
+<span class="math display">\[
+\begin{split}
+VAR(X) &amp;= E[(X-\mu)^2] \\
+ &amp; = E(X^2) - E(X)^2 \\
+ &amp; = 2 \frac{G}{N}\frac{R}{N} + 4(\frac{R}{N})^2 - (2\frac{R}{N})^2 \\
+ &amp; = 2 \frac{G}{N}\frac{R}{N}
+\end{split}
+\]</span></p>
+</div>
+</div>
+<div id="continuous-random-variable" class="section level2">
+<h2><span class="header-section-number">7.3</span> Continuous random variable</h2>
+<p>연속 데이터의 경우에는 <span class="math inline">\(P(X=x)\)</span> 와 같은 개념이 불가능하므로 다른 방식의 확률에 대한 정의가 필요합니다. 이 경우에는 <span class="math inline">\(P(a &lt; X \le b)\)</span> 와 같은 확률의 범위를 지정하는 방식이 쓰입니다. 이는 <span class="math inline">\(F(b) = P(X&lt;b)\)</span> 함수나 <span class="math inline">\(P(a &lt; X \le b)\)</span> 와 같은 크기에 해당하는 a, b, 그리고 <span class="math inline">\(f(x)\)</span>로 둘러쌓이는 함수 <span class="math inline">\(f(x)\)</span>로 구현될 수 있습니다. 위 함수 <span class="math inline">\(f(x)\)</span>를 확률변수 <span class="math inline">\(X\)</span>의 밀도라 하며 <span class="math inline">\(F(x)\)</span>와의 관계는 다음 그림과 같습니다.</p>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="populations.html#cb149-1"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb149-2"><a href="populations.html#cb149-2"></a>fx &lt;-<span class="st"> </span><span class="cf">function</span>(x, mu, sigma){</span>
+<span id="cb149-3"><a href="populations.html#cb149-3"></a>  (<span class="dv">1</span><span class="op">/</span>(sigma<span class="op">*</span><span class="kw">sqrt</span>(<span class="dv">2</span><span class="op">*</span>pi)))<span class="op">*</span><span class="kw">exp</span>(<span class="op">-</span><span class="dv">1</span><span class="op">*</span>((x<span class="op">-</span>mu)<span class="op">^</span><span class="dv">2</span>)<span class="op">/</span>(<span class="dv">2</span><span class="op">*</span>sigma<span class="op">^</span><span class="dv">2</span>))</span>
+<span id="cb149-4"><a href="populations.html#cb149-4"></a>  }</span>
+<span id="cb149-5"><a href="populations.html#cb149-5"></a>x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="fl">0.01</span>)</span>
+<span id="cb149-6"><a href="populations.html#cb149-6"></a>y &lt;-<span class="st"> </span><span class="kw">fx</span>(x, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb149-7"><a href="populations.html#cb149-7"></a>z &lt;-<span class="st"> </span><span class="kw">data.frame</span>(x, y)</span>
+<span id="cb149-8"><a href="populations.html#cb149-8"></a><span class="kw">plot</span>(<span class="dt">x=</span>x, <span class="dt">y=</span>y, <span class="dt">type=</span><span class="st">&quot;l&quot;</span>); </span>
+<span id="cb149-9"><a href="populations.html#cb149-9"></a></span>
+<span id="cb149-10"><a href="populations.html#cb149-10"></a><span class="co">## basic graphical function</span></span>
+<span id="cb149-11"><a href="populations.html#cb149-11"></a>myx &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="fl">0.01</span>)</span>
+<span id="cb149-12"><a href="populations.html#cb149-12"></a>myy &lt;-<span class="st"> </span><span class="kw">fx</span>(myx, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb149-13"><a href="populations.html#cb149-13"></a><span class="kw">plot</span>(<span class="dt">x=</span>x, <span class="dt">y=</span>y, <span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</span>
+<span id="cb149-14"><a href="populations.html#cb149-14"></a><span class="kw">polygon</span>(<span class="dt">x=</span>myx, <span class="dt">y=</span>myy, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb149-15"><a href="populations.html#cb149-15"></a><span class="co">##</span></span>
+<span id="cb149-16"><a href="populations.html#cb149-16"></a>myx &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="fl">0.01</span>)</span>
+<span id="cb149-17"><a href="populations.html#cb149-17"></a>myy &lt;-<span class="st"> </span><span class="kw">fx</span>(myx, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb149-18"><a href="populations.html#cb149-18"></a><span class="kw">plot</span>(<span class="dt">x=</span>x, <span class="dt">y=</span>y, <span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</span>
+<span id="cb149-19"><a href="populations.html#cb149-19"></a><span class="kw">polygon</span>(<span class="dt">x=</span><span class="kw">c</span>(<span class="dv">0</span>,myx,<span class="dv">1</span>), <span class="dt">y=</span><span class="kw">c</span>(<span class="dv">0</span>,myy,<span class="dv">0</span>), <span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb149-20"><a href="populations.html#cb149-20"></a></span>
+<span id="cb149-21"><a href="populations.html#cb149-21"></a></span>
+<span id="cb149-22"><a href="populations.html#cb149-22"></a><span class="co">## ggplot2</span></span>
+<span id="cb149-23"><a href="populations.html#cb149-23"></a><span class="kw">ggplot</span>(z, <span class="kw">aes</span>(<span class="dt">x=</span>x, <span class="dt">y=</span>y)) <span class="op">+</span></span>
+<span id="cb149-24"><a href="populations.html#cb149-24"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
+<span id="cb149-25"><a href="populations.html#cb149-25"></a><span class="st">  </span><span class="kw">geom_area</span>(<span class="dt">data=</span><span class="kw">filter</span>(z, x <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;</span><span class="st"> </span>x <span class="op">&lt;</span><span class="st"> </span><span class="dv">1</span>), <span class="dt">fill=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb149-26"><a href="populations.html#cb149-26"></a>  </span>
+<span id="cb149-27"><a href="populations.html#cb149-27"></a>  </span>
+<span id="cb149-28"><a href="populations.html#cb149-28"></a>p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(z, <span class="kw">aes</span>(<span class="dt">x=</span>x, <span class="dt">y=</span>y)) <span class="op">+</span></span>
+<span id="cb149-29"><a href="populations.html#cb149-29"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
+<span id="cb149-30"><a href="populations.html#cb149-30"></a><span class="st">  </span><span class="kw">geom_area</span>(<span class="dt">data=</span><span class="kw">filter</span>(z, x <span class="op">&gt;</span><span class="st"> </span><span class="fl">-0.5</span> <span class="op">&amp;</span><span class="st"> </span>x <span class="op">&lt;</span><span class="st"> </span><span class="fl">1.5</span>), <span class="dt">fill=</span><span class="st">&quot;red&quot;</span>) </span>
+<span id="cb149-31"><a href="populations.html#cb149-31"></a>p</span>
+<span id="cb149-32"><a href="populations.html#cb149-32"></a>p <span class="op">+</span><span class="st"> </span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dt">x =</span> <span class="fl">-2.5</span>, <span class="dt">y =</span> <span class="fl">0.3</span>, <span class="dt">label =</span> <span class="st">&quot;f(x)&quot;</span>)</span>
+<span id="cb149-33"><a href="populations.html#cb149-33"></a>p <span class="op">+</span><span class="st"> </span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dt">x =</span> <span class="fl">-2.5</span>, <span class="dt">y =</span> <span class="fl">0.3</span>, <span class="dt">label =</span> <span class="st">&quot;f(x)&quot;</span>) <span class="op">+</span></span>
+<span id="cb149-34"><a href="populations.html#cb149-34"></a><span class="st">  </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="fl">-2.3</span>, <span class="dt">y =</span> <span class="fl">0.29</span>, <span class="dt">xend =</span> <span class="fl">-1.2</span>, <span class="dt">yend =</span> <span class="fl">0.2</span>), <span class="dt">arrow =</span> <span class="kw">arrow</span>()) <span class="op">+</span></span>
+<span id="cb149-35"><a href="populations.html#cb149-35"></a><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dt">x =</span> <span class="fl">0.5</span>, <span class="dt">y =</span> <span class="fl">0.1</span>, <span class="dt">label =</span> <span class="st">&quot;F(b)-F(a)&quot;</span>)</span>
+<span id="cb149-36"><a href="populations.html#cb149-36"></a></span>
+<span id="cb149-37"><a href="populations.html#cb149-37"></a></span>
+<span id="cb149-38"><a href="populations.html#cb149-38"></a><span class="kw">ggplot</span>(z, <span class="kw">aes</span>(<span class="dt">x=</span>x, <span class="dt">y=</span>y)) <span class="op">+</span></span>
+<span id="cb149-39"><a href="populations.html#cb149-39"></a><span class="st">  </span><span class="kw">geom_area</span>(<span class="dt">data=</span><span class="kw">filter</span>(z, x <span class="op">&gt;</span><span class="st"> </span><span class="fl">-0.5</span> <span class="op">&amp;</span><span class="st"> </span>x <span class="op">&lt;</span><span class="st"> </span><span class="fl">1.5</span>), <span class="dt">fill=</span><span class="st">&quot;blue&quot;</span>) <span class="op">+</span></span>
+<span id="cb149-40"><a href="populations.html#cb149-40"></a><span class="st">  </span><span class="kw">geom_area</span>(<span class="dt">data=</span><span class="kw">filter</span>(z, x <span class="op">&lt;</span><span class="st"> </span><span class="fl">-0.5</span>), <span class="dt">fill=</span><span class="st">&quot;green&quot;</span>) <span class="op">+</span></span>
+<span id="cb149-41"><a href="populations.html#cb149-41"></a><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dt">x =</span> <span class="fl">-2.5</span>, <span class="dt">y =</span> <span class="fl">0.3</span>, <span class="dt">label =</span> <span class="st">&quot;f(x)&quot;</span>) <span class="op">+</span></span>
+<span id="cb149-42"><a href="populations.html#cb149-42"></a><span class="st">  </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="fl">-2.3</span>, <span class="dt">y =</span> <span class="fl">0.29</span>, <span class="dt">xend =</span> <span class="fl">-1.2</span>, <span class="dt">yend =</span> <span class="fl">0.2</span>), <span class="dt">arrow =</span> <span class="kw">arrow</span>()) <span class="op">+</span></span>
+<span id="cb149-43"><a href="populations.html#cb149-43"></a><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dt">x =</span> <span class="fl">0.5</span>, <span class="dt">y =</span> <span class="fl">0.1</span>, <span class="dt">label =</span> <span class="st">&quot;F(b)-F(a)&quot;</span>, <span class="dt">color=</span><span class="st">&quot;white&quot;</span>) <span class="op">+</span></span>
+<span id="cb149-44"><a href="populations.html#cb149-44"></a><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dt">x =</span> <span class="dv">-1</span>, <span class="dt">y =</span> <span class="fl">0.1</span>, <span class="dt">label =</span> <span class="st">&quot;F(a)&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb149-45"><a href="populations.html#cb149-45"></a><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dt">x =</span> <span class="fl">-0.5</span>, <span class="dt">y =</span> <span class="fl">-0.01</span>, <span class="dt">label =</span> <span class="st">&quot;a&quot;</span>) <span class="op">+</span></span>
+<span id="cb149-46"><a href="populations.html#cb149-46"></a><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dt">x =</span> <span class="fl">1.5</span>, <span class="dt">y =</span> <span class="fl">-0.01</span>, <span class="dt">label =</span> <span class="st">&quot;b&quot;</span>) <span class="op">+</span></span>
+<span id="cb149-47"><a href="populations.html#cb149-47"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></span></code></pre></div>
+<div id="probability-density-function" class="section level3">
+<h3><span class="header-section-number">7.3.1</span> Probability density function</h3>
+<p>여기서 <span class="math inline">\(f(x)\)</span>는 확률 변수의 분포를 나타내는 함수로써 확률 밀도 함수(probability density function, PDF)라 하고 확률 밀도 함수<span class="math inline">\(f(x)\)</span>와 구간 [a, b]에 대해서 확률변수 X가 구간에 포함될 확률은 <span class="math inline">\(P(a &lt; X \le b)\)</span>은 <span class="math inline">\(\int^a_b f(x) dx\)</span> 입니다. 일반적으로 PDF는 다음 두 조건을 만족해야 합니다.</p>
+<ul>
+<li>모든 실수값 <span class="math inline">\(x\)</span>에 대해서 <span class="math inline">\(f(x) \ge 0\)</span></li>
+<li><span class="math inline">\(\int^{\infty}_{-\infty} f(x) dx=1\)</span></li>
+</ul>
+<p>참고로 정규분포함수는 다음과 같은 pdf를 가집니다.</p>
+<p><span class="math display">\[
+f_X(x; \mu, \sigma) = 
+\frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{(x-\mu)^2}{2 \sigma^2}}  \\
+\]</span></p>
+<p>또한 확률밀도함수와 누적분포함수 (cumulative density function, CDF) <span class="math inline">\(F(x) = P(X \le x)\)</span>는 다음과 같은 수식이 성립합니다.</p>
+<p><span class="math display">\[
+F(x) = \int^x_{-\infty} f(x) dx \\
+f(x) = \frac{d}{dx} F(x) 
+\]</span></p>
+</div>
+<div id="mean-and-standard-deviation-of-continuous-r.v." class="section level3">
+<h3><span class="header-section-number">7.3.2</span> Mean and standard deviation of continuous R.V.</h3>
+<p>임의의 구간 [a, b]에서 연속형 확률변수 <span class="math inline">\(X\)</span>의 기댓값과 분산은 앞서 이산형의 경우와 같이 가중치의 합이며 각각 다음과 같이 정의됩니다. 이 경우 <span class="math inline">\(f(x)dx\)</span> 부분이 확률로서 이산형의 경우 <span class="math inline">\(P(X=x)\)</span>와 같은 가중치 역할을 합니다. 분산은 이산형의 경우와 같습니다.</p>
+<p><span class="math display">\[
+\begin{split}
+\mu = E(X) &amp; = \int^{a}_{b} x f(x) dx \\
+\sigma^2 = VAR(X) &amp; = E((X-\mu)^2) \\
+&amp; = E(X^2) - E(X)^2 \\
+&amp; = \int^{a}_{b} x^2 f(x) dx - {\int^{a}_{b} x f(x) dx} ^2
+\end{split}
+\]</span></p>
+</div>
+</div>
+<div id="sampling-from-a-population" class="section level2">
+<h2><span class="header-section-number">7.4</span> Sampling from a population</h2>
+<p>통계는 어떤 실험으로부터 데이터를 확보한 후 그 분포가 모집단의 분포와 같을 것으로 기대하여 데이터의 기댓값과 분산을 계산하고 이를 가지고 모집단의 평균을 추정하는 것입니다. 따라서 모집단에서 표본을 추출 하는 방법이 중요하며 이 때 사용하는 방법이 <strong>임의 복원추출 (Random sampling)</strong> 입니다. <span class="math inline">\(X_1, X_2, X_3, ..., X_n\)</span>을 모집단에서 뽑은 일련의 확률 변수라 한다면 이들의 분포가 같을 때 identically distributed 되었다고 하며 하나의 확률 변수의 값이 다른 변수들의 분포에 영향을 주지 않을 때 (즉 하나의 확률변수의 값을 알 때 다른 변수들의 분포가 변하지 않을 때) 그 변수는 다른 변수와 independent 하다고 합니다. 이 두 가지 특성을 갖는 표본들을 indepentent and identically distributed 라고 해서 i.i.d.라 부르고 이는 랜덤 샘플링을 할 때 기본이 되는 개념입니다.</p>
+<p>예로 하나의 동전을 <span class="math inline">\(n\)</span>번 던질 때 <span class="math inline">\(X_i\)</span>를 i번째 던지는 동전의 앞 또는 뒷면이라 하면 <span class="math inline">\(X_1, X_2, ..., X_n\)</span>은 i.i.d. 입니다. 주머니 공 꺼내기 예제에서 공을 넣고 다시 꺼내는 복원 추출의 경우의 표본들도 마찬가지로 iid 입니다. 그런데 다시 넣지 않고 꺼내는 경우는 어떨까요?</p>
+<p>3개의 빨간색 공과 2개의 녹색 공이 있는 주머니에서 반복을 허용해서 3개의 공을 뽑을 경우를 생각해 보자. 확률변수 <span class="math inline">\(X_i\)</span>를 <span class="math inline">\(i\)</span>번째 뽑은 공의 색이라 할 때 <span class="math inline">\(X_1\)</span> 의 확률 분포와 <span class="math inline">\(X_2\)</span>의 확률 분포는? 반복을 허용하지 않는 경우의 확률 분포는?</p>
+<p>R에서는 <code>sample</code> 함수를 사용해서 복원추출 과정을 시뮬레이션 할 수 있습니다.</p>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="populations.html#cb150-1"></a><span class="kw">sample</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">1</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">replace =</span> T)</span>
+<span id="cb150-2"><a href="populations.html#cb150-2"></a><span class="kw">sample</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">1</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">replace =</span> F)</span>
+<span id="cb150-3"><a href="populations.html#cb150-3"></a><span class="kw">sample</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">1</span>, <span class="dt">size=</span><span class="dv">1</span>, <span class="dt">replace =</span> F)</span></code></pre></div>
+</div>
+<div id="problems-07" class="section level2">
+<h2><span class="header-section-number">7.5</span> Problems 07</h2>
+<p>7-1) 하나의 주사위를 한 번 굴릴 경우 확률변수 <span class="math inline">\(X\)</span>를 나오는 주사위 값이라 하면 <span class="math inline">\(X\)</span>의 기댓값을 구하시오.</p>
+<p><span class="math display">\[
+\begin{split}
+P(X=1) = 1/6 \\
+P(X=2) = 1/6 \\
+... \\
+E[X] = ?
+\end{split}
+\]</span></p>
+<p>위에서 구한 기댓값이 실제 나오는지 주사위를 던져서 같은 값이 나오는지를 시뮬레이션하는 코드는 다음과 같습니다.</p>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="populations.html#cb151-1"></a><span class="co">## simulation</span></span>
+<span id="cb151-2"><a href="populations.html#cb151-2"></a>n &lt;-<span class="st"> </span><span class="dv">1000</span></span>
+<span id="cb151-3"><a href="populations.html#cb151-3"></a>barx &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, n)</span>
+<span id="cb151-4"><a href="populations.html#cb151-4"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>n){</span>
+<span id="cb151-5"><a href="populations.html#cb151-5"></a>  x &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dt">size =</span> i, <span class="dt">replace=</span>T)</span>
+<span id="cb151-6"><a href="populations.html#cb151-6"></a>  barx[i] &lt;-<span class="st"> </span><span class="kw">mean</span>(x)</span>
+<span id="cb151-7"><a href="populations.html#cb151-7"></a>}</span>
+<span id="cb151-8"><a href="populations.html#cb151-8"></a><span class="kw">plot</span>(barx)</span>
+<span id="cb151-9"><a href="populations.html#cb151-9"></a></span>
+<span id="cb151-10"><a href="populations.html#cb151-10"></a><span class="co">## simulation 2nd</span></span>
+<span id="cb151-11"><a href="populations.html#cb151-11"></a>i &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">1000</span></span>
+<span id="cb151-12"><a href="populations.html#cb151-12"></a>barx2 &lt;-<span class="st"> </span><span class="kw">sapply</span>(i, <span class="cf">function</span>(x){<span class="kw">mean</span>(<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dt">size=</span>x, <span class="dt">replace=</span>T))})</span>
+<span id="cb151-13"><a href="populations.html#cb151-13"></a><span class="kw">plot</span>(barx2)</span></code></pre></div>
+<p>7-2) 주머니에 R개의 빨간공과 G개의 녹색공이 있다 (N=R+G). 반복을 허용해서 세 번의 공을 뽑을 때 빨간 공의 갯수를 확률변수 <span class="math inline">\(X\)</span>라 하자. <span class="math inline">\(X\)</span>의 분포와, 기댓값과 분산을 구하시오</p>
+<p><a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="크리에이티브 커먼즈 라이선스" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />이 저작물은 <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">크리에이티브 커먼즈 저작자표시-비영리-변경금지 4.0 국제 라이선스</a>에 따라 이용할 수 있습니다.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="multivariate-tydiverse.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

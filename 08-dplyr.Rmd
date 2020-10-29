@@ -1,5 +1,5 @@
 
-# Data science and tidyverse 
+# Multivariate (tydiverse)
 
 * https://youtu.be/zEGrUncFg4I
 
