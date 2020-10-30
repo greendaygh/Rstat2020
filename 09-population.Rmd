@@ -113,7 +113,7 @@ $$
 
 ### Mean and standard deviation of discrete R.V.
 
-Dataset에서는 평균과 분산이 각각 center와 spread를 나타내는 대표값이였으나 확률 변수에서는 그 정의가 달라집니다. 모평균 (population mean)은 $\mu$로 나타내며 확률 변수 $X$에 대한 평균은 기댓값 (expected value)으로 불리우며 기호로는 다음과 같이 $E(X)$로 나타낼 수 있습니다. 
+Dataset에서는 평균과 분산이 각각 center와 spread를 나타내는 대표값이였으나 확률 변수에서는 그 정의가 달라집니다. 모평균 (population mean)은 $\mu$로 나타내며 확률 변수 $X$에 기댓값 (expected value)과 같습니다. 기댓값은 평균과 같은 개념으로 사용되며 기호로는 다음과 같이 $E(X)$로 나타낼 수 있습니다. 
 
 $$
 \mu = E(X) = \sum x P(X=x) \\
