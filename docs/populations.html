@@ -24,7 +24,7 @@
 <meta name="author" content="한국생명공학연구원 김하성" />
 
 
-<meta name="date" content="2020-10-29" />
+<meta name="date" content="2020-10-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -315,7 +315,7 @@ P(E) &amp; &gt; 0 \\
 P(A \cup B) &amp; = P(A) + P(B) - P(A ~ \cap ~ B) 
 \end{split}
 \]</span></p>
-<p>여기서 만약 사건 A와 B가 배반사건 일 경우 A 또는 B가 일어날 확률은 <span class="math inline">\(P(A) + P(B)\)</span> 이며 만약 두 사건이 독립일 경우 A와 B가 동시에 일어날 확률은 <span class="math inline">\(P(A)p(B)\)</span> 입니다. 독립이라는 것은 하나의 사건이 일어날 확률이 다른 사건이 일어날 확률에 영향을 주지 않는 경우를 말합니다.</p>
+<p>여기서 만약 사건 A와 B가 배반사건 일 경우 A 또는 B가 일어날 확률은 <span class="math inline">\(P(A) + P(B)\)</span> 이며 만약 두 사건이 독립일 경우 A와 B가 동시에 일어날 확률은 <span class="math inline">\(P(A)P(B)\)</span> 입니다. 독립이라는 것은 하나의 사건이 일어날 확률이 다른 사건이 일어날 확률에 영향을 주지 않는 경우를 말합니다.</p>
 <p>다음 예에서 한 사람을 선택할 경우 그 사람이 남자일 확률, 그 사람이 heavy smoker일 확률, 그리고 남자이거나 heavy smoker 일 확률을 각각 구하시오</p>
 <div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="populations.html#cb146-1"></a><span class="kw">library</span>(UsingR)</span>
 <span id="cb146-2"><a href="populations.html#cb146-2"></a>tbl &lt;-<span class="st"> </span><span class="kw">xtabs</span>(<span class="op">~</span>Sex <span class="op">+</span><span class="st"> </span>Smoke, <span class="dt">data=</span>survey)</span>
@@ -342,7 +342,7 @@ P(X=\text{&quot;Regul&quot;}) =
 </div>
 <div id="discrete-random-variable" class="section level2">
 <h2><span class="header-section-number">7.2</span> Discrete random variable</h2>
-<p><span class="math inline">\(X\)</span> 를 이산형 확률변수라 하면 <span class="math inline">\(X\)</span>가 가질 수 있는 값은 <span class="math inline">\({0, 1, ..}\)</span> 또는 <span class="math inline">\({&quot;yes&quot;, &quot;no&quot;}\)</span> 등의 이산형 값을 가질 수 있으며 이 값들을 <span class="math inline">\(k\)</span>라 하면 <span class="math inline">\(P(X=k)&gt;0\)</span> 이며 <span class="math inline">\(X\)</span>의 분포는 이러한 확률들을 나열한 것으로 생각하면 됩니다. 즉, 이산형 확률변수 <span class="math inline">\(X\)</span>의 분포는 먼저 가능한 <span class="math inline">\(k\)</span>의 값들을 구한 후 <span class="math inline">\(p_k&gt;0\)</span>이고 <span class="math inline">\(\sum{k}=1\)</span>인 확률 <span class="math inline">\(p_k = P(X=k)\)</span>의 값을 명시하면 됩니다.</p>
+<p><span class="math inline">\(X\)</span> 를 이산형 확률변수라 하면 <span class="math inline">\(X\)</span>가 가질 수 있는 값은 <span class="math inline">\({0, 1, ..}\)</span> 또는 <span class="math inline">\({&quot;yes&quot;, &quot;no&quot;}\)</span> 등의 이산형 값을 가질 수 있으며 이 값들을 <span class="math inline">\(x\)</span>라 하면 <span class="math inline">\(P(X=x)&gt;0\)</span> 이며 <span class="math inline">\(X\)</span>의 분포는 이러한 확률들을 나열한 것으로 생각하면 됩니다. 즉, 이산형 확률변수 <span class="math inline">\(X\)</span>의 분포는 먼저 가능한 <span class="math inline">\(x\)</span>의 값들을 구한 후 <span class="math inline">\(P(X=x)&gt;0\)</span>이고 <span class="math inline">\(\sum_x{P(X=x)}=1\)</span>인 확률 <span class="math inline">\(P(X=x)\)</span>의 값들을 명시하면 됩니다.</p>
 <p>동전 한 번 던지기, 가능한 경우의 수는? 확률 변수는? 분포는?</p>
 <p><span class="math display">\[
 P(X=0) = 1/2 \\
