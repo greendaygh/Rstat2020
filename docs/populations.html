@@ -24,7 +24,7 @@
 <meta name="author" content="한국생명공학연구원 김하성" />
 
 
-<meta name="date" content="2020-10-30" />
+<meta name="date" content="2020-10-31" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -540,24 +540,20 @@ f(x) = \frac{d}{dx} F(x)
 <h2><span class="header-section-number">7.4</span> Sampling from a population</h2>
 <p>통계는 어떤 실험으로부터 데이터를 확보한 후 그 분포가 모집단의 분포와 같을 것으로 기대하여 데이터의 기댓값과 분산을 계산하고 이를 가지고 모집단의 평균을 추정하는 것입니다. 따라서 모집단에서 표본을 추출 하는 방법이 중요하며 이 때 사용하는 방법이 <strong>임의 복원추출 (Random sampling with replacement)</strong> 입니다. <span class="math inline">\(X_1, X_2, X_3, ..., X_n\)</span>을 모집단에서 뽑은 일련의 확률 변수라 한다면 이들의 분포가 같을 때 identically distributed 되었다고 하며 하나의 확률 변수의 값이 다른 변수들의 분포에 영향을 주지 않을 때 (즉 하나의 확률변수의 값을 알 때 다른 변수들의 분포가 변하지 않을 때) 그 변수는 다른 변수와 independent 하다고 합니다. 이 두 가지 특성을 갖는 표본들을 indepentent and identically distributed 라고 해서 i.i.d.라 부르고 이는 랜덤 샘플링을 할 때 기본이 되는 개념입니다. 이에 반해 임의 비복원추출의 (Random sampling with replacement) 경우 iid는 아니게 되나 모집단의 크기가 크고 표본의 크기가 작을 때에는 같은 요소를 뽑을 확률이 적어지기 때문에 복원추출법과 비복원추출법 간의 차이가 적어집니다.</p>
 <p>예로 하나의 동전을 <span class="math inline">\(n\)</span>번 던질 때 <span class="math inline">\(X_i\)</span>를 i번째 던지는 동전의 앞 또는 뒷면이라 하면 <span class="math inline">\(X_1, X_2, ..., X_n\)</span>은 i.i.d. 입니다. 주머니 공 꺼내기 예제에서 공을 넣고 다시 꺼내는 복원 추출의 경우의 표본들도 마찬가지로 iid 입니다. 그런데 다시 넣지 않고 꺼내는 경우는 어떨까요?</p>
-<p>3개의 빨간색 공과 2개의 녹색 공이 있는 주머니에서 반복을 허용해서 3개의 공을 뽑을 경우를 생각해 보자. 확률변수 <span class="math inline">\(X_i\)</span>를 <span class="math inline">\(i\)</span>번째 뽑은 공의 색이라 할 때 <span class="math inline">\(X_1\)</span> 의 확률 분포와 <span class="math inline">\(X_2\)</span>의 확률 분포는? 반복을 허용하지 않는 경우의 확률 분포는?
-$$
-P(X_1=R) =  \
-P(X_1=G) =  \
-P(X_2=R) =   +
-  \
-P(X_2=G) =   +
- </p>
-<p>$$</p>
+<p>3개의 빨간색 공과 2개의 녹색 공이 있는 주머니에서 반복을 허용해서 3개의 공을 뽑을 경우를 생각해 보자. 확률변수 <span class="math inline">\(X_i\)</span>를 <span class="math inline">\(i\)</span>번째 뽑은 공의 색이라 할 때 <span class="math inline">\(X_1\)</span> 의 확률 분포와 <span class="math inline">\(X_2\)</span>의 확률 분포는? 반복을 허용하지 않는 경우의 확률 분포는?</p>
+<p><span class="math display">\[
+P(X_1=R) = \frac{3}{5} \\
+P(X_1=G) = \frac{2}{5} \\
+P(X_2=R) = \frac{3}{5} \times \frac{3}{5} + \frac{2}{5} \times \frac{3}{5} \\
+P(X_2=G) = \frac{3}{5} \times \frac{2}{5} + \frac{2}{5} \times \frac{2}{5} 
+\]</span></p>
 <p>반복을 허용하지 않을 경우
-$$
-P(X_1=R) =  \
-P(X_1=G) =  \
-P(X_2=R) =   +
-  \
-P(X_2=G) =   +
- </p>
-<p>$$</p>
+<span class="math display">\[
+P(X_1=R) = \frac{3}{5} \\
+P(X_1=G) = \frac{2}{5} \\
+P(X_2=R) = \frac{3}{5} \times \frac{2}{5} + \frac{2}{5} \times \frac{3}{5} \\
+P(X_2=G) = \frac{3}{5} \times \frac{2}{5} + \frac{2}{5} \times \frac{1}{5} 
+\]</span></p>
 <p>R에서는 <code>sample</code> 함수를 사용해서 복원/비복원추출 과정을 시뮬레이션 할 수 있습니다.</p>
 <div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="populations.html#cb150-1"></a><span class="kw">sample</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">1</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">replace =</span> T)</span>
 <span id="cb150-2"><a href="populations.html#cb150-2"></a><span class="kw">sample</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">1</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">replace =</span> F)</span>
