@@ -549,7 +549,16 @@ P(X_2=R) =   +
 P(X_2=G) =   +
  </p>
 <p>$$</p>
-<p>R에서는 <code>sample</code> 함수를 사용해서 복원추출 과정을 시뮬레이션 할 수 있습니다.</p>
+<p>반복을 허용하지 않을 경우
+$$
+P(X_1=R) =  \
+P(X_1=G) =  \
+P(X_2=R) =   +
+  \
+P(X_2=G) =   +
+ </p>
+<p>$$</p>
+<p>R에서는 <code>sample</code> 함수를 사용해서 복원/비복원추출 과정을 시뮬레이션 할 수 있습니다.</p>
 <div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="populations.html#cb150-1"></a><span class="kw">sample</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">1</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">replace =</span> T)</span>
 <span id="cb150-2"><a href="populations.html#cb150-2"></a><span class="kw">sample</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">1</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">replace =</span> F)</span>
 <span id="cb150-3"><a href="populations.html#cb150-3"></a><span class="kw">sample</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">1</span>, <span class="dt">size=</span><span class="dv">1</span>, <span class="dt">replace =</span> F)</span></code></pre></div>
@@ -573,13 +582,9 @@ E[X] = ?
 <span id="cb151-5"><a href="populations.html#cb151-5"></a>  x &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dt">size =</span> i, <span class="dt">replace=</span>T)</span>
 <span id="cb151-6"><a href="populations.html#cb151-6"></a>  barx[i] &lt;-<span class="st"> </span><span class="kw">mean</span>(x)</span>
 <span id="cb151-7"><a href="populations.html#cb151-7"></a>}</span>
-<span id="cb151-8"><a href="populations.html#cb151-8"></a><span class="kw">plot</span>(barx)</span>
-<span id="cb151-9"><a href="populations.html#cb151-9"></a></span>
-<span id="cb151-10"><a href="populations.html#cb151-10"></a><span class="co">## simulation 2nd</span></span>
-<span id="cb151-11"><a href="populations.html#cb151-11"></a>i &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">1000</span></span>
-<span id="cb151-12"><a href="populations.html#cb151-12"></a>barx2 &lt;-<span class="st"> </span><span class="kw">sapply</span>(i, <span class="cf">function</span>(x){<span class="kw">mean</span>(<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dt">size=</span>x, <span class="dt">replace=</span>T))})</span>
-<span id="cb151-13"><a href="populations.html#cb151-13"></a><span class="kw">plot</span>(barx2)</span></code></pre></div>
-<p>7-2) 주머니에 R개의 빨간공과 G개의 녹색공이 있다 (N=R+G). 반복을 허용해서 세 번의 공을 뽑을 때 빨간 공의 갯수를 확률변수 <span class="math inline">\(X\)</span>라 하자. <span class="math inline">\(X\)</span>의 분포와, 기댓값과 분산을 구하시오.</p>
+<span id="cb151-8"><a href="populations.html#cb151-8"></a><span class="kw">plot</span>(barx)</span></code></pre></div>
+<p>7-2) 위 <code>for</code> 문을 이용한 시뮬레이션을 <code>replicate</code> 또는 <code>sapply</code>를 이용한 코드로 구현하시오</p>
+<p>7-3) 주머니에 R개의 빨간공과 G개의 녹색공이 있다 (N=R+G). 반복을 허용해서 세 번의 공을 뽑을 때 빨간 공의 갯수를 확률변수 <span class="math inline">\(X\)</span>라 하자. <span class="math inline">\(X\)</span>의 분포와, 기댓값과 분산을 구하시오 (P(X=0) = (G/N)(G/N)(G/N) 이와같이 컴퓨터로 작성해도 되고, 종이에 적은 후 사진으로 보내도 됨)</p>
 <p><a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="크리에이티브 커먼즈 라이선스" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />이 저작물은 <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">크리에이티브 커먼즈 저작자표시-비영리-변경금지 4.0 국제 라이선스</a>에 따라 이용할 수 있습니다.</p>
 
 </div>
