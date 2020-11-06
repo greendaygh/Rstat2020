@@ -380,6 +380,418 @@ plot(barx2)
 
 
 
+
+
+## Sampling distribution
+
+**통계량(a statistic)**은 랜덤 표본을 요약하는 하나의 값입니다.  표본평균이 그 예이며 $\bar{X} = (X_1 + X_2 + ... + X_n)/n$ 으로 나타낼 수 있습니다. 그런데 통계량이 랜덤 표본에 의존한다면 해당 통계량 또한 확률 변수가 되며 이 통계량의 분포를 **표본분포라고 (sample distribution)** 합니다. 표본 분포는 복잡한 것으로 알려져 있으나 일반적으로 사용하는 평균이나 분산 등의 통계량에 대해서는 연구가 많이 되어 잘 알려져 있는 편이며 대부분 그들의 모집단과 관련된 값을 가지고 있읍니다. 예를 들어 표본평균의 기댓값과 표준편차는 다음과 같은 값을 가집니다. 
+
+$$
+E(\bar{X}) = \mu_{\bar{X}} = \mu \\ 
+SD(\bar{X}) = \sigma_\bar{X} = \frac{\sigma}{\sqrt{n}}
+$$
+즉, 표본평균의 기댓값은 모평균과 같고 표본평균의 표준편차는 모평균의 표준편차와 관계가 있으나 더 작습니다. 이러한 특성 때문에 $\bar{X}$를 모평균의 추정에 사용할 수 있습니다. 
+
+
+**[EXERCISE]** 1, 2, 3 세 개의 숫자가 각각 적힌 공이 주머니에 있다. 여기서 하나의 공을 뽑을 때 나오는 숫자를 확률변수 $X$라 할 때 $X$의 기댓값과 분산을 구하시오 (공식 이용, 코드 작성).
+
+
+```{r, eval=F}
+
+x <- 1:3
+xp <- rep(1/3, 3)
+ex <- sum(x*xp)
+vx <- sum(x^2*xp) - (sum(x*xp))^2
+c(ex, vx)
+
+
+```
+
+
+**[EXERCISE]** 위 예제에서 임의 복원 추출 방법으로 두 개의 표본을 추출하는 경우를 생각해보자. 이 경우 확률변수  $X$를 두 수의 합을 나타낸다고 가정할 경우 기댓값과 분산을 구하는 코드를 작성하시오. 
+
+```{r, eval=F}
+
+x <- data.frame(x1=rep(1:3, times=3), x2=rep(1:3, each=3))
+px <- table(rowSums(x))/length(rowSums(x))
+k <- as.numeric(names(px))
+ex <- sum(k*px)
+xp <- sum(k^2*px) - ex^2
+c(ex, vx)
+
+barplot(px)
+```
+
+
+위 예제의 경우는 모집단을 알고 있는 경우입니다. 만약 주머니 안에 몇개의 공이 있는지 어떤 수가 써 있는지 모르는 경우를 생각하면 주머니에서 임의 복원 추출을 통해 모수 (모평균)를 추정해야 합니다.  
+
+
+![](images/07/07.png)
+
+모평균을 추정할 때에는 앞서 공식에 의해 표본평균의 기댓값을 구해야 하므로 임의 복원추출 시행과 그 표본들의 평균을 구하는 여러번의 반복 작업으로 모평균과 모분산을 추정할 수 있습니다. 
+
+
+![](images/07/08.png)
+
+
+그런데 일반적인 경우 위 그림처럼 사건들의 확률이 단순하지 않습니다. 만약 모든 확률을 (분포를) 알고 있다면 각 확률에 경우의 수를 곱해서 모두 더한 값이 기대값입니다. 그러나 모든 확률을 알아내는 것은 불가능에 가깝습니다. 따라서 모수를 추정하기 위해서 우리가 취할 수 있는 방법은 두 가지 입니다. 하나는 충분히 많은 표본을 추출해서 평균을 구하거나 알고있는 확률들(분포)를 사용하는 것 입니다. 요즘처럼 컴퓨터가 발달하지 않은 시대에는 후자의 방법을 사용하기 위해서 많은 통계학자들의 분포를 연구해 두었습니다. 즉, 특정한 상황에 대한 PDF나 PMF를 계산해 둔 것입니다.  
+
+## Probability distributions 
+
+통계에는 다양한 분포들이 존재할 수 있으나 그 중 많이 사용되거나 유사한 특성을 갖는 분포들을 분류해 (families of distribution) 두었고  (https://en.wikipedia.org/wiki/List_of_probability_distributions) 이들 중 잘 알려진 몇 가지 분포를 살펴보도록 하겠습니다. 먼저 각 분포는 수학적인 함수(PDF, PMF)로 표현될 수 있고 각 함수에는 분포의 중심과 모양 등을 결정하는 모수(parameter)가 있습니다. 이는 이미 배운 모평균, 모분산 등의 모수 입니다. 
+
+$$
+f_X(x | \mu, \sigma) = 
+\frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{(x-\mu)^2}{2 \sigma^2}}  \\
+$$
+
+** 주요 확률 분포의 종류 **
+
+* Discrete random variable 
+  * Bernoulli distribution
+  * Binomial distribution
+  * Poisson distribution
+
+* Continuous random variable
+  * Uniform distribution
+  * Normal distribution
+  * Exponential distribution
+  * Lognormal distribution
+  * t-distribution
+  * chi-squared distribution
+  
+
+R에서는 4가지 타입의 분포 정보를 활용할 수 있는 함수를 제공하고 있습니다. 
+
+* "d" 함수는 분포의 PDF/PMF 값 반환 `dnorm()`
+* "p" 함수는 분포의 CDF/CMF 값 반환 `pnorm()`
+* "q" 함수는 분포의 사분위값 반환 `qnorm()`
+* "r" 함수는 분포에서 임의 표본 추출 `rnorm()`
+
+
+
+### Bernoulli random variables
+
+* 확률 변수 X 가 (0, 1) 두 값만을 가질 경우의 확률 분포 (success=1, failure=0)
+* 확률 변수 X의 pmf는 $P(X=1) = p$ 로 나타내며 이 분포는 Bernoulli(p) 로 타나냄 (파라메터: $p$)
+* 베르누이 확률 변수의 iid 샘플을 가리켜 (베르누이 시행) Bernoulli trial 이라함
+
+$$
+\mu = p \\
+\sigma^2 = p(1-p)
+$$
+
+```{r, eval=F}
+n <- 10
+p <- 1/4
+sample(0, 1, size=n, replace=TRUE, prob=c(1-p, p))
+```
+
+
+### Binomial random variables
+
+* 확률변수 X는 $n$번의 베르누이 시행에서 성공의 개수를 나타냄 
+* 이항분포를 나타내는 파라메터는 $n$ 과 성공확률 $p$ 이며 Binomial(n, p) 로 나타냄
+* 가능한 경우의 수 $k=0, 1, 2, .., n$ 이므로 $X$의 분포는 
+
+$$
+P(X=k) = {n \choose k} p^k (1-p)^{n-k} \\
+\mu = np \\
+\sigma^2 = npq
+$$
+
+
+**[EXERCISE]** 하나의 동전을 10번 던질 때 $X$를 앞면이 나오는 경우의 개수라 하자. 만약 동전이 공평하다면 Binomial(10, 1/2) 분포를 따르게 된다. P(X=5) 값을 구하시오. 
+```{r, eval=F}
+# from the pdf of binomial r.v.
+choose(10, 5) * (1/2)^5 * (1/2)^(10-5)
+
+# using dbinom function
+dbinom(5, size=10, prob=1/2)
+```
+
+ggplot을 이용해서 이항분포를 그려봅니다. 히스토그램의 y축은 빈도 수를 나타내지만 이를 확률로 나타낼수도 있고 이 경우 y값은 dbinom의 값과 같습니다.  
+
+```{r, eval=F}
+## pdf 
+x<-0:10
+x_dist <- choose(10, x) * (1/2)^x * (1/2)^(10-x)
+x_dist_df <- data.frame(x, x_dist)
+ggplot(x_dist_df, aes(x=x, y=x_dist)) + 
+  geom_bar(stat="identity") 
+
+## sampling
+x_trials <- rbinom(1000, size=10, prob=1/2)
+hist(x_trials, br=100)
+## distribution
+ggplot(data.frame(x_trials), aes(x=x_trials)) + 
+  geom_bar()
+
+```
+
+위 예제에서 앞면이 6번 이하로 나올 확률을 구하면 $P(X \le 6) = \sum_{k \le 6} P(X=k)$ 이므로 다음과 같습니다. 따라서 $P(X \ge 7) = 1- P(X \le 6)$ 입니다. 
+
+```{r, eval=F}
+
+dbinom(0, size=10, prob=1/2) +
+dbinom(1, size=10, prob=1/2) +
+dbinom(2, size=10, prob=1/2) +
+dbinom(3, size=10, prob=1/2) +
+dbinom(4, size=10, prob=1/2) +
+dbinom(5, size=10, prob=1/2)
+
+x <- 0:5
+sum(dbinom(x, size=10, prob=1/2))
+
+
+sum(dbinom(0:5, size=10, prob=1/2))
+pbinom(5, size=10, p=1/2)
+```
+
+즉, pbinom을 이용해서 누적함수 분포를 쉽게 그릴 수 있습니다.  
+```{r, eval=F}
+
+x <- 0:10
+y <- pbinom(x, size=10, p=1/2)
+dat <- data.frame(x, y)
+ggplot(dat, aes(x, y)) +
+  geom_point() +
+  geom_line() +
+  geom_bar(stat="identity")
+
+```
+
+
+### Normal random variables
+
+* 정규확률변수 $X$의 분포는 연속적인 종모양 (Bell-shaped) 형태를 가진 분포로 pdf상의 y값은 밀도로 해석 
+* 정규분포를 나타내는 파라미터는 종모양의 중심인 $\mu$와 분산 $\sigma^2$ 두 개이며 $Normal(\mu, \sigma)$ 또는 $N(\mu, \sigma)$ 로 나타냄
+
+$$
+f(x|\mu,\sigma) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(x-\mu)^2}{2\sigma^2} } 
+$$
+다음은 `rnorm`과 `dnorm`을 활용한 그래프 그리기 예제 입니다. 
+
+```{r, eval=F}
+n <- 1000
+x <- rnorm(n, mean=175, sd=2)
+xbar <- mean(x)
+s <- sd(x)
+xbarsd <- xbar + c(-1, 1)*s
+
+hist(x, br=30, probability = T)
+lines(density(x), col="red", lwd=3)
+abline(v=xbarsd, col="red", lwd=3, lty=2)
+```
+
+
+```{r, eval=F}
+xbarsd
+ggplot(data.frame(x), aes(x=x)) +
+  geom_histogram(aes(y=..density..), fill="gray", color="black")+
+  geom_line(stat="density") +
+  geom_vline(xintercept = xbarsd, linetype="dashed", color="red", size=1)
+
+
+```
+
+
+
+
+두 개의 normal desity를 가정해서 그래프를 그려봅시다. 하나는 $f(x|\mu=0, \sigma=1)$이고 다른 하나는 $f(x|\mu=4, \sigma=1/2)$ 입니다. 
+
+```{r, eval=F}
+x1 <- seq(-4, 4, by=0.1)
+y1 <- dnorm(x1, mean=0, sd=1)
+plot(x1,y1)
+
+x2 <- seq(0, 8, by=0.1)
+y2 <- dnorm(x2, mean=4, sd=0.5)
+plot(x2, y2)
+```
+
+ggplot을 이용해서 두 그래프를 하나의 화면에 그려봅니다. 
+
+```{r, eval=F}
+dat <- data.frame(x1, x2, y1, y2)
+dat
+
+ggplot(dat) +
+  geom_line(aes(x=x1, x=y1)) +
+  geom_line(aes(x=x2, x=y2)) +
+  geom_hline(yintercept = 0)
+```
+
+연속형 확률분포에서 y 값은 특정 x 값에 대한 density라 했고 x의 범위에 대한 면적의 넓이가 확률 입니다. N(0, 1) 분포에서 누적확률 0.5인 곳은 x=0 이며 pnorm 함수로 다음과 같이 확인이 가능합니다. 즉 정규분포에서도 앞서 이항분포에서와 같이 pnorm 함수를 이용해서 누적확률을 구할 수 있습니다.   
+
+```{r, eval=F, echo=T}
+pnorm(0, 0, 1)
+
+```
+
+qnorm은 pnorm의 역함수로 생각하면 되겠습니다. 즉, 정규분포 N(0, 1)에서 확률이 0.5가 되는 곳의 x값을 구하기 위해서는 다음과 같이 코드를 작성하면 되겠습니다. 
+
+```{r, eval=F}
+qnorm(0.5, 0, 1)
+```
+
+![](images/07/9.png)
+
+만약 IQR 구간을 구한다면 다음과 같이 0.25와 0.75확률이 되는 x 값들을 (quantile을) 구하면 되겠습니다. 
+
+```{r, eval=F}
+qnorm(c(0.25, 0.75))
+```
+
+표준정규분포의 중심으로부터 1 표준편차만큼 떨어진 구간의 넓이 (확률)을 구하면 다음과 같습니다. 
+
+```{r, eval=F}
+pnorm(1)-pnorm(-1)
+```
+
+
+
+**[EXERCISE]** N(0, 1) 분포에서 (누적) 확률이 0.95가 되는 곳의 x값을 구하고 그래프를 그린 후 geom_polygon 함수를 이용하여 해당 영역을 색칠 하시오. 
+
+```{r, eval=F, echo=T}
+mu <- 0
+sigma <- 1
+x1 <- seq(-5, 5, by=0.1)
+y1 <- dnorm(x1, mean=mu, sd=sigma)
+dat <- data.frame(x1, y1)
+
+x.val <- qnorm(0.95, mu, sigma)
+
+p <- ggplot(dat, aes(x1, y1)) +
+  geom_line() +
+  geom_hline(yintercept = 0) +
+  geom_area(data=filter(dat, x1 > -5 & x1 < x.val)) +
+  geom_vline(xintercept = 0, color="white", linetype = "dashed") +
+  labs(x=element_blank(), y="Density")
+p
+```
+
+몇 가지 옵션을 추가한 그래프 입니다. 
+
+```{r, eval=F}
+onesd_x <- 1
+onesd_y <- dnorm(onesd_x, mu, sigma)
+onesd_dat <- data.frame(x=c(0, onesd_x, onesd_x), 
+                        y=c(onesd_y, onesd_y, 0))
+
+## dashed line 
+p <- p + geom_line(data=onesd_dat, 
+                   aes(x=x, y=y), 
+                   color="white", 
+                   linetype="dashed")
+
+## text label
+p <- p +  annotate("text", 
+                   label = paste("(", onesd_x, ", ", round(onesd_y, 2), ")", sep=""), 
+                   x = onesd_x, 
+                   y = onesd_y+0.02, 
+                   size = 5, 
+                   colour = "red")
+
+## arrow with text 
+p + labs(title="Normal distribution with mean 0 and sd 1", x="X", y="Density") +
+  theme(plot.title = element_text(size=15, face="bold.italic", color="blue", hjust=0.5),
+        axis.title.x = element_text(size=15, color="blue"),
+        axis.title.y = element_text(size=15, color="blue")) +
+  geom_segment(aes(x = 3, y = 0.2, xend = x.val, yend = 0), 
+          arrow = arrow(),
+          color='orange',size=1) +
+  annotate("text", label = paste("x=", round(x.val, 3), sep=""), x = 3, y = 0.22, size = 5, colour = "red")
+
+```
+
+
+
+**[EXERCISE]** 대한민국 성인 남성의 평균은 175이고 표준편차는 3.5라고 하면 180보다 큰 사람의 비율은 얼마인가? 
+
+```{r, eval=F}
+
+mu <- 170
+sigma <- 10
+
+1-pnorm(180, mean=mu, sd=sigma)
+
+```
+
+```{r, eval=F}
+n <- 10000
+x <- rnorm(n, mu, sigma)
+sum(x>180)/n
+```
+
+
+
+### Uniform distribution
+균등분포는 임의의 확률변수가 구간 [a, b]에서 모두 일정한 확률을 갖습니다. 이산형과 연속형 모두에서 사용될 수 있으며 $f(x)(b-a)=1$ 이므로 pdf는 $f(x)=\frac{1}{(b-a)}$ 입니다. 균등분포의 모수는 구간을 나타내는 $a$, $b$ 두 개이며 평균과 분산은 각각 $\mu=(a+b)/2$, $(b-a)^2/12$ 입니다. 
+
+```{r, eval=F}
+x = runif(50, min=0, max=10)
+ggplot(data.frame(x), aes(x=x)) +
+  geom_bar(stat="bin")
+```
+
+
+### Poisson distribution
+포아송분포는 이산확률 분포이며 단위 시간동안 임의의 사건이 몇 번 발생할 것인지를 표현하는 분포 입니다. 이항분포의 n이 무한대로, p가 0로 가까이 가면 포아송분포와 가까워지며 n 과 p는 모르지만 np, 즉 평균을 알고 있을 때 사용하는 분포 입니다. 포아송분포의 파라미터는 np 값인 $\lambda$ 이며 $\lambda$의 해석은 단위 시간동안 어떤 사건이 일어날 횟수에 대한 기댓값으로 한 페이지를 읽을 동안 발견한 오타의 갯수나 1시간동안 (단위시간동안) 도착한 고객의 수 등이 되겠습니다. 포아송분포는  $\lambda$에 따라서 분포의 모양이 달라지며 확률질량함수 pmf는 다음과 같습니다. 
+
+$$
+f(n|\lambda) = \frac{\lambda^n e^{-\lambda}}{n!}
+$$
+
+이 함수가 의미하는 바는 단위 시간동안 평균 발생 횟수가 $\lambda$일 때 n번 발생할 확률을 말합니다. 포아송분포의 평균과 분산은 모두 $\lambda$ 입니다. 만약 1년 동안 돌연변이 바이러스 나타난 평균 횟수가 1종 이였다면 1년동안 3종의 바이러스가 나타날 확률은 다음과 같습니다. 
+
+```{r, eval=F}
+dpois(3, 1)
+rpois(100, 1)
+```
+
+### Exponential distribution
+만약 일정 시간동안 발생하는 사건의 횟수가 포아송분포를 따른다고 할 때 사건들 사이의 대기 시간의 분포가 지수분포입니다. 연속확률변수의 분포이며 지수분포의 pdf는 다음과 같습니다. 
+
+$$
+f(x|\lambda) = \lambda e^{-\lambda x}, x \ge 0
+$$
+
+$\lambda$의 의미는 포아송분포에서와 같으며 지수분포의 평균은 $\mu = \frac{1}{\lambda}$이며 표준편차는 $\sigma = \frac{1}{\lambda}$ 입니다. 앞서 예에서 1개월 안에 바러스 변이가 나타날 확률을 알고자 할 때 지수분포를 사용합니다. 단위시간을 1년으로 하면 평균 횟수가 $\lambda=1$이고 구하는 확률은 다음과 같습니다.
+
+$$
+P(0 \le t \le 1/12) = \int_0^{1/12} 1 \cdot e^{-1 \cdot t} dt
+$$ 
+
+```{r, eval=F}
+pexp(1/12, 1)
+```
+
+지수함수는 다음과 같은 조건을 만족하는 Memoryless 특성을 가지고 있다. 
+
+$$
+P(X \gt s+t | X \gt t) = P(X > s)
+$$
+
+### Sampling distributions
+대표적인 샘플링 분포는 t분포, F분포, 그리고 chi-squared 분포가 있으며 이들은 다음 장 강의를 참고하시기 바랍니다. 
+
+
+
+## Problems 07-2 
+
+7-4) `ggplot`을 이용해서 표준정규분포 그래프를 그리고 IQR 구간을 검은 색으로 칠하시오 
+
+
+7-5) 12시간 동안 A라는 음식점에 방문한 손님이 평균 10명 이라고 한다. 이 식당에 12시간 동안 20명의 손님이 방문할 확률을 코드를 작성하여 구하시오
+
+7-6) 위 A 식당에서 1시간 안에 손님이 방문할 확률을 구하시오
+
+
+
+
+
+
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="크리에이티브 커먼즈 라이선스" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />이 저작물은 <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">크리에이티브 커먼즈 저작자표시-비영리-변경금지 4.0 국제 라이선스</a>에 따라 이용할 수 있습니다.
 
 

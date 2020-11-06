@@ -24,7 +24,7 @@
 <meta name="author" content="한국생명공학연구원 김하성" />
 
 
-<meta name="date" content="2020-10-31" />
+<meta name="date" content="2020-11-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -277,6 +277,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="7.4" data-path="populations.html"><a href="populations.html#sampling-from-a-population"><i class="fa fa-check"></i><b>7.4</b> Sampling from a population</a></li>
 <li class="chapter" data-level="7.5" data-path="populations.html"><a href="populations.html#problems-07"><i class="fa fa-check"></i><b>7.5</b> Problems 07</a></li>
+<li class="chapter" data-level="7.6" data-path="populations.html"><a href="populations.html#sampling-distribution"><i class="fa fa-check"></i><b>7.6</b> Sampling distribution</a></li>
+<li class="chapter" data-level="7.7" data-path="populations.html"><a href="populations.html#probability-distributions"><i class="fa fa-check"></i><b>7.7</b> Probability distributions</a>
+<ul>
+<li class="chapter" data-level="7.7.1" data-path="populations.html"><a href="populations.html#bernoulli-random-variables"><i class="fa fa-check"></i><b>7.7.1</b> Bernoulli random variables</a></li>
+<li class="chapter" data-level="7.7.2" data-path="populations.html"><a href="populations.html#binomial-random-variables"><i class="fa fa-check"></i><b>7.7.2</b> Binomial random variables</a></li>
+<li class="chapter" data-level="7.7.3" data-path="populations.html"><a href="populations.html#normal-random-variables"><i class="fa fa-check"></i><b>7.7.3</b> Normal random variables</a></li>
+<li class="chapter" data-level="7.7.4" data-path="populations.html"><a href="populations.html#uniform-distribution"><i class="fa fa-check"></i><b>7.7.4</b> Uniform distribution</a></li>
+<li class="chapter" data-level="7.7.5" data-path="populations.html"><a href="populations.html#poisson-distribution"><i class="fa fa-check"></i><b>7.7.5</b> Poisson distribution</a></li>
+<li class="chapter" data-level="7.7.6" data-path="populations.html"><a href="populations.html#exponential-distribution"><i class="fa fa-check"></i><b>7.7.6</b> Exponential distribution</a></li>
+<li class="chapter" data-level="7.7.7" data-path="populations.html"><a href="populations.html#sampling-distributions"><i class="fa fa-check"></i><b>7.7.7</b> Sampling distributions</a></li>
+</ul></li>
+<li class="chapter" data-level="7.8" data-path="populations.html"><a href="populations.html#problems-07-2"><i class="fa fa-check"></i><b>7.8</b> Problems 07-2</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -585,6 +597,284 @@ E[X] = ?
 <span id="cb151-8"><a href="populations.html#cb151-8"></a><span class="kw">plot</span>(barx)</span></code></pre></div>
 <p>7-2) 위 <code>for</code> 문을 이용한 시뮬레이션을 <code>replicate</code> 또는 <code>sapply</code>를 이용한 코드로 구현하시오</p>
 <p>7-3) 주머니에 R개의 빨간공과 G개의 녹색공이 있다 (N=R+G). 반복을 허용해서 세 번의 공을 뽑을 때 빨간 공의 갯수를 확률변수 <span class="math inline">\(X\)</span>라 하자. <span class="math inline">\(X\)</span>의 분포와, 기댓값과 분산을 구하시오 (P(X=0) = (G/N)(G/N)(G/N) 이와같이 컴퓨터로 작성해도 되고, 종이에 적은 후 사진으로 보내도 됨)</p>
+</div>
+<div id="sampling-distribution" class="section level2">
+<h2><span class="header-section-number">7.6</span> Sampling distribution</h2>
+<p><strong>통계량(a statistic)</strong>은 랜덤 표본을 요약하는 하나의 값입니다. 표본평균이 그 예이며 <span class="math inline">\(\bar{X} = (X_1 + X_2 + ... + X_n)/n\)</span> 으로 나타낼 수 있습니다. 그런데 통계량이 랜덤 표본에 의존한다면 해당 통계량 또한 확률 변수가 되며 이 통계량의 분포를 <strong>표본분포라고 (sample distribution)</strong> 합니다. 표본 분포는 복잡한 것으로 알려져 있으나 일반적으로 사용하는 평균이나 분산 등의 통계량에 대해서는 연구가 많이 되어 잘 알려져 있는 편이며 대부분 그들의 모집단과 관련된 값을 가지고 있읍니다. 예를 들어 표본평균의 기댓값과 표준편차는 다음과 같은 값을 가집니다.</p>
+<p><span class="math display">\[
+E(\bar{X}) = \mu_{\bar{X}} = \mu \\ 
+SD(\bar{X}) = \sigma_\bar{X} = \frac{\sigma}{\sqrt{n}}
+\]</span>
+즉, 표본평균의 기댓값은 모평균과 같고 표본평균의 표준편차는 모평균의 표준편차와 관계가 있으나 더 작습니다. 이러한 특성 때문에 <span class="math inline">\(\bar{X}\)</span>를 모평균의 추정에 사용할 수 있습니다.</p>
+<p><strong>[EXERCISE]</strong> 1, 2, 3 세 개의 숫자가 각각 적힌 공이 주머니에 있다. 여기서 하나의 공을 뽑을 때 나오는 숫자를 확률변수 <span class="math inline">\(X\)</span>라 할 때 <span class="math inline">\(X\)</span>의 기댓값과 분산을 구하시오 (공식 이용, 코드 작성).</p>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="populations.html#cb152-1"></a>x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">3</span></span>
+<span id="cb152-2"><a href="populations.html#cb152-2"></a>xp &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">3</span>, <span class="dv">3</span>)</span>
+<span id="cb152-3"><a href="populations.html#cb152-3"></a>ex &lt;-<span class="st"> </span><span class="kw">sum</span>(x<span class="op">*</span>xp)</span>
+<span id="cb152-4"><a href="populations.html#cb152-4"></a>vx &lt;-<span class="st"> </span><span class="kw">sum</span>(x<span class="op">^</span><span class="dv">2</span><span class="op">*</span>xp) <span class="op">-</span><span class="st"> </span>(<span class="kw">sum</span>(x<span class="op">*</span>xp))<span class="op">^</span><span class="dv">2</span></span>
+<span id="cb152-5"><a href="populations.html#cb152-5"></a><span class="kw">c</span>(ex, vx)</span></code></pre></div>
+<p><strong>[EXERCISE]</strong> 위 예제에서 임의 복원 추출 방법으로 두 개의 표본을 추출하는 경우를 생각해보자. 이 경우 확률변수 <span class="math inline">\(X\)</span>를 두 수의 합을 나타낸다고 가정할 경우 기댓값과 분산을 구하는 코드를 작성하시오.</p>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="populations.html#cb153-1"></a>x &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x1=</span><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">times=</span><span class="dv">3</span>), <span class="dt">x2=</span><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">each=</span><span class="dv">3</span>))</span>
+<span id="cb153-2"><a href="populations.html#cb153-2"></a>px &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="kw">rowSums</span>(x))<span class="op">/</span><span class="kw">length</span>(<span class="kw">rowSums</span>(x))</span>
+<span id="cb153-3"><a href="populations.html#cb153-3"></a>k &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">names</span>(px))</span>
+<span id="cb153-4"><a href="populations.html#cb153-4"></a>ex &lt;-<span class="st"> </span><span class="kw">sum</span>(k<span class="op">*</span>px)</span>
+<span id="cb153-5"><a href="populations.html#cb153-5"></a>xp &lt;-<span class="st"> </span><span class="kw">sum</span>(k<span class="op">^</span><span class="dv">2</span><span class="op">*</span>px) <span class="op">-</span><span class="st"> </span>ex<span class="op">^</span><span class="dv">2</span></span>
+<span id="cb153-6"><a href="populations.html#cb153-6"></a><span class="kw">c</span>(ex, vx)</span>
+<span id="cb153-7"><a href="populations.html#cb153-7"></a></span>
+<span id="cb153-8"><a href="populations.html#cb153-8"></a><span class="kw">barplot</span>(px)</span></code></pre></div>
+<p>위 예제의 경우는 모집단을 알고 있는 경우입니다. 만약 주머니 안에 몇개의 공이 있는지 어떤 수가 써 있는지 모르는 경우를 생각하면 주머니에서 임의 복원 추출을 통해 모수 (모평균)를 추정해야 합니다.</p>
+<p><img src="images/07/07.png" /></p>
+<p>모평균을 추정할 때에는 앞서 공식에 의해 표본평균의 기댓값을 구해야 하므로 임의 복원추출 시행과 그 표본들의 평균을 구하는 여러번의 반복 작업으로 모평균과 모분산을 추정할 수 있습니다.</p>
+<p><img src="images/07/08.png" /></p>
+<p>그런데 일반적인 경우 위 그림처럼 사건들의 확률이 단순하지 않습니다. 만약 모든 확률을 (분포를) 알고 있다면 각 확률에 경우의 수를 곱해서 모두 더한 값이 기대값입니다. 그러나 모든 확률을 알아내는 것은 불가능에 가깝습니다. 따라서 모수를 추정하기 위해서 우리가 취할 수 있는 방법은 두 가지 입니다. 하나는 충분히 많은 표본을 추출해서 평균을 구하거나 알고있는 확률들(분포)를 사용하는 것 입니다. 요즘처럼 컴퓨터가 발달하지 않은 시대에는 후자의 방법을 사용하기 위해서 많은 통계학자들의 분포를 연구해 두었습니다. 즉, 특정한 상황에 대한 PDF나 PMF를 계산해 둔 것입니다.</p>
+</div>
+<div id="probability-distributions" class="section level2">
+<h2><span class="header-section-number">7.7</span> Probability distributions</h2>
+<p>통계에는 다양한 분포들이 존재할 수 있으나 그 중 많이 사용되거나 유사한 특성을 갖는 분포들을 분류해 (families of distribution) 두었고 (<a href="https://en.wikipedia.org/wiki/List_of_probability_distributions" class="uri">https://en.wikipedia.org/wiki/List_of_probability_distributions</a>) 이들 중 잘 알려진 몇 가지 분포를 살펴보도록 하겠습니다. 먼저 각 분포는 수학적인 함수(PDF, PMF)로 표현될 수 있고 각 함수에는 분포의 중심과 모양 등을 결정하는 모수(parameter)가 있습니다. 이는 이미 배운 모평균, 모분산 등의 모수 입니다.</p>
+<p><span class="math display">\[
+f_X(x | \mu, \sigma) = 
+\frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{(x-\mu)^2}{2 \sigma^2}}  \\
+\]</span></p>
+<p>** 주요 확률 분포의 종류 **</p>
+<ul>
+<li>Discrete random variable
+<ul>
+<li>Bernoulli distribution</li>
+<li>Binomial distribution</li>
+<li>Poisson distribution</li>
+</ul></li>
+<li>Continuous random variable
+<ul>
+<li>Uniform distribution</li>
+<li>Normal distribution</li>
+<li>Exponential distribution</li>
+<li>Lognormal distribution</li>
+<li>t-distribution</li>
+<li>chi-squared distribution</li>
+</ul></li>
+</ul>
+<p>R에서는 4가지 타입의 분포 정보를 활용할 수 있는 함수를 제공하고 있습니다.</p>
+<ul>
+<li>“d” 함수는 분포의 PDF/PMF 값 반환 <code>dnorm()</code></li>
+<li>“p” 함수는 분포의 CDF/CMF 값 반환 <code>pnorm()</code></li>
+<li>“q” 함수는 분포의 사분위값 반환 <code>qnorm()</code></li>
+<li>“r” 함수는 분포에서 임의 표본 추출 <code>rnorm()</code></li>
+</ul>
+<div id="bernoulli-random-variables" class="section level3">
+<h3><span class="header-section-number">7.7.1</span> Bernoulli random variables</h3>
+<ul>
+<li>확률 변수 X 가 (0, 1) 두 값만을 가질 경우의 확률 분포 (success=1, failure=0)</li>
+<li>확률 변수 X의 pmf는 <span class="math inline">\(P(X=1) = p\)</span> 로 나타내며 이 분포는 Bernoulli(p) 로 타나냄 (파라메터: <span class="math inline">\(p\)</span>)</li>
+<li>베르누이 확률 변수의 iid 샘플을 가리켜 (베르누이 시행) Bernoulli trial 이라함</li>
+</ul>
+<p><span class="math display">\[
+\mu = p \\
+\sigma^2 = p(1-p)
+\]</span></p>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="populations.html#cb154-1"></a>n &lt;-<span class="st"> </span><span class="dv">10</span></span>
+<span id="cb154-2"><a href="populations.html#cb154-2"></a>p &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">/</span><span class="dv">4</span></span>
+<span id="cb154-3"><a href="populations.html#cb154-3"></a><span class="kw">sample</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">size=</span>n, <span class="dt">replace=</span><span class="ot">TRUE</span>, <span class="dt">prob=</span><span class="kw">c</span>(<span class="dv">1</span><span class="op">-</span>p, p))</span></code></pre></div>
+</div>
+<div id="binomial-random-variables" class="section level3">
+<h3><span class="header-section-number">7.7.2</span> Binomial random variables</h3>
+<ul>
+<li>확률변수 X는 <span class="math inline">\(n\)</span>번의 베르누이 시행에서 성공의 개수를 나타냄</li>
+<li>이항분포를 나타내는 파라메터는 <span class="math inline">\(n\)</span> 과 성공확률 <span class="math inline">\(p\)</span> 이며 Binomial(n, p) 로 나타냄</li>
+<li>가능한 경우의 수 <span class="math inline">\(k=0, 1, 2, .., n\)</span> 이므로 <span class="math inline">\(X\)</span>의 분포는</li>
+</ul>
+<p><span class="math display">\[
+P(X=k) = {n \choose k} p^k (1-p)^{n-k} \\
+\mu = np \\
+\sigma^2 = npq
+\]</span></p>
+<p><strong>[EXERCISE]</strong> 하나의 동전을 10번 던질 때 <span class="math inline">\(X\)</span>를 앞면이 나오는 경우의 개수라 하자. 만약 동전이 공평하다면 Binomial(10, 1/2) 분포를 따르게 된다. P(X=5) 값을 구하시오.</p>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="populations.html#cb155-1"></a><span class="co"># from the pdf of binomial r.v.</span></span>
+<span id="cb155-2"><a href="populations.html#cb155-2"></a><span class="kw">choose</span>(<span class="dv">10</span>, <span class="dv">5</span>) <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)<span class="op">^</span><span class="dv">5</span> <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)<span class="op">^</span>(<span class="dv">10-5</span>)</span>
+<span id="cb155-3"><a href="populations.html#cb155-3"></a></span>
+<span id="cb155-4"><a href="populations.html#cb155-4"></a><span class="co"># using dbinom function</span></span>
+<span id="cb155-5"><a href="populations.html#cb155-5"></a><span class="kw">dbinom</span>(<span class="dv">5</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)</span></code></pre></div>
+<p>ggplot을 이용해서 이항분포를 그려봅니다. 히스토그램의 y축은 빈도 수를 나타내지만 이를 확률로 나타낼수도 있고 이 경우 y값은 dbinom의 값과 같습니다.</p>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="populations.html#cb156-1"></a><span class="co">## pdf </span></span>
+<span id="cb156-2"><a href="populations.html#cb156-2"></a>x&lt;-<span class="dv">0</span><span class="op">:</span><span class="dv">10</span></span>
+<span id="cb156-3"><a href="populations.html#cb156-3"></a>x_dist &lt;-<span class="st"> </span><span class="kw">choose</span>(<span class="dv">10</span>, x) <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)<span class="op">^</span>x <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)<span class="op">^</span>(<span class="dv">10</span><span class="op">-</span>x)</span>
+<span id="cb156-4"><a href="populations.html#cb156-4"></a>x_dist_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(x, x_dist)</span>
+<span id="cb156-5"><a href="populations.html#cb156-5"></a><span class="kw">ggplot</span>(x_dist_df, <span class="kw">aes</span>(<span class="dt">x=</span>x, <span class="dt">y=</span>x_dist)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb156-6"><a href="populations.html#cb156-6"></a><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>) </span>
+<span id="cb156-7"><a href="populations.html#cb156-7"></a></span>
+<span id="cb156-8"><a href="populations.html#cb156-8"></a><span class="co">## sampling</span></span>
+<span id="cb156-9"><a href="populations.html#cb156-9"></a>x_trials &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dv">1000</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)</span>
+<span id="cb156-10"><a href="populations.html#cb156-10"></a><span class="kw">hist</span>(x_trials, <span class="dt">br=</span><span class="dv">100</span>)</span>
+<span id="cb156-11"><a href="populations.html#cb156-11"></a><span class="co">## distribution</span></span>
+<span id="cb156-12"><a href="populations.html#cb156-12"></a><span class="kw">ggplot</span>(<span class="kw">data.frame</span>(x_trials), <span class="kw">aes</span>(<span class="dt">x=</span>x_trials)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb156-13"><a href="populations.html#cb156-13"></a><span class="st">  </span><span class="kw">geom_bar</span>()</span></code></pre></div>
+<p>위 예제에서 앞면이 6번 이하로 나올 확률을 구하면 <span class="math inline">\(P(X \le 6) = \sum_{k \le 6} P(X=k)\)</span> 이므로 다음과 같습니다. 따라서 <span class="math inline">\(P(X \ge 7) = 1- P(X \le 6)\)</span> 입니다.</p>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="populations.html#cb157-1"></a><span class="kw">dbinom</span>(<span class="dv">0</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="dv">1</span><span class="op">/</span><span class="dv">2</span>) <span class="op">+</span></span>
+<span id="cb157-2"><a href="populations.html#cb157-2"></a><span class="kw">dbinom</span>(<span class="dv">1</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="dv">1</span><span class="op">/</span><span class="dv">2</span>) <span class="op">+</span></span>
+<span id="cb157-3"><a href="populations.html#cb157-3"></a><span class="kw">dbinom</span>(<span class="dv">2</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="dv">1</span><span class="op">/</span><span class="dv">2</span>) <span class="op">+</span></span>
+<span id="cb157-4"><a href="populations.html#cb157-4"></a><span class="kw">dbinom</span>(<span class="dv">3</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="dv">1</span><span class="op">/</span><span class="dv">2</span>) <span class="op">+</span></span>
+<span id="cb157-5"><a href="populations.html#cb157-5"></a><span class="kw">dbinom</span>(<span class="dv">4</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="dv">1</span><span class="op">/</span><span class="dv">2</span>) <span class="op">+</span></span>
+<span id="cb157-6"><a href="populations.html#cb157-6"></a><span class="kw">dbinom</span>(<span class="dv">5</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)</span>
+<span id="cb157-7"><a href="populations.html#cb157-7"></a></span>
+<span id="cb157-8"><a href="populations.html#cb157-8"></a>x &lt;-<span class="st"> </span><span class="dv">0</span><span class="op">:</span><span class="dv">5</span></span>
+<span id="cb157-9"><a href="populations.html#cb157-9"></a><span class="kw">sum</span>(<span class="kw">dbinom</span>(x, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="dv">1</span><span class="op">/</span><span class="dv">2</span>))</span>
+<span id="cb157-10"><a href="populations.html#cb157-10"></a></span>
+<span id="cb157-11"><a href="populations.html#cb157-11"></a></span>
+<span id="cb157-12"><a href="populations.html#cb157-12"></a><span class="kw">sum</span>(<span class="kw">dbinom</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">prob=</span><span class="dv">1</span><span class="op">/</span><span class="dv">2</span>))</span>
+<span id="cb157-13"><a href="populations.html#cb157-13"></a><span class="kw">pbinom</span>(<span class="dv">5</span>, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">p=</span><span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)</span></code></pre></div>
+<p>즉, pbinom을 이용해서 누적함수 분포를 쉽게 그릴 수 있습니다.</p>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="populations.html#cb158-1"></a>x &lt;-<span class="st"> </span><span class="dv">0</span><span class="op">:</span><span class="dv">10</span></span>
+<span id="cb158-2"><a href="populations.html#cb158-2"></a>y &lt;-<span class="st"> </span><span class="kw">pbinom</span>(x, <span class="dt">size=</span><span class="dv">10</span>, <span class="dt">p=</span><span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)</span>
+<span id="cb158-3"><a href="populations.html#cb158-3"></a>dat &lt;-<span class="st"> </span><span class="kw">data.frame</span>(x, y)</span>
+<span id="cb158-4"><a href="populations.html#cb158-4"></a><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(x, y)) <span class="op">+</span></span>
+<span id="cb158-5"><a href="populations.html#cb158-5"></a><span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb158-6"><a href="populations.html#cb158-6"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
+<span id="cb158-7"><a href="populations.html#cb158-7"></a><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>)</span></code></pre></div>
+</div>
+<div id="normal-random-variables" class="section level3">
+<h3><span class="header-section-number">7.7.3</span> Normal random variables</h3>
+<ul>
+<li>정규확률변수 <span class="math inline">\(X\)</span>의 분포는 연속적인 종모양 (Bell-shaped) 형태를 가진 분포로 pdf상의 y값은 밀도로 해석</li>
+<li>정규분포를 나타내는 파라미터는 종모양의 중심인 <span class="math inline">\(\mu\)</span>와 분산 <span class="math inline">\(\sigma^2\)</span> 두 개이며 <span class="math inline">\(Normal(\mu, \sigma)\)</span> 또는 <span class="math inline">\(N(\mu, \sigma)\)</span> 로 나타냄</li>
+</ul>
+<p><span class="math display">\[
+f(x|\mu,\sigma) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(x-\mu)^2}{2\sigma^2} } 
+\]</span>
+다음은 <code>rnorm</code>과 <code>dnorm</code>을 활용한 그래프 그리기 예제 입니다.</p>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="populations.html#cb159-1"></a>n &lt;-<span class="st"> </span><span class="dv">1000</span></span>
+<span id="cb159-2"><a href="populations.html#cb159-2"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n, <span class="dt">mean=</span><span class="dv">175</span>, <span class="dt">sd=</span><span class="dv">2</span>)</span>
+<span id="cb159-3"><a href="populations.html#cb159-3"></a>xbar &lt;-<span class="st"> </span><span class="kw">mean</span>(x)</span>
+<span id="cb159-4"><a href="populations.html#cb159-4"></a>s &lt;-<span class="st"> </span><span class="kw">sd</span>(x)</span>
+<span id="cb159-5"><a href="populations.html#cb159-5"></a>xbarsd &lt;-<span class="st"> </span>xbar <span class="op">+</span><span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)<span class="op">*</span>s</span>
+<span id="cb159-6"><a href="populations.html#cb159-6"></a></span>
+<span id="cb159-7"><a href="populations.html#cb159-7"></a><span class="kw">hist</span>(x, <span class="dt">br=</span><span class="dv">30</span>, <span class="dt">probability =</span> T)</span>
+<span id="cb159-8"><a href="populations.html#cb159-8"></a><span class="kw">lines</span>(<span class="kw">density</span>(x), <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">lwd=</span><span class="dv">3</span>)</span>
+<span id="cb159-9"><a href="populations.html#cb159-9"></a><span class="kw">abline</span>(<span class="dt">v=</span>xbarsd, <span class="dt">col=</span><span class="st">&quot;red&quot;</span>, <span class="dt">lwd=</span><span class="dv">3</span>, <span class="dt">lty=</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="populations.html#cb160-1"></a>xbarsd</span>
+<span id="cb160-2"><a href="populations.html#cb160-2"></a><span class="kw">ggplot</span>(<span class="kw">data.frame</span>(x), <span class="kw">aes</span>(<span class="dt">x=</span>x)) <span class="op">+</span></span>
+<span id="cb160-3"><a href="populations.html#cb160-3"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y=</span>..density..), <span class="dt">fill=</span><span class="st">&quot;gray&quot;</span>, <span class="dt">color=</span><span class="st">&quot;black&quot;</span>)<span class="op">+</span></span>
+<span id="cb160-4"><a href="populations.html#cb160-4"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">stat=</span><span class="st">&quot;density&quot;</span>) <span class="op">+</span></span>
+<span id="cb160-5"><a href="populations.html#cb160-5"></a><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> xbarsd, <span class="dt">linetype=</span><span class="st">&quot;dashed&quot;</span>, <span class="dt">color=</span><span class="st">&quot;red&quot;</span>, <span class="dt">size=</span><span class="dv">1</span>)</span></code></pre></div>
+<p>두 개의 normal desity를 가정해서 그래프를 그려봅시다. 하나는 <span class="math inline">\(f(x|\mu=0, \sigma=1)\)</span>이고 다른 하나는 <span class="math inline">\(f(x|\mu=4, \sigma=1/2)\)</span> 입니다.</p>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="populations.html#cb161-1"></a>x1 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>, <span class="dt">by=</span><span class="fl">0.1</span>)</span>
+<span id="cb161-2"><a href="populations.html#cb161-2"></a>y1 &lt;-<span class="st"> </span><span class="kw">dnorm</span>(x1, <span class="dt">mean=</span><span class="dv">0</span>, <span class="dt">sd=</span><span class="dv">1</span>)</span>
+<span id="cb161-3"><a href="populations.html#cb161-3"></a><span class="kw">plot</span>(x1,y1)</span>
+<span id="cb161-4"><a href="populations.html#cb161-4"></a></span>
+<span id="cb161-5"><a href="populations.html#cb161-5"></a>x2 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">8</span>, <span class="dt">by=</span><span class="fl">0.1</span>)</span>
+<span id="cb161-6"><a href="populations.html#cb161-6"></a>y2 &lt;-<span class="st"> </span><span class="kw">dnorm</span>(x2, <span class="dt">mean=</span><span class="dv">4</span>, <span class="dt">sd=</span><span class="fl">0.5</span>)</span>
+<span id="cb161-7"><a href="populations.html#cb161-7"></a><span class="kw">plot</span>(x2, y2)</span></code></pre></div>
+<p>ggplot을 이용해서 두 그래프를 하나의 화면에 그려봅니다.</p>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="populations.html#cb162-1"></a>dat &lt;-<span class="st"> </span><span class="kw">data.frame</span>(x1, x2, y1, y2)</span>
+<span id="cb162-2"><a href="populations.html#cb162-2"></a>dat</span>
+<span id="cb162-3"><a href="populations.html#cb162-3"></a></span>
+<span id="cb162-4"><a href="populations.html#cb162-4"></a><span class="kw">ggplot</span>(dat) <span class="op">+</span></span>
+<span id="cb162-5"><a href="populations.html#cb162-5"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x=</span>x1, <span class="dt">x=</span>y1)) <span class="op">+</span></span>
+<span id="cb162-6"><a href="populations.html#cb162-6"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(<span class="dt">x=</span>x2, <span class="dt">x=</span>y2)) <span class="op">+</span></span>
+<span id="cb162-7"><a href="populations.html#cb162-7"></a><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>)</span></code></pre></div>
+<p>연속형 확률분포에서 y 값은 특정 x 값에 대한 density라 했고 x의 범위에 대한 면적의 넓이가 확률 입니다. N(0, 1) 분포에서 누적확률 0.5인 곳은 x=0 이며 pnorm 함수로 다음과 같이 확인이 가능합니다. 즉 정규분포에서도 앞서 이항분포에서와 같이 pnorm 함수를 이용해서 누적확률을 구할 수 있습니다.</p>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="populations.html#cb163-1"></a><span class="kw">pnorm</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span></code></pre></div>
+<p>qnorm은 pnorm의 역함수로 생각하면 되겠습니다. 즉, 정규분포 N(0, 1)에서 확률이 0.5가 되는 곳의 x값을 구하기 위해서는 다음과 같이 코드를 작성하면 되겠습니다.</p>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="populations.html#cb164-1"></a><span class="kw">qnorm</span>(<span class="fl">0.5</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span></code></pre></div>
+<p><img src="images/07/9.png" /></p>
+<p>만약 IQR 구간을 구한다면 다음과 같이 0.25와 0.75확률이 되는 x 값들을 (quantile을) 구하면 되겠습니다.</p>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="populations.html#cb165-1"></a><span class="kw">qnorm</span>(<span class="kw">c</span>(<span class="fl">0.25</span>, <span class="fl">0.75</span>))</span></code></pre></div>
+<p>표준정규분포의 중심으로부터 1 표준편차만큼 떨어진 구간의 넓이 (확률)을 구하면 다음과 같습니다.</p>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="populations.html#cb166-1"></a><span class="kw">pnorm</span>(<span class="dv">1</span>)<span class="op">-</span><span class="kw">pnorm</span>(<span class="op">-</span><span class="dv">1</span>)</span></code></pre></div>
+<p><strong>[EXERCISE]</strong> N(0, 1) 분포에서 (누적) 확률이 0.95가 되는 곳의 x값을 구하고 그래프를 그린 후 geom_polygon 함수를 이용하여 해당 영역을 색칠 하시오.</p>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="populations.html#cb167-1"></a>mu &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb167-2"><a href="populations.html#cb167-2"></a>sigma &lt;-<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb167-3"><a href="populations.html#cb167-3"></a>x1 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="dt">by=</span><span class="fl">0.1</span>)</span>
+<span id="cb167-4"><a href="populations.html#cb167-4"></a>y1 &lt;-<span class="st"> </span><span class="kw">dnorm</span>(x1, <span class="dt">mean=</span>mu, <span class="dt">sd=</span>sigma)</span>
+<span id="cb167-5"><a href="populations.html#cb167-5"></a>dat &lt;-<span class="st"> </span><span class="kw">data.frame</span>(x1, y1)</span>
+<span id="cb167-6"><a href="populations.html#cb167-6"></a></span>
+<span id="cb167-7"><a href="populations.html#cb167-7"></a>x.val &lt;-<span class="st"> </span><span class="kw">qnorm</span>(<span class="fl">0.95</span>, mu, sigma)</span>
+<span id="cb167-8"><a href="populations.html#cb167-8"></a></span>
+<span id="cb167-9"><a href="populations.html#cb167-9"></a>p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(x1, y1)) <span class="op">+</span></span>
+<span id="cb167-10"><a href="populations.html#cb167-10"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
+<span id="cb167-11"><a href="populations.html#cb167-11"></a><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>) <span class="op">+</span></span>
+<span id="cb167-12"><a href="populations.html#cb167-12"></a><span class="st">  </span><span class="kw">geom_area</span>(<span class="dt">data=</span><span class="kw">filter</span>(dat, x1 <span class="op">&gt;</span><span class="st"> </span><span class="dv">-5</span> <span class="op">&amp;</span><span class="st"> </span>x1 <span class="op">&lt;</span><span class="st"> </span>x.val)) <span class="op">+</span></span>
+<span id="cb167-13"><a href="populations.html#cb167-13"></a><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="dv">0</span>, <span class="dt">color=</span><span class="st">&quot;white&quot;</span>, <span class="dt">linetype =</span> <span class="st">&quot;dashed&quot;</span>) <span class="op">+</span></span>
+<span id="cb167-14"><a href="populations.html#cb167-14"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x=</span><span class="kw">element_blank</span>(), <span class="dt">y=</span><span class="st">&quot;Density&quot;</span>)</span>
+<span id="cb167-15"><a href="populations.html#cb167-15"></a>p</span></code></pre></div>
+<p>몇 가지 옵션을 추가한 그래프 입니다.</p>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="populations.html#cb168-1"></a>onesd_x &lt;-<span class="st"> </span><span class="dv">1</span></span>
+<span id="cb168-2"><a href="populations.html#cb168-2"></a>onesd_y &lt;-<span class="st"> </span><span class="kw">dnorm</span>(onesd_x, mu, sigma)</span>
+<span id="cb168-3"><a href="populations.html#cb168-3"></a>onesd_dat &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x=</span><span class="kw">c</span>(<span class="dv">0</span>, onesd_x, onesd_x), </span>
+<span id="cb168-4"><a href="populations.html#cb168-4"></a>                        <span class="dt">y=</span><span class="kw">c</span>(onesd_y, onesd_y, <span class="dv">0</span>))</span>
+<span id="cb168-5"><a href="populations.html#cb168-5"></a></span>
+<span id="cb168-6"><a href="populations.html#cb168-6"></a><span class="co">## dashed line </span></span>
+<span id="cb168-7"><a href="populations.html#cb168-7"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="dt">data=</span>onesd_dat, </span>
+<span id="cb168-8"><a href="populations.html#cb168-8"></a>                   <span class="kw">aes</span>(<span class="dt">x=</span>x, <span class="dt">y=</span>y), </span>
+<span id="cb168-9"><a href="populations.html#cb168-9"></a>                   <span class="dt">color=</span><span class="st">&quot;white&quot;</span>, </span>
+<span id="cb168-10"><a href="populations.html#cb168-10"></a>                   <span class="dt">linetype=</span><span class="st">&quot;dashed&quot;</span>)</span>
+<span id="cb168-11"><a href="populations.html#cb168-11"></a></span>
+<span id="cb168-12"><a href="populations.html#cb168-12"></a><span class="co">## text label</span></span>
+<span id="cb168-13"><a href="populations.html#cb168-13"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, </span>
+<span id="cb168-14"><a href="populations.html#cb168-14"></a>                   <span class="dt">label =</span> <span class="kw">paste</span>(<span class="st">&quot;(&quot;</span>, onesd_x, <span class="st">&quot;, &quot;</span>, <span class="kw">round</span>(onesd_y, <span class="dv">2</span>), <span class="st">&quot;)&quot;</span>, <span class="dt">sep=</span><span class="st">&quot;&quot;</span>), </span>
+<span id="cb168-15"><a href="populations.html#cb168-15"></a>                   <span class="dt">x =</span> onesd_x, </span>
+<span id="cb168-16"><a href="populations.html#cb168-16"></a>                   <span class="dt">y =</span> onesd_y<span class="fl">+0.02</span>, </span>
+<span id="cb168-17"><a href="populations.html#cb168-17"></a>                   <span class="dt">size =</span> <span class="dv">5</span>, </span>
+<span id="cb168-18"><a href="populations.html#cb168-18"></a>                   <span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb168-19"><a href="populations.html#cb168-19"></a></span>
+<span id="cb168-20"><a href="populations.html#cb168-20"></a><span class="co">## arrow with text </span></span>
+<span id="cb168-21"><a href="populations.html#cb168-21"></a>p <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Normal distribution with mean 0 and sd 1&quot;</span>, <span class="dt">x=</span><span class="st">&quot;X&quot;</span>, <span class="dt">y=</span><span class="st">&quot;Density&quot;</span>) <span class="op">+</span></span>
+<span id="cb168-22"><a href="populations.html#cb168-22"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">size=</span><span class="dv">15</span>, <span class="dt">face=</span><span class="st">&quot;bold.italic&quot;</span>, <span class="dt">color=</span><span class="st">&quot;blue&quot;</span>, <span class="dt">hjust=</span><span class="fl">0.5</span>),</span>
+<span id="cb168-23"><a href="populations.html#cb168-23"></a>        <span class="dt">axis.title.x =</span> <span class="kw">element_text</span>(<span class="dt">size=</span><span class="dv">15</span>, <span class="dt">color=</span><span class="st">&quot;blue&quot;</span>),</span>
+<span id="cb168-24"><a href="populations.html#cb168-24"></a>        <span class="dt">axis.title.y =</span> <span class="kw">element_text</span>(<span class="dt">size=</span><span class="dv">15</span>, <span class="dt">color=</span><span class="st">&quot;blue&quot;</span>)) <span class="op">+</span></span>
+<span id="cb168-25"><a href="populations.html#cb168-25"></a><span class="st">  </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="dv">3</span>, <span class="dt">y =</span> <span class="fl">0.2</span>, <span class="dt">xend =</span> x.val, <span class="dt">yend =</span> <span class="dv">0</span>), </span>
+<span id="cb168-26"><a href="populations.html#cb168-26"></a>          <span class="dt">arrow =</span> <span class="kw">arrow</span>(),</span>
+<span id="cb168-27"><a href="populations.html#cb168-27"></a>          <span class="dt">color=</span><span class="st">&#39;orange&#39;</span>,<span class="dt">size=</span><span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb168-28"><a href="populations.html#cb168-28"></a><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dt">label =</span> <span class="kw">paste</span>(<span class="st">&quot;x=&quot;</span>, <span class="kw">round</span>(x.val, <span class="dv">3</span>), <span class="dt">sep=</span><span class="st">&quot;&quot;</span>), <span class="dt">x =</span> <span class="dv">3</span>, <span class="dt">y =</span> <span class="fl">0.22</span>, <span class="dt">size =</span> <span class="dv">5</span>, <span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><strong>[EXERCISE]</strong> 대한민국 성인 남성의 평균은 175이고 표준편차는 3.5라고 하면 180보다 큰 사람의 비율은 얼마인가?</p>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="populations.html#cb169-1"></a>mu &lt;-<span class="st"> </span><span class="dv">170</span></span>
+<span id="cb169-2"><a href="populations.html#cb169-2"></a>sigma &lt;-<span class="st"> </span><span class="dv">10</span></span>
+<span id="cb169-3"><a href="populations.html#cb169-3"></a></span>
+<span id="cb169-4"><a href="populations.html#cb169-4"></a><span class="dv">1</span><span class="op">-</span><span class="kw">pnorm</span>(<span class="dv">180</span>, <span class="dt">mean=</span>mu, <span class="dt">sd=</span>sigma)</span></code></pre></div>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="populations.html#cb170-1"></a>n &lt;-<span class="st"> </span><span class="dv">10000</span></span>
+<span id="cb170-2"><a href="populations.html#cb170-2"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n, mu, sigma)</span>
+<span id="cb170-3"><a href="populations.html#cb170-3"></a><span class="kw">sum</span>(x<span class="op">&gt;</span><span class="dv">180</span>)<span class="op">/</span>n</span></code></pre></div>
+</div>
+<div id="uniform-distribution" class="section level3">
+<h3><span class="header-section-number">7.7.4</span> Uniform distribution</h3>
+<p>균등분포는 임의의 확률변수가 구간 [a, b]에서 모두 일정한 확률을 갖습니다. 이산형과 연속형 모두에서 사용될 수 있으며 <span class="math inline">\(f(x)(b-a)=1\)</span> 이므로 pdf는 <span class="math inline">\(f(x)=\frac{1}{(b-a)}\)</span> 입니다. 균등분포의 모수는 구간을 나타내는 <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span> 두 개이며 평균과 분산은 각각 <span class="math inline">\(\mu=(a+b)/2\)</span>, <span class="math inline">\((b-a)^2/12\)</span> 입니다.</p>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="populations.html#cb171-1"></a>x =<span class="st"> </span><span class="kw">runif</span>(<span class="dv">50</span>, <span class="dt">min=</span><span class="dv">0</span>, <span class="dt">max=</span><span class="dv">10</span>)</span>
+<span id="cb171-2"><a href="populations.html#cb171-2"></a><span class="kw">ggplot</span>(<span class="kw">data.frame</span>(x), <span class="kw">aes</span>(<span class="dt">x=</span>x)) <span class="op">+</span></span>
+<span id="cb171-3"><a href="populations.html#cb171-3"></a><span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;bin&quot;</span>)</span></code></pre></div>
+</div>
+<div id="poisson-distribution" class="section level3">
+<h3><span class="header-section-number">7.7.5</span> Poisson distribution</h3>
+<p>포아송분포는 이산확률 분포이며 단위 시간동안 임의의 사건이 몇 번 발생할 것인지를 표현하는 분포 입니다. 이항분포의 n이 무한대로, p가 0로 가까이 가면 포아송분포와 가까워지며 n 과 p는 모르지만 np, 즉 평균을 알고 있을 때 사용하는 분포 입니다. 포아송분포의 파라미터는 np 값인 <span class="math inline">\(\lambda\)</span> 이며 <span class="math inline">\(\lambda\)</span>의 해석은 단위 시간동안 어떤 사건이 일어날 횟수에 대한 기댓값으로 한 페이지를 읽을 동안 발견한 오타의 갯수나 1시간동안 (단위시간동안) 도착한 고객의 수 등이 되겠습니다. 포아송분포는 <span class="math inline">\(\lambda\)</span>에 따라서 분포의 모양이 달라지며 확률질량함수 pmf는 다음과 같습니다.</p>
+<p><span class="math display">\[
+f(n|\lambda) = \frac{\lambda^n e^{-\lambda}}{n!}
+\]</span></p>
+<p>이 함수가 의미하는 바는 단위 시간동안 평균 발생 횟수가 <span class="math inline">\(\lambda\)</span>일 때 n번 발생할 확률을 말합니다. 포아송분포의 평균과 분산은 모두 <span class="math inline">\(\lambda\)</span> 입니다. 만약 1년 동안 돌연변이 바이러스 나타난 평균 횟수가 1종 이였다면 1년동안 3종의 바이러스가 나타날 확률은 다음과 같습니다.</p>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="populations.html#cb172-1"></a><span class="kw">dpois</span>(<span class="dv">3</span>, <span class="dv">1</span>)</span>
+<span id="cb172-2"><a href="populations.html#cb172-2"></a><span class="kw">rpois</span>(<span class="dv">100</span>, <span class="dv">1</span>)</span></code></pre></div>
+</div>
+<div id="exponential-distribution" class="section level3">
+<h3><span class="header-section-number">7.7.6</span> Exponential distribution</h3>
+<p>만약 일정 시간동안 발생하는 사건의 횟수가 포아송분포를 따른다고 할 때 사건들 사이의 대기 시간의 분포가 지수분포입니다. 연속확률변수의 분포이며 지수분포의 pdf는 다음과 같습니다.</p>
+<p><span class="math display">\[
+f(x|\lambda) = \lambda e^{-\lambda x}, x \ge 0
+\]</span></p>
+<p><span class="math inline">\(\lambda\)</span>의 의미는 포아송분포에서와 같으며 지수분포의 평균은 <span class="math inline">\(\mu = \frac{1}{\lambda}\)</span>이며 표준편차는 <span class="math inline">\(\sigma = \frac{1}{\lambda}\)</span> 입니다. 앞서 예에서 1개월 안에 바러스 변이가 나타날 확률을 알고자 할 때 지수분포를 사용합니다. 단위시간을 1년으로 하면 평균 횟수가 <span class="math inline">\(\lambda=1\)</span>이고 구하는 확률은 다음과 같습니다.</p>
+<p><span class="math display">\[
+P(0 \le t \le 1/12) = \int_0^{1/12} 1 \cdot e^{-1 \cdot t} dt
+\]</span></p>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="populations.html#cb173-1"></a><span class="kw">pexp</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">12</span>, <span class="dv">1</span>)</span></code></pre></div>
+<p>지수함수는 다음과 같은 조건을 만족하는 Memoryless 특성을 가지고 있다.</p>
+<p><span class="math display">\[
+P(X \gt s+t | X \gt t) = P(X &gt; s)
+\]</span></p>
+</div>
+<div id="sampling-distributions" class="section level3">
+<h3><span class="header-section-number">7.7.7</span> Sampling distributions</h3>
+<p>대표적인 샘플링 분포는 t분포, F분포, 그리고 chi-squared 분포가 있으며 이들은 다음 장 강의를 참고하시기 바랍니다.</p>
+</div>
+</div>
+<div id="problems-07-2" class="section level2">
+<h2><span class="header-section-number">7.8</span> Problems 07-2</h2>
+<p>7-4) <code>ggplot</code>을 이용해서 표준정규분포 그래프를 그리고 IQR 구간을 검은 색으로 칠하시오</p>
+<p>7-5) 12시간 동안 A라는 음식점에 방문한 손님이 평균 10명 이라고 한다. 이 식당에 12시간 동안 20명의 손님이 방문할 확률을 코드를 작성하여 구하시오</p>
+<p>7-6) 위 A 식당에서 1시간 안에 손님이 방문할 확률을 구하시오</p>
 <p><a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="크리에이티브 커먼즈 라이선스" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />이 저작물은 <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">크리에이티브 커먼즈 저작자표시-비영리-변경금지 4.0 국제 라이선스</a>에 따라 이용할 수 있습니다.</p>
 
 </div>
