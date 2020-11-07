@@ -600,7 +600,7 @@ E[X] = ?
 </div>
 <div id="sampling-distribution" class="section level2">
 <h2><span class="header-section-number">7.6</span> Sampling distribution</h2>
-<p><strong>통계량(a statistic)</strong>은 랜덤 표본을 요약하는 하나의 값입니다. 표본평균이 그 예이며 <span class="math inline">\(\bar{X} = (X_1 + X_2 + ... + X_n)/n\)</span> 으로 나타낼 수 있습니다. 그런데 통계량이 랜덤 표본에 의존한다면 해당 통계량 또한 확률 변수가 되며 이 통계량의 분포를 <strong>표본분포라고 (sample distribution)</strong> 합니다. 표본 분포는 복잡한 것으로 알려져 있으나 일반적으로 사용하는 평균이나 분산 등의 통계량에 대해서는 연구가 많이 되어 잘 알려져 있는 편이며 대부분 그들의 모집단과 관련된 값을 가지고 있읍니다. 예를 들어 표본평균의 기댓값과 표준편차는 다음과 같은 값을 가집니다.</p>
+<p><strong>통계량(a statistic)</strong>은 랜덤 표본을 요약하는 하나의 값입니다. 표본평균이 그 예이며 <span class="math inline">\(\bar{X} = (X_1 + X_2 + ... + X_n)/n\)</span> 으로 나타낼 수 있습니다. 그런데 통계량이 랜덤 표본에 의존한다면 해당 통계량 또한 확률 변수가 되며 이 통계량의 분포를 <strong>표본분포라고 (sampling distribution)</strong> 합니다. 표본 분포는 복잡한 것으로 알려져 있으나 일반적으로 사용하는 평균이나 분산 등의 통계량에 대해서는 연구가 많이 되어 잘 알려져 있는 편이며 대부분 그들의 모집단과 관련된 값을 가지고 있읍니다. 예를 들어 표본평균의 기댓값과 표준편차는 다음과 같은 값을 가집니다.</p>
 <p><span class="math display">\[
 E(\bar{X}) = \mu_{\bar{X}} = \mu \\ 
 SD(\bar{X}) = \sigma_\bar{X} = \frac{\sigma}{\sqrt{n}}
@@ -616,11 +616,12 @@ SD(\bar{X}) = \sigma_\bar{X} = \frac{\sigma}{\sqrt{n}}
 <div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="populations.html#cb153-1"></a>x &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x1=</span><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">times=</span><span class="dv">3</span>), <span class="dt">x2=</span><span class="kw">rep</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">each=</span><span class="dv">3</span>))</span>
 <span id="cb153-2"><a href="populations.html#cb153-2"></a>px &lt;-<span class="st"> </span><span class="kw">table</span>(<span class="kw">rowSums</span>(x))<span class="op">/</span><span class="kw">length</span>(<span class="kw">rowSums</span>(x))</span>
 <span id="cb153-3"><a href="populations.html#cb153-3"></a>k &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">names</span>(px))</span>
-<span id="cb153-4"><a href="populations.html#cb153-4"></a>ex &lt;-<span class="st"> </span><span class="kw">sum</span>(k<span class="op">*</span>px)</span>
-<span id="cb153-5"><a href="populations.html#cb153-5"></a>xp &lt;-<span class="st"> </span><span class="kw">sum</span>(k<span class="op">^</span><span class="dv">2</span><span class="op">*</span>px) <span class="op">-</span><span class="st"> </span>ex<span class="op">^</span><span class="dv">2</span></span>
-<span id="cb153-6"><a href="populations.html#cb153-6"></a><span class="kw">c</span>(ex, vx)</span>
-<span id="cb153-7"><a href="populations.html#cb153-7"></a></span>
-<span id="cb153-8"><a href="populations.html#cb153-8"></a><span class="kw">barplot</span>(px)</span></code></pre></div>
+<span id="cb153-4"><a href="populations.html#cb153-4"></a><span class="co">#k &lt;- unique(rowSums(x))</span></span>
+<span id="cb153-5"><a href="populations.html#cb153-5"></a>ex &lt;-<span class="st"> </span><span class="kw">sum</span>(k<span class="op">*</span>px)</span>
+<span id="cb153-6"><a href="populations.html#cb153-6"></a>vx &lt;-<span class="st"> </span><span class="kw">sum</span>(k<span class="op">^</span><span class="dv">2</span><span class="op">*</span>px) <span class="op">-</span><span class="st"> </span>ex<span class="op">^</span><span class="dv">2</span></span>
+<span id="cb153-7"><a href="populations.html#cb153-7"></a><span class="kw">c</span>(ex, vx)</span>
+<span id="cb153-8"><a href="populations.html#cb153-8"></a></span>
+<span id="cb153-9"><a href="populations.html#cb153-9"></a><span class="kw">barplot</span>(px)</span></code></pre></div>
 <p>위 예제의 경우는 모집단을 알고 있는 경우입니다. 만약 주머니 안에 몇개의 공이 있는지 어떤 수가 써 있는지 모르는 경우를 생각하면 주머니에서 임의 복원 추출을 통해 모수 (모평균)를 추정해야 합니다.</p>
 <p><img src="images/07/07.png" /></p>
 <p>모평균을 추정할 때에는 앞서 공식에 의해 표본평균의 기댓값을 구해야 하므로 임의 복원추출 시행과 그 표본들의 평균을 구하는 여러번의 반복 작업으로 모평균과 모분산을 추정할 수 있습니다.</p>
@@ -778,7 +779,7 @@ f(x|\mu,\sigma) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(x-\mu)^2}{2\sigma^2} 
 <div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="populations.html#cb165-1"></a><span class="kw">qnorm</span>(<span class="kw">c</span>(<span class="fl">0.25</span>, <span class="fl">0.75</span>))</span></code></pre></div>
 <p>표준정규분포의 중심으로부터 1 표준편차만큼 떨어진 구간의 넓이 (확률)을 구하면 다음과 같습니다.</p>
 <div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="populations.html#cb166-1"></a><span class="kw">pnorm</span>(<span class="dv">1</span>)<span class="op">-</span><span class="kw">pnorm</span>(<span class="op">-</span><span class="dv">1</span>)</span></code></pre></div>
-<p><strong>[EXERCISE]</strong> N(0, 1) 분포에서 (누적) 확률이 0.95가 되는 곳의 x값을 구하고 그래프를 그린 후 geom_polygon 함수를 이용하여 해당 영역을 색칠 하시오.</p>
+<p><strong>[EXERCISE]</strong> N(0, 1) 분포에서 (누적) 확률이 0.95가 되는 곳의 x값을 구하고 그래프를 그린 후 geom_area 함수를 이용하여 해당 영역을 색칠 하시오.</p>
 <div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="populations.html#cb167-1"></a>mu &lt;-<span class="st"> </span><span class="dv">0</span></span>
 <span id="cb167-2"><a href="populations.html#cb167-2"></a>sigma &lt;-<span class="st"> </span><span class="dv">1</span></span>
 <span id="cb167-3"><a href="populations.html#cb167-3"></a>x1 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="dt">by=</span><span class="fl">0.1</span>)</span>
@@ -823,8 +824,8 @@ f(x|\mu,\sigma) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(x-\mu)^2}{2\sigma^2} 
 <span id="cb168-26"><a href="populations.html#cb168-26"></a>          <span class="dt">arrow =</span> <span class="kw">arrow</span>(),</span>
 <span id="cb168-27"><a href="populations.html#cb168-27"></a>          <span class="dt">color=</span><span class="st">&#39;orange&#39;</span>,<span class="dt">size=</span><span class="dv">1</span>) <span class="op">+</span></span>
 <span id="cb168-28"><a href="populations.html#cb168-28"></a><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dt">label =</span> <span class="kw">paste</span>(<span class="st">&quot;x=&quot;</span>, <span class="kw">round</span>(x.val, <span class="dv">3</span>), <span class="dt">sep=</span><span class="st">&quot;&quot;</span>), <span class="dt">x =</span> <span class="dv">3</span>, <span class="dt">y =</span> <span class="fl">0.22</span>, <span class="dt">size =</span> <span class="dv">5</span>, <span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
-<p><strong>[EXERCISE]</strong> 대한민국 성인 남성의 평균은 175이고 표준편차는 3.5라고 하면 180보다 큰 사람의 비율은 얼마인가?</p>
-<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="populations.html#cb169-1"></a>mu &lt;-<span class="st"> </span><span class="dv">170</span></span>
+<p><strong>[EXERCISE]</strong> 대한민국 성인 남성의 평균 키는 175cm이고 표준편차는 3.5라고 하면 180cm보다 큰 사람의 비율은 얼마인가?</p>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="populations.html#cb169-1"></a>mu &lt;-<span class="st"> </span><span class="dv">175</span></span>
 <span id="cb169-2"><a href="populations.html#cb169-2"></a>sigma &lt;-<span class="st"> </span><span class="dv">10</span></span>
 <span id="cb169-3"><a href="populations.html#cb169-3"></a></span>
 <span id="cb169-4"><a href="populations.html#cb169-4"></a><span class="dv">1</span><span class="op">-</span><span class="kw">pnorm</span>(<span class="dv">180</span>, <span class="dt">mean=</span>mu, <span class="dt">sd=</span>sigma)</span></code></pre></div>
