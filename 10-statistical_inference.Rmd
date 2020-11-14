@@ -203,6 +203,8 @@ ggplot(data.frame(diff_vals), aes(x=diff_vals)) +
 
 ```
 
+ 
+ 
 
 **[EXERCISE]** 분포에서 실제 관측한 3.5 값의 위치를 표시하고 관측값보다 더 극단적인 경우가 나올 경우의 비율을 계산하시오 (위 예제 코드의 연속)
 
