@@ -5,7 +5,8 @@ rmd_files: [
   "03-bivar.Rmd",
   "07-dplyr.Rmd",
   "08-dplyr.Rmd",
-  "09-population.Rmd"
+  "09-population.Rmd",
+  "10-statistical_inference.Rmd"
 ]
 book_filename: "Rstat"
 repo: https://github.com/greendaygh/Rstat2020/

@@ -24,7 +24,7 @@
 <meta name="author" content="한국생명공학연구원 김하성" />
 
 
-<meta name="date" content="2020-11-07" />
+<meta name="date" content="2020-11-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="multivariate-tydiverse.html"/>
-
+<link rel="next" href="statistical-inference.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -289,6 +289,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.7.7" data-path="populations.html"><a href="populations.html#sampling-distributions"><i class="fa fa-check"></i><b>7.7.7</b> Sampling distributions</a></li>
 </ul></li>
 <li class="chapter" data-level="7.8" data-path="populations.html"><a href="populations.html#problems-07-2"><i class="fa fa-check"></i><b>7.8</b> Problems 07-2</a></li>
+<li class="chapter" data-level="7.9" data-path="populations.html"><a href="populations.html#the-central-limit-theorem"><i class="fa fa-check"></i><b>7.9</b> The central limit theorem</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="statistical-inference.html"><a href="statistical-inference.html"><i class="fa fa-check"></i><b>8</b> Statistical inference</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="statistical-inference.html"><a href="statistical-inference.html#introduction"><i class="fa fa-check"></i><b>8.1</b> Introduction</a></li>
+<li class="chapter" data-level="8.2" data-path="statistical-inference.html"><a href="statistical-inference.html#simulation"><i class="fa fa-check"></i><b>8.2</b> Simulation</a></li>
+<li class="chapter" data-level="8.3" data-path="statistical-inference.html"><a href="statistical-inference.html#significance-tests"><i class="fa fa-check"></i><b>8.3</b> Significance tests</a></li>
+<li class="chapter" data-level="8.4" data-path="statistical-inference.html"><a href="statistical-inference.html#estimation-and-confidence-interval"><i class="fa fa-check"></i><b>8.4</b> Estimation and confidence interval</a></li>
+<li class="chapter" data-level="8.5" data-path="statistical-inference.html"><a href="statistical-inference.html#bootstrap"><i class="fa fa-check"></i><b>8.5</b> Bootstrap</a></li>
+<li class="chapter" data-level="8.6" data-path="statistical-inference.html"><a href="statistical-inference.html#interpretation-of-confidence-interval"><i class="fa fa-check"></i><b>8.6</b> interpretation of confidence interval</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -359,12 +369,12 @@ P(X=\text{&quot;Regul&quot;}) =
 <div id="discrete-random-variable" class="section level2">
 <h2><span class="header-section-number">7.2</span> Discrete random variable</h2>
 <p><span class="math inline">\(X\)</span> 를 이산형 확률변수라 하면 <span class="math inline">\(X\)</span>가 가질 수 있는 값은 <span class="math inline">\({0, 1, ..}\)</span> 또는 <span class="math inline">\({&quot;yes&quot;, &quot;no&quot;}\)</span> 등의 이산형 값을 가질 수 있으며 이 값들을 <span class="math inline">\(x\)</span>라 하면 <span class="math inline">\(P(X=x)&gt;0\)</span> 이며 <span class="math inline">\(X\)</span>의 분포는 이러한 확률들을 나열한 것으로 생각하면 됩니다. 즉, 이산형 확률변수 <span class="math inline">\(X\)</span>의 분포는 먼저 가능한 <span class="math inline">\(x\)</span>의 값들을 구한 후 <span class="math inline">\(P(X=x)&gt;0\)</span>이고 <span class="math inline">\(\sum_x{P(X=x)}=1\)</span>인 확률 <span class="math inline">\(P(X=x)\)</span>의 값들을 명시하면 됩니다.</p>
-<p>동전 한 번 던지기, 가능한 경우의 수는? 확률 변수는? 분포는?</p>
+<p><strong>[EXERCISE]</strong> 동전 한 번 던지기, 가능한 경우의 수는? 확률 변수는? 분포는?</p>
 <p><span class="math display">\[
 P(X=0) = 1/2 \\
 P(X=1) = 1/2
 \]</span></p>
-<p>주머니에서 공 꺼내기 (G+R=N), 반복 허용해서 두 번 뽑을 때, <span class="math inline">\(X\)</span>를 빨간 공의 갯수라 하면, 가능한 경우의 수는? 분포는?</p>
+<p><strong>[EXERCISE]</strong> 주머니에서 공 꺼내기 (G+R=N), 반복 허용해서 두 번 뽑을 때, <span class="math inline">\(X\)</span>를 빨간 공의 갯수라 하면, 가능한 경우의 수는? 분포는?</p>
 <p><span class="math display">\[
 \begin{split}
 P(X=0) &amp; = G/N \times G/N \\
@@ -376,7 +386,7 @@ P(X=2) &amp; = R/N \times R/N \\
 <div id="probability-mass-function" class="section level3">
 <h3><span class="header-section-number">7.2.1</span> Probability mass function</h3>
 <p>그러나 확률 변수의 분포를 언급할 때마다 일일이 확률을 명시할 수 없으므로 이러한 확률을 나타내는 함수를 정의하여 사용할 수 있고 이를 확률 질량 함수 (probability mass function, PMF)라 합니다.</p>
-<p>앞서 동전 던지는 예제에서 PMF는?</p>
+<p><strong>[EXERCISE]</strong> 앞서 동전 던지는 예제에서 PMF는?</p>
 <p><span class="math display">\[
 f_X(x) =  \begin{cases} 
 \frac{1}{2} ~~~~~ \text{where} ~ x \in \{0, 1\} \\
@@ -395,7 +405,7 @@ f_X(x) =  \begin{cases}
 <li>가산성 <span class="math inline">\(E(X+Y) = E(X) + E(Y)\)</span></li>
 <li>동차성 <span class="math inline">\(E(cX) = cE(X)\)</span></li>
 </ul>
-<p>주사위를 한 번 던질 때 나올 수 있는 주사위의 수의 기댓값? (확률변수 <span class="math inline">\(X\)</span>?, 확률변수의 분포?, 확률변수의 기댓값?)</p>
+<p><strong>[EXERCISE]</strong> 주사위를 한 번 던질 때 나올 수 있는 주사위의 수의 기댓값? (확률변수 <span class="math inline">\(X\)</span>?, 확률변수의 분포?, 확률변수의 기댓값?)</p>
 <ul>
 <li>확률변수: 주사위를 한 번 던질 때 나올 수 있는 주사위의 수</li>
 <li>가능한 경우의 수: {1, 2, 3, 4, 5, 6}</li>
@@ -443,7 +453,7 @@ f_X(x) =
 \end{split}
 \]</span>
 즉, 이 값은 <span class="math inline">\((X-\mu)^2\)</span>의 기댓값과 같습니다.</p>
-<p>주머니에서 공 꺼내기 (G+R=N), R을 빨강공의 갯수, G를 녹색 공의 갯수라 하고 N을 총 공의 갯수라 하자. 반복을 허용해서 두 번의 공을 뽑을 때 빨간 공의 갯수를 확률변수 <span class="math inline">\(X\)</span>라 하자. <span class="math inline">\(X\)</span>의 분포는?
+<p><strong>[EXERCISE]</strong> 주머니에서 공 꺼내기 (G+R=N), R을 빨강공의 갯수, G를 녹색 공의 갯수라 하고 N을 총 공의 갯수라 하자. 반복을 허용해서 두 번의 공을 뽑을 때 빨간 공의 갯수를 확률변수 <span class="math inline">\(X\)</span>라 하자. <span class="math inline">\(X\)</span>의 분포는?
 <span class="math display">\[
 \begin{split}
 P(X=0) &amp;= \frac{G}{N} \times \frac{G}{N} \\
@@ -451,7 +461,7 @@ P(X=1) &amp;= \frac{G}{N} \frac{R}{N} + \frac{R}{N} \frac{G}{N} = 2 \frac{GR}{N^
 P(X=2) &amp;= \frac{R}{N} \frac{R}{N} = \frac{R^2}{N^2}
 \end{split}
 \]</span></p>
-<p>기댓값과 분산을 구하시오
+<p><strong>[EXERCISE]</strong> 기댓값과 분산을 구하시오
 <span class="math display">\[
 \begin{split}
 E(X) &amp;= 0 \times P(X=0) + 1 \times P(X=1) + 2 \times P(X=2) \\
@@ -556,7 +566,7 @@ f(x) = \frac{d}{dx} F(x)
 <h2><span class="header-section-number">7.4</span> Sampling from a population</h2>
 <p>통계는 어떤 실험으로부터 데이터를 확보한 후 그 분포가 모집단의 분포와 같을 것으로 기대하여 데이터의 기댓값과 분산을 계산하고 이를 가지고 모집단의 평균을 추정하는 것입니다. 따라서 모집단에서 표본을 추출 하는 방법이 중요하며 이 때 사용하는 방법이 <strong>임의 복원추출 (Random sampling with replacement)</strong> 입니다. <span class="math inline">\(X_1, X_2, X_3, ..., X_n\)</span>을 모집단에서 뽑은 일련의 확률 변수라 한다면 이들의 분포가 같을 때 identically distributed 되었다고 하며 하나의 확률 변수의 값이 다른 변수들의 분포에 영향을 주지 않을 때 (즉 하나의 확률변수의 값을 알 때 다른 변수들의 분포가 변하지 않을 때) 그 변수는 다른 변수와 independent 하다고 합니다. 이 두 가지 특성을 갖는 표본들을 indepentent and identically distributed 라고 해서 i.i.d.라 부르고 이는 랜덤 샘플링을 할 때 기본이 되는 개념입니다. 이에 반해 임의 비복원추출의 (Random sampling with replacement) 경우 iid는 아니게 되나 모집단의 크기가 크고 표본의 크기가 작을 때에는 같은 요소를 뽑을 확률이 적어지기 때문에 복원추출법과 비복원추출법 간의 차이가 적어집니다.</p>
 <p>예로 하나의 동전을 <span class="math inline">\(n\)</span>번 던질 때 <span class="math inline">\(X_i\)</span>를 i번째 던지는 동전의 앞 또는 뒷면이라 하면 <span class="math inline">\(X_1, X_2, ..., X_n\)</span>은 i.i.d. 입니다. 주머니 공 꺼내기 예제에서 공을 넣고 다시 꺼내는 복원 추출의 경우의 표본들도 마찬가지로 iid 입니다. 그런데 다시 넣지 않고 꺼내는 경우는 어떨까요?</p>
-<p>3개의 빨간색 공과 2개의 녹색 공이 있는 주머니에서 반복을 허용해서 공을 뽑을 경우를 생각해 보자. 확률변수 <span class="math inline">\(X_i\)</span>를 <span class="math inline">\(i\)</span>번째 뽑은 공의 색이라 할 때 <span class="math inline">\(X_1\)</span> 의 확률 분포와 <span class="math inline">\(X_2\)</span>의 확률 분포는? 반복을 허용하지 않는 경우의 확률 분포는?</p>
+<p><strong>[EXERCISE]</strong> 3개의 빨간색 공과 2개의 녹색 공이 있는 주머니에서 반복을 허용해서 공을 뽑을 경우를 생각해 보자. 확률변수 <span class="math inline">\(X_i\)</span>를 <span class="math inline">\(i\)</span>번째 뽑은 공의 색이라 할 때 <span class="math inline">\(X_1\)</span> 의 확률 분포와 <span class="math inline">\(X_2\)</span>의 확률 분포는? 반복을 허용하지 않는 경우의 확률 분포는?</p>
 <p><span class="math display">\[
 P(X_1=R) = \frac{3}{5} \\
 P(X_1=G) = \frac{2}{5} \\
@@ -733,14 +743,11 @@ P(X=k) = {n \choose k} p^k (1-p)^{n-k} \\
 </div>
 <div id="normal-random-variables" class="section level3">
 <h3><span class="header-section-number">7.7.3</span> Normal random variables</h3>
-<ul>
-<li>정규확률변수 <span class="math inline">\(X\)</span>의 분포는 연속적인 종모양 (Bell-shaped) 형태를 가진 분포로 pdf상의 y값은 밀도로 해석</li>
-<li>정규분포를 나타내는 파라미터는 종모양의 중심인 <span class="math inline">\(\mu\)</span>와 분산 <span class="math inline">\(\sigma^2\)</span> 두 개이며 <span class="math inline">\(Normal(\mu, \sigma)\)</span> 또는 <span class="math inline">\(N(\mu, \sigma)\)</span> 로 나타냄</li>
-</ul>
+<p>정규확률변수 <span class="math inline">\(X\)</span>의 분포는 연속적인 종모양 (Bell-shaped) 형태를 가진 분포로 pdf상의 y값은 밀도로 해석합니다. 정규분포를 나타내는 파라미터는 종모양의 중심인 <span class="math inline">\(\mu\)</span>와 분산 <span class="math inline">\(\sigma^2\)</span> 두 개이며 <span class="math inline">\(Normal(\mu, \sigma)\)</span> 또는 <span class="math inline">\(N(\mu, \sigma)\)</span> 로 나타냅니다.</p>
 <p><span class="math display">\[
 f(x|\mu,\sigma) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(x-\mu)^2}{2\sigma^2} } 
-\]</span>
-다음은 <code>rnorm</code>과 <code>dnorm</code>을 활용한 그래프 그리기 예제 입니다.</p>
+\]</span></p>
+<p>다음은 <code>rnorm</code>과 <code>dnorm</code>을 활용한 그래프 그리기 예제 입니다.</p>
 <div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="populations.html#cb159-1"></a>n &lt;-<span class="st"> </span><span class="dv">1000</span></span>
 <span id="cb159-2"><a href="populations.html#cb159-2"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n, <span class="dt">mean=</span><span class="dv">175</span>, <span class="dt">sd=</span><span class="dv">2</span>)</span>
 <span id="cb159-3"><a href="populations.html#cb159-3"></a>xbar &lt;-<span class="st"> </span><span class="kw">mean</span>(x)</span>
@@ -877,6 +884,47 @@ P(X \gt s+t | X \gt t) = P(X &gt; s)
 <p>7-4) <code>ggplot</code>을 이용해서 표준정규분포 그래프를 그리고 IQR 구간을 검은 색으로 칠하시오</p>
 <p>7-5) 12시간 동안 A라는 음식점에 방문한 손님이 평균 10명 이라고 한다. 이 식당에 12시간 동안 20명의 손님이 방문할 확률을 코드를 작성하여 구하시오</p>
 <p>7-6) 위 A 식당에서 1시간 안에 손님이 방문할 확률을 구하시오</p>
+</div>
+<div id="the-central-limit-theorem" class="section level2">
+<h2><span class="header-section-number">7.9</span> The central limit theorem</h2>
+<p>앞서 표본분포 (통계량의 분포) 설명에서 통계량 표본평균의 기대값은 <span class="math inline">\(\mu\)</span> 이고 표본평균의 분산은 <span class="math inline">\(\sigma/\sqrt{n}\)</span> 이라고 했습니다. 중심극한정리는 (The central limit theorem) 표본평균의 기대값에 대한 분포가 <span class="math inline">\(n\)</span>이 충분히 클 경우 정규분포에 수렴한다는 이론입니다. 참고로 <span class="math inline">\(n\)</span>은 반복해서 표본평균을 계산한 횟수가 아닌 특정 표본평균을 구하기 위해 사용한 표본의 갯수 입니다. 이 이론의 중요한 포인트 중 하나는 모집단의 분포와 상관없이 항상 성립한다는 점 입니다.</p>
+<p>다음은 균등분포에서 표본평균의 기대값 <span class="math inline">\(E(\bar{X})\)</span>가 모평균에 수렴하고 <span class="math inline">\(n\)</span>이 커질수록 정규분포에 가까워짐을 나타내는 코드입니다. 참고로 <code>runif()</code> 함수는 [0,1] 구간에서 등확율을 갖는 분포이며 평균은 0.5 입니다.</p>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="populations.html#cb174-1"></a><span class="co">## uniform distribution</span></span>
+<span id="cb174-2"><a href="populations.html#cb174-2"></a>n &lt;-<span class="st"> </span><span class="dv">5</span></span>
+<span id="cb174-3"><a href="populations.html#cb174-3"></a>xs &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">5000</span>, <span class="kw">mean</span>(<span class="kw">runif</span>(n)))</span>
+<span id="cb174-4"><a href="populations.html#cb174-4"></a>xvar &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;Var: &quot;</span>, <span class="kw">sprintf</span>(<span class="st">&quot;%.6f&quot;</span>, <span class="kw">var</span>(xs)), <span class="dt">sep=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb174-5"><a href="populations.html#cb174-5"></a>xbar &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;Mean: &quot;</span>, <span class="kw">sprintf</span>(<span class="st">&quot;%.3f&quot;</span>, <span class="kw">mean</span>(xs)), <span class="dt">sep=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb174-6"><a href="populations.html#cb174-6"></a><span class="kw">ggplot</span>(<span class="kw">data.frame</span>(xs), <span class="kw">aes</span>(<span class="dt">x=</span>xs))<span class="op">+</span></span>
+<span id="cb174-7"><a href="populations.html#cb174-7"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">bins=</span><span class="dv">50</span>) <span class="op">+</span></span>
+<span id="cb174-8"><a href="populations.html#cb174-8"></a><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dt">label=</span>xvar, <span class="dt">x=</span><span class="kw">mean</span>(xs), <span class="dt">y=</span><span class="dv">100</span>, <span class="dt">col=</span><span class="st">&quot;white&quot;</span>) <span class="op">+</span></span>
+<span id="cb174-9"><a href="populations.html#cb174-9"></a><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dt">label=</span>xbar, <span class="dt">x=</span><span class="kw">mean</span>(xs), <span class="dt">y=</span><span class="dv">120</span>, <span class="dt">col=</span><span class="st">&quot;white&quot;</span>)</span>
+<span id="cb174-10"><a href="populations.html#cb174-10"></a></span>
+<span id="cb174-11"><a href="populations.html#cb174-11"></a></span>
+<span id="cb174-12"><a href="populations.html#cb174-12"></a>n &lt;-<span class="st"> </span><span class="dv">1000</span></span>
+<span id="cb174-13"><a href="populations.html#cb174-13"></a>xs &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">5000</span>, <span class="kw">mean</span>(<span class="kw">runif</span>(n)))</span>
+<span id="cb174-14"><a href="populations.html#cb174-14"></a>xvar &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;Var: &quot;</span>, <span class="kw">sprintf</span>(<span class="st">&quot;%.6f&quot;</span>, <span class="kw">var</span>(xs)), <span class="dt">sep=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb174-15"><a href="populations.html#cb174-15"></a>xbar &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;Mean: &quot;</span>, <span class="kw">sprintf</span>(<span class="st">&quot;%.3f&quot;</span>, <span class="kw">mean</span>(xs)), <span class="dt">sep=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb174-16"><a href="populations.html#cb174-16"></a><span class="kw">ggplot</span>(<span class="kw">data.frame</span>(xs), <span class="kw">aes</span>(<span class="dt">x=</span>xs))<span class="op">+</span></span>
+<span id="cb174-17"><a href="populations.html#cb174-17"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">bins=</span><span class="dv">50</span>) <span class="op">+</span></span>
+<span id="cb174-18"><a href="populations.html#cb174-18"></a><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dt">label=</span>xvar, <span class="dt">x=</span><span class="kw">mean</span>(xs), <span class="dt">y=</span><span class="dv">100</span>, <span class="dt">col=</span><span class="st">&quot;white&quot;</span>) <span class="op">+</span></span>
+<span id="cb174-19"><a href="populations.html#cb174-19"></a><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dt">label=</span>xbar, <span class="dt">x=</span><span class="kw">mean</span>(xs), <span class="dt">y=</span><span class="dv">120</span>, <span class="dt">col=</span><span class="st">&quot;white&quot;</span>)</span></code></pre></div>
+<p>지수분포에서는 <span class="math inline">\(n\)</span>의 효과를 더 분명히 알 수 있습니다. <span class="math inline">\(n\)</span>이 작을때는 지수분포 특성상 표본평균의 분포가 왼쪽으로 치우치는 모습을 보이는 반면 <span class="math inline">\(n\)</span>이 클수록 정규분포에 가까워집니다.</p>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="populations.html#cb175-1"></a><span class="co">## exponential distribution</span></span>
+<span id="cb175-2"><a href="populations.html#cb175-2"></a></span>
+<span id="cb175-3"><a href="populations.html#cb175-3"></a>unifdistcomp &lt;-<span class="st"> </span><span class="cf">function</span>(n){</span>
+<span id="cb175-4"><a href="populations.html#cb175-4"></a>  xs &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">5000</span>, <span class="kw">mean</span>(<span class="kw">rexp</span>(n)))</span>
+<span id="cb175-5"><a href="populations.html#cb175-5"></a>  xbar &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;Mean: &quot;</span>, <span class="kw">sprintf</span>(<span class="st">&quot;%.3f&quot;</span>, <span class="kw">mean</span>(xs)), <span class="dt">sep=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb175-6"><a href="populations.html#cb175-6"></a>  xvar &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;Var: &quot;</span>, <span class="kw">sprintf</span>(<span class="st">&quot;%.6f&quot;</span>, <span class="kw">var</span>(xs)), <span class="dt">sep=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb175-7"><a href="populations.html#cb175-7"></a>  <span class="kw">ggplot</span>(<span class="kw">data.frame</span>(xs), <span class="kw">aes</span>(<span class="dt">x=</span>xs))<span class="op">+</span></span>
+<span id="cb175-8"><a href="populations.html#cb175-8"></a><span class="st">    </span><span class="kw">geom_histogram</span>(<span class="dt">bins=</span><span class="dv">50</span>) <span class="op">+</span></span>
+<span id="cb175-9"><a href="populations.html#cb175-9"></a><span class="st">    </span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dt">label=</span>xvar, <span class="dt">x=</span><span class="kw">mean</span>(xs), <span class="dt">y=</span><span class="dv">100</span>, <span class="dt">col=</span><span class="st">&quot;white&quot;</span>) <span class="op">+</span></span>
+<span id="cb175-10"><a href="populations.html#cb175-10"></a><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dt">label=</span>xbar, <span class="dt">x=</span><span class="kw">mean</span>(xs), <span class="dt">y=</span><span class="dv">130</span>, <span class="dt">col=</span><span class="st">&quot;white&quot;</span>)</span>
+<span id="cb175-11"><a href="populations.html#cb175-11"></a>}</span>
+<span id="cb175-12"><a href="populations.html#cb175-12"></a></span>
+<span id="cb175-13"><a href="populations.html#cb175-13"></a><span class="kw">unifdistcomp</span>(<span class="dv">5</span>)</span>
+<span id="cb175-14"><a href="populations.html#cb175-14"></a><span class="kw">unifdistcomp</span>(<span class="dv">1000</span>)</span></code></pre></div>
+<p>위에서 보듯 <span class="math inline">\(n\)</span>이 커질수록 분산은 줄어들며 이는 표본평균의 평균, 즉 모평균의 추정값의 분산이 작아짐으로 추정한 값이 더 모평균에 가깝다는 것을 의미합니다.</p>
+<p>일반적으로 우리는 모집단의 평균을 추정하기 위해서 표본을 추출하며 추출된 표본의 평균을 가지고 모평균을 추정하게 됩니다. 앞서 표본평균의 기대값(평균)이 모평균이라는 것을 배웠고 추가로 중심극한정리에 의해서 표본평균의 분포가 정규분포라는 것을 알 수 있으므로 우리가 구한 표본평균을 정규분포에 비교해서 검증할 수 있게 되는 것 입니다. 이는 다음 장 통계적 추론에서 더 자세히 설명하겠습니다.</p>
 <p><a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="크리에이티브 커먼즈 라이선스" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />이 저작물은 <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">크리에이티브 커먼즈 저작자표시-비영리-변경금지 4.0 국제 라이선스</a>에 따라 이용할 수 있습니다.</p>
 
 </div>
@@ -886,8 +934,8 @@ P(X \gt s+t | X \gt t) = P(X &gt; s)
           </div>
         </div>
       </div>
-<a href="multivariate-tydiverse.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="multivariate-tydiverse.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="statistical-inference.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -1,0 +1,246 @@
+
+# Statistical inference
+
+## Introduction
+
+통계적 추정이란 모집단으로부터 임의 추출된 표본을 이용하여 모집단을 추정하는 과정을 의미합니다. 앞에서 배운들 중 다음 중요한 키워드들이 있습니다. 복습하는 의미에서 각 키워드들의 의미를 다시 한 번 익혀두시기 바랍니다. 
+
+* 모집단 (population) - 전체 대상
+* 모수 (Parameter) - 모집단의 분포를 설명하는 대푯값
+* 표본 (sample) - 모집단으로부터 임의 추출된 관측값의 모음
+* 통계량 (statistics) - 표본의 평균, 분산과 같은 대푯값으로 표본의 특징을 수치화한 값
+* 확률변수 (random variable) - 확률적으로 따라 값이 결정되는 변수
+* 확률분포 및 확률 질량/밀도 함수  
+* 표본분포 (sampling distribution) - 통계량의 분포
+
+다음은 표준정규분포 모집단에서 (모수: $\mu=0, \sigma=1$) 16개 표본을 임의 추출하여 평균을 (통계량) $\bar{x}$ 구하고 이 과정을 10번 반복한 상황을 표현한 그림으로 통계적 추론의 과정을 보여 줍니다. 
+
+![UsingR for introductory statistics, 243 페이지, 동그라미: 표본 $x$, 사각형: 표본평균 $\bar{x}$, 점선:모평균 ($\mu$), 하단 밀도 그래프:  표본평균의 분포](images/08/01.PNG)
+
+
+* 어떤 임의 표본에 대해서 $\bar{x}$의 표본분포는 $\mu$ 근처에 위치
+* 어떤 임의 표본에 대해서 $\bar{x}$의 표본분포의 표준편차는 $\sigma/\sqrt{n}$ 로 표현 ($\sigma$는 모분산, 표본들의 분산보다 작음)
+* 모분포가 정규분포이면 $\bar{x}$도 정규분포임
+
+
+## Simulation
+
+이번 장에서는 시뮬레이션을 통해 추정의 개념을 이해하는 것을 목적으로 합니다. 확률과 공식의 유도를 통한 추정과정의 이해도 중요하지만 컴퓨팅 기반의 시뮬레이션도 통계적 추정의 개념을 이해하는데 큰 도움이 될 수 있습니다. R에서 분포관련한 시뮬레이션은 앞서 소개한 `d`, `r`, `p`, `q` 함수를 이용할 수 있습니다. 
+
+
+**[EXERCISE]** $N(0, 1)$의 분포를 `dnorm()`을 이용해 그리시오 ($-4 \le x \le 4$)
+
+```{r, eval=F, echo=T}
+library(tidyverse)
+
+x <- seq(-4, 4, by=0.01)
+y <- dnorm(x, 0, 1)
+dat <- data.frame(x, y)
+ggplot(dat, aes(x, y)) +
+  geom_line()
+
+```
+
+지수분포의 경우, 파라미터 ($\lambda$) 값에 따른 그래프 변화
+
+```{r, eval=F}
+x <- seq(0, 4, by=0.01)
+y1 <- dexp(x, 1)
+y2 <- dexp(x, 2)
+y3 <- dexp(x, 3)
+dat <- data.frame(x, y1, y2, y3)
+datlong <- dat %>% pivot_longer(cols=c(y1, y2, y3))
+ggplot(datlong, aes(x=x, y=value, col=name)) +
+  geom_line(size=2)
+
+```
+
+
+아래 예제는 본 장의 처음 그림을 구현하는 코드 입니다. 각자 실행해 보시고 통계적 추론의 개념과 함께 그래프를 그리는 ggplot 코드도 익혀보시기 바랍니다. 
+
+
+**[EXERCISE]** 표준정규분포로부터 16개의 표본을 뽑아 평균을 구하고 각 표본과 평균 값들을 $y=1$ 위치에 점으로 표현하시오 (`rnorm()`사용)
+
+```{r, eval=F}
+nsample <- 16
+x <- rnorm(nsample, 0, 1)
+y <- rep(1, nsample)
+xbar <- mean(x)
+dat <- data.frame(x, y)
+ggplot(dat, aes(x, y)) +
+  geom_point() +
+  geom_point(aes(x=mean(x), y=1), colour="blue", size=5, shape=15)
+
+```
+
+
+**[EXERCISE]** 위 예제와 같이 표준정규분포로부터 16개의 표본을 뽑아 평균을 구하는 과정을 두 번 반복하되 두 번째 데이터는 $y=0.9$ 위치에 표현하시오
+
+```{r, eval=F, echo=T}
+nsample <- 16
+x <- rnorm(nsample*2, 0, 1)
+y <- c(rep(1, nsample), rep(0.9, nsample))
+g <- factor(c(rep(1, nsample), rep(2, nsample)))
+dat <- data.frame(x, y, g)
+
+ggplot(dat, aes(x, y)) +
+  geom_point() +
+  geom_point(aes(x=mean(x[1:nsample]), y=1), colour="blue", size=5, shape=15) +
+  geom_point(aes(x=mean(x[(nsample+1):length(x)]), y=0.9), colour="blue", size=5, shape=15) +
+  scale_y_continuous(limits=c(0, 1.2))
+
+```
+
+**[EXERCISE]** 위 예제를 10번 반복하되 각 반복 데이터는 각각 $y=1, 0.9, 0.8, ..., 0.1$ 위치에 그리시오
+
+```{r, eval=F, echo=T}
+nsample <- 16
+nrep <- 10
+
+x <- rnorm(nsample*nrep, 0, 1)
+tmpy <- seq(0.1, 1, length.out=nrep)
+y <- rep(tmpy, each=nsample)
+## ?rep
+g <- factor(y)
+
+dat <- data.frame(x, y, g)
+head(dat)
+## sample means
+dat_mean <- dat %>% 
+  group_by(g) %>% 
+  summarise(mean=mean(x))
+head(dat_mean)
+
+ggplot() + 
+  geom_point(data=dat, aes(x, y)) +
+  geom_point(data=dat_mean, 
+             aes(x=mean, y=as.numeric(as.character(g))), 
+             colour="blue", 
+             size=5, 
+             shape=15) +
+  theme_bw()
+  
+```
+
+**[EXERCISE]** 위 예제에서 사용된 샘플들의 정규분포 곡선과 $\bar{x}$의 분포를 같이 그리시오 ($-4 \le x \le 4$, 앞서 예제의 `dat`와 `dat_mean` 사용)
+
+```{r, eval=F}
+
+head(dat)
+head(dat_mean)
+
+x <- seq(-4, 4, by=0.01)
+# distribution of the samples 
+y <- dnorm(x, mean(dat$x), sd(dat$x))
+# distribution of the sample means
+y2 <- dnorm(x, mean(dat_mean$mean), sd(dat_mean$mean))
+dat2 <- data.frame(x, y, y2)
+dat2_long <- dat2 %>% 
+  pivot_longer(cols=c(y, y2))
+head(dat2_long)
+
+ggplot(dat2_long, aes(x=x, y=value, color=name)) +
+  geom_line(size=1.2) +
+  labs(y="Density") +
+  theme_bw() +
+  scale_color_manual(name="Type", 
+                     labels=c("Samples", "Sample Means"),
+                     values=c("red", "blue"))
+
+```
+
+위와 같이 표본들의 분포보다 표본평균들의 분포가 분포가 더 중심에 가깝다는 것을 볼 수 있습니다.
+
+
+## Significance tests
+
+두 그룹의 데이터 (표본)을 가지고 있을 때 두 그룹이 통계적으로 차이가 있는지를 검증하는 방법으로 (코흐트 데이터, Case-control 데이터) 이번 장에서는 시뮬레이션에 의한 방법을 먼저 소개하고 다음 장에서 확률 분포를 이용한 통계적 검증을 알아보겠습니다. 
+
+카페인(커피)이 초초한 상태를 유발하는가? 라는 질문에 답하기 위해서 다음 데이터를 얻었습니다. 다음 값들은 커피를 제공한 그룹과 그렇지 않은 그룹의 손가락 탭핑 횟수를 비디오로 분석한 데이터 입니다. 이럴 경우 일반적으로 두 그룹의 평균의 차이를 비교합니다. 
+
+```{r, eval=F}
+coff <- c(245, 246, 246, 248, 248, 248, 250, 250, 250, 252)
+nocoff <- c(242, 242, 242, 244, 244, 245, 246, 247, 248, 248)
+obsdiff <- mean(coff) - mean(nocoff)
+obsdiff
+```
+
+차이는 3.5가 나왔지만 이 차이가 얼마나 통계적으로 유의한지를 알아야 합니다. 시뮬레이션에 의한 방법은 위 두 그룹의 데이터들을 랜덤으로 섞은 후 다시 두 그룹으로 나누어 차이를 계산하고 이 과정을 반복해서 분포를 그린 후 유의성을 계산하는 과정입니다.  
+
+**[EXERCISE]** 두 그룹 데이터에서 임으로 10명을 두 번 뽑아 그 평균의 차이를 계산하시오 
+
+```{r, eval=F}
+
+caf <- c(245, 246, 246, 248, 248, 248, 250, 250, 250, 252)
+no_caf <- c(242, 242, 242, 244, 244, 245, 246, 247, 248, 248)
+dat <- c(caf, no_caf) 
+obs <- mean(caf) - mean(no_caf)
+
+x <- sample(dat, 10, replace=T)
+y <- sample(dat, 10, replace=T)
+
+mean(x) - mean(y)
+```
+
+
+**[EXERCISE]** 위 예제의 과정을 1000번 반복하고 계산된 차이값들로 분포를 그리시오(for 문 이용)
+
+```{r, eval=F}
+
+caf <- c(245, 246, 246, 248, 248, 248, 250, 250, 250, 252)
+no_caf <- c(242, 242, 242, 244, 244, 245, 246, 247, 248, 248)
+dat <- c(caf, no_caf) 
+
+diff_vals <- rep(0, 1000)
+for(i in 1:1000){
+  x <- sample(dat, 10, replace=T)
+  y <- sample(dat, 10, replace=T)
+  diff_vals[i] <- mean(x) - mean(y)
+}
+
+ggplot(data.frame(diff_vals), aes(x=diff_vals)) +
+  geom_histogram()
+
+```
+
+
+**[EXERCISE]** 분포에서 실제 관측한 3.5 값의 위치를 표시하고 관측값보다 더 극단적인 경우가 나올 경우의 비율을 계산하시오 (위 예제 코드의 연속)
+
+```{r, eval=F}
+emp_pval <- sum(diff_vals > obs)/length(diff_vals)
+
+textstring <- paste("p(X > ", obs, ") = ", emp_pval, sep="")
+ggplot(data.frame(diff_vals), aes(x=diff_vals)) + 
+  geom_histogram() +
+  geom_segment(aes(x = obs, 
+                   y = 30, 
+                   xend = obs, 
+                   yend = 5), 
+               arrow = arrow(), 
+               size=2) +
+  annotate("text", 
+           label = obs, 
+           x = obs, 
+           y = 35, 
+           size = 5) +
+  annotate("text", 
+           label = textstring, 
+           x = 2.5, 
+           y = 100, 
+           size = 5) +
+  labs(x="X", y="Count")
+
+```
+
+관측된 차이 3.5는 가능한 차이값들을 모두 그려본 분포에서 가장자리에 위치합니다. 관측값이 중심에 가까울수록 흔하게 관측되는 것으로 두 그룹간 차이가 랜덤하게 나누어도 관측 가능한 흔한 값이라는 의미입니다. 반면 가장자리에 위치할수록 그룹간의 차이가 랜덤이 아닌 유의미하게 특정 요인이 작용해서 발생한 사건으로 해석합니다. 
+
+$p(X>3.5)$는 위 사건이 발생한 경우(3.5)보다 극단적으로 큰 값의 사건이 발생할 확률을 말하며 이는 $1-p(X<3.5)$ 이며 $p(X<3.5)$는 누적분포함수, `qnorm`으로 구할 수 있습니다.  예제에서는 이 값이 0.003으로 관측값 3.5는 랜덤으로는 거의 일어나기 힘든 확률의 사건임을 알 수 있습니다. 
+
+참고로 통계에서 차이 값의 분포는 평균이 0인 정규분포로 알려져 있습니다. 
+
+
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="크리에이티브 커먼즈 라이선스" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />이 저작물은 <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">크리에이티브 커먼즈 저작자표시-비영리-변경금지 4.0 국제 라이선스</a>에 따라 이용할 수 있습니다.
+
+
+
+

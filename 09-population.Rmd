@@ -76,14 +76,14 @@ table(smoke)/length(smoke)
 
 $X$ 를 이산형 확률변수라 하면 $X$가 가질 수 있는 값은 ${0, 1, ..}$ 또는 ${"yes", "no"}$ 등의 이산형 값을 가질 수 있으며 이 값들을 $x$라 하면 $P(X=x)>0$ 이며 $X$의 분포는 이러한 확률들을 나열한 것으로 생각하면 됩니다. 즉, 이산형 확률변수 $X$의 분포는 먼저 가능한 $x$의 값들을 구한 후 $P(X=x)>0$이고 $\sum_x{P(X=x)}=1$인 확률 $P(X=x)$의 값들을 명시하면 됩니다. 
 
-동전 한 번 던지기, 가능한 경우의 수는? 확률 변수는? 분포는?
+**[EXERCISE]** 동전 한 번 던지기, 가능한 경우의 수는? 확률 변수는? 분포는?
 
 $$
 P(X=0) = 1/2 \\
 P(X=1) = 1/2
 $$
 
-주머니에서 공 꺼내기 (G+R=N), 반복 허용해서 두 번 뽑을 때, $X$를 빨간 공의 갯수라 하면, 가능한 경우의 수는? 분포는?
+**[EXERCISE]** 주머니에서 공 꺼내기 (G+R=N), 반복 허용해서 두 번 뽑을 때, $X$를 빨간 공의 갯수라 하면, 가능한 경우의 수는? 분포는?
 
 $$
 \begin{split}
@@ -103,7 +103,7 @@ $$
 그러나 확률 변수의 분포를 언급할 때마다 일일이 확률을 명시할 수 없으므로 이러한 확률을 나타내는 함수를 정의하여 사용할 수 있고 이를 확률 질량 함수 (probability mass function, PMF)라 합니다. 
 
 
-앞서 동전 던지는 예제에서 PMF는? 
+**[EXERCISE]** 앞서 동전 던지는 예제에서 PMF는? 
 
 $$
 f_X(x) =  \begin{cases} 
@@ -125,7 +125,7 @@ $$
 * 가산성 $E(X+Y) = E(X) + E(Y)$
 * 동차성 $E(cX) = cE(X)$
 
-주사위를 한 번 던질 때 나올 수 있는 주사위의 수의 기댓값? (확률변수 $X$?, 확률변수의 분포?, 확률변수의 기댓값?)
+**[EXERCISE]** 주사위를 한 번 던질 때 나올 수 있는 주사위의 수의 기댓값? (확률변수 $X$?, 확률변수의 분포?, 확률변수의 기댓값?)
 
 * 확률변수: 주사위를 한 번 던질 때 나올 수 있는 주사위의 수
 * 가능한 경우의 수: {1, 2, 3, 4, 5, 6}
@@ -177,7 +177,7 @@ $$
 즉, 이 값은 $(X-\mu)^2$의 기댓값과 같습니다. 
 
 
-주머니에서 공 꺼내기 (G+R=N), R을 빨강공의 갯수, G를 녹색 공의 갯수라 하고 N을 총 공의 갯수라 하자. 반복을 허용해서 두 번의 공을 뽑을 때 빨간 공의 갯수를 확률변수 $X$라 하자. $X$의 분포는? 
+**[EXERCISE]** 주머니에서 공 꺼내기 (G+R=N), R을 빨강공의 갯수, G를 녹색 공의 갯수라 하고 N을 총 공의 갯수라 하자. 반복을 허용해서 두 번의 공을 뽑을 때 빨간 공의 갯수를 확률변수 $X$라 하자. $X$의 분포는? 
 $$
 \begin{split}
 P(X=0) &= \frac{G}{N} \times \frac{G}{N} \\
@@ -186,7 +186,7 @@ P(X=2) &= \frac{R}{N} \frac{R}{N} = \frac{R^2}{N^2}
 \end{split}
 $$
 
-기댓값과 분산을 구하시오
+**[EXERCISE]** 기댓값과 분산을 구하시오
 $$
 \begin{split}
 E(X) &= 0 \times P(X=0) + 1 \times P(X=1) + 2 \times P(X=2) \\
@@ -308,7 +308,7 @@ $$
 
 예로 하나의 동전을 $n$번 던질 때 $X_i$를 i번째 던지는 동전의 앞 또는 뒷면이라 하면 $X_1, X_2, ..., X_n$은 i.i.d. 입니다. 주머니 공 꺼내기 예제에서 공을 넣고 다시 꺼내는 복원 추출의 경우의 표본들도 마찬가지로 iid 입니다. 그런데 다시 넣지 않고 꺼내는 경우는 어떨까요? 
 
-3개의 빨간색 공과 2개의 녹색 공이 있는 주머니에서 반복을 허용해서 공을 뽑을 경우를 생각해 보자. 확률변수 $X_i$를 $i$번째 뽑은 공의 색이라 할 때 $X_1$ 의 확률 분포와 $X_2$의 확률 분포는? 반복을 허용하지 않는 경우의 확률 분포는?
+**[EXERCISE]** 3개의 빨간색 공과 2개의 녹색 공이 있는 주머니에서 반복을 허용해서 공을 뽑을 경우를 생각해 보자. 확률변수 $X_i$를 $i$번째 뽑은 공의 색이라 할 때 $X_1$ 의 확률 분포와 $X_2$의 확률 분포는? 반복을 허용하지 않는 경우의 확률 분포는?
 
 $$
 P(X_1=R) = \frac{3}{5} \\
@@ -571,12 +571,12 @@ ggplot(dat, aes(x, y)) +
 
 ### Normal random variables
 
-* 정규확률변수 $X$의 분포는 연속적인 종모양 (Bell-shaped) 형태를 가진 분포로 pdf상의 y값은 밀도로 해석 
-* 정규분포를 나타내는 파라미터는 종모양의 중심인 $\mu$와 분산 $\sigma^2$ 두 개이며 $Normal(\mu, \sigma)$ 또는 $N(\mu, \sigma)$ 로 나타냄
+정규확률변수 $X$의 분포는 연속적인 종모양 (Bell-shaped) 형태를 가진 분포로 pdf상의 y값은 밀도로 해석합니다. 정규분포를 나타내는 파라미터는 종모양의 중심인 $\mu$와 분산 $\sigma^2$ 두 개이며 $Normal(\mu, \sigma)$ 또는 $N(\mu, \sigma)$ 로 나타냅니다. 
 
 $$
 f(x|\mu,\sigma) = \frac{1}{\sqrt{2\pi\sigma^2}} e^{-\frac{(x-\mu)^2}{2\sigma^2} } 
 $$
+
 다음은 `rnorm`과 `dnorm`을 활용한 그래프 그리기 예제 입니다. 
 
 ```{r, eval=F}
@@ -795,8 +795,59 @@ $$
 7-6) 위 A 식당에서 1시간 안에 손님이 방문할 확률을 구하시오
 
 
+## The central limit theorem
+
+앞서 표본분포 (통계량의 분포) 설명에서 통계량 표본평균의 기대값은 $\mu$ 이고 표본평균의 분산은 $\sigma/\sqrt{n}$ 이라고 했습니다. 중심극한정리는 (The central limit theorem) 표본평균의 기대값에 대한 분포가 $n$이 충분히 클 경우 정규분포에 수렴한다는 이론입니다. 참고로 $n$은 반복해서 표본평균을 계산한 횟수가 아닌 특정 표본평균을 구하기 위해 사용한 표본의 갯수 입니다. 이 이론의 중요한 포인트 중 하나는 모집단의 분포와 상관없이 항상 성립한다는 점 입니다. 
+
+다음은 균등분포에서 표본평균의 기대값 $E(\bar{X})$가 모평균에 수렴하고 $n$이 커질수록 정규분포에 가까워짐을 나타내는 코드입니다. 참고로 `runif()` 함수는 [0,1] 구간에서 등확율을 갖는 분포이며 평균은 0.5 입니다. 
 
 
+```{r, eval=F}
+## uniform distribution
+n <- 5
+xs <- replicate(5000, mean(runif(n)))
+xvar <- paste("Var: ", sprintf("%.6f", var(xs)), sep="")
+xbar <- paste("Mean: ", sprintf("%.3f", mean(xs)), sep="")
+ggplot(data.frame(xs), aes(x=xs))+
+  geom_histogram(bins=50) +
+  annotate("text", label=xvar, x=mean(xs), y=100, col="white") +
+  annotate("text", label=xbar, x=mean(xs), y=120, col="white")
+
+
+n <- 1000
+xs <- replicate(5000, mean(runif(n)))
+xvar <- paste("Var: ", sprintf("%.6f", var(xs)), sep="")
+xbar <- paste("Mean: ", sprintf("%.3f", mean(xs)), sep="")
+ggplot(data.frame(xs), aes(x=xs))+
+  geom_histogram(bins=50) +
+  annotate("text", label=xvar, x=mean(xs), y=100, col="white") +
+  annotate("text", label=xbar, x=mean(xs), y=120, col="white")
+```
+
+지수분포에서는 $n$의 효과를 더 분명히 알 수 있습니다. $n$이 작을때는 지수분포 특성상 표본평균의 분포가 왼쪽으로 치우치는 모습을 보이는 반면 $n$이 클수록 정규분포에 가까워집니다.   
+
+```{r, eval=F}
+## exponential distribution
+
+unifdistcomp <- function(n){
+  xs <- replicate(5000, mean(rexp(n)))
+  xbar <- paste("Mean: ", sprintf("%.3f", mean(xs)), sep="")
+  xvar <- paste("Var: ", sprintf("%.6f", var(xs)), sep="")
+  ggplot(data.frame(xs), aes(x=xs))+
+    geom_histogram(bins=50) +
+    annotate("text", label=xvar, x=mean(xs), y=100, col="white") +
+  annotate("text", label=xbar, x=mean(xs), y=130, col="white")
+}
+
+unifdistcomp(5)
+unifdistcomp(1000)
+
+```
+
+위에서 보듯 $n$이 커질수록 분산은 줄어들며 이는 표본평균의 평균, 즉 모평균의 추정값의 분산이 작아짐으로 추정한 값이 더 모평균에 가깝다는 것을 의미합니다. 
+
+
+일반적으로 우리는 모집단의 평균을 추정하기 위해서 표본을 추출하며 추출된 표본의 평균을 가지고 모평균을 추정하게 됩니다. 앞서 표본평균의 기대값(평균)이 모평균이라는 것을 배웠고 추가로 중심극한정리에 의해서 표본평균의 분포가 정규분포라는 것을 알 수 있으므로 우리가 구한 표본평균을 정규분포에 비교해서 검증할 수 있게 되는 것 입니다. 이는 다음 장 통계적 추론에서 더 자세히 설명하겠습니다. 
 
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="크리에이티브 커먼즈 라이선스" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />이 저작물은 <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">크리에이티브 커먼즈 저작자표시-비영리-변경금지 4.0 국제 라이선스</a>에 따라 이용할 수 있습니다.
