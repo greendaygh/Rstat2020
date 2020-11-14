@@ -296,9 +296,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.1" data-path="statistical-inference.html"><a href="statistical-inference.html#introduction"><i class="fa fa-check"></i><b>8.1</b> Introduction</a></li>
 <li class="chapter" data-level="8.2" data-path="statistical-inference.html"><a href="statistical-inference.html#simulation"><i class="fa fa-check"></i><b>8.2</b> Simulation</a></li>
 <li class="chapter" data-level="8.3" data-path="statistical-inference.html"><a href="statistical-inference.html#significance-tests"><i class="fa fa-check"></i><b>8.3</b> Significance tests</a></li>
-<li class="chapter" data-level="8.4" data-path="statistical-inference.html"><a href="statistical-inference.html#estimation-and-confidence-interval"><i class="fa fa-check"></i><b>8.4</b> Estimation and confidence interval</a></li>
-<li class="chapter" data-level="8.5" data-path="statistical-inference.html"><a href="statistical-inference.html#bootstrap"><i class="fa fa-check"></i><b>8.5</b> Bootstrap</a></li>
-<li class="chapter" data-level="8.6" data-path="statistical-inference.html"><a href="statistical-inference.html#interpretation-of-confidence-interval"><i class="fa fa-check"></i><b>8.6</b> interpretation of confidence interval</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -496,96 +493,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>관측된 차이 3.5는 가능한 차이값들을 모두 그려본 분포에서 가장자리에 위치합니다. 관측값이 중심에 가까울수록 흔하게 관측되는 것으로 두 그룹간 차이가 랜덤하게 나누어도 관측 가능한 흔한 값이라는 의미입니다. 반면 가장자리에 위치할수록 그룹간의 차이가 랜덤이 아닌 유의미하게 특정 요인이 작용해서 발생한 사건으로 해석합니다.</p>
 <p><span class="math inline">\(p(X&gt;3.5)\)</span>는 위 사건이 발생한 경우(3.5)보다 극단적으로 큰 값의 사건이 발생할 확률을 말하며 이는 <span class="math inline">\(1-p(X&lt;3.5)\)</span> 이며 <span class="math inline">\(p(X&lt;3.5)\)</span>는 누적분포함수, <code>qnorm</code>으로 구할 수 있습니다. 예제에서는 이 값이 0.003으로 관측값 3.5는 랜덤으로는 거의 일어나기 힘든 확률의 사건임을 알 수 있습니다.</p>
 <p>참고로 통계에서 차이 값의 분포는 평균이 0인 정규분포로 알려져 있습니다.</p>
-</div>
-<div id="estimation-and-confidence-interval" class="section level2">
-<h2><span class="header-section-number">8.4</span> Estimation and confidence interval</h2>
-<p>앞서 예제에서 두 그룹간 평균의 차이가 통계량 (statistic) 입니다. 통계량은 모수 (parameter)를 추정하기 위한 값으로 볼 수 있고 이 값이 얼마나 모수와 가까운지, 즉 차이가 0에 가까운지 판단하는 것은 통계적 추정에서 가장 중요한 부분 중 하나 입니다. 일반적으로 <span class="math inline">\(\mu, \sigma\)</span> 등 모수는 <span class="math inline">\(\theta\)</span>로 표현하고 <span class="math inline">\(\theta\)</span>를 추정하기위한 통계량은 <span class="math inline">\(\hat{\theta}\)</span>로 표현합니다. 다음 식으로 우리가 계산한 통계량이 얼마나 모수에 가까운지는 다음 식으로 알 수 있습니다.</p>
-<p><span class="math display">\[
-E((\hat{\theta} - \theta)^2) = VAR(\hat{\theta}) + (E(\hat{\theta}-\theta))^2 = \text{variance} + \text{bias}^2
-\]</span>
-우리가 언급하는 통계량들은 대부분 unbiased 입니다. 불편추정량 (unbiased estimator)이라 부르며 다음과 같은 것들이 있습니다.</p>
-<ul>
-<li><span class="math inline">\(E(\bar{x}) = \mu\)</span></li>
-<li><span class="math inline">\(E(\bar{p}) = p\)</span></li>
-<li><span class="math inline">\(E(s^2) = \sigma^2\)</span></li>
-</ul>
-<p>예를 들어 A poll asking a random sample of 1003 whether marriages between same-sex couples should be recognized by law as valid. 55% said yes, 이 경우 A randomly selected person would responding yes with <span class="math inline">\(\hat{p}\)</span> = 0.55 입니다.</p>
-<p>여기서 이러한 투표를 100번 반복 했을 때 계산되는 찬성 비율 값들이 대부분 (또는 95%는) 어디에 모여 있는가? 라는 질문을 할 수 있고 이는 모집단에서의 찬성 비율 (모수, 진짜) 값의 95% 신뢰구간은 무엇인가? 라는 질문과 같습니다. 이를 위해 다음 시뮬레이션을 수행할 수 있습니다.</p>
-<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="statistical-inference.html#cb186-1"></a>p &lt;-<span class="st"> </span><span class="fl">0.55</span></span>
-<span id="cb186-2"><a href="statistical-inference.html#cb186-2"></a>n &lt;-<span class="st"> </span><span class="dv">1003</span></span>
-<span id="cb186-3"><a href="statistical-inference.html#cb186-3"></a>x &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dv">1000</span>, n, p)</span>
-<span id="cb186-4"><a href="statistical-inference.html#cb186-4"></a><span class="co">#mean(x)</span></span>
-<span id="cb186-5"><a href="statistical-inference.html#cb186-5"></a><span class="kw">hist</span>(x, <span class="dt">br=</span><span class="dv">100</span>)</span>
-<span id="cb186-6"><a href="statistical-inference.html#cb186-6"></a><span class="kw">quantile</span>(x, <span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span></code></pre></div>
-<p>앞 뒤 0.025%를 제외한 구간은 위와 같으며 위 구간이 95% 신뢰구간이 됩니다. 뒤에서 설명이 나오지만 여기서 신뢰구간의 해석을 한 번 생각해 보면 좋습니다.</p>
-<p>그런데 현실에서는 1000번의 반복이 불가능하며 1번 또는 2번의 데이터로 95% 신뢰구간을 구해야 합니다. 즉, 위 예제에서 1003명에 대한 설문조사로 <span class="math inline">\(\hat{p}=0.55\)</span> 가 나왔다는 정보 하나만으로 신뢰구간을 추정해야 하는 것 입니다.</p>
-<p>여기서 다시 기억할 부분은 앞에서 배운 확률변수 표본평균의 표본 분포는 정규분포이며 그 표준편차는 모표준편차를 <span class="math inline">\(\sqrt{n}\)</span>으로 나누어준 값이라는 것 입니다. (후에 좀 더 학습할 예정이며 지금은 시뮬레이션으로 얼마든지 반복해서 샘플링이 가능한 것으로 생각하겠습니다) 결국 데이터는 하나뿐이지만 분포를 정규분포로 알고 있으므로 신뢰구간도 구할 수 있는 것 입니다. 좀 더 명확한 분포를 정보를 위해 표준정규분포로 전환하며 표준정규분포를 따르는 z-통계량은 다음과 같이 나타낼 수 있습니다.</p>
-<p><span class="math display">\[
-\hat{p} = p \to \hat{p} - p =0 \\
-z = \frac{\hat{p} - p}{SD(\hat{p})} \sim N(0,1) 
-\]</span></p>
-<p>그런데 <span class="math inline">\(SD(\hat{p})=\sigma/\sqrt{n}\)</span>는 알 수 없으므로 중심극한정리에 의해 <span class="math inline">\(n\)</span>이 충분히 클 경우 <span class="math inline">\(SD(\hat{p})\)</span>의 모표준편차 <span class="math inline">\(\sigma\)</span>를 샘플의 표준편차로 대체한 표준오차 <span class="math inline">\(SE(\hat{p})=s/\sqrt{n}\)</span>를 사용합니다. 베르누이 분포에서 샘플의 표준편차<span class="math inline">\(s\)</span>는 <span class="math inline">\(\sqrt{\hat{p}(1-\hat{p})}\)</span> 이므로 <span class="math inline">\(SE(\hat{p})=\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}\)</span> 입니다.</p>
-<p>이제 위 투표 예제의 <span class="math inline">\(\hat{p}=0.55\)</span>와 <span class="math inline">\(n=1003\)</span>을 위 z값 공식에 대입해 봅니다.</p>
-<p><span class="math display">\[
-z = \frac{0.55 - p}{0.0157} 
-\]</span></p>
-<p>그런데 <span class="math inline">\(p\)</span>값은 우리가 관심있는 모수이고 z 값은 표준정규분포 이므로 아래 z 값의 특정 범위를 지정할 수 있습니다. 결국 <span class="math inline">\(p\)</span> 값만 남기고 모든 항을 넘기면 <span class="math inline">\(p\)</span>값의 범위를 구할 수 있습니다. 후에 이러한 방법으로 신뢰구간을 구하는 방법을 알아봅니다.</p>
-<p>모평균에 대한 신뢰구간도 유사한 방법으로 구할 수 있습니다. 평균 100, 표준편차 16인 모분포에서 4개의 샘플을 랜덤하게 추출하여 그 평균을 구하는 시뮬레이션을 수행합니다. 확률변수 평균의 <span class="math inline">\(\bar{x}\)</span> 분포는 정규분포를 따르고 표준화 값인 z값은 표준정규분포 N(0, 1)을 따릅니다. 다음과 같은 시뮬레이션으로 확인할 수 있으며 95% 신뢰구간도 <code>quantile</code>함수를 이용해서 구할 수 있습니다.</p>
-<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="statistical-inference.html#cb187-1"></a>mu &lt;-<span class="st"> </span><span class="dv">100</span></span>
-<span id="cb187-2"><a href="statistical-inference.html#cb187-2"></a>sigma &lt;-<span class="st"> </span><span class="dv">16</span></span>
-<span id="cb187-3"><a href="statistical-inference.html#cb187-3"></a>M &lt;-<span class="st"> </span><span class="dv">1000</span></span>
-<span id="cb187-4"><a href="statistical-inference.html#cb187-4"></a>n &lt;-<span class="st"> </span><span class="dv">4</span></span>
-<span id="cb187-5"><a href="statistical-inference.html#cb187-5"></a>res &lt;-<span class="st"> </span><span class="kw">replicate</span>(M, {</span>
-<span id="cb187-6"><a href="statistical-inference.html#cb187-6"></a>	x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n, mu, sigma)</span>
-<span id="cb187-7"><a href="statistical-inference.html#cb187-7"></a>	se &lt;-<span class="st"> </span><span class="kw">sd</span>(x)<span class="op">/</span><span class="kw">sqrt</span>(n)</span>
-<span id="cb187-8"><a href="statistical-inference.html#cb187-8"></a>	(<span class="kw">mean</span>(x) <span class="op">-</span><span class="st"> </span>mu)<span class="op">/</span>se</span>
-<span id="cb187-9"><a href="statistical-inference.html#cb187-9"></a>})</span>
-<span id="cb187-10"><a href="statistical-inference.html#cb187-10"></a></span>
-<span id="cb187-11"><a href="statistical-inference.html#cb187-11"></a><span class="kw">quantile</span>(res, <span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span>
-<span id="cb187-12"><a href="statistical-inference.html#cb187-12"></a><span class="kw">hist</span>(res, <span class="dt">br=</span><span class="dv">100</span>)</span></code></pre></div>
-<p>시뮬레이션을 사용할 수 없는 일반적인 경우 신뢰구간을 구하는 방법을 알아봅니다. 다음과 같이 <span class="math inline">\(\mu\)</span>를 모평균, <span class="math inline">\(\bar{x}\)</span>를 확률변수 t-통계량은 <span class="math inline">\(\sigma\)</span> 대신 <span class="math inline">\(s\)</span>를 사용한 경우를 말합니다.</p>
-<span class="math display">\[\begin{split}
-\bar{x} &amp;= \mu \to \bar{x} - \mu =0 \\
-
-z &amp;= \frac{\bar{x} - \mu}{\sigma / \sqrt{n}} \sim N(0,1) \\
-
-t &amp;= \frac{\bar{x} - \mu}{s/\sqrt{n}} \sim T
-\end{split}\]</span>
-<p>참고로 다음은 오차 (error), 편차/잔차 (deviance/residual), 그리고 편향 (bias) 에대한 개념을 나타냅니다.</p>
-<p><img src="images/08/03.png" /></p>
-<p>이제 확률변수 평균 <span class="math inline">\(\bar{x}\)</span>의 95% 신뢰구간을 구해봅니다. 이는 앞서 언급한바와 같이 샘플링 후 평균을 구하는 과정을 계속 반복할 경우 데이터의 95% 가 어디 있는가에 대한 질문과 같으며 이는 위와 같은 대칭형 표준정규분포에서 왼쪽 0.025% 와 오른쪽 0.025%를 제외한 가운데 부분의 데이터를 말합니다.</p>
-<p><span class="math display">\[
-\begin{split}
--3.33 &lt;  \frac{\bar{x} - \mu}{s/\sqrt{n}} &lt; 3.07 \\
-\bar{x} -3.33 \times s/\sqrt{n}  &lt; \mu &amp;&lt; \bar{x} + 3.07 \times s/\sqrt{4}  
-\end{split}
-\]</span></p>
-<p><img src="images/08/04.png" /></p>
-</div>
-<div id="bootstrap" class="section level2">
-<h2><span class="header-section-number">8.5</span> Bootstrap</h2>
-<p>분포를 모를 경우 분포를 생성하는 방법으로 적당한 수의 샘플 수가 있을 경우에 가능한 방법입니다. UsingR 패키지의 Dedicare 데이터셋을 예로 들면, 병원비 청구 금액과 지불금액의 차이가 큰 범위의 분포를 가지고 있는 상황이며 합리적인 (?) 신뢰구간을 구하는 문제입니다.</p>
-<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="statistical-inference.html#cb188-1"></a><span class="kw">suppressWarnings</span>(<span class="kw">suppressMessages</span>(<span class="kw">library</span>(UsingR, <span class="dt">quietly =</span> T)))</span>
-<span id="cb188-2"><a href="statistical-inference.html#cb188-2"></a><span class="kw">suppressWarnings</span>(<span class="kw">suppressMessages</span>(<span class="kw">library</span>(ggplot2)))</span>
-<span id="cb188-3"><a href="statistical-inference.html#cb188-3"></a>diabetes &lt;-<span class="st"> </span><span class="kw">subset</span>(Medicare, <span class="dt">subset=</span> DRG.Definition <span class="op">==</span><span class="st">&quot;638 - DIABETES W CC&quot;</span>)</span>
-<span id="cb188-4"><a href="statistical-inference.html#cb188-4"></a>gap &lt;-<span class="st"> </span><span class="kw">with</span>(diabetes, Average.Covered.Charges<span class="op">-</span>Average.Total.Payments)</span>
-<span id="cb188-5"><a href="statistical-inference.html#cb188-5"></a><span class="kw">ggplot</span>(<span class="kw">data.frame</span>(gap), <span class="kw">aes</span>(<span class="dt">x=</span>gap)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>(<span class="dt">bins=</span><span class="dv">30</span>)</span></code></pre></div>
-<p><code>sample</code> 함수 복원 추출 허용 분포를 생성합니다.</p>
-<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="statistical-inference.html#cb189-1"></a>M &lt;-<span class="st"> </span><span class="dv">2000</span></span>
-<span id="cb189-2"><a href="statistical-inference.html#cb189-2"></a>res &lt;-<span class="st"> </span><span class="kw">replicate</span>(M, {</span>
-<span id="cb189-3"><a href="statistical-inference.html#cb189-3"></a>  xstar &lt;-<span class="st"> </span><span class="kw">sample</span>(gap, <span class="kw">length</span>(gap), <span class="dt">replace=</span>T)</span>
-<span id="cb189-4"><a href="statistical-inference.html#cb189-4"></a>  <span class="kw">mean</span>(xstar) <span class="op">-</span><span class="st"> </span>xbar</span>
-<span id="cb189-5"><a href="statistical-inference.html#cb189-5"></a>})</span>
-<span id="cb189-6"><a href="statistical-inference.html#cb189-6"></a>conf95 &lt;-<span class="st"> </span><span class="kw">quantile</span>(res, <span class="kw">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span>
-<span id="cb189-7"><a href="statistical-inference.html#cb189-7"></a><span class="kw">ggplot</span>(<span class="kw">data.frame</span>(res), <span class="kw">aes</span>(<span class="dt">x=</span>res)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb189-8"><a href="statistical-inference.html#cb189-8"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">bins=</span><span class="dv">30</span>) <span class="op">+</span></span>
-<span id="cb189-9"><a href="statistical-inference.html#cb189-9"></a><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept=</span>conf95, <span class="dt">linetype=</span><span class="st">&quot;dashed&quot;</span>, <span class="dt">color=</span><span class="st">&#39;blue&#39;</span>, <span class="dt">size=</span><span class="fl">1.2</span>) <span class="op">+</span></span>
-<span id="cb189-10"><a href="statistical-inference.html#cb189-10"></a><span class="st">  </span><span class="kw">geom_label</span>(<span class="kw">aes</span>(<span class="dt">x=</span>conf95[<span class="dv">1</span>], <span class="dt">y=</span><span class="dv">400</span>, <span class="dt">label=</span><span class="kw">round</span>(conf95[<span class="dv">1</span>]))) <span class="op">+</span></span>
-<span id="cb189-11"><a href="statistical-inference.html#cb189-11"></a><span class="st">  </span><span class="kw">geom_label</span>(<span class="kw">aes</span>(<span class="dt">x=</span>conf95[<span class="dv">2</span>], <span class="dt">y=</span><span class="dv">400</span>, <span class="dt">label=</span><span class="kw">round</span>(conf95[<span class="dv">2</span>])))</span></code></pre></div>
-</div>
-<div id="interpretation-of-confidence-interval" class="section level2">
-<h2><span class="header-section-number">8.6</span> interpretation of confidence interval</h2>
-<p><img src="images/08/07.PNG" /></p>
+<p><a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="크리에이티브 커먼즈 라이선스" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />이 저작물은 <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">크리에이티브 커먼즈 저작자표시-비영리-변경금지 4.0 국제 라이선스</a>에 따라 이용할 수 있습니다.</p>
 
 </div>
 </div>
