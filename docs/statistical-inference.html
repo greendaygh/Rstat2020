@@ -24,7 +24,7 @@
 <meta name="author" content="한국생명공학연구원 김하성" />
 
 
-<meta name="date" content="2020-11-19" />
+<meta name="date" content="2020-11-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -472,7 +472,7 @@ z= \frac{\bar{x} - \mu}{(\sigma/\sqrt{n})}
 <span id="cb182-22"><a href="statistical-inference.html#cb182-22"></a><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dt">label=</span><span class="kw">round</span>(z,<span class="dv">2</span>), <span class="dt">x=</span><span class="op">-</span><span class="fl">0.7</span>, <span class="dt">y=</span><span class="fl">0.07</span>) </span>
 <span id="cb182-23"><a href="statistical-inference.html#cb182-23"></a>  </span>
 <span id="cb182-24"><a href="statistical-inference.html#cb182-24"></a>p</span></code></pre></div>
-<p>정규분포에서 관측값보다 더 작은 값이 관측될 확률 (<span class="math inline">\(p(\bar{X} &lt; 100)=p(Z&lt;-1.98)\)</span>)은 <code>pnorm</code> 함수를 사용해서 구할 수 있으며 시뮬레이션을 이용할 수도 있습니다.</p>
+<p>정규분포에서 관측값보다 더 작은 값이 관측될 확률 (<span class="math inline">\(p(\bar{X} &lt; 90)=p(Z&lt;-1.98)\)</span>)은 <code>pnorm</code> 함수를 사용해서 구할 수 있으며 시뮬레이션을 이용할 수도 있습니다.</p>
 <div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="statistical-inference.html#cb183-1"></a>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">x=</span><span class="op">-</span><span class="fl">2.2</span>, <span class="dt">xend=</span><span class="op">-</span><span class="fl">2.2</span>, <span class="dt">y=</span><span class="fl">0.1</span>, <span class="dt">yend=</span><span class="fl">0.01</span>), </span>
 <span id="cb183-2"><a href="statistical-inference.html#cb183-2"></a>                 <span class="dt">arrow =</span> <span class="kw">arrow</span>(<span class="dt">length =</span> <span class="kw">unit</span>(<span class="fl">0.1</span>, <span class="st">&quot;inches&quot;</span>)),</span>
 <span id="cb183-3"><a href="statistical-inference.html#cb183-3"></a>                 <span class="dt">size=</span><span class="dv">1</span>) <span class="op">+</span><span class="st"> </span></span>
@@ -483,7 +483,7 @@ z= \frac{\bar{x} - \mu}{(\sigma/\sqrt{n})}
 <span id="cb183-8"><a href="statistical-inference.html#cb183-8"></a>n &lt;-<span class="st"> </span><span class="dv">1000</span></span>
 <span id="cb183-9"><a href="statistical-inference.html#cb183-9"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(n, <span class="dv">0</span>, <span class="dv">1</span>)</span>
 <span id="cb183-10"><a href="statistical-inference.html#cb183-10"></a><span class="kw">sum</span>(x <span class="op">&lt;</span><span class="st"> </span>z)<span class="op">/</span>n</span></code></pre></div>
-<p>이제 <span class="math inline">\(p(X&lt;100)=0.024\)</span> 값의 의미를 생각해 봅니다. 이 확률은 회사측이 주장하는 <span class="math inline">\(\mu\)</span> = 100 이라는 가설을 전재로 합니다. 즉, <span class="math inline">\(p(X&lt;100|\mu=100)=0.024\)</span> 입니다. 이는 X &lt; 100 라는 사건이 굉장히 낮은 확률로 일어났다고도 볼 수 있으나 가설이 틀렸다고 보는 것이 합리적입니다. 따라서 회사측이 주장하는 사탕 평균 무게 100g의 주장을 기각하며 소비자측의 주장 <span class="math inline">\(\mu &lt; 100\)</span> 즉 사탕이 100g 보다 작다는 주장을 강하게 지지하는 결과 입니다.</p>
+<p>이제 <span class="math inline">\(p(X&lt;90)=0.024\)</span> 값의 의미를 생각해 봅니다. 이 확률은 회사측이 주장하는 <span class="math inline">\(\mu\)</span> = 100 이라는 가설을 전재로 합니다. 즉, <span class="math inline">\(p(X&lt;90|\mu=100)=0.024\)</span> 입니다. 이는 X &lt; 90 라는 사건이 굉장히 낮은 확률로 일어났다고도 볼 수 있으나 가설이 틀렸다고 보는 것이 합리적입니다. 따라서 회사측이 주장하는 사탕 평균 무게 100g의 주장을 기각하며 소비자측의 주장 <span class="math inline">\(\mu &lt; 100\)</span> 즉 사탕이 100g 보다 작다는 주장을 강하게 지지하는 결과 입니다.</p>
 </div>
 <div id="t-statistics" class="section level2">
 <h2><span class="header-section-number">8.4</span> t-statistics</h2>
