@@ -24,7 +24,7 @@
 <meta name="author" content="한국생명공학연구원 김하성" />
 
 
-<meta name="date" content="2020-11-15" />
+<meta name="date" content="2020-11-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -295,7 +295,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="8.1" data-path="statistical-inference.html"><a href="statistical-inference.html#introduction"><i class="fa fa-check"></i><b>8.1</b> Introduction</a></li>
 <li class="chapter" data-level="8.2" data-path="statistical-inference.html"><a href="statistical-inference.html#simulation"><i class="fa fa-check"></i><b>8.2</b> Simulation</a></li>
-<li class="chapter" data-level="8.3" data-path="statistical-inference.html"><a href="statistical-inference.html#significance-tests"><i class="fa fa-check"></i><b>8.3</b> Significance tests</a></li>
+<li class="chapter" data-level="8.3" data-path="statistical-inference.html"><a href="statistical-inference.html#z-statistics-with-simulation"><i class="fa fa-check"></i><b>8.3</b> z-statistics with simulation</a></li>
+<li class="chapter" data-level="8.4" data-path="statistical-inference.html"><a href="statistical-inference.html#t-statistics"><i class="fa fa-check"></i><b>8.4</b> t-statistics</a></li>
+<li class="chapter" data-level="8.5" data-path="statistical-inference.html"><a href="statistical-inference.html#two-sample-significance-tests"><i class="fa fa-check"></i><b>8.5</b> Two sample significance tests</a></li>
+<li class="chapter" data-level="8.6" data-path="statistical-inference.html"><a href="statistical-inference.html#estimation-and-confidence-interval"><i class="fa fa-check"></i><b>8.6</b> Estimation and confidence interval</a></li>
+<li class="chapter" data-level="8.7" data-path="statistical-inference.html"><a href="statistical-inference.html#bootstrap"><i class="fa fa-check"></i><b>8.7</b> Bootstrap</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -884,8 +888,8 @@ P(X \gt s+t | X \gt t) = P(X &gt; s)
 </div>
 <div id="the-central-limit-theorem" class="section level2">
 <h2><span class="header-section-number">7.9</span> The central limit theorem</h2>
-<p>앞서 표본분포 (통계량의 분포) 설명에서 통계량 표본평균의 기대값은 <span class="math inline">\(\mu\)</span> 이고 표본평균의 분산은 <span class="math inline">\(\sigma/\sqrt{n}\)</span> 이라고 했습니다. 중심극한정리는 (The central limit theorem) 표본평균의 기대값에 대한 분포가 <span class="math inline">\(n\)</span>이 충분히 클 경우 정규분포에 수렴한다는 이론입니다. 참고로 <span class="math inline">\(n\)</span>은 반복해서 표본평균을 계산한 횟수가 아닌 특정 표본평균을 구하기 위해 사용한 표본의 갯수 입니다. 이 이론의 중요한 포인트 중 하나는 모집단의 분포와 상관없이 항상 성립한다는 점 입니다.</p>
-<p>다음은 균등분포에서 표본평균의 기대값 <span class="math inline">\(E(\bar{X})\)</span>가 모평균에 수렴하고 <span class="math inline">\(n\)</span>이 커질수록 정규분포에 가까워짐을 나타내는 코드입니다. 참고로 <code>runif()</code> 함수는 [0,1] 구간에서 등확율을 갖는 분포이며 평균은 0.5 입니다.</p>
+<p>앞서 표본분포 (통계량의 분포) 설명에서 통계량 표본평균의 기대값은 <span class="math inline">\(\mu\)</span> 이고 표본평균의 분산은 <span class="math inline">\(\sigma/\sqrt{n}\)</span> 이라고 했습니다. 중심극한정리는 (The central limit theorem) 표본평균에 대한 분포가 <span class="math inline">\(n\)</span>이 충분히 클 경우 정규분포에 수렴한다는 이론입니다. 참고로 <span class="math inline">\(n\)</span>은 반복해서 표본평균을 계산한 횟수가 아닌 특정 표본평균을 구하기 위해 사용한 표본의 갯수 입니다. 이 이론의 중요한 포인트 중 하나는 모집단의 분포와 상관없이 항상 성립한다는 점 입니다.</p>
+<p>다음은 균등분포에서 표본평균의 기대값 <span class="math inline">\(E(\bar{X})\)</span>가 모평균에 수렴하고 <span class="math inline">\(n\)</span>이 커질수록 표본평균이 정규분포에 가까워짐을 나타내는 코드입니다. 참고로 <code>runif()</code> 함수는 [0,1] 구간에서 등확율을 갖는 분포이며 평균은 0.5 입니다.</p>
 <div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="populations.html#cb174-1"></a><span class="co">## uniform distribution</span></span>
 <span id="cb174-2"><a href="populations.html#cb174-2"></a>n &lt;-<span class="st"> </span><span class="dv">5</span></span>
 <span id="cb174-3"><a href="populations.html#cb174-3"></a>xs &lt;-<span class="st"> </span><span class="kw">replicate</span>(<span class="dv">5000</span>, <span class="kw">mean</span>(<span class="kw">runif</span>(n)))</span>
