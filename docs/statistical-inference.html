@@ -300,6 +300,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.5" data-path="statistical-inference.html"><a href="statistical-inference.html#two-sample-significance-tests"><i class="fa fa-check"></i><b>8.5</b> Two sample significance tests</a></li>
 <li class="chapter" data-level="8.6" data-path="statistical-inference.html"><a href="statistical-inference.html#estimation-and-confidence-interval"><i class="fa fa-check"></i><b>8.6</b> Estimation and confidence interval</a></li>
 <li class="chapter" data-level="8.7" data-path="statistical-inference.html"><a href="statistical-inference.html#bootstrap"><i class="fa fa-check"></i><b>8.7</b> Bootstrap</a></li>
+<li class="chapter" data-level="8.8" data-path="statistical-inference.html"><a href="statistical-inference.html#problem-08"><i class="fa fa-check"></i><b>8.8</b> Problem 08</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -649,6 +650,22 @@ E((\hat{\theta} - \theta)^2) = VAR(\hat{\theta}) + (E(\hat{\theta}-\theta))^2 = 
 <span id="cb191-14"><a href="statistical-inference.html#cb191-14"></a></span>
 <span id="cb191-15"><a href="statistical-inference.html#cb191-15"></a>xbar <span class="op">+</span><span class="st"> </span>conf95</span></code></pre></div>
 <p>따라서 해석은 병원비 청구금액과 지불금액의 차이에 대한 모평균의 95% 신뢰구간은 (13097.79, 18068.15)이며 이는 반복해서 100번의 신뢰구간을 구했을 때 95개의 신뢰구간이 모평균을 포함할 수 있는 구간이다 라고 해석할 수 있습니다.</p>
+</div>
+<div id="problem-08" class="section level2">
+<h2><span class="header-section-number">8.8</span> Problem 08</h2>
+<p><code>datasets</code> 패키지의 <code>co2</code> 데이터셋은 1959년부터 1997년 사이 측정된 공기중 이산화탄소의 농도이다. 연구자들은 1997년이 1959년보다 더 많은 CO2가 방출되고 있다고 주장하고 있다. 이들의 주장을 통계적으로 검증하기 위해서 데이터를 두 그룹으로 나누고 두 그룹간의 차이가 유의한지 시뮬레이션에 의한 방법으로 알아보고자 한다. 통계적 검증은 1997년과 1959년 CO2 방출량이 같다라는 가정을 하고 평균의 차이값에 대한 분포에서의 확률을 구한 후 확률이 낮으면 같다라는 가정이 틀린 것으로 확률이 높으면 가정이 맞는 것으로 한다.</p>
+<ol style="list-style-type: decimal">
+<li>1959년 데이터들을 co2a 변수에 저장하고 1997년 데이터들을 co2b 변수에 저장하시오</li>
+</ol>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="statistical-inference.html#cb192-1"></a>co2a &lt;-<span class="st"> </span>co2[<span class="dv">1</span><span class="op">:</span><span class="dv">12</span>]</span>
+<span id="cb192-2"><a href="statistical-inference.html#cb192-2"></a>co2b &lt;-<span class="st"> </span>co2[<span class="dv">457</span><span class="op">:</span><span class="dv">468</span>]</span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li><p>두 그룹간 평균의 차이값을 obsdiff 변수에 저장하시오 (co2a - co2b)</p></li>
+<li><p>두 그룹을 하나의 데이터셋으로 만들고 이 데이터셋에서 임의로 12개씩 샘플을 두 번 뽑아 평균의 차이를 계산하시오 (복원추출)</p></li>
+<li><p>위 3)을 1000번 반복하고 각 계산된 값을 diff_vals 라는 변수에 저장하고 ggplot을 이용해서 히스토그램을 그리시오</p></li>
+<li><p>diff_vals 값들 중 obsdiff 보다 큰 값들의 비율 emp_pval을 구하시오</p></li>
+<li><p>emp_pval 값의 의미를 해석하고 문제에서 설정한 가정의 맞고 틀림에 대한 결론을 내리시오</p></li>
+</ol>
 <p><a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="크리에이티브 커먼즈 라이선스" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />이 저작물은 <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">크리에이티브 커먼즈 저작자표시-비영리-변경금지 4.0 국제 라이선스</a>에 따라 이용할 수 있습니다.</p>
 
 </div>
