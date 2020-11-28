@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 R basics | R로 배우는 기초통계</title>
+  <title>Chapter 9 Confidence intervals | R로 배우는 기초통계</title>
   <meta name="description" content="UST lecture web site" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 R basics | R로 배우는 기초통계" />
+  <meta property="og:title" content="Chapter 9 Confidence intervals | R로 배우는 기초통계" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 R basics | R로 배우는 기초통계" />
+  <meta name="twitter:title" content="Chapter 9 Confidence intervals | R로 배우는 기초통계" />
   
   <meta name="twitter:description" content="UST lecture web site" />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html"/>
-<link rel="next" href="univariat-data.html"/>
+<link rel="prev" href="statistical-inference.html"/>
+
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -327,324 +327,72 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="r-basics" class="section level1">
-<h1><span class="header-section-number">Chapter 2</span> R basics</h1>
-<div id="what-is-r-rstudio" class="section level2">
-<h2><span class="header-section-number">2.1</span> What is R / Rstudio</h2>
-<p><img src="images/01/r.jpg" /></p>
-<p>R은 통계나 생물통계, 유전학을 연구하는 사람들 사이에서 널리 사용되는 오픈소스 프로그래밍 언어 입니다. Bell Lab에서 개발한 S 언어에서 유래했으며 엄청나게 많은 라이브러리 (다른 사람들이 만들어 놓은 코드)가 있어서 쉽게 가져다 사용할 수 있습니다. R은 복잡한 수식이나 통계 알고리즘을 간단히 구현하고 사용할 수 있으며 C, C++, Python 등 다른 언어들과의 병행 사용도 가능합니다. 2019년 top five language에 랭크 되었으며 이는 빅데이터 증가에 따라 인기가 높아진 것으로 볼 수 있습니다 (참고로 2018년에는 7위).</p>
-<p><img src="images/01/topproglang.jpeg" width="450" /></p>
-<p>Despite being a much more specialized language than the others, it’s maintained its popularity in recent years due to the world being awash in an ever-growing pile of big data.
-<a href="https://spectrum.ieee.org/computing/software/the-top-programming-languages-2019" class="uri">https://spectrum.ieee.org/computing/software/the-top-programming-languages-2019</a></p>
-<p>R은 통계분석에 널리 사용되는데 이는 데이터 가시화를 위한 그래픽 기능이나 벡터 연산 등의 편리함 때문에 점점 더 많은 사람들이 사용하고 있습니다. 기존에는 느린 속도나 부족한 확장성이 다른 언어들에 비해 단점으로 지적되었으나 R 언어의 계속적인 개발과 업데이트로 이러한 단점들이 빠르게 극복되고 있습니다. R 사용을 위해서는 R 언어의 코어 프로그램을 먼저 설치하고 그 다음 R 언어용 IDE인 RStudio 설치가 필요합니다.</p>
-<p><img src="images/01/22.PNG" /></p>
-<p><img src="images/01/23.PNG" /></p>
-</div>
-<div id="r-rstudio-installation" class="section level2">
-<h2><span class="header-section-number">2.2</span> R / Rstudio installation</h2>
-<div id="r-설치" class="section level3">
-<h3><span class="header-section-number">2.2.1</span> R 설치</h3>
-<ul>
-<li>R 사이트에 접속 후 (<a href="https://www.r-project.org/" class="uri">https://www.r-project.org/</a>) 좌측 메뉴 상단에 위치한 CRAN 클릭.</li>
-<li>미러 사이트 목록에서 Korea의 아무 사이트나 들어감</li>
-<li>Download R for Windows를 클릭 후 base 링크 들어가서</li>
-<li>Download R x.x.x for Windows 링크 클릭으로 실행 프로그램 다운로드 - 로컬 컴퓨터에 Download 된 R-x.x.x-win.exe 를 실행</li>
-<li>설치 가이드에 따라 R 언어 소프트웨어 설치 완료</li>
-</ul>
-</div>
-<div id="rstudio-설치" class="section level3">
-<h3><span class="header-section-number">2.2.2</span> Rstudio 설치</h3>
-<p>Rstudio는 R 언어를 위한 오픈소스 기반 통합개발환경(IDE)으로 R 프로그래밍을 위한 편리한 기능들을 제공해 줍니다.</p>
-<ul>
-<li>사이트에 접속 (<a href="https://www.rstudio.com/" class="uri">https://www.rstudio.com/</a>), 상단의 Products &gt; RStudio 클릭</li>
-<li>RStudio Desktop 선택</li>
-<li>Download RStudio Desktop 클릭</li>
-<li>RStudio Desktop Free 버전의 Download를 선택하고</li>
-<li>Download RStudio for Windows 클릭, 다운로드</li>
-<li>로컬 컴퓨터에 다운로드된 RStudio-x.x.x.exe 실행</li>
-<li>설치 가이드에 따라 설치 완료</li>
-</ul>
-</div>
-</div>
-<div id="rstudio-interface" class="section level2">
-<h2><span class="header-section-number">2.3</span> Rstudio interface</h2>
-<ul>
-<li>좌측 상단의 공간은 코드편집창, 좌측 하단은 콘솔창 이며 각 위치를 기호에 따라서 바꿀 수 있습니다.
-<img src="images/01/01-11.PNG" /></li>
-</ul>
-</div>
-<div id="keyboard-shortcuts" class="section level2">
-<h2><span class="header-section-number">2.4</span> Keyboard shortcuts</h2>
-<ul>
-<li>참고사이트
-<ul>
-<li><a href="https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts" class="uri">https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts</a></li>
-<li>Tools –&gt; Keyboard shortcut Quick Reference (<code>Alt + Shift + K</code>)</li>
-</ul></li>
-<li>코드편집창 이동 (<code>Ctrl+1</code>) 콘솔창 이동(<code>Ctrl+2</code>)</li>
-<li>한 줄 실행 (<code>Ctrl+Enter</code>)</li>
-<li>주석처리 (<code>Ctrl + Shift + C</code>)
-<ul>
-<li>또는 <code>#</code>으로 시작하는 라인</li>
-</ul></li>
-<li>실습
-<ul>
-<li>코드편집창에서 다음 입력</li>
-<li><img src="images/01/01-14.PNG" /><br />
-</li>
-<li>단축키 <code>Ctrl + enter</code>로 코드 실행</li>
-<li>단축키 <code>Ctrl + 2</code>로 커서 콘솔창으로 이동</li>
-<li><code>x</code>값 <code>x+y</code>값 확인</li>
-<li>단축키 <code>Ctrl + 1</code>로 코드편집창 이동</li>
-<li>단축키 <code>Ctrl + Shift + C</code> 사용</li>
-</ul></li>
-</ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="r-basics.html#cb1-1"></a><span class="co"># x &lt;- 10</span></span>
-<span id="cb1-2"><a href="r-basics.html#cb1-2"></a><span class="co"># y &lt;- 20</span></span></code></pre></div>
-</div>
-<div id="r-programming-basics-and-terminology" class="section level2">
-<h2><span class="header-section-number">2.5</span> R programming basics and terminology</h2>
-<ul>
-<li>Console: 명령어 입력하는 창</li>
-<li>Code: R 프로그래밍 변수/제어문 모음<br />
-</li>
-<li>Objects (개체, variable): 값이 (데이터) 저장되는 장소</li>
-<li>Data types: Integers, doubles/numerics, logicals, and characters.</li>
-<li>Object (Variable) types:
-<ul>
-<li>Vectors: 값들의 모임 combine function c() EX: c(6, 11, 13, 31, 90, 92)</li>
-<li>Factors: 범주형 데이터 저장 장소</li>
-<li>Data frames: 2D matrix 형태 데이터 저장 장소</li>
-</ul></li>
-<li>Conditionals (조건, 제어):
-<ul>
-<li>if: ==, &amp; (AND), | (OR) Ex: (2 + 1 == 3) &amp; (2 + 1 == 4)</li>
-<li>for, while: 반복 수</li>
-</ul></li>
-<li>Functions (함수, commands): 특정 일 수행, 함수이름 - 입력값 (arguments) - 출력값 (output) 으로 구성</li>
-</ul>
-</div>
-<div id="set-a-working-directory" class="section level2">
-<h2><span class="header-section-number">2.6</span> Set a working directory</h2>
-<ul>
-<li>시작 전 항상 작업 디렉토리 설정</li>
-<li>예를 들어 c: 아래 새로운 디렉토리 rstat01 을 만들고 작업공간으로 설정</li>
-</ul>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="r-basics.html#cb2-1"></a><span class="kw">getwd</span>()</span>
-<span id="cb2-2"><a href="r-basics.html#cb2-2"></a><span class="kw">dir</span>()</span>
-<span id="cb2-3"><a href="r-basics.html#cb2-3"></a><span class="kw">setwd</span>(<span class="st">&quot;C:</span><span class="ch">\\</span><span class="st">rstat01&quot;</span>)</span>
-<span id="cb2-4"><a href="r-basics.html#cb2-4"></a><span class="kw">getwd</span>()</span>
-<span id="cb2-5"><a href="r-basics.html#cb2-5"></a><span class="kw">dir</span>()</span></code></pre></div>
-<ul>
-<li>RStudio &gt; Session &gt; Set Working Directory &gt; Choose Directory</li>
-</ul>
-</div>
-<div id="r-coding-practice" class="section level2">
-<h2><span class="header-section-number">2.7</span> R coding practice</h2>
-<ul>
-<li>콘솔 계산기</li>
-</ul>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="r-basics.html#cb3-1"></a><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span></span>
-<span id="cb3-2"><a href="r-basics.html#cb3-2"></a>((<span class="dv">2</span> – <span class="dv">1</span>)<span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> – <span class="dv">3</span>)<span class="op">^</span><span class="dv">2</span> )<span class="op">^</span>(<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)</span>
-<span id="cb3-3"><a href="r-basics.html#cb3-3"></a><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="dv">2</span>; <span class="dv">2</span> <span class="op">-</span><span class="st"> </span><span class="dv">2</span></span></code></pre></div>
-<ul>
-<li>이전 명령: 콘솔에서 위 아래 화살표</li>
-</ul>
-</div>
-<div id="variables-and-values" class="section level2">
-<h2><span class="header-section-number">2.8</span> Variables and values</h2>
-<ul>
-<li>프로그래밍 언에어서 변수, 값 개념</li>
-<li>Assignment operator ( <code>&lt;-</code> OR <code>=</code> )
-<ul>
-<li>Valid object name <code>&lt;-</code> value</li>
-<li>단축키: <code>Alt + -</code> (the minus sign)</li>
-</ul></li>
-</ul>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="r-basics.html#cb4-1"></a>x &lt;-<span class="st"> </span><span class="dv">2</span></span>
-<span id="cb4-2"><a href="r-basics.html#cb4-2"></a>y &lt;-<span class="st"> </span>x<span class="op">^</span><span class="dv">2</span> – <span class="dv">2</span><span class="op">*</span>x <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
-<span id="cb4-3"><a href="r-basics.html#cb4-3"></a>y</span>
-<span id="cb4-4"><a href="r-basics.html#cb4-4"></a>x &lt;-<span class="st"> &quot;two&quot;</span>  </span>
-<span id="cb4-5"><a href="r-basics.html#cb4-5"></a>some_data &lt;-<span class="st"> </span><span class="fl">9.8</span></span></code></pre></div>
-<ul>
-<li>내장 변수 Built-in variables</li>
-</ul>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="r-basics.html#cb5-1"></a>pi</span></code></pre></div>
-<ul>
-<li>변수이름 작명법
-<ul>
-<li>문자, 숫자, “_”, “.” 등으로 구성</li>
-<li>대소문자 구분</li>
-<li>가독성, 의미있는 변수 이름</li>
-<li>길이 제한 없음</li>
-</ul></li>
-</ul>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="r-basics.html#cb6-1"></a>i_use_snake_case &lt;-<span class="st"> </span><span class="dv">1</span></span>
-<span id="cb6-2"><a href="r-basics.html#cb6-2"></a>otherPeopleUseCamelCase &lt;-<span class="st"> </span><span class="dv">2</span></span>
-<span id="cb6-3"><a href="r-basics.html#cb6-3"></a>some.people.use.periods &lt;-<span class="st"> </span><span class="dv">3</span></span>
-<span id="cb6-4"><a href="r-basics.html#cb6-4"></a>And_aFew.People_RENOUNCEconvention &lt;-<span class="st"> </span><span class="dv">4</span></span></code></pre></div>
-<ul>
-<li>자동 완성 기능 (Tab completion) in RStudio</li>
-</ul>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="r-basics.html#cb7-1"></a><span class="kw">boxplot</span>()</span></code></pre></div>
-</div>
-<div id="variable-type-of-storage-mode" class="section level2">
-<h2><span class="header-section-number">2.9</span> Variable type of (storage) mode</h2>
-<p><img src="images/01/01-13.PNG" /></p>
-</div>
-<div id="variable---vectors" class="section level2">
-<h2><span class="header-section-number">2.10</span> Variable - Vectors</h2>
-<ul>
-<li>Combine function <code>c()</code>: Concatenating elements end to end</li>
-</ul>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="r-basics.html#cb8-1"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">10.4</span>, <span class="fl">5.6</span>, <span class="fl">3.1</span>, <span class="fl">6.4</span>, <span class="fl">21.7</span>) </span>
-<span id="cb8-2"><a href="r-basics.html#cb8-2"></a>y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;X1&quot;</span>, <span class="st">&quot;Y2&quot;</span>,  <span class="st">&quot;X3&quot;</span>,  <span class="st">&quot;Y4&quot;</span>)</span></code></pre></div>
-<ul>
-<li>인덱싱: Subsets of the elements of a vector</li>
-</ul>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="r-basics.html#cb9-1"></a>x[<span class="dv">1</span>]</span>
-<span id="cb9-2"><a href="r-basics.html#cb9-2"></a>x[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]</span>
-<span id="cb9-3"><a href="r-basics.html#cb9-3"></a>x[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">4</span>)]</span>
-<span id="cb9-4"><a href="r-basics.html#cb9-4"></a>y[<span class="dv">3</span>]</span></code></pre></div>
-</div>
-<div id="functions" class="section level2">
-<h2><span class="header-section-number">2.11</span> Functions</h2>
-<ul>
-<li>Function 정의</li>
-</ul>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="r-basics.html#cb10-1"></a>my_sine &lt;-<span class="st"> </span><span class="cf">function</span>(x){</span>
-<span id="cb10-2"><a href="r-basics.html#cb10-2"></a>	y &lt;-<span class="st"> </span><span class="kw">sin</span>(x)</span>
-<span id="cb10-3"><a href="r-basics.html#cb10-3"></a>	<span class="kw">return</span>(y)</span>
-<span id="cb10-4"><a href="r-basics.html#cb10-4"></a>}</span></code></pre></div>
-<ul>
-<li>사용법</li>
-</ul>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="r-basics.html#cb11-1"></a><span class="kw">my_sine</span>(pi)</span></code></pre></div>
-<ul>
-<li>용어
-<ul>
-<li>function name: <code>my_sine</code></li>
-<li>parameter: <code>x</code></li>
-<li>argument: <code>pi</code></li>
-<li>return value: <code>y</code></li>
-</ul></li>
-</ul>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="r-basics.html#cb12-1"></a><span class="kw">log</span>(<span class="dv">100</span>)</span>
-<span id="cb12-2"><a href="r-basics.html#cb12-2"></a>?log</span>
-<span id="cb12-3"><a href="r-basics.html#cb12-3"></a><span class="kw">log</span>(<span class="dv">100</span>, <span class="dt">base=</span><span class="dv">10</span>)</span>
-<span id="cb12-4"><a href="r-basics.html#cb12-4"></a><span class="kw">log</span>(<span class="dv">100</span>, <span class="dv">10</span>)</span></code></pre></div>
-<ul>
-<li>R code 스니핏</li>
-</ul>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="r-basics.html#cb13-1"></a>fun</span></code></pre></div>
-<ul>
-<li>내장 함수 (Built-in functions)
-<ul>
-<li>Tab completion</li>
-</ul></li>
-</ul>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="r-basics.html#cb14-1"></a>x &lt;-<span class="st"> </span>pi</span>
-<span id="cb14-2"><a href="r-basics.html#cb14-2"></a><span class="kw">sin</span>(x)</span>
-<span id="cb14-3"><a href="r-basics.html#cb14-3"></a><span class="kw">sqrt</span>(x)</span>
-<span id="cb14-4"><a href="r-basics.html#cb14-4"></a><span class="kw">log</span>(x)</span>
-<span id="cb14-5"><a href="r-basics.html#cb14-5"></a><span class="kw">log</span>(x, <span class="dv">10</span>)</span>
-<span id="cb14-6"><a href="r-basics.html#cb14-6"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>)</span>
-<span id="cb14-7"><a href="r-basics.html#cb14-7"></a>x <span class="op">+</span><span class="st"> </span>x</span>
-<span id="cb14-8"><a href="r-basics.html#cb14-8"></a><span class="kw">mean</span>(x)</span>
-<span id="cb14-9"><a href="r-basics.html#cb14-9"></a><span class="kw">sum</span>(x)<span class="op">/</span><span class="kw">length</span>(x)</span></code></pre></div>
-</div>
-<div id="vectorized-functions" class="section level2">
-<h2><span class="header-section-number">2.12</span> Vectorized functions</h2>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="r-basics.html#cb15-1"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>)</span>
-<span id="cb15-2"><a href="r-basics.html#cb15-2"></a>x <span class="op">+</span><span class="st"> </span>x</span>
-<span id="cb15-3"><a href="r-basics.html#cb15-3"></a><span class="kw">sqrt</span>(x)</span>
-<span id="cb15-4"><a href="r-basics.html#cb15-4"></a><span class="kw">sin</span>(x)</span>
-<span id="cb15-5"><a href="r-basics.html#cb15-5"></a><span class="kw">log</span>(x)</span>
-<span id="cb15-6"><a href="r-basics.html#cb15-6"></a>x<span class="op">-</span><span class="kw">mean</span>(x)</span></code></pre></div>
-</div>
-<div id="help" class="section level2">
-<h2><span class="header-section-number">2.13</span> Help</h2>
-<ul>
-<li>R의 장점 중 하나 (예제 포함)</li>
-</ul>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="r-basics.html#cb16-1"></a>?</span>
-<span id="cb16-2"><a href="r-basics.html#cb16-2"></a>?mean</span>
-<span id="cb16-3"><a href="r-basics.html#cb16-3"></a><span class="kw">help</span>(<span class="st">&quot;mean&quot;</span>)</span>
-<span id="cb16-4"><a href="r-basics.html#cb16-4"></a><span class="kw">example</span>(<span class="st">&quot;mean&quot;</span>)</span>
-<span id="cb16-5"><a href="r-basics.html#cb16-5"></a><span class="kw">help.search</span>(<span class="st">&quot;mean&quot;</span>)</span>
-<span id="cb16-6"><a href="r-basics.html#cb16-6"></a><span class="kw">help</span>(<span class="dt">package=</span><span class="st">&quot;MASS&quot;</span>)</span></code></pre></div>
-</div>
-<div id="r-packages" class="section level2">
-<h2><span class="header-section-number">2.14</span> R packages</h2>
-<ul>
-<li>R 패키지는 함수들의 모음으로 다른 사람들이 만들어 놓은 함수를 가져와서 사용할 수 있음</li>
-<li>예) sum() 은 “base” package에 있고 sd() 함수는 “stats” package에서 제공</li>
-<li>패키지를 구할 수 있는 가장 대표적인 사이트</li>
-<li>The Comprehensive R Archive Network (CRAN) - <a href="http://cran.r-project.org/web/views/" class="uri">http://cran.r-project.org/web/views/</a></li>
-<li>Bioconductor - <a href="http://www.bioconductor.org/packages/release/bioc/" class="uri">http://www.bioconductor.org/packages/release/bioc/</a></li>
-</ul>
-<p><img src="images/01/01-18.PNG" /></p>
-<ul>
-<li>UsingR package installation</li>
-</ul>
-<p><img src="images/01/01-19.PNG" /></p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="r-basics.html#cb17-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;UsingR&quot;</span>)</span></code></pre></div>
-<ul>
-<li>UsingR package loading</li>
-</ul>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="r-basics.html#cb18-1"></a><span class="kw">library</span>(UsingR)</span>
-<span id="cb18-2"><a href="r-basics.html#cb18-2"></a><span class="kw">help</span>(<span class="dt">package=</span><span class="st">&quot;UsingR&quot;</span>)</span></code></pre></div>
-<ul>
-<li>R 설치 디렉토리</li>
-<li>R 패키지 설치 디렉토리</li>
-</ul>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="r-basics.html#cb19-1"></a><span class="kw">.libPaths</span>()</span>
-<span id="cb19-2"><a href="r-basics.html#cb19-2"></a><span class="kw">path.package</span>()</span></code></pre></div>
-<p><img src="images/01/01-20.PNG" /></p>
-</div>
-<div id="data-sets" class="section level2">
-<h2><span class="header-section-number">2.15</span> Data sets</h2>
-<ul>
-<li>일반적으로 패키지 안에 관련된 데이터도 같이 저장</li>
-<li>data() function를 이용해서 패키지 데이터를 사용자 작업공간에 복사해서 사용 가능</li>
-</ul>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="r-basics.html#cb20-1"></a><span class="kw">head</span>(rivers)</span>
-<span id="cb20-2"><a href="r-basics.html#cb20-2"></a><span class="kw">length</span>(rivers)</span>
-<span id="cb20-3"><a href="r-basics.html#cb20-3"></a><span class="kw">class</span>(rivers)</span>
-<span id="cb20-4"><a href="r-basics.html#cb20-4"></a><span class="kw">data</span>(rivers)</span>
-<span id="cb20-5"><a href="r-basics.html#cb20-5"></a><span class="kw">data</span>(<span class="dt">package=</span><span class="st">&quot;UsingR&quot;</span>)</span>
-<span id="cb20-6"><a href="r-basics.html#cb20-6"></a><span class="kw">library</span>(HistData)</span>
-<span id="cb20-7"><a href="r-basics.html#cb20-7"></a><span class="kw">head</span>(Cavendish)</span>
-<span id="cb20-8"><a href="r-basics.html#cb20-8"></a><span class="kw">str</span>(Cavendish)</span>
-<span id="cb20-9"><a href="r-basics.html#cb20-9"></a><span class="kw">head</span>(Cavendish<span class="op">$</span>density2)</span></code></pre></div>
-</div>
-<div id="cheatsheet" class="section level2">
-<h2><span class="header-section-number">2.16</span> Cheatsheet</h2>
-<p><a href="https://rstudio.com/resources/cheatsheets/" class="uri">https://rstudio.com/resources/cheatsheets/</a></p>
-<p><img src="images/01/base-r_1.png" />
-<img src="images/01/base-r_2.png" /></p>
-</div>
-<div id="problems" class="section level2">
-<h2><span class="header-section-number">2.17</span> Problems</h2>
-<p>과제는 새로운 R 파일을 생성 후 코드를 작성하고 <code>영문이름-학번-날짜.R</code> 이름으로 저장하여 조교에게 이메일로 제출</p>
-<ul>
-<li>1.1 다음 공식들을 계산하는 R 코드를 작성하시오</li>
-</ul>
+<div id="confidence-intervals" class="section level1">
+<h1><span class="header-section-number">Chapter 9</span> Confidence intervals</h1>
+<p><img src="images/09/statistical_inference.png" /></p>
+<p>점추정의 경우 이항분포에서 모비율을 추정하는 추정량인 (estimator) <span class="math inline">\(np\)</span>나 정규분포의 표본평균의 추정량인 <span class="math inline">\(\bar{X} = \sum_{i=1}^n X_i/n\)</span> 등이 점추정량이고 이들은 모두 추정량의 특징인 불편성을 만족하는 불편추정량 (unbiased estimator)입니다. 불편추정량이란 점추정량 <span class="math inline">\(\hat{\theta}\)</span>의 기대치 <span class="math inline">\(E(\hat{\theta})\)</span>이 모집단의 모수 <span class="math inline">\(\theta\)</span>와 같은 추정량을 말하며 앞서 중심극한 정리에 의해서 표본평균의 기대값이 모평균과 같음을 배웠으므로 <span class="math inline">\(\bar{X}\)</span>가 불편추정량이 되는 것 입니다.</p>
+<p>그런데 점추정량은 표본에 따라서 다르고 오차에 대한 정보도 제공하지 못하므로 점추정량에 오차한계를 빼고 더해서 추정량의 하한치와 상한치를 구하여 모수를 포함하는 구간을 나타내는 신뢰구간을 사용합니다. 신뢰구간은 모수를 포함할 범위를 말하며 다음과 같이 정의할 수 있습니다.</p>
+<p>$$</p>
+<p>p( ) = 1 - </p>
+<p>$$</p>
+<p>여기서 1-<span class="math inline">\(\alpha\)</span>를 백분률로 치환한 값 <span class="math inline">\((1-\alpha)\cdot 100%\)</span>를 신뢰수준이라고 합니다. 여기서 <span class="math inline">\(\alpha\)</span>는 유의수준 (significance level)이며 신뢰구간 <span class="math inline">\([\hat{\theta_L}, \hat{\theta_U}]\)</span>에 모수 <span class="math inline">\(\theta\)</span>가 포함되지 않을 확률이라고 할 수 있습니다. 일반적으로 신뢰수준 90%, 95%, 99%에 상응하는 유의수준 <span class="math inline">\(\alpha\)</span>=0.1, 0.05, 0.01 이 사용됩니다. 95% 신뢰구간을 해석할 때 해당 구간에 모수를 포함할 확률이 95% 이다라고 해석할 수 있습니다. 틀린 해석이라고 할 수는 없지만 더 정확한 해석은 표본 추출을 100번 반복해서 100개의 신뢰구간을 구했을 때 그 중 95개의 신뢰구간이 모평균을 포함하는 구간이다 라고 해석하는 것입니다.</p>
+<div id="ci-for-population-proportion-p" class="section level2">
+<h2><span class="header-section-number">9.1</span> CI for population proportion, <span class="math inline">\(p\)</span></h2>
+<p>앞서 장에서는 시뮬레이션에 기반한 신뢰구간을 알아보았습니다. 아래는 분포 가정에 기반한 모비율 <span class="math inline">\(p\)</span>에 대한 신뢰구간을 구하는 방법입니다.</p>
 <p><span class="math display">\[
-\sqrt{(4+3)(2+1)} \\
-2^3 + 3^2 \\
-\frac{0.25 - 0.2}{\sqrt{0.2 (1-0.2)/100}}
+\frac{\hat{p}-p}{SE(\hat{p})} = \frac{observed - expected}{SE} \\
+SE(\hat{p}) = \sqrt{\frac{\hat{p}{(1-\hat{p})}}{n}} \\
 \]</span></p>
-<ul>
-<li><p>1.2 변수 <code>x</code>에 1, 3, 5, 7, 9를 저장하는 코드를 작성하시오</p></li>
-<li><p>1.3 변수 <code>y</code>에 2, 4, 6, 8, 10을 저장하는 코드를 작성하시오</p></li>
-<li><p>1.4 위 변수 <code>x</code>와 <code>y</code>를 더한 값을 <code>z</code>에 저장하는 코드를 작성하시오 (백터연산)</p></li>
-<li><p>1.5 <code>z</code>의 원소들의 합을 구하시오 (<code>sum()</code>함수 활용)</p></li>
-<li><p>1.6 두 값을 입력받아 합을 출력하는 <code>mysum</code> 이름의 함수를 만들고 이 함수를 다음과 같이 이용해서 15와 20 두 값의 합을 구하는 코드를 작성하시오 (참고로 직접 만든 함수를 사용하기 위해서는 사용하기 전 해당 함수를 workspace에 등록하는 과정이 필요함)</p></li>
-</ul>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="r-basics.html#cb21-1"></a>z =<span class="st"> </span><span class="kw">mysum</span>(<span class="dv">15</span>, <span class="dv">20</span>)</span>
-<span id="cb21-2"><a href="r-basics.html#cb21-2"></a><span class="kw">cat</span>(z)</span></code></pre></div>
-<p><a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="크리에이티브 커먼즈 라이선스" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />이 저작물은 <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">크리에이티브 커먼즈 저작자표시-비영리-변경금지 4.0 국제 라이선스</a>에 따라 이용할 수 있습니다.</p>
+<p>위 통계량은 표준 정규분포를 따르며 95% 신뢰구간은 다음과 같습니다.</p>
+<p><span class="math display">\[
+\hat{p}-1.96 \times SE(\hat{p}) &lt; p &lt; \hat{p}+1.96 \times SE(\hat{p}) 
+\]</span>
+특정 찬성/반대 설문조사 인원이 1012명이고 그 중 찬성 비율이 0.46으로 나왔을 경우 95% 신뢰구간은 다음과 같이 구할 수 있습니다.</p>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="confidence-intervals.html#cb193-1"></a>phat &lt;-<span class="st"> </span><span class="fl">0.46</span></span>
+<span id="cb193-2"><a href="confidence-intervals.html#cb193-2"></a>n &lt;-<span class="st"> </span><span class="dv">1012</span></span>
+<span id="cb193-3"><a href="confidence-intervals.html#cb193-3"></a>SE &lt;-<span class="st"> </span><span class="kw">sqrt</span>(phat<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>phat)<span class="op">/</span>n)</span>
+<span id="cb193-4"><a href="confidence-intervals.html#cb193-4"></a>lower &lt;-<span class="st"> </span>phat <span class="op">+</span><span class="st"> </span><span class="kw">qnorm</span>(<span class="fl">0.025</span>, <span class="dv">0</span>, <span class="dv">1</span>) <span class="op">*</span><span class="st"> </span>SE</span>
+<span id="cb193-5"><a href="confidence-intervals.html#cb193-5"></a>upper &lt;-<span class="st"> </span>phat <span class="op">+</span><span class="st"> </span><span class="kw">qnorm</span>(<span class="fl">0.975</span>, <span class="dv">0</span>, <span class="dv">1</span>) <span class="op">*</span><span class="st"> </span>SE</span>
+<span id="cb193-6"><a href="confidence-intervals.html#cb193-6"></a><span class="kw">c</span>(lower, upper)</span></code></pre></div>
+<p><strong>[EXERCISE]</strong> 위 예제에 대한 90% 신뢰구간을 구하시오</p>
+<p><strong>[EXERCISE]</strong> <code>prop.test</code> 함수를 사용해서 95%, 90% 신뢰구간을 구하시오</p>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="confidence-intervals.html#cb194-1"></a>?prop.test</span>
+<span id="cb194-2"><a href="confidence-intervals.html#cb194-2"></a>phat &lt;-<span class="st"> </span><span class="fl">0.46</span></span>
+<span id="cb194-3"><a href="confidence-intervals.html#cb194-3"></a>n &lt;-<span class="st"> </span><span class="dv">1012</span></span>
+<span id="cb194-4"><a href="confidence-intervals.html#cb194-4"></a><span class="kw">confint</span>(<span class="kw">prop.test</span>(<span class="dt">x=</span>n<span class="op">*</span>phat, <span class="dt">n=</span>n))</span></code></pre></div>
+<p><img src="images/08/01.png" /></p>
+</div>
+<div id="ci-for-population-mean" class="section level2">
+<h2><span class="header-section-number">9.2</span> CI for population mean</h2>
+<p>모평균의 신뢰구간을 구할 때도 위 모비율과 유사한 방법을 사용합니다. 아래는 표준정규분포를 따르는 모평균 <span class="math inline">\(\bar{x}\)</span>의 표준화된 통계량 <span class="math inline">\(Z\)</span>를 나타냅니다.</p>
+<p><span class="math display">\[
+Z = \frac{\bar{x}-\mu}{\sigma / \sqrt{n}} = \frac{\bar{x}-\mu}{SD(\bar{x})} 
+\]</span></p>
+<p>그러나 앞서 언급한바와 같이 모표준편차 <span class="math inline">\(\sigma\)</span>는 알 수 없으며 따라서 표본표준편차인 <span class="math inline">\(s\)</span>를 대신 사용한 표준오차를 사용하게 됩니다. 이 때 <span class="math inline">\(Z\)</span> 값은 표준정규분포가 아닌 T분포를 따르게 되며 이는 다음과 같은 통계량을 가집니다.</p>
+<p><span class="math display">\[
+T = \frac{\bar{x}-\mu}{s / \sqrt{n}} = \frac{\bar{x}-\mu}{SE(\bar{x})} = \frac{observed - expected}{SE}
+\]</span></p>
+<p>신뢰수준 (confidence level)을 <span class="math inline">\(\alpha\)</span>라 하면 신뢰구간은 다음과 같이 표현이 가능합니다. 이는 데이터가 모여있는 구간이라는 신뢰구간의 해석과 상통합니다.</p>
+<p><span class="math display">\[
+\begin{split}
+P(-t^* &lt; \frac{\bar{x}-\mu}{s / \sqrt{n}} &lt; t^*) = 1 - \alpha \\
+P(\bar{x}-t^* \times SE &lt; \mu &lt; \bar{x} + t^* \times SE ) = 1 - \alpha 
+\end{split}
+\]</span></p>
+<p>한 반에 30명 학생들의 평균 키가 66인치이고 표준편차는 4인치인 경우 전체 학교 학생의 평균 키에 대한 80% 신뢰구간을 구하면 다음과 같습니다.</p>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="confidence-intervals.html#cb195-1"></a>xbar &lt;-<span class="st"> </span><span class="dv">66</span> </span>
+<span id="cb195-2"><a href="confidence-intervals.html#cb195-2"></a>s &lt;-<span class="st"> </span><span class="dv">4</span></span>
+<span id="cb195-3"><a href="confidence-intervals.html#cb195-3"></a>n &lt;-<span class="st"> </span><span class="dv">30</span></span>
+<span id="cb195-4"><a href="confidence-intervals.html#cb195-4"></a>alpha &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.8</span></span>
+<span id="cb195-5"><a href="confidence-intervals.html#cb195-5"></a>tstar &lt;-<span class="st"> </span><span class="kw">qt</span>(<span class="dv">1</span><span class="op">-</span>alpha<span class="op">/</span><span class="dv">2</span>, <span class="dt">df=</span>n<span class="dv">-1</span>)</span>
+<span id="cb195-6"><a href="confidence-intervals.html#cb195-6"></a>SE &lt;-<span class="st"> </span>s<span class="op">/</span><span class="kw">sqrt</span>(n)</span>
+<span id="cb195-7"><a href="confidence-intervals.html#cb195-7"></a>MOE &lt;-<span class="st"> </span>tstar <span class="op">*</span><span class="st"> </span>SE</span>
+<span id="cb195-8"><a href="confidence-intervals.html#cb195-8"></a>xbar <span class="op">+</span><span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="op">*</span><span class="st"> </span>MOE</span></code></pre></div>
+<p><strong>[EXERCISE]</strong> 어떤 커피전문점의 바리스타가 25초 기계를 돌리면 에스프레소 2온스가 나온다고 훈련을 받았다. 8번 시험을 해 본 결과 다음과 같은 무게의 에스프레소가 나왔다. 1.95, 1.8, 2.10, 1.82, 1.75, 2.01, 1.83, 1.9. 평균 샷 사이즈의 90% 신뢰구간을 구하고 이 구간에 2.0 온스가 들어가는지 검사하시오</p>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="confidence-intervals.html#cb196-1"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">1.95</span>, <span class="fl">1.8</span>, <span class="fl">2.10</span>, <span class="fl">1.82</span>, <span class="fl">1.75</span>, <span class="fl">2.01</span>, <span class="fl">1.83</span>, <span class="fl">1.9</span>)</span>
+<span id="cb196-2"><a href="confidence-intervals.html#cb196-2"></a><span class="kw">t.test</span>(x)</span></code></pre></div>
+<p><strong>[EXERCISE]</strong> <code>t.test</code> 함수를 사용해서 95%, 90% 신뢰구간을 구하시오</p>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="confidence-intervals.html#cb197-1"></a>?t.test</span></code></pre></div>
 
 </div>
 </div>
@@ -653,8 +401,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="univariat-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="statistical-inference.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

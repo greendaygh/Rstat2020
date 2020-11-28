@@ -6,7 +6,8 @@ rmd_files: [
   "07-dplyr.Rmd",
   "08-dplyr.Rmd",
   "09-population.Rmd",
-  "10-statistical_inference.Rmd"
+  "10-statistical_inference.Rmd",
+  "11-confidence_interval.Rmd"
 ]
 book_filename: "Rstat"
 repo: https://github.com/greendaygh/Rstat2020/
