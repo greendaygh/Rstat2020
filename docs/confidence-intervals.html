@@ -353,12 +353,18 @@ SE(\hat{p}) = \sqrt{\frac{\hat{p}{(1-\hat{p})}}{n}} \\
 <span id="cb193-5"><a href="confidence-intervals.html#cb193-5"></a>upper &lt;-<span class="st"> </span>phat <span class="op">+</span><span class="st"> </span><span class="kw">qnorm</span>(<span class="fl">0.975</span>, <span class="dv">0</span>, <span class="dv">1</span>) <span class="op">*</span><span class="st"> </span>SE</span>
 <span id="cb193-6"><a href="confidence-intervals.html#cb193-6"></a><span class="kw">c</span>(lower, upper)</span></code></pre></div>
 <p><strong>[EXERCISE]</strong> 위 예제에 대한 90% 신뢰구간을 구하시오</p>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="confidence-intervals.html#cb194-1"></a>phat &lt;-<span class="st"> </span><span class="fl">0.46</span></span>
+<span id="cb194-2"><a href="confidence-intervals.html#cb194-2"></a>n &lt;-<span class="st"> </span><span class="dv">1012</span></span>
+<span id="cb194-3"><a href="confidence-intervals.html#cb194-3"></a>SE &lt;-<span class="st"> </span><span class="kw">sqrt</span>(phat<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>phat)<span class="op">/</span>n)</span>
+<span id="cb194-4"><a href="confidence-intervals.html#cb194-4"></a>lower &lt;-<span class="st"> </span>phat <span class="op">+</span><span class="st"> </span><span class="kw">qnorm</span>(<span class="fl">0.05</span>, <span class="dv">0</span>, <span class="dv">1</span>) <span class="op">*</span><span class="st"> </span>SE</span>
+<span id="cb194-5"><a href="confidence-intervals.html#cb194-5"></a>upper &lt;-<span class="st"> </span>phat <span class="op">+</span><span class="st"> </span><span class="kw">qnorm</span>(<span class="fl">0.95</span>, <span class="dv">0</span>, <span class="dv">1</span>) <span class="op">*</span><span class="st"> </span>SE</span>
+<span id="cb194-6"><a href="confidence-intervals.html#cb194-6"></a><span class="kw">c</span>(lower, upper)</span></code></pre></div>
 <p><strong>[EXERCISE]</strong> <code>prop.test</code> 함수를 사용해서 95%, 90% 신뢰구간을 구하시오</p>
-<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="confidence-intervals.html#cb194-1"></a>?prop.test</span>
-<span id="cb194-2"><a href="confidence-intervals.html#cb194-2"></a>phat &lt;-<span class="st"> </span><span class="fl">0.46</span></span>
-<span id="cb194-3"><a href="confidence-intervals.html#cb194-3"></a>n &lt;-<span class="st"> </span><span class="dv">1012</span></span>
-<span id="cb194-4"><a href="confidence-intervals.html#cb194-4"></a><span class="kw">confint</span>(<span class="kw">prop.test</span>(<span class="dt">x=</span>n<span class="op">*</span>phat, <span class="dt">n=</span>n))</span></code></pre></div>
-<p><img src="images/08/01.png" /></p>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="confidence-intervals.html#cb195-1"></a>?prop.test</span>
+<span id="cb195-2"><a href="confidence-intervals.html#cb195-2"></a>phat &lt;-<span class="st"> </span><span class="fl">0.46</span></span>
+<span id="cb195-3"><a href="confidence-intervals.html#cb195-3"></a>n &lt;-<span class="st"> </span><span class="dv">1012</span></span>
+<span id="cb195-4"><a href="confidence-intervals.html#cb195-4"></a><span class="kw">confint</span>(<span class="kw">prop.test</span>(<span class="dt">x=</span>n<span class="op">*</span>phat, <span class="dt">n=</span>n))</span>
+<span id="cb195-5"><a href="confidence-intervals.html#cb195-5"></a><span class="kw">confint</span>(<span class="kw">prop.test</span>(<span class="dt">x=</span>n<span class="op">*</span>phat, <span class="dt">n=</span>n, <span class="dt">conf.level =</span> <span class="fl">0.7</span>))</span></code></pre></div>
 </div>
 <div id="ci-for-population-mean" class="section level2">
 <h2><span class="header-section-number">9.2</span> CI for population mean</h2>
@@ -378,19 +384,19 @@ P(\bar{x}-t^* \times SE &lt; \mu &lt; \bar{x} + t^* \times SE ) = 1 - \alpha
 \end{split}
 \]</span></p>
 <p>한 반에 30명 학생들의 평균 키가 66인치이고 표준편차는 4인치인 경우 전체 학교 학생의 평균 키에 대한 80% 신뢰구간을 구하면 다음과 같습니다.</p>
-<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="confidence-intervals.html#cb195-1"></a>xbar &lt;-<span class="st"> </span><span class="dv">66</span> </span>
-<span id="cb195-2"><a href="confidence-intervals.html#cb195-2"></a>s &lt;-<span class="st"> </span><span class="dv">4</span></span>
-<span id="cb195-3"><a href="confidence-intervals.html#cb195-3"></a>n &lt;-<span class="st"> </span><span class="dv">30</span></span>
-<span id="cb195-4"><a href="confidence-intervals.html#cb195-4"></a>alpha &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.8</span></span>
-<span id="cb195-5"><a href="confidence-intervals.html#cb195-5"></a>tstar &lt;-<span class="st"> </span><span class="kw">qt</span>(<span class="dv">1</span><span class="op">-</span>alpha<span class="op">/</span><span class="dv">2</span>, <span class="dt">df=</span>n<span class="dv">-1</span>)</span>
-<span id="cb195-6"><a href="confidence-intervals.html#cb195-6"></a>SE &lt;-<span class="st"> </span>s<span class="op">/</span><span class="kw">sqrt</span>(n)</span>
-<span id="cb195-7"><a href="confidence-intervals.html#cb195-7"></a>MOE &lt;-<span class="st"> </span>tstar <span class="op">*</span><span class="st"> </span>SE</span>
-<span id="cb195-8"><a href="confidence-intervals.html#cb195-8"></a>xbar <span class="op">+</span><span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="op">*</span><span class="st"> </span>MOE</span></code></pre></div>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="confidence-intervals.html#cb196-1"></a>xbar &lt;-<span class="st"> </span><span class="dv">66</span> </span>
+<span id="cb196-2"><a href="confidence-intervals.html#cb196-2"></a>s &lt;-<span class="st"> </span><span class="dv">4</span></span>
+<span id="cb196-3"><a href="confidence-intervals.html#cb196-3"></a>n &lt;-<span class="st"> </span><span class="dv">30</span></span>
+<span id="cb196-4"><a href="confidence-intervals.html#cb196-4"></a>alpha &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.8</span></span>
+<span id="cb196-5"><a href="confidence-intervals.html#cb196-5"></a>tstar &lt;-<span class="st"> </span><span class="kw">qt</span>(<span class="dv">1</span><span class="op">-</span>alpha<span class="op">/</span><span class="dv">2</span>, <span class="dt">df=</span>n<span class="dv">-1</span>)</span>
+<span id="cb196-6"><a href="confidence-intervals.html#cb196-6"></a>SE &lt;-<span class="st"> </span>s<span class="op">/</span><span class="kw">sqrt</span>(n)</span>
+<span id="cb196-7"><a href="confidence-intervals.html#cb196-7"></a>MOE &lt;-<span class="st"> </span>tstar <span class="op">*</span><span class="st"> </span>SE</span>
+<span id="cb196-8"><a href="confidence-intervals.html#cb196-8"></a>xbar <span class="op">+</span><span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="op">*</span><span class="st"> </span>MOE</span></code></pre></div>
 <p><strong>[EXERCISE]</strong> 어떤 커피전문점의 바리스타가 25초 기계를 돌리면 에스프레소 2온스가 나온다고 훈련을 받았다. 8번 시험을 해 본 결과 다음과 같은 무게의 에스프레소가 나왔다. 1.95, 1.8, 2.10, 1.82, 1.75, 2.01, 1.83, 1.9. 평균 샷 사이즈의 90% 신뢰구간을 구하고 이 구간에 2.0 온스가 들어가는지 검사하시오</p>
-<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="confidence-intervals.html#cb196-1"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">1.95</span>, <span class="fl">1.8</span>, <span class="fl">2.10</span>, <span class="fl">1.82</span>, <span class="fl">1.75</span>, <span class="fl">2.01</span>, <span class="fl">1.83</span>, <span class="fl">1.9</span>)</span>
-<span id="cb196-2"><a href="confidence-intervals.html#cb196-2"></a><span class="kw">t.test</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="confidence-intervals.html#cb197-1"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">1.95</span>, <span class="fl">1.8</span>, <span class="fl">2.10</span>, <span class="fl">1.82</span>, <span class="fl">1.75</span>, <span class="fl">2.01</span>, <span class="fl">1.83</span>, <span class="fl">1.9</span>)</span>
+<span id="cb197-2"><a href="confidence-intervals.html#cb197-2"></a><span class="kw">t.test</span>(x)</span></code></pre></div>
 <p><strong>[EXERCISE]</strong> <code>t.test</code> 함수를 사용해서 95%, 90% 신뢰구간을 구하시오</p>
-<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="confidence-intervals.html#cb197-1"></a>?t.test</span></code></pre></div>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="confidence-intervals.html#cb198-1"></a>?t.test</span></code></pre></div>
 
 </div>
 </div>

@@ -42,6 +42,16 @@ c(lower, upper)
 
 **[EXERCISE]** 위 예제에 대한 90% 신뢰구간을 구하시오
 
+```{r, eval=F}
+phat <- 0.46
+n <- 1012
+SE <- sqrt(phat*(1-phat)/n)
+lower <- phat + qnorm(0.05, 0, 1) * SE
+upper <- phat + qnorm(0.95, 0, 1) * SE
+c(lower, upper)
+```
+
+
 
 **[EXERCISE]** ```prop.test``` 함수를 사용해서 95%, 90% 신뢰구간을 구하시오 
 
@@ -50,12 +60,12 @@ c(lower, upper)
 phat <- 0.46
 n <- 1012
 confint(prop.test(x=n*phat, n=n))
+confint(prop.test(x=n*phat, n=n, conf.level = 0.7))
 
 ```
 
 
 
-![](images/08/01.PNG)
 
 
 ## CI for population mean
