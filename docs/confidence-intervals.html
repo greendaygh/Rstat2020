@@ -24,7 +24,7 @@
 <meta name="author" content="한국생명공학연구원 김하성" />
 
 
-<meta name="date" content="2020-11-28" />
+<meta name="date" content="2020-11-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="statistical-inference.html"/>
-
+<link rel="next" href="significance-test.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -307,6 +307,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.1" data-path="confidence-intervals.html"><a href="confidence-intervals.html#ci-for-population-proportion-p"><i class="fa fa-check"></i><b>9.1</b> CI for population proportion, <span class="math inline">\(p\)</span></a></li>
 <li class="chapter" data-level="9.2" data-path="confidence-intervals.html"><a href="confidence-intervals.html#ci-for-population-mean"><i class="fa fa-check"></i><b>9.2</b> CI for population mean</a></li>
 </ul></li>
+<li class="chapter" data-level="10" data-path="significance-test.html"><a href="significance-test.html"><i class="fa fa-check"></i><b>10</b> Significance test</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -336,39 +337,97 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>여기서 1-<span class="math inline">\(\alpha\)</span>를 백분률로 치환한 값 <span class="math inline">\((1-\alpha)\cdot 100%\)</span>를 신뢰수준이라고 합니다. 여기서 <span class="math inline">\(\alpha\)</span>는 유의수준 (significance level)이며 신뢰구간 <span class="math inline">\([\hat{\theta_L}, \hat{\theta_U}]\)</span>에 모수 <span class="math inline">\(\theta\)</span>가 포함되지 않을 확률이라고 할 수 있습니다. 일반적으로 신뢰수준 90%, 95%, 99%에 상응하는 유의수준 <span class="math inline">\(\alpha\)</span>=0.1, 0.05, 0.01 이 사용됩니다. 95% 신뢰구간을 해석할 때 해당 구간에 모수를 포함할 확률이 95% 이다라고 해석할 수 있습니다. 틀린 해석이라고 할 수는 없지만 더 정확한 해석은 표본 추출을 100번 반복해서 100개의 신뢰구간을 구했을 때 그 중 95개의 신뢰구간이 모평균을 포함하는 구간이다 라고 해석하는 것입니다.</p>
 <div id="ci-for-population-proportion-p" class="section level2">
 <h2><span class="header-section-number">9.1</span> CI for population proportion, <span class="math inline">\(p\)</span></h2>
-<p>앞서 장에서는 시뮬레이션에 기반한 신뢰구간을 알아보았습니다. 아래는 분포 가정에 기반한 모비율 <span class="math inline">\(p\)</span>에 대한 신뢰구간을 구하는 방법입니다.</p>
+<p>앞서 장에서는 시뮬레이션에 기반한 신뢰구간을 알아보았습니다. 아래는 분포 가정에 기반한 모비율 <span class="math inline">\(p\)</span>에 대한 신뢰구간을 구하는 방법입니다. <span class="math inline">\(X\)</span>를 이항분포를 따르는 성공의 갯수라고 정의하면 <span class="math inline">\(X\)</span>~B(n, p) 입니다. 여기서 <span class="math inline">\(n\)</span>은 시행횟수이고 <span class="math inline">\(p\)</span>는 성공 비율입니다. 그런데 <span class="math inline">\(n\)</span>이 충분히 클 경우 <span class="math inline">\(X \sim N(np, npq)\)</span> 임이 알려져 있습니다. <span class="math inline">\(\hat{p}\)</span>은 성공의 갯수를 나타내는 확률변수 <span class="math inline">\(X\)</span>를 <span class="math inline">\(n\)</span>으로 나누어 준 값으로 볼 수 있고 이는 다음과 같은 분포로 정의될 수 있습니다.</p>
 <p><span class="math display">\[
-\frac{\hat{p}-p}{SE(\hat{p})} = \frac{observed - expected}{SE} \\
-SE(\hat{p}) = \sqrt{\frac{\hat{p}{(1-\hat{p})}}{n}} \\
+\frac{X}{n} \sim N(\frac{np}{n}, \frac{\sqrt{npq}}{n}) \\
+\hat{p} \sim N(p, \sqrt{\frac{p(1-p)}{n}}) 
 \]</span></p>
-<p>위 통계량은 표준 정규분포를 따르며 95% 신뢰구간은 다음과 같습니다.</p>
 <p><span class="math display">\[
-\hat{p}-1.96 \times SE(\hat{p}) &lt; p &lt; \hat{p}+1.96 \times SE(\hat{p}) 
-\]</span>
-특정 찬성/반대 설문조사 인원이 1012명이고 그 중 찬성 비율이 0.46으로 나왔을 경우 95% 신뢰구간은 다음과 같이 구할 수 있습니다.</p>
-<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="confidence-intervals.html#cb193-1"></a>phat &lt;-<span class="st"> </span><span class="fl">0.46</span></span>
-<span id="cb193-2"><a href="confidence-intervals.html#cb193-2"></a>n &lt;-<span class="st"> </span><span class="dv">1012</span></span>
-<span id="cb193-3"><a href="confidence-intervals.html#cb193-3"></a>SE &lt;-<span class="st"> </span><span class="kw">sqrt</span>(phat<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>phat)<span class="op">/</span>n)</span>
-<span id="cb193-4"><a href="confidence-intervals.html#cb193-4"></a>lower &lt;-<span class="st"> </span>phat <span class="op">+</span><span class="st"> </span><span class="kw">qnorm</span>(<span class="fl">0.025</span>, <span class="dv">0</span>, <span class="dv">1</span>) <span class="op">*</span><span class="st"> </span>SE</span>
-<span id="cb193-5"><a href="confidence-intervals.html#cb193-5"></a>upper &lt;-<span class="st"> </span>phat <span class="op">+</span><span class="st"> </span><span class="kw">qnorm</span>(<span class="fl">0.975</span>, <span class="dv">0</span>, <span class="dv">1</span>) <span class="op">*</span><span class="st"> </span>SE</span>
-<span id="cb193-6"><a href="confidence-intervals.html#cb193-6"></a><span class="kw">c</span>(lower, upper)</span></code></pre></div>
-<p><strong>[EXERCISE]</strong> 위 예제에 대한 90% 신뢰구간을 구하시오</p>
+SD(\hat{p}) = \sqrt{\frac{p(1-p)}{n}}
+\]</span></p>
+<p>이라 하면 충분히 큰 <span class="math inline">\(n\)</span>에 대해서 다음 값은 표준정규분포를 따릅니다.</p>
+<p><span class="math display">\[
+Z = \frac{\hat{p} - p}{SD(\hat{p})}
+\]</span></p>
+<p>표준정규분포에서 0.95 확률에 해당하는 구간을 구하면 다음과 같습니다.</p>
+<p><span class="math display">\[
+-1.96 &lt; \frac{\hat{p} - p}{SD(\hat{p})} &lt; 1.96 
+\]</span></p>
+<p>위 식을 모수 <span class="math inline">\(p\)</span>를 기준으로 변형하면 다음과 같습니다.</p>
+<p><span class="math display">\[
+\hat{p} - 1.96 \cdot SD(\hat{p}) &lt;  p &lt; \hat{p} + 1.96 \cdot SD(\hat{p})
+\]</span></p>
+<p>위 범위가 모수 <span class="math inline">\(p\)</span>에 대한 신뢰구간입니다. 그러나 <span class="math inline">\(SD(\hat{p}) = \sqrt{\frac{p(1-p)}{n}}\)</span>에서 <span class="math inline">\(p\)</span>는 일반적으로 알 수 없으므로 샘플로부터 계산된 <span class="math inline">\(\hat{p}\)</span>를 이용한 표준오차 (Standard error)를 사용합니다.</p>
+<p><span class="math display">\[
+SE(\hat{p}) = \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}
+\]</span></p>
+<p><span class="math inline">\(SE(\hat{p})\)</span> 를 사용한 다음 통계량의 경우도 충분히 큰 <span class="math inline">\(n\)</span>에 대해서 표준정규분포를 따르게 됩니다.</p>
+<p><span class="math display">\[
+Z=\frac{\hat{p}-p}{SE(\hat{p})} = \frac{observed - expected}{SE} 
+\]</span></p>
+<p>따라서 모수 <span class="math inline">\(p\)</span>의 95% 신뢰구간에 대해서 다음과 같은 식을 얻을 수 있습니다.</p>
+<p><span class="math display">\[
+\hat{p}-1.96 \cdot SE(\hat{p}) &lt; p &lt; \hat{p}+1.96 \cdot SE(\hat{p}) 
+\]</span></p>
+<p>위 식의 1.96 값을 임계값 (critical value) 이라고 하며 <span class="math inline">\(1.96 \cdot SE(\hat{p})\)</span> 값을 오차한계 (margin of error)라고 합니다. 임계값은 신뢰구간에 따라서 달라지는 값으로 신뢰구간이 95%라면 <span class="math inline">\(\alpha = 0.05 (1-0.95)\)</span> 이고 임계값은 표준정규분포에서의 <code>qnorm</code> 함수를 이용해서 구할 수 있습니다.</p>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="confidence-intervals.html#cb193-1"></a>conf &lt;-<span class="st"> </span><span class="dv">95</span></span>
+<span id="cb193-2"><a href="confidence-intervals.html#cb193-2"></a>myalpha &lt;-<span class="st"> </span>(<span class="dv">1</span><span class="op">-</span>conf<span class="op">/</span><span class="dv">100</span>)</span>
+<span id="cb193-3"><a href="confidence-intervals.html#cb193-3"></a>critical_value &lt;-<span class="st"> </span><span class="kw">qnorm</span>(<span class="dv">1</span><span class="op">-</span>myalpha, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb193-4"><a href="confidence-intervals.html#cb193-4"></a></span>
+<span id="cb193-5"><a href="confidence-intervals.html#cb193-5"></a>x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="dt">by=</span><span class="fl">0.01</span>)</span>
+<span id="cb193-6"><a href="confidence-intervals.html#cb193-6"></a>y &lt;-<span class="st"> </span><span class="kw">dnorm</span>(x, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb193-7"><a href="confidence-intervals.html#cb193-7"></a>dat &lt;-<span class="st"> </span><span class="kw">data.frame</span>(x, y)</span>
+<span id="cb193-8"><a href="confidence-intervals.html#cb193-8"></a></span>
+<span id="cb193-9"><a href="confidence-intervals.html#cb193-9"></a><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x=</span>x, <span class="dt">y=</span>y)) <span class="op">+</span></span>
+<span id="cb193-10"><a href="confidence-intervals.html#cb193-10"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">size=</span><span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb193-11"><a href="confidence-intervals.html#cb193-11"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">y=</span><span class="st">&quot;Density&quot;</span>) <span class="op">+</span></span>
+<span id="cb193-12"><a href="confidence-intervals.html#cb193-12"></a><span class="st">  </span><span class="kw">theme_bw</span>() <span class="op">+</span></span>
+<span id="cb193-13"><a href="confidence-intervals.html#cb193-13"></a><span class="st">  </span><span class="kw">geom_area</span>(<span class="dt">data=</span><span class="kw">filter</span>(dat, x <span class="op">&gt;</span><span class="st"> </span>critical_value), <span class="dt">fill=</span><span class="st">&quot;#ff000055&quot;</span>) <span class="op">+</span></span>
+<span id="cb193-14"><a href="confidence-intervals.html#cb193-14"></a><span class="st">  </span><span class="kw">geom_area</span>(<span class="dt">data=</span><span class="kw">filter</span>(dat, x <span class="op">&lt;</span><span class="st"> </span>(<span class="op">-</span><span class="dv">1</span><span class="op">*</span>critical_value)), <span class="dt">fill=</span><span class="st">&quot;#ff000055&quot;</span>) <span class="op">+</span></span>
+<span id="cb193-15"><a href="confidence-intervals.html#cb193-15"></a><span class="st">  </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">x=</span>critical_value, </span>
+<span id="cb193-16"><a href="confidence-intervals.html#cb193-16"></a>                   <span class="dt">xend=</span>critical_value, </span>
+<span id="cb193-17"><a href="confidence-intervals.html#cb193-17"></a>                   <span class="dt">y=</span><span class="fl">0.32</span>, </span>
+<span id="cb193-18"><a href="confidence-intervals.html#cb193-18"></a>                   <span class="dt">yend=</span><span class="dv">0</span>), </span>
+<span id="cb193-19"><a href="confidence-intervals.html#cb193-19"></a>               <span class="dt">arrow =</span> <span class="kw">arrow</span>(<span class="dt">length =</span> <span class="kw">unit</span>(<span class="fl">0.1</span>, <span class="st">&quot;inches&quot;</span>)), </span>
+<span id="cb193-20"><a href="confidence-intervals.html#cb193-20"></a>               <span class="dt">size=</span><span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb193-21"><a href="confidence-intervals.html#cb193-21"></a><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, </span>
+<span id="cb193-22"><a href="confidence-intervals.html#cb193-22"></a>           <span class="dt">label=</span><span class="kw">paste</span>(<span class="st">&quot;Critical value</span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="kw">round</span>(critical_value,<span class="dv">3</span>)), </span>
+<span id="cb193-23"><a href="confidence-intervals.html#cb193-23"></a>           <span class="dt">x=</span>critical_value, </span>
+<span id="cb193-24"><a href="confidence-intervals.html#cb193-24"></a>           <span class="dt">y=</span><span class="fl">0.35</span>) <span class="op">+</span></span>
+<span id="cb193-25"><a href="confidence-intervals.html#cb193-25"></a><span class="st">  </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">x=</span><span class="fl">3.5</span>, </span>
+<span id="cb193-26"><a href="confidence-intervals.html#cb193-26"></a>                   <span class="dt">xend=</span><span class="dv">2</span>, </span>
+<span id="cb193-27"><a href="confidence-intervals.html#cb193-27"></a>                   <span class="dt">y=</span><span class="fl">0.2</span>, </span>
+<span id="cb193-28"><a href="confidence-intervals.html#cb193-28"></a>                   <span class="dt">yend=</span><span class="fl">0.02</span>), </span>
+<span id="cb193-29"><a href="confidence-intervals.html#cb193-29"></a>               <span class="dt">arrow =</span> <span class="kw">arrow</span>(<span class="dt">length =</span> <span class="kw">unit</span>(<span class="fl">0.1</span>, <span class="st">&quot;inches&quot;</span>)), </span>
+<span id="cb193-30"><a href="confidence-intervals.html#cb193-30"></a>               <span class="dt">size=</span><span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb193-31"><a href="confidence-intervals.html#cb193-31"></a><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, </span>
+<span id="cb193-32"><a href="confidence-intervals.html#cb193-32"></a>           <span class="dt">label=</span><span class="kw">paste</span>(<span class="st">&quot;Alpha/2 &quot;</span>, myalpha<span class="op">/</span><span class="dv">2</span>), </span>
+<span id="cb193-33"><a href="confidence-intervals.html#cb193-33"></a>           <span class="dt">x=</span><span class="fl">3.5</span>, </span>
+<span id="cb193-34"><a href="confidence-intervals.html#cb193-34"></a>           <span class="dt">y=</span><span class="fl">0.21</span>)</span></code></pre></div>
+<p><strong>[EXERCISE]</strong> 특정 찬성/반대 설문조사 인원이 1012명이고 그 중 찬성 비율이 0.46으로 나왔을 경우 95% 신뢰구간은 다음과 같이 구할 수 있습니다.</p>
 <div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="confidence-intervals.html#cb194-1"></a>phat &lt;-<span class="st"> </span><span class="fl">0.46</span></span>
 <span id="cb194-2"><a href="confidence-intervals.html#cb194-2"></a>n &lt;-<span class="st"> </span><span class="dv">1012</span></span>
 <span id="cb194-3"><a href="confidence-intervals.html#cb194-3"></a>SE &lt;-<span class="st"> </span><span class="kw">sqrt</span>(phat<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>phat)<span class="op">/</span>n)</span>
-<span id="cb194-4"><a href="confidence-intervals.html#cb194-4"></a>lower &lt;-<span class="st"> </span>phat <span class="op">+</span><span class="st"> </span><span class="kw">qnorm</span>(<span class="fl">0.05</span>, <span class="dv">0</span>, <span class="dv">1</span>) <span class="op">*</span><span class="st"> </span>SE</span>
-<span id="cb194-5"><a href="confidence-intervals.html#cb194-5"></a>upper &lt;-<span class="st"> </span>phat <span class="op">+</span><span class="st"> </span><span class="kw">qnorm</span>(<span class="fl">0.95</span>, <span class="dv">0</span>, <span class="dv">1</span>) <span class="op">*</span><span class="st"> </span>SE</span>
+<span id="cb194-4"><a href="confidence-intervals.html#cb194-4"></a>lower &lt;-<span class="st"> </span>phat <span class="op">+</span><span class="st"> </span><span class="kw">qnorm</span>(<span class="fl">0.025</span>, <span class="dv">0</span>, <span class="dv">1</span>) <span class="op">*</span><span class="st"> </span>SE</span>
+<span id="cb194-5"><a href="confidence-intervals.html#cb194-5"></a>upper &lt;-<span class="st"> </span>phat <span class="op">+</span><span class="st"> </span><span class="kw">qnorm</span>(<span class="fl">0.975</span>, <span class="dv">0</span>, <span class="dv">1</span>) <span class="op">*</span><span class="st"> </span>SE</span>
 <span id="cb194-6"><a href="confidence-intervals.html#cb194-6"></a><span class="kw">c</span>(lower, upper)</span></code></pre></div>
+<p><strong>[EXERCISE]</strong> 위 예제에 대한 90% 신뢰구간을 구하시오</p>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="confidence-intervals.html#cb195-1"></a>phat &lt;-<span class="st"> </span><span class="fl">0.46</span></span>
+<span id="cb195-2"><a href="confidence-intervals.html#cb195-2"></a>n &lt;-<span class="st"> </span><span class="dv">1012</span></span>
+<span id="cb195-3"><a href="confidence-intervals.html#cb195-3"></a>SE &lt;-<span class="st"> </span><span class="kw">sqrt</span>(phat<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>phat)<span class="op">/</span>n)</span>
+<span id="cb195-4"><a href="confidence-intervals.html#cb195-4"></a>lower &lt;-<span class="st"> </span>phat <span class="op">+</span><span class="st"> </span><span class="kw">qnorm</span>(<span class="fl">0.05</span>, <span class="dv">0</span>, <span class="dv">1</span>) <span class="op">*</span><span class="st"> </span>SE</span>
+<span id="cb195-5"><a href="confidence-intervals.html#cb195-5"></a>upper &lt;-<span class="st"> </span>phat <span class="op">+</span><span class="st"> </span><span class="kw">qnorm</span>(<span class="fl">0.95</span>, <span class="dv">0</span>, <span class="dv">1</span>) <span class="op">*</span><span class="st"> </span>SE</span>
+<span id="cb195-6"><a href="confidence-intervals.html#cb195-6"></a><span class="kw">c</span>(lower, upper)</span></code></pre></div>
 <p><strong>[EXERCISE]</strong> <code>prop.test</code> 함수를 사용해서 95%, 90% 신뢰구간을 구하시오</p>
-<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="confidence-intervals.html#cb195-1"></a>?prop.test</span>
-<span id="cb195-2"><a href="confidence-intervals.html#cb195-2"></a>phat &lt;-<span class="st"> </span><span class="fl">0.46</span></span>
-<span id="cb195-3"><a href="confidence-intervals.html#cb195-3"></a>n &lt;-<span class="st"> </span><span class="dv">1012</span></span>
-<span id="cb195-4"><a href="confidence-intervals.html#cb195-4"></a><span class="kw">confint</span>(<span class="kw">prop.test</span>(<span class="dt">x=</span>n<span class="op">*</span>phat, <span class="dt">n=</span>n))</span>
-<span id="cb195-5"><a href="confidence-intervals.html#cb195-5"></a><span class="kw">confint</span>(<span class="kw">prop.test</span>(<span class="dt">x=</span>n<span class="op">*</span>phat, <span class="dt">n=</span>n, <span class="dt">conf.level =</span> <span class="fl">0.7</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="confidence-intervals.html#cb196-1"></a>?prop.test</span>
+<span id="cb196-2"><a href="confidence-intervals.html#cb196-2"></a>phat &lt;-<span class="st"> </span><span class="fl">0.46</span></span>
+<span id="cb196-3"><a href="confidence-intervals.html#cb196-3"></a>n &lt;-<span class="st"> </span><span class="dv">1012</span></span>
+<span id="cb196-4"><a href="confidence-intervals.html#cb196-4"></a><span class="kw">confint</span>(<span class="kw">prop.test</span>(<span class="dt">x=</span>n<span class="op">*</span>phat, <span class="dt">n=</span>n))</span>
+<span id="cb196-5"><a href="confidence-intervals.html#cb196-5"></a><span class="kw">confint</span>(<span class="kw">prop.test</span>(<span class="dt">x=</span>n<span class="op">*</span>phat, <span class="dt">n=</span>n, <span class="dt">conf.level =</span> <span class="fl">0.7</span>))</span></code></pre></div>
 </div>
 <div id="ci-for-population-mean" class="section level2">
 <h2><span class="header-section-number">9.2</span> CI for population mean</h2>
-<p>모평균의 신뢰구간을 구할 때도 위 모비율과 유사한 방법을 사용합니다. 아래는 표준정규분포를 따르는 모평균 <span class="math inline">\(\bar{x}\)</span>의 표준화된 통계량 <span class="math inline">\(Z\)</span>를 나타냅니다.</p>
+<p>정규분포 모평균의 신뢰구간을 구할 때도 위 모비율과 유사한 방법을 사용합니다. 중심극한정리에서 표본평균의 <span class="math inline">\(\bar{X}\)</span>의 분포는 <span class="math inline">\(\bar{X} \sim N(\mu, \frac{\sigma}{\sqrt{n}})\)</span> 입니다. 따라서 정규분포를 따르는 표본평균 <span class="math inline">\(\bar{x}\)</span>의 표준화된 통계량 <span class="math inline">\(Z\)</span>은 다음과 같습니다.</p>
 <p><span class="math display">\[
 Z = \frac{\bar{x}-\mu}{\sigma / \sqrt{n}} = \frac{\bar{x}-\mu}{SD(\bar{x})} 
 \]</span></p>
@@ -376,27 +435,26 @@ Z = \frac{\bar{x}-\mu}{\sigma / \sqrt{n}} = \frac{\bar{x}-\mu}{SD(\bar{x})}
 <p><span class="math display">\[
 T = \frac{\bar{x}-\mu}{s / \sqrt{n}} = \frac{\bar{x}-\mu}{SE(\bar{x})} = \frac{observed - expected}{SE}
 \]</span></p>
-<p>신뢰수준 (confidence level)을 <span class="math inline">\(\alpha\)</span>라 하면 신뢰구간은 다음과 같이 표현이 가능합니다. 이는 데이터가 모여있는 구간이라는 신뢰구간의 해석과 상통합니다.</p>
+<p>유의수준 (significance level)을 <span class="math inline">\(\alpha\)</span>라 하면 신뢰구간은 다음과 같이 표현이 가능합니다. 이는 데이터가 모여있는 구간이라는 신뢰구간의 해석과 상통합니다.</p>
 <p><span class="math display">\[
 \begin{split}
 P(-t^* &lt; \frac{\bar{x}-\mu}{s / \sqrt{n}} &lt; t^*) = 1 - \alpha \\
-P(\bar{x}-t^* \times SE &lt; \mu &lt; \bar{x} + t^* \times SE ) = 1 - \alpha 
+P(\bar{x}-t^* \cdot SE &lt; \mu &lt; \bar{x} + t^* \cdot SE ) = 1 - \alpha 
 \end{split}
 \]</span></p>
-<p>한 반에 30명 학생들의 평균 키가 66인치이고 표준편차는 4인치인 경우 전체 학교 학생의 평균 키에 대한 80% 신뢰구간을 구하면 다음과 같습니다.</p>
-<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="confidence-intervals.html#cb196-1"></a>xbar &lt;-<span class="st"> </span><span class="dv">66</span> </span>
-<span id="cb196-2"><a href="confidence-intervals.html#cb196-2"></a>s &lt;-<span class="st"> </span><span class="dv">4</span></span>
-<span id="cb196-3"><a href="confidence-intervals.html#cb196-3"></a>n &lt;-<span class="st"> </span><span class="dv">30</span></span>
-<span id="cb196-4"><a href="confidence-intervals.html#cb196-4"></a>alpha &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.8</span></span>
-<span id="cb196-5"><a href="confidence-intervals.html#cb196-5"></a>tstar &lt;-<span class="st"> </span><span class="kw">qt</span>(<span class="dv">1</span><span class="op">-</span>alpha<span class="op">/</span><span class="dv">2</span>, <span class="dt">df=</span>n<span class="dv">-1</span>)</span>
-<span id="cb196-6"><a href="confidence-intervals.html#cb196-6"></a>SE &lt;-<span class="st"> </span>s<span class="op">/</span><span class="kw">sqrt</span>(n)</span>
-<span id="cb196-7"><a href="confidence-intervals.html#cb196-7"></a>MOE &lt;-<span class="st"> </span>tstar <span class="op">*</span><span class="st"> </span>SE</span>
-<span id="cb196-8"><a href="confidence-intervals.html#cb196-8"></a>xbar <span class="op">+</span><span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="op">*</span><span class="st"> </span>MOE</span></code></pre></div>
+<p>여기서 임계값 <span class="math inline">\(t^*\)</span>는 t분포의 <code>q</code> 함수인 <code>qt()</code>를 사용해서 구할 수 있습니다.</p>
+<p><strong>[EXERCISE]</strong> 한 반에 30명 학생들의 평균 키가 66인치이고 표준편차는 4인치인 경우 전체 학교 학생의 평균 키에 대한 80% 신뢰구간을 구하면 다음과 같습니다.</p>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="confidence-intervals.html#cb197-1"></a>xbar &lt;-<span class="st"> </span><span class="dv">66</span> </span>
+<span id="cb197-2"><a href="confidence-intervals.html#cb197-2"></a>s &lt;-<span class="st"> </span><span class="dv">4</span></span>
+<span id="cb197-3"><a href="confidence-intervals.html#cb197-3"></a>n &lt;-<span class="st"> </span><span class="dv">30</span></span>
+<span id="cb197-4"><a href="confidence-intervals.html#cb197-4"></a>alpha &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.8</span></span>
+<span id="cb197-5"><a href="confidence-intervals.html#cb197-5"></a>tstar &lt;-<span class="st"> </span><span class="kw">qt</span>(<span class="dv">1</span><span class="op">-</span>alpha<span class="op">/</span><span class="dv">2</span>, <span class="dt">df=</span>n<span class="dv">-1</span>)</span>
+<span id="cb197-6"><a href="confidence-intervals.html#cb197-6"></a>SE &lt;-<span class="st"> </span>s<span class="op">/</span><span class="kw">sqrt</span>(n)</span>
+<span id="cb197-7"><a href="confidence-intervals.html#cb197-7"></a>MOE &lt;-<span class="st"> </span>tstar <span class="op">*</span><span class="st"> </span>SE</span>
+<span id="cb197-8"><a href="confidence-intervals.html#cb197-8"></a>xbar <span class="op">+</span><span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>) <span class="op">*</span><span class="st"> </span>MOE</span></code></pre></div>
 <p><strong>[EXERCISE]</strong> 어떤 커피전문점의 바리스타가 25초 기계를 돌리면 에스프레소 2온스가 나온다고 훈련을 받았다. 8번 시험을 해 본 결과 다음과 같은 무게의 에스프레소가 나왔다. 1.95, 1.8, 2.10, 1.82, 1.75, 2.01, 1.83, 1.9. 평균 샷 사이즈의 90% 신뢰구간을 구하고 이 구간에 2.0 온스가 들어가는지 검사하시오</p>
-<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="confidence-intervals.html#cb197-1"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">1.95</span>, <span class="fl">1.8</span>, <span class="fl">2.10</span>, <span class="fl">1.82</span>, <span class="fl">1.75</span>, <span class="fl">2.01</span>, <span class="fl">1.83</span>, <span class="fl">1.9</span>)</span>
-<span id="cb197-2"><a href="confidence-intervals.html#cb197-2"></a><span class="kw">t.test</span>(x)</span></code></pre></div>
-<p><strong>[EXERCISE]</strong> <code>t.test</code> 함수를 사용해서 95%, 90% 신뢰구간을 구하시오</p>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="confidence-intervals.html#cb198-1"></a>?t.test</span></code></pre></div>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="confidence-intervals.html#cb198-1"></a>x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">1.95</span>, <span class="fl">1.8</span>, <span class="fl">2.10</span>, <span class="fl">1.82</span>, <span class="fl">1.75</span>, <span class="fl">2.01</span>, <span class="fl">1.83</span>, <span class="fl">1.9</span>)</span>
+<span id="cb198-2"><a href="confidence-intervals.html#cb198-2"></a><span class="kw">t.test</span>(x, <span class="dt">conf.level =</span> <span class="fl">0.9</span>)</span></code></pre></div>
 
 </div>
 </div>
@@ -405,8 +463,8 @@ P(\bar{x}-t^* \times SE &lt; \mu &lt; \bar{x} + t^* \times SE ) = 1 - \alpha
           </div>
         </div>
       </div>
-<a href="statistical-inference.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="statistical-inference.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="significance-test.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
