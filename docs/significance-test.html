@@ -24,7 +24,7 @@
 <meta name="author" content="한국생명공학연구원 김하성" />
 
 
-<meta name="date" content="2020-11-30" />
+<meta name="date" content="2020-12-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -306,8 +306,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="9.1" data-path="confidence-intervals.html"><a href="confidence-intervals.html#ci-for-population-proportion-p"><i class="fa fa-check"></i><b>9.1</b> CI for population proportion, <span class="math inline">\(p\)</span></a></li>
 <li class="chapter" data-level="9.2" data-path="confidence-intervals.html"><a href="confidence-intervals.html#ci-for-population-mean"><i class="fa fa-check"></i><b>9.2</b> CI for population mean</a></li>
+<li class="chapter" data-level="9.3" data-path="confidence-intervals.html"><a href="confidence-intervals.html#ci-for-the-differences"><i class="fa fa-check"></i><b>9.3</b> CI for the differences</a></li>
+<li class="chapter" data-level="9.4" data-path="confidence-intervals.html"><a href="confidence-intervals.html#problem-09"><i class="fa fa-check"></i><b>9.4</b> Problem 09</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="significance-test.html"><a href="significance-test.html"><i class="fa fa-check"></i><b>10</b> Significance test</a></li>
+<li class="chapter" data-level="10" data-path="significance-test.html"><a href="significance-test.html"><i class="fa fa-check"></i><b>10</b> Significance test</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="significance-test.html"><a href="significance-test.html#errors-in-significance-tests"><i class="fa fa-check"></i><b>10.1</b> Errors in significance tests</a></li>
+<li class="chapter" data-level="10.2" data-path="significance-test.html"><a href="significance-test.html#significance-test-for-a-population-proportion"><i class="fa fa-check"></i><b>10.2</b> Significance test for a population proportion</a></li>
+<li class="chapter" data-level="10.3" data-path="significance-test.html"><a href="significance-test.html#significance-test-for-the-mean-t-test"><i class="fa fa-check"></i><b>10.3</b> Significance test for the mean (t-test)</a></li>
+<li class="chapter" data-level="10.4" data-path="significance-test.html"><a href="significance-test.html#problem-10"><i class="fa fa-check"></i><b>10.4</b> Problem 10</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -333,47 +341,49 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><a href="https://youtu.be/Xv7RZncGDwE" class="uri">https://youtu.be/Xv7RZncGDwE</a></p>
 <p>신뢰구간은 (구간추정) 통계적 추론의 방법 중 하나이며 유의성검정은 가설을 검정하는 또 다른 추론의 방법입니다. 유의성 검정은 분포를 가정한 상태에서 모수에 대한 특정 값을 추정한 후 (점추정) 해당 값이 가정된 분포로부터 관측될 확률을 계산하여 가설에 대한 판단을 수행합니다.</p>
 <p>유의성검정을 재판 과정의 검사와 배심원 입장으로 생각하면 이해가 쉬울 수 있습니다. 검사는 피의자가 유죄임을 주장하며 배심원들을 설득합니다. 배심원들은 피의자가 유죄라는 확정적 증거가 없는 한 무고하다는 가정을 하고 있으며 증거가 많아질수록 자신들이 가정한 무죄가 아닐 확률은 점점 적어집니다. 즉, 확률이 충분히 작으면 무죄라는 가정을 버리고 검사의 주장을 받아들이게 됩니다.</p>
+<div id="errors-in-significance-tests" class="section level2">
+<h2><span class="header-section-number">10.1</span> Errors in significance tests</h2>
 <p>다른 예를 들어봅시다. 어떤 영업사원이 A 회사에서 판매하는 기계의 영점이 평균 0으로 맞춰저 있다고 주장을 하며 해당 기계를 팔고 있습니다. 실제로 판매하는 기계의 영점이 0으로 맞춰져 있을 때 (0이 참) 우리 입장에서는 영업사원의 말은 당장 증명할 수 없는 가설일 뿐입니다. 그래도 그 가설을 믿고 (채택하고) 기계를 구입할 경우 오류 없는 정상적인 거래가 됩니다. 그런데 우리가 영점이 2라고 의심을 하며 영업사원의 말을 믿지 않고 (가설을 기각하고) 기계를 구입하지 않는다면 오류가 발생한 것입니다. 이 상황을 그래프로 알아봅니다 (편의상 기계 영점의 분산은 1이라고 가정).</p>
-<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="significance-test.html#cb199-1"></a>x1 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">6</span>, <span class="dv">6</span>, <span class="dt">by=</span><span class="fl">0.01</span>)</span>
-<span id="cb199-2"><a href="significance-test.html#cb199-2"></a>y1 &lt;-<span class="st"> </span><span class="kw">dnorm</span>(x1, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb199-3"><a href="significance-test.html#cb199-3"></a>z &lt;-<span class="st"> </span><span class="kw">data.frame</span>(x1, y1)</span>
-<span id="cb199-4"><a href="significance-test.html#cb199-4"></a>pval &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="dv">1</span><span class="op">-</span><span class="kw">pnorm</span>(<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">1</span>), <span class="dv">4</span>)</span>
-<span id="cb199-5"><a href="significance-test.html#cb199-5"></a><span class="kw">ggplot</span>(z) <span class="op">+</span></span>
-<span id="cb199-6"><a href="significance-test.html#cb199-6"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(x1, y1), <span class="dt">color=</span><span class="st">&quot;purple&quot;</span>) <span class="op">+</span></span>
-<span id="cb199-7"><a href="significance-test.html#cb199-7"></a><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="dv">2</span>) <span class="op">+</span></span>
-<span id="cb199-8"><a href="significance-test.html#cb199-8"></a><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>) <span class="op">+</span></span>
-<span id="cb199-9"><a href="significance-test.html#cb199-9"></a><span class="st">  </span><span class="kw">geom_area</span>(<span class="dt">data=</span><span class="kw">filter</span>(z, x1 <span class="op">&gt;</span><span class="st"> </span><span class="dv">2</span>), </span>
-<span id="cb199-10"><a href="significance-test.html#cb199-10"></a>            <span class="kw">aes</span>(x1, y1), </span>
-<span id="cb199-11"><a href="significance-test.html#cb199-11"></a>            <span class="dt">fill=</span><span class="st">&quot;#80008055&quot;</span>) <span class="op">+</span></span>
-<span id="cb199-12"><a href="significance-test.html#cb199-12"></a><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dt">x=</span><span class="dv">3</span>, <span class="dt">y=</span><span class="fl">0.1</span>, <span class="dt">label=</span>pval) <span class="op">+</span></span>
-<span id="cb199-13"><a href="significance-test.html#cb199-13"></a><span class="st">  </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">x=</span><span class="dv">3</span>, <span class="dt">xend=</span><span class="fl">2.3</span>, <span class="dt">y=</span><span class="fl">0.09</span>, <span class="dt">yend=</span><span class="fl">0.01</span>), </span>
-<span id="cb199-14"><a href="significance-test.html#cb199-14"></a>               <span class="dt">arrow=</span><span class="kw">arrow</span>(<span class="dt">length=</span><span class="kw">unit</span>(<span class="fl">0.1</span>,<span class="st">&#39;inch&#39;</span>)),</span>
-<span id="cb199-15"><a href="significance-test.html#cb199-15"></a>               <span class="dt">color=</span><span class="st">&#39;black&#39;</span>,</span>
-<span id="cb199-16"><a href="significance-test.html#cb199-16"></a>               <span class="dt">size=</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="significance-test.html#cb203-1"></a>x1 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">6</span>, <span class="dv">6</span>, <span class="dt">by=</span><span class="fl">0.01</span>)</span>
+<span id="cb203-2"><a href="significance-test.html#cb203-2"></a>y1 &lt;-<span class="st"> </span><span class="kw">dnorm</span>(x1, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb203-3"><a href="significance-test.html#cb203-3"></a>z &lt;-<span class="st"> </span><span class="kw">data.frame</span>(x1, y1)</span>
+<span id="cb203-4"><a href="significance-test.html#cb203-4"></a>pval &lt;-<span class="st"> </span><span class="kw">round</span>(<span class="dv">1</span><span class="op">-</span><span class="kw">pnorm</span>(<span class="dv">2</span>,<span class="dv">0</span>,<span class="dv">1</span>), <span class="dv">4</span>)</span>
+<span id="cb203-5"><a href="significance-test.html#cb203-5"></a><span class="kw">ggplot</span>(z) <span class="op">+</span></span>
+<span id="cb203-6"><a href="significance-test.html#cb203-6"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(x1, y1), <span class="dt">color=</span><span class="st">&quot;purple&quot;</span>) <span class="op">+</span></span>
+<span id="cb203-7"><a href="significance-test.html#cb203-7"></a><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="dv">2</span>) <span class="op">+</span></span>
+<span id="cb203-8"><a href="significance-test.html#cb203-8"></a><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>) <span class="op">+</span></span>
+<span id="cb203-9"><a href="significance-test.html#cb203-9"></a><span class="st">  </span><span class="kw">geom_area</span>(<span class="dt">data=</span><span class="kw">filter</span>(z, x1 <span class="op">&gt;</span><span class="st"> </span><span class="dv">2</span>), </span>
+<span id="cb203-10"><a href="significance-test.html#cb203-10"></a>            <span class="kw">aes</span>(x1, y1), </span>
+<span id="cb203-11"><a href="significance-test.html#cb203-11"></a>            <span class="dt">fill=</span><span class="st">&quot;#80008055&quot;</span>) <span class="op">+</span></span>
+<span id="cb203-12"><a href="significance-test.html#cb203-12"></a><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dt">x=</span><span class="dv">3</span>, <span class="dt">y=</span><span class="fl">0.1</span>, <span class="dt">label=</span>pval) <span class="op">+</span></span>
+<span id="cb203-13"><a href="significance-test.html#cb203-13"></a><span class="st">  </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">x=</span><span class="dv">3</span>, <span class="dt">xend=</span><span class="fl">2.3</span>, <span class="dt">y=</span><span class="fl">0.09</span>, <span class="dt">yend=</span><span class="fl">0.01</span>), </span>
+<span id="cb203-14"><a href="significance-test.html#cb203-14"></a>               <span class="dt">arrow=</span><span class="kw">arrow</span>(<span class="dt">length=</span><span class="kw">unit</span>(<span class="fl">0.1</span>,<span class="st">&#39;inch&#39;</span>)),</span>
+<span id="cb203-15"><a href="significance-test.html#cb203-15"></a>               <span class="dt">color=</span><span class="st">&#39;black&#39;</span>,</span>
+<span id="cb203-16"><a href="significance-test.html#cb203-16"></a>               <span class="dt">size=</span><span class="dv">1</span>)</span></code></pre></div>
 <p>위 그래프에서 실제 기계들의 평균 영점이 0임인 분포만을 생각하면 면적의 넓이 0.0228은 2보다 큰 영점을 가지는 기계가 생산될 확률입니다. 이 실제 사실에 더하여 “영점이 0이다”라는 가설의 분포를 생각하면 (가설과 사실의 분포가 겹쳐있음) 면적의 넓이 0.0228 부분은 2를 기준으로 가설을 받아들이지 않는 (기각하는) 경우로 볼 수 있으며 결국 실제 사실도 받아들이지 않는 오류를 범할 확률을 나타냅니다. 이 오류를 우리는 “제1종오류 (<span class="math inline">\(\alpha\)</span>)” 라고 합니다.</p>
 <p>이제 영업사원의 가설이 거짓일 경우를 생각해 봅니다. 즉, 어떤 이유로 A회사 기계의 영점이 평균 3일 경우 영업사원의 “영점이 0이다”라는 주장은 거짓이 됩니다. 이 상황에서도 우리는 두 가지 경우를 생각할 수 있습니다. 영업사원의 가설을 믿고 (채택하고) 기계를 구입할 경우는 오류가 발생하는 상황과 영점이 2라는 의심으로 영업사원의 가설을 믿지않고 (기각하고) 기계를 구입하지 않는 올바른 판단을 한 상황 입니다.</p>
-<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="significance-test.html#cb200-1"></a>x1 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">6</span>, <span class="dv">6</span>, <span class="dt">by=</span><span class="fl">0.01</span>)</span>
-<span id="cb200-2"><a href="significance-test.html#cb200-2"></a>y1 &lt;-<span class="st"> </span><span class="kw">dnorm</span>(x1, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb200-3"><a href="significance-test.html#cb200-3"></a>x2 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">11</span>, <span class="dt">by=</span><span class="fl">0.01</span>)</span>
-<span id="cb200-4"><a href="significance-test.html#cb200-4"></a>y2 &lt;-<span class="st"> </span><span class="kw">dnorm</span>(x2, <span class="dv">3</span>, <span class="dv">1</span>)</span>
-<span id="cb200-5"><a href="significance-test.html#cb200-5"></a>z &lt;-<span class="st"> </span><span class="kw">data.frame</span>(x1, y1, x2, y2)</span>
-<span id="cb200-6"><a href="significance-test.html#cb200-6"></a><span class="co">#pval &lt;- round(1-pnorm(2,0,1), 4)</span></span>
-<span id="cb200-7"><a href="significance-test.html#cb200-7"></a><span class="kw">ggplot</span>(z) <span class="op">+</span></span>
-<span id="cb200-8"><a href="significance-test.html#cb200-8"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(x1, y1), <span class="dt">color=</span><span class="st">&quot;blue&quot;</span>) <span class="op">+</span></span>
-<span id="cb200-9"><a href="significance-test.html#cb200-9"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(x2, y2), <span class="dt">color=</span><span class="st">&quot;red&quot;</span>) <span class="op">+</span></span>
-<span id="cb200-10"><a href="significance-test.html#cb200-10"></a><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="dv">2</span>) <span class="op">+</span></span>
-<span id="cb200-11"><a href="significance-test.html#cb200-11"></a><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>) <span class="op">+</span></span>
-<span id="cb200-12"><a href="significance-test.html#cb200-12"></a><span class="st">  </span><span class="kw">geom_area</span>(<span class="dt">data=</span><span class="kw">filter</span>(z, x1 <span class="op">&gt;</span><span class="st"> </span><span class="dv">2</span>), </span>
-<span id="cb200-13"><a href="significance-test.html#cb200-13"></a>            <span class="kw">aes</span>(x1, y1), </span>
-<span id="cb200-14"><a href="significance-test.html#cb200-14"></a>            <span class="dt">fill=</span><span class="st">&quot;#0000ff55&quot;</span>) <span class="op">+</span></span>
-<span id="cb200-15"><a href="significance-test.html#cb200-15"></a><span class="st">  </span><span class="kw">geom_area</span>(<span class="dt">data=</span><span class="kw">filter</span>(z, x2 <span class="op">&lt;</span><span class="st"> </span><span class="dv">2</span>), </span>
-<span id="cb200-16"><a href="significance-test.html#cb200-16"></a>            <span class="kw">aes</span>(x2, y2), </span>
-<span id="cb200-17"><a href="significance-test.html#cb200-17"></a>            <span class="dt">fill=</span><span class="st">&quot;#ff000055&quot;</span>) <span class="op">+</span></span>
-<span id="cb200-18"><a href="significance-test.html#cb200-18"></a><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dt">x=</span><span class="dv">3</span>, <span class="dt">y=</span><span class="fl">0.1</span>, <span class="dt">label=</span>pval) <span class="op">+</span></span>
-<span id="cb200-19"><a href="significance-test.html#cb200-19"></a><span class="st">  </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">x=</span><span class="dv">3</span>, <span class="dt">xend=</span><span class="fl">2.3</span>, <span class="dt">y=</span><span class="fl">0.09</span>, <span class="dt">yend=</span><span class="fl">0.01</span>), </span>
-<span id="cb200-20"><a href="significance-test.html#cb200-20"></a>               <span class="dt">arrow=</span><span class="kw">arrow</span>(<span class="dt">length=</span><span class="kw">unit</span>(<span class="fl">0.1</span>,<span class="st">&#39;inch&#39;</span>)),</span>
-<span id="cb200-21"><a href="significance-test.html#cb200-21"></a>               <span class="dt">color=</span><span class="st">&#39;black&#39;</span>,</span>
-<span id="cb200-22"><a href="significance-test.html#cb200-22"></a>               <span class="dt">size=</span><span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="significance-test.html#cb204-1"></a>x1 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">6</span>, <span class="dv">6</span>, <span class="dt">by=</span><span class="fl">0.01</span>)</span>
+<span id="cb204-2"><a href="significance-test.html#cb204-2"></a>y1 &lt;-<span class="st"> </span><span class="kw">dnorm</span>(x1, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb204-3"><a href="significance-test.html#cb204-3"></a>x2 &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">1</span>, <span class="dv">11</span>, <span class="dt">by=</span><span class="fl">0.01</span>)</span>
+<span id="cb204-4"><a href="significance-test.html#cb204-4"></a>y2 &lt;-<span class="st"> </span><span class="kw">dnorm</span>(x2, <span class="dv">3</span>, <span class="dv">1</span>)</span>
+<span id="cb204-5"><a href="significance-test.html#cb204-5"></a>z &lt;-<span class="st"> </span><span class="kw">data.frame</span>(x1, y1, x2, y2)</span>
+<span id="cb204-6"><a href="significance-test.html#cb204-6"></a><span class="co">#pval &lt;- round(1-pnorm(2,0,1), 4)</span></span>
+<span id="cb204-7"><a href="significance-test.html#cb204-7"></a><span class="kw">ggplot</span>(z) <span class="op">+</span></span>
+<span id="cb204-8"><a href="significance-test.html#cb204-8"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(x1, y1), <span class="dt">color=</span><span class="st">&quot;blue&quot;</span>) <span class="op">+</span></span>
+<span id="cb204-9"><a href="significance-test.html#cb204-9"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(x2, y2), <span class="dt">color=</span><span class="st">&quot;red&quot;</span>) <span class="op">+</span></span>
+<span id="cb204-10"><a href="significance-test.html#cb204-10"></a><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> <span class="dv">2</span>) <span class="op">+</span></span>
+<span id="cb204-11"><a href="significance-test.html#cb204-11"></a><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>) <span class="op">+</span></span>
+<span id="cb204-12"><a href="significance-test.html#cb204-12"></a><span class="st">  </span><span class="kw">geom_area</span>(<span class="dt">data=</span><span class="kw">filter</span>(z, x1 <span class="op">&gt;</span><span class="st"> </span><span class="dv">2</span>), </span>
+<span id="cb204-13"><a href="significance-test.html#cb204-13"></a>            <span class="kw">aes</span>(x1, y1), </span>
+<span id="cb204-14"><a href="significance-test.html#cb204-14"></a>            <span class="dt">fill=</span><span class="st">&quot;#0000ff55&quot;</span>) <span class="op">+</span></span>
+<span id="cb204-15"><a href="significance-test.html#cb204-15"></a><span class="st">  </span><span class="kw">geom_area</span>(<span class="dt">data=</span><span class="kw">filter</span>(z, x2 <span class="op">&lt;</span><span class="st"> </span><span class="dv">2</span>), </span>
+<span id="cb204-16"><a href="significance-test.html#cb204-16"></a>            <span class="kw">aes</span>(x2, y2), </span>
+<span id="cb204-17"><a href="significance-test.html#cb204-17"></a>            <span class="dt">fill=</span><span class="st">&quot;#ff000055&quot;</span>) <span class="op">+</span></span>
+<span id="cb204-18"><a href="significance-test.html#cb204-18"></a><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dt">x=</span><span class="dv">3</span>, <span class="dt">y=</span><span class="fl">0.1</span>, <span class="dt">label=</span>pval) <span class="op">+</span></span>
+<span id="cb204-19"><a href="significance-test.html#cb204-19"></a><span class="st">  </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">x=</span><span class="dv">3</span>, <span class="dt">xend=</span><span class="fl">2.3</span>, <span class="dt">y=</span><span class="fl">0.09</span>, <span class="dt">yend=</span><span class="fl">0.01</span>), </span>
+<span id="cb204-20"><a href="significance-test.html#cb204-20"></a>               <span class="dt">arrow=</span><span class="kw">arrow</span>(<span class="dt">length=</span><span class="kw">unit</span>(<span class="fl">0.1</span>,<span class="st">&#39;inch&#39;</span>)),</span>
+<span id="cb204-21"><a href="significance-test.html#cb204-21"></a>               <span class="dt">color=</span><span class="st">&#39;black&#39;</span>,</span>
+<span id="cb204-22"><a href="significance-test.html#cb204-22"></a>               <span class="dt">size=</span><span class="dv">1</span>)</span></code></pre></div>
 <p>이 때는 실제 사실의 분포와(red) 가설의 분포가(blue) 다릅니다. 실제 사실의 분포 입장에서 2를 기준으로 가설을 기각하는 상황은 올바른 판단을 하는 상황입니다. 그러나 2를 기준으로 가설을 받아들이는 경우, 실제 사실은 받아들이지 않게 되는 오류가 발생합니다. 이 오류를 “제2종오류 (<span class="math inline">\(\beta\)</span>)”라고 합니다.</p>
 <p>일반적으로 실제 사실은 모집단의 모수와 같이 알 수 없는 값입니다. 따라서 우리는 가설의 분포를 가지고 판단을 하게되며 이 때 <span class="math inline">\(\alpha\)</span>와 <span class="math inline">\(\beta\)</span> 오류는 위 그림이 보여주는 것처럼 서로 trade off 관계에 있게 됩니다. 즉, 임의의 가설을 기반으로 특정 관측값의 유의성을 판단할 때 제1종오류를 최소화 하려하면 제2종오류는 최대화 되고 그 반대로 제2종오류를 최소화 하면 제1종오류는 오히려 커지게 되는 것 입니다.</p>
 <p>유의성검정에서 <span class="math inline">\(H_0\)</span>는 귀무가설(Null hypothesis)이고 <span class="math inline">\(H_1\)</span>을 대립가설(alternative hypothesis)이라 합니다. 일반적으로 <span class="math inline">\(H_1\)</span>이 사람들이 관심있는 주장이고 유의성검정을 위해서 사람들의 주장의 반대인 <span class="math inline">\(H_0\)</span>를 가정합니다. 만약 <span class="math inline">\(H_0\)</span> 가정 하에서 만들어진 통계량의 관측될 확률이 작으면 가정이 틀린 것으로 <span class="math inline">\(H_0\)</span>를 기각하고 사람들이 주장하는 <span class="math inline">\(H_1\)</span>을 채택합니다. 여기서 계산된 통계량이 관측될 확률을 유의확률(p-value) 이라 하며 유의성검정은 p-value를 계산하는 것과 같습니다. 위 그림에서 0.0228 값이 p-value 입니다.</p>
@@ -389,7 +399,149 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 귀무가설 거짓 –&gt; 채택 (오류)<br />
 귀무가설 거짓 –&gt; 기각 (o)</p>
 <p>앞서 재판의 경우를 예로 들면 제1종오류는 죄가 없는 사람(<span class="math inline">\(H_0\)</span>가 참)을 죄가 있다고 판단 (<span class="math inline">\(H_0\)</span>기각) 하는 경우로 가능하면 일어나서는 안되는 상황입니다. 따라서 <span class="math inline">\(\alpha\)</span>는 보수적인 기준으로 정하게 되나 <span class="math inline">\(\alpha\)</span>가 작아지면 자동적으로 <span class="math inline">\(\beta\)</span>가 큰 값으로 결정되어 두 오류를 동시에 작게 만족시키는 유의수준은 정하기 어렵습니다. 따라서 가능한 제1종 오류를 작게 유지하면서 power (<span class="math inline">\(1-\beta\)</span>)를 가능한 높게 되도록 검정을 디자인할 필요가 있습니다.</p>
+<p><strong>[Example]</strong> 어떤 기계의 영점이 N(0,1)의 분포를 가지고, 영점이 맞지 않을 경우 N(1,1)의 분포를 가진다고 한다. 기계로 부터 측정한 값이 0.7일 경우 기계의 영점이 맞춰져 있는지 아닌지를 판단하시오</p>
+<p><span class="math display">\[
+H_0: \mu = 0 \text{ vs } H_1: \mu = 1
+\]</span></p>
+<p><img src="images/09/03.png" /></p>
+<p>만약 영점이 맞춰진 상태에서 관측된 값이라면 <span class="math inline">\(Z = {0.7-\mu}/sd = 0.7\)</span> 이므로 p-value는 <code>1-pnorm(0.7, 0, 1)=0.2419</code> 이므로 가설을 기각할만한 증거가 충분치 않습니다. 즉, <span class="math inline">\(H_0: \mu=0\)</span>를 받아들이는 상황인 것인데 그렇지만 0.7은 분명히 0보다는 1에 가까운 (<span class="math inline">\(H_1\)</span>) 값입니다. 이러한 경우에 1 sd 대신 1/sqrt(10) 값을 사용하면 훨씬더 명확한 판단을 내릴 수 있습니다.</p>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="significance-test.html#cb205-1"></a><span class="dv">1</span><span class="op">-</span><span class="kw">pnorm</span>(<span class="fl">0.7</span>, <span class="dv">0</span>, <span class="dv">1</span><span class="op">/</span><span class="kw">sqrt</span>(<span class="dv">10</span>))</span></code></pre></div>
+<p>즉, p-value가 충분히 작으므로 귀무가설 <span class="math inline">\(H_0\)</span>를 기각하고 대립가설을 지지하게 됩니다. 1 standard deviation unit 대신 1/10 unit을 사용함므로써 더욱 명확한 판단을 내릴 수 있게 된 것입니다.</p>
+<p>위와 같은 p-value는 가설을 검정하는데 사용되는 핵심 기준이 되며 가설을 검정하기위한 p-value 계산법은 일반적으로 다음과 같습니다.</p>
+<ul>
+<li>데이터에 맞는 분포를 정함 (모수 정의)</li>
+<li>H0와 H1를 정함</li>
+<li>검정 통계량 정의</li>
+<li>데이터 수집</li>
+<li>검정 통계량 계산</li>
+<li>p-value 계산</li>
+</ul>
+<p>유의성 검정의 목적은 추정한 모수가 얼마나 통계적으로 유의한지를 판단하기 위한 것 입니다. 모형에 (분포) 따라서 모수가 달라지므로 다음과 같이 몇 가지 경우에 대한 유의성 검정 방법들이 있습니다.</p>
+</div>
+<div id="significance-test-for-a-population-proportion" class="section level2">
+<h2><span class="header-section-number">10.2</span> Significance test for a population proportion</h2>
+<p>실업률 고용률 오르는지, 빈곤율 떨어지는지 등 비율에 대한 값이 있고 이러한 모수를 갖는 분포는 이항분포가 대표적인 예 입니다. 해당 분포에 대한 모수가 관측한 값보다 더 높은지 낮은지를 비교하는 검정을 수행할 수 있습니다. 우리의 관심 확률 변수가 <span class="math inline">\(p\)</span> 이고 가설의 기준이 되는 값을 <span class="math inline">\(p_0\)</span>라 합니다. 만약 <span class="math inline">\(n\)</span> 번 관찰 중 <span class="math inline">\(x\)</span>번을 성공 횟수라 한다면 <span class="math inline">\(\hat{p} = x/n\)</span> 입니다. 보통은 표준화한 값을 통계량으로 사용하고 <span class="math inline">\(Z\)</span>는 다음과 같습니다.</p>
+<p><span class="math display">\[
+\begin{split}
+H_0: p = p_0 \\
+\\
+H_1: p &gt; p_0, H_1: p &lt; p_0, H_1: p \neq p_0 \\
+\\
+Z = \frac{\hat{p} - E(\hat{p}|H_0)}{SD(\hat{p}|H_0)} = \frac{\hat{p} - p_0}{\sqrt{p_0(1-p_0)/n}} 
+\end{split}
+\]</span></p>
+<div class="figure">
+<img src="images/09/04.png" alt="" />
+<p class="caption">page300 Figure 9.2</p>
+</div>
+<div class="figure">
+<img src="images/09/05.png" alt="" />
+<p class="caption">page300 Equation 9.1</p>
+</div>
+<p><strong>[Example]</strong> 2000년 빈곤율은 11.7% 였고 2010년 빈곤율은 15.0% 였다. 2011년 빈곤율이 15.13%으로 관측 되었을 때 빈곤율이 증가하는 것인지 검정하시오. n = 150,000.</p>
+<ul>
+<li>분포 - 비율 비교 (이항분포)</li>
+<li>H0: 15.0과 같다, H1: 15.0보다 크다</li>
+<li>통계량: Z</li>
+<li>통계량, pvalue계산</li>
+</ul>
+<p><span class="math display">\[
+\begin{split}
+&amp; H_0: p = 0.15 \\
+\\
+&amp; H_1: p &gt; 0.15 \\
+\\
+Z &amp;= \frac{0.1513 - 0.15}{\sqrt{0.1513 \times 0.8487 / 150000}} = 1.405 \sim N(0,1)
+\end{split}
+\]</span></p>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="significance-test.html#cb206-1"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb206-2"><a href="significance-test.html#cb206-2"></a>n &lt;-<span class="st"> </span><span class="dv">150000</span></span>
+<span id="cb206-3"><a href="significance-test.html#cb206-3"></a>phat &lt;-<span class="st"> </span><span class="dv">22695</span><span class="op">/</span>n</span>
+<span id="cb206-4"><a href="significance-test.html#cb206-4"></a>p0 &lt;-<span class="st"> </span><span class="fl">0.15</span></span>
+<span id="cb206-5"><a href="significance-test.html#cb206-5"></a>SD &lt;-<span class="st"> </span><span class="kw">sqrt</span>(p0<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>p0)<span class="op">/</span>n)</span>
+<span id="cb206-6"><a href="significance-test.html#cb206-6"></a>Z &lt;-<span class="st"> </span>(phat <span class="op">-</span><span class="st"> </span>p0)<span class="op">/</span>SD</span>
+<span id="cb206-7"><a href="significance-test.html#cb206-7"></a>pval &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">-</span><span class="kw">pnorm</span>(Z)</span>
+<span id="cb206-8"><a href="significance-test.html#cb206-8"></a></span>
+<span id="cb206-9"><a href="significance-test.html#cb206-9"></a><span class="co">## plot</span></span>
+<span id="cb206-10"><a href="significance-test.html#cb206-10"></a>x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="dt">length=</span><span class="dv">100</span>)</span>
+<span id="cb206-11"><a href="significance-test.html#cb206-11"></a>y &lt;-<span class="st"> </span><span class="kw">dnorm</span>(x)</span>
+<span id="cb206-12"><a href="significance-test.html#cb206-12"></a>dat &lt;-<span class="st"> </span><span class="kw">data.frame</span>(x, y)</span>
+<span id="cb206-13"><a href="significance-test.html#cb206-13"></a></span>
+<span id="cb206-14"><a href="significance-test.html#cb206-14"></a><span class="co">#x1 &lt;- seq(Z, 5, length=50)</span></span>
+<span id="cb206-15"><a href="significance-test.html#cb206-15"></a><span class="co">#y1 &lt;- dnorm(x1)</span></span>
+<span id="cb206-16"><a href="significance-test.html#cb206-16"></a><span class="co">#dat2 &lt;- data.frame(x=c(Z, x1, Z), y=c(0, y1, 0))</span></span>
+<span id="cb206-17"><a href="significance-test.html#cb206-17"></a></span>
+<span id="cb206-18"><a href="significance-test.html#cb206-18"></a><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(x, y)) <span class="op">+</span></span>
+<span id="cb206-19"><a href="significance-test.html#cb206-19"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
+<span id="cb206-20"><a href="significance-test.html#cb206-20"></a><span class="st">  </span><span class="kw">geom_area</span>(<span class="dt">data=</span><span class="kw">filter</span>(dat, x <span class="op">&gt;</span><span class="st"> </span>Z), <span class="dt">fill=</span><span class="st">&quot;#ff000055&quot;</span>) <span class="op">+</span></span>
+<span id="cb206-21"><a href="significance-test.html#cb206-21"></a><span class="st">  </span><span class="co">#geom_polygon(dat=dat2, aes(x, y)) + </span></span>
+<span id="cb206-22"><a href="significance-test.html#cb206-22"></a><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, </span>
+<span id="cb206-23"><a href="significance-test.html#cb206-23"></a>           <span class="dt">label =</span> <span class="kw">round</span>(pval,<span class="dv">3</span>), </span>
+<span id="cb206-24"><a href="significance-test.html#cb206-24"></a>           <span class="dt">x =</span> <span class="dv">3</span>, </span>
+<span id="cb206-25"><a href="significance-test.html#cb206-25"></a>           <span class="dt">y =</span> <span class="fl">0.15</span>, </span>
+<span id="cb206-26"><a href="significance-test.html#cb206-26"></a>           <span class="dt">size =</span> <span class="dv">8</span>, </span>
+<span id="cb206-27"><a href="significance-test.html#cb206-27"></a>           <span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span></span>
+<span id="cb206-28"><a href="significance-test.html#cb206-28"></a><span class="st">  </span><span class="kw">geom_segment</span>(<span class="kw">aes</span>(<span class="dt">x =</span> <span class="fl">2.5</span>, </span>
+<span id="cb206-29"><a href="significance-test.html#cb206-29"></a>                   <span class="dt">y =</span> <span class="fl">0.12</span>, </span>
+<span id="cb206-30"><a href="significance-test.html#cb206-30"></a>                   <span class="dt">xend =</span> <span class="fl">1.8</span>, </span>
+<span id="cb206-31"><a href="significance-test.html#cb206-31"></a>                   <span class="dt">yend =</span> <span class="fl">0.05</span>),  </span>
+<span id="cb206-32"><a href="significance-test.html#cb206-32"></a>               <span class="dt">arrow =</span> <span class="kw">arrow</span>(<span class="dt">length =</span> <span class="kw">unit</span>(<span class="fl">0.1</span>, <span class="st">&quot;inches&quot;</span>)), </span>
+<span id="cb206-33"><a href="significance-test.html#cb206-33"></a>               <span class="dt">color=</span><span class="st">&#39;red&#39;</span>,</span>
+<span id="cb206-34"><a href="significance-test.html#cb206-34"></a>               <span class="dt">size=</span><span class="dv">1</span>)</span></code></pre></div>
+<p><strong>[EXERCISE]</strong> 앞서 예제를 <code>prop.test</code> 를 사용해서 구현하시오</p>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="significance-test.html#cb207-1"></a><span class="kw">prop.test</span>(<span class="dt">x=</span><span class="dv">22695</span>, <span class="dt">n=</span><span class="dv">150000</span>, <span class="dt">p=</span><span class="fl">0.15</span>, <span class="dt">alternative =</span> <span class="st">&quot;greater&quot;</span>)</span></code></pre></div>
+</div>
+<div id="significance-test-for-the-mean-t-test" class="section level2">
+<h2><span class="header-section-number">10.3</span> Significance test for the mean (t-test)</h2>
+<p>이번에는 미지의 모평균에 대한 검정을 수행하는 방법을 알아봅니다. 검정 방법은 앞서 배운 검정 과정과 유사하며 통계량은 신뢰구간을 학습할 때 배웠던 t통계량과 같습니다.</p>
+<p><span class="math display">\[
+\begin{split}
+H_0: \mu = \mu_0 \\
+\\
+H_1: \mu &gt; \mu_0, H_1: \mu &lt; \mu_0, H_1: \mu \neq \mu_0 \\
+\\
+T = \frac{\bar{x} - E(\bar{x}|H_0)}{SE(\bar{x}|H_0)} = \frac{\bar{x} - \mu_0}{s / \sqrt{n}} = \frac{\text{observed} - \text{expected}}{SE} 
+\end{split}
+\]</span></p>
+<p>이제 데이터 <span class="math inline">\(x_1, x_2, ..., x_n\)</span>을 얻고 이로부터 <span class="math inline">\(t = (\bar{x}-\mu_0)/(s/\sqrt{n})\)</span>을 구할 경우 p-value는 다음과 같습니다.</p>
+<div class="figure">
+<img src="images/09/06.png" alt="" />
+<p class="caption">page304</p>
+</div>
+<p><strong>[Example]</strong> 새 SUV 자동차의 연비가 17miles / gallon 으로 알려져 있다. 소비자 그룹에서는 그러나 이보다 낮은 것으로 의심하고 있다. 다음 데이터들이 관측 되었을 때 해당 신차의 연비가 17mile 보다 작은지 검정하시오.</p>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="significance-test.html#cb208-1"></a>mpg &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">11.4</span>, <span class="fl">13.1</span>, <span class="fl">14.7</span>, <span class="fl">14.7</span>, <span class="dv">15</span>, <span class="fl">15.5</span>, <span class="fl">15.6</span>, <span class="fl">15.9</span>, <span class="dv">16</span>, <span class="fl">16.8</span>)</span>
+<span id="cb208-2"><a href="significance-test.html#cb208-2"></a>xbar &lt;-<span class="st"> </span><span class="kw">mean</span>(mpg)</span>
+<span id="cb208-3"><a href="significance-test.html#cb208-3"></a>s &lt;-<span class="st"> </span><span class="kw">sd</span>(mpg)</span>
+<span id="cb208-4"><a href="significance-test.html#cb208-4"></a>n &lt;-<span class="st"> </span><span class="kw">length</span>(mpg)</span>
+<span id="cb208-5"><a href="significance-test.html#cb208-5"></a>tstat &lt;-<span class="st"> </span>(xbar<span class="dv">-17</span>)<span class="op">/</span>(s<span class="op">/</span><span class="kw">sqrt</span>(n))</span></code></pre></div>
+<p><span class="math display">\[
+\begin{split}
+&amp;H_0: \mu = 17 \\
+\\
+&amp;H_1: \mu &lt; 17 \\
+\\
+T &amp;= \frac{14.87 - 17}{1.582 / 3.162} =  -4.284
+\end{split}
+\]</span></p>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="significance-test.html#cb209-1"></a>x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="dt">length=</span><span class="dv">100</span>)</span>
+<span id="cb209-2"><a href="significance-test.html#cb209-2"></a>y &lt;-<span class="st"> </span><span class="kw">dt</span>(x, <span class="dt">df=</span>n<span class="dv">-1</span>)</span>
+<span id="cb209-3"><a href="significance-test.html#cb209-3"></a>dat &lt;-<span class="st"> </span><span class="kw">data.frame</span>(x, y)</span>
+<span id="cb209-4"><a href="significance-test.html#cb209-4"></a><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(x, y)) <span class="op">+</span></span>
+<span id="cb209-5"><a href="significance-test.html#cb209-5"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
+<span id="cb209-6"><a href="significance-test.html#cb209-6"></a><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> tstat)</span>
+<span id="cb209-7"><a href="significance-test.html#cb209-7"></a></span>
+<span id="cb209-8"><a href="significance-test.html#cb209-8"></a><span class="kw">pt</span>(tstat, <span class="dt">df=</span><span class="dv">9</span>, <span class="dt">lower.tail=</span>T)</span></code></pre></div>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="significance-test.html#cb210-1"></a><span class="kw">pt</span>(tstat, <span class="dt">df=</span><span class="dv">9</span>, <span class="dt">lower.tail=</span>T)</span></code></pre></div>
+<p><strong>[EXERCISE]</strong> 위 예제를 <code>t.test</code> 를 사용해서 구현하시오</p>
+</div>
+<div id="problem-10" class="section level2">
+<h2><span class="header-section-number">10.4</span> Problem 10</h2>
+<ol style="list-style-type: decimal">
+<li><p><code>babies(UsingR)</code> 데이터의 임신 중 흡현을 한 사람을 (smoke 변수의 1로 코딩된 샘플) 뽑으시오 (단, smoke 변수의 999값을 가진 샘플은 포함하지 마시오)</p></li>
+<li><p>위 문제 1)에서 “H0: 평균 임신기간이 40주 이다” 라는 가설을 검정하시오 (양측검정).</p></li>
+</ol>
 
+</div>
 </div>
             </section>
 
