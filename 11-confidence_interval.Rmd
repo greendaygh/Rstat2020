@@ -3,6 +3,8 @@
 
 https://youtu.be/Xv7RZncGDwE
 
+https://youtu.be/spJcs6iiXek
+
 ![](images/09/statistical_inference.png)
 
 점추정의 경우 이항분포에서 모비율을 추정하는 추정량인 (estimator) $np$나 정규분포의 표본평균의 추정량인 $\bar{X} = \sum_{i=1}^n X_i/n$ 등이 점추정량이고 이들은 모두 추정량의 특징인 불편성을 만족하는 불편추정량 (unbiased estimator)입니다. 불편추정량이란 점추정량 $\hat{\theta}$의 기대치 $E(\hat{\theta})$이 모집단의 모수 $\theta$와 같은 추정량을 말하며 앞서 중심극한 정리에 의해서 표본평균의 기대값이 모평균과 같음을 배웠으므로 $\bar{X}$가 불편추정량이 되는 것 입니다. 
