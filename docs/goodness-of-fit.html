@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>R로 배우는 기초통계</title>
+  <title>Chapter 11 Goodness of fit | R로 배우는 기초통계</title>
   <meta name="description" content="UST lecture web site" />
   <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="R로 배우는 기초통계" />
+  <meta property="og:title" content="Chapter 11 Goodness of fit | R로 배우는 기초통계" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="R로 배우는 기초통계" />
+  <meta name="twitter:title" content="Chapter 11 Goodness of fit | R로 배우는 기초통계" />
   
   <meta name="twitter:description" content="UST lecture web site" />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
+<link rel="prev" href="significance-test.html"/>
 
-<link rel="next" href="r-basics.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -342,181 +342,123 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">R로 배우는 기초통계</h1>
-<p class="author"><em>한국생명공학연구원 김하성</em></p>
-<p class="date"><em>2020-12-23</em></p>
+<div id="goodness-of-fit" class="section level1">
+<h1><span class="header-section-number">Chapter 11</span> Goodness of fit</h1>
+<p>앞서 chapter 4에서 범주형 데이터와 함께 The chi-squared statistics의 간략한 설명이 있었습니다. 범주형 데이터에서는 테이블로 데이터를 요약할 수 있고 각 테이블 숫자들의 분포가 얼마나 기대한 숫자들과 유사한지를 테스트할 수 있습니다. 이러한 검정을 적합도 검정이라고 합니다.</p>
+<div id="the-chi-squared-goodness-of-fit-test" class="section level2">
+<h2><span class="header-section-number">11.1</span> The chi-squared goodness-of-fit test</h2>
+<p>어떤 선거를 앞두고 100명의 사람들에게 공화당과 민주당 후보 중 어느 후보를 지지하는지 투표를 수행했다고 합시다. 공화당이 35명 민주당이 40명 그리고 결정하지 못 한 사람이 25명 이라고 할 때 공화당과 민주당 지지하는 사람들의 차이는 유의한 것인가? 라는 질문을 할 수 있습니다. 유의성 검정을 수행하기 위해서는 유의확률을 계산할 수 있는 확률 분포가 필요합니다. 그런데 위 설문조사는 두 개 이상의 옵션을 가지고 있습니다. 두 가지 경우의 수만을 가지는 경우를 이항분포라고 하였다면 두 가지 이상의 경우를 가지는 경우의 분포를 다항분포 (multinomical) 라고 합니다.</p>
+<p><span class="math inline">\(k\)</span>개의 범주를 갖는 <span class="math inline">\(1\)</span> 부터 <span class="math inline">\(k\)</span>까지의 라벨이 적힌 카드가 있다고 할 경우 랜덤하게 카드를 하나 뽑을때 뽑힐 카드의 확률은 <span class="math inline">\(p_1\)</span>, <span class="math inline">\(p_2\)</span>, …, <span class="math inline">\(p_k\)</span>이고 <span class="math inline">\(p_1 + p_2 + ... + p_k = 1\)</span> 입니다. <span class="math inline">\(n\)</span>번의 카드를 반복해서 뽑을 때 각 카드가 몇 개 뽑혔는지 테이블을 만들 수 있습니다. 이 테이블 각 cell의 숫자를 <span class="math inline">\(y_1\)</span>, <span class="math inline">\(y_2\)</span>, …, <span class="math inline">\(y_k\)</span>라 하고 이 숫자들을 모두 더하면 <span class="math inline">\(n\)</span>이 됩니다. 각 cell의 숫자들을 나타내는 변수를 확률변수로 볼 수 있고 이 확률 변수들의 결합확률이 다항분포 입니다.</p>
+<p>앞서 선거 예제를 보면 우리가 기대하는 공화당, 민주당, 기권의 비율은 각각 35%, 35%, 30%라고 하면 100명의 설문조사인원 중 35명은 공화당, 40명은 민주당, 25명은 기권이 관측될 확률을 계산하는 경우로 볼 수 있고 이는 다음과 같습니다.</p>
+<p><span class="math display">\[
+P(y_1=35, y_2=40, y_3=25) = {100\choose35} \cdot (0.35)^{35} \cdot {65\choose40} \cdot (0.35)^{40} \cdot {25\choose25} \cdot (0.30)^{25} 
+\]</span></p>
+<p>위 확률은 특정 값이 관측될 확률이며 검정에서 사용되는 p-value는 아닙니다. p-value는 관측값과 기대값의 차이를 이용해서 기존 분포에 맞는 통계량을 계산하는 방법으로 p-value를 구합니다. <span class="math inline">\(y_i\)</span> 는 얼마나 많은 수의 <span class="math inline">\(i\)</span> 범주의 카드가 <span class="math inline">\(n\)</span>으로부터 뽑혔는지를 말해줍니다. 만약 <span class="math inline">\(i\)</span> 범주 하나만을 생각한다면 <span class="math inline">\(y_i\)</span>의 기대값은 Binomial(n, <span class="math inline">\(p_i\)</span>)를 따르게 되고 기대값은 <span class="math inline">\(np_i\)</span>가 됩니다. 따라서 범주형 데이터 테이블에서 기대값과 관측값의 차이로 만든 통계량은 다음과 같으며 피어슨 카이스퀘어드 통계량 (Pearson’s chi-squared statistic) 이라고 합니다.</p>
+<p><span class="math display">\[
+\chi^2 = \sum_{i=1}^{k} \frac{(y_i-np_i)^2}{np_i} = \sum \frac{(observed-expected)^2}{expected} 
+\]</span></p>
+<p>테이블의 각 cell의 수가 (<span class="math inline">\(y_i\)</span>) 5 이상일 경우 <span class="math inline">\(y_i\)</span>는 근사적으로 <span class="math inline">\(k-1\)</span> 자유도를 갖는 카이제곱 분포를 따른다고 알려져 있습니다. 위 통계량을 사용하여 유의성 검정을 수행할 수 있습니다. 통계량 값이 클 경우 예측값과 관측값 차이가 커지게 됩니다.</p>
+<p>범주형 자료의 랜덤표본추출에 의해서 만들어진 테이블의 관측값이 <span class="math inline">\(y_1\)</span>, <span class="math inline">\(y_2\)</span>, …, <span class="math inline">\(y_k\)</span>라 하면 이들이 관측될 결합확률 분포는 다항분포 모형의 <span class="math inline">\(p_1\)</span>, <span class="math inline">\(p_2\)</span>, …, <span class="math inline">\(p_k\)</span>으로 표현할 수 있습니다. 이를 이용하여 다음 귀무가설과 대립가설을 수립하고 카이스퀘어 통계량을 사용하여 유의성 검정을 수행할 수 있습니다.</p>
+<p><span class="math display">\[
+H_0: p_1 = \pi_1, ..., p_k = \pi_k \\
+H_1: p_i \neq \pi_i \text{ for at least on } i
+\]</span></p>
+<p>귀무가설이 참인 가정 하에서 표본분포는 (sampling distribution) 자유도가 <span class="math inline">\(k-1\)</span>인 <span class="math inline">\(\chi^2\)</span> 분포를 따르게 됩니다.</p>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="goodness-of-fit.html#cb211-1"></a><span class="co">## chisq plot</span></span>
+<span id="cb211-2"><a href="goodness-of-fit.html#cb211-2"></a></span>
+<span id="cb211-3"><a href="goodness-of-fit.html#cb211-3"></a>xs &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="fl">0.1</span>, <span class="dv">10</span>, <span class="dt">by =</span> <span class="fl">0.1</span>)</span>
+<span id="cb211-4"><a href="goodness-of-fit.html#cb211-4"></a><span class="co">#y &lt;- dchisq(x, 2)</span></span>
+<span id="cb211-5"><a href="goodness-of-fit.html#cb211-5"></a>dfs &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">7</span></span>
+<span id="cb211-6"><a href="goodness-of-fit.html#cb211-6"></a><span class="co">#x2 &lt;- rep(x, times=length(dfs))</span></span>
+<span id="cb211-7"><a href="goodness-of-fit.html#cb211-7"></a></span>
+<span id="cb211-8"><a href="goodness-of-fit.html#cb211-8"></a>y &lt;-<span class="st"> </span><span class="kw">sapply</span>(dfs, <span class="cf">function</span>(x){<span class="kw">dchisq</span>(<span class="kw">seq</span>(<span class="fl">0.1</span>, <span class="dv">10</span>, <span class="dt">by =</span> <span class="fl">0.1</span>), <span class="dt">df=</span>x)})</span>
+<span id="cb211-9"><a href="goodness-of-fit.html#cb211-9"></a><span class="kw">colnames</span>(y) &lt;-<span class="st"> </span>dfs</span>
+<span id="cb211-10"><a href="goodness-of-fit.html#cb211-10"></a>dat &lt;-<span class="st"> </span><span class="kw">data.frame</span>(x, y)</span>
+<span id="cb211-11"><a href="goodness-of-fit.html#cb211-11"></a>dat2 &lt;-<span class="st"> </span>dat <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb211-12"><a href="goodness-of-fit.html#cb211-12"></a><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="op">!</span><span class="kw">c</span>(<span class="st">&quot;x&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb211-13"><a href="goodness-of-fit.html#cb211-13"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">df=</span><span class="kw">gsub</span>(<span class="st">&quot;X&quot;</span>, <span class="st">&quot;&quot;</span>, name))</span>
+<span id="cb211-14"><a href="goodness-of-fit.html#cb211-14"></a></span>
+<span id="cb211-15"><a href="goodness-of-fit.html#cb211-15"></a><span class="kw">ggplot</span>(dat2, <span class="kw">aes</span>(<span class="dt">x=</span>x, <span class="dt">y=</span>value, <span class="dt">color=</span>df)) <span class="op">+</span></span>
+<span id="cb211-16"><a href="goodness-of-fit.html#cb211-16"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">size=</span><span class="fl">1.5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="goodness-of-fit.html#cb212-1"></a>y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">35</span>, <span class="dv">40</span>, <span class="dv">25</span>)</span>
+<span id="cb212-2"><a href="goodness-of-fit.html#cb212-2"></a>p &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">35</span>, <span class="dv">35</span>, <span class="dv">30</span>)</span>
+<span id="cb212-3"><a href="goodness-of-fit.html#cb212-3"></a>p &lt;-<span class="st"> </span>p<span class="op">/</span><span class="kw">sum</span>(p)</span>
+<span id="cb212-4"><a href="goodness-of-fit.html#cb212-4"></a>n &lt;-<span class="st"> </span><span class="kw">sum</span>(y)</span>
+<span id="cb212-5"><a href="goodness-of-fit.html#cb212-5"></a>chi2 &lt;-<span class="st"> </span><span class="kw">sum</span>((y<span class="op">-</span>n<span class="op">*</span>p)<span class="op">^</span><span class="dv">2</span> <span class="op">/</span><span class="st"> </span>(n<span class="op">*</span>p))</span>
+<span id="cb212-6"><a href="goodness-of-fit.html#cb212-6"></a>pval &lt;-<span class="st"> </span><span class="kw">pchisq</span>(chi2, <span class="dv">2</span>, <span class="dt">lower.tail =</span> F)</span>
+<span id="cb212-7"><a href="goodness-of-fit.html#cb212-7"></a></span>
+<span id="cb212-8"><a href="goodness-of-fit.html#cb212-8"></a><span class="co">## plot</span></span>
+<span id="cb212-9"><a href="goodness-of-fit.html#cb212-9"></a>xs &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="fl">0.1</span>, <span class="dv">10</span>, <span class="dt">by =</span> <span class="fl">0.001</span>)</span>
+<span id="cb212-10"><a href="goodness-of-fit.html#cb212-10"></a>ys &lt;-<span class="st"> </span><span class="kw">dchisq</span>(xs, <span class="dv">2</span>)</span>
+<span id="cb212-11"><a href="goodness-of-fit.html#cb212-11"></a>dat &lt;-<span class="st"> </span><span class="kw">data.frame</span>(xs, ys)</span>
+<span id="cb212-12"><a href="goodness-of-fit.html#cb212-12"></a></span>
+<span id="cb212-13"><a href="goodness-of-fit.html#cb212-13"></a><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x=</span>xs, <span class="dt">y=</span>ys)) <span class="op">+</span></span>
+<span id="cb212-14"><a href="goodness-of-fit.html#cb212-14"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
+<span id="cb212-15"><a href="goodness-of-fit.html#cb212-15"></a><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> chi2) <span class="op">+</span></span>
+<span id="cb212-16"><a href="goodness-of-fit.html#cb212-16"></a><span class="st">  </span><span class="kw">geom_area</span>(<span class="dt">data=</span><span class="kw">filter</span>(dat, xs<span class="op">&gt;</span><span class="dv">0</span> <span class="op">&amp;</span><span class="st"> </span>xs<span class="op">&lt;</span>chi2), <span class="dt">fill=</span><span class="st">&quot;red&quot;</span>) <span class="op">+</span></span>
+<span id="cb212-17"><a href="goodness-of-fit.html#cb212-17"></a><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="fl">0.8</span>, <span class="fl">0.1</span>, <span class="dt">label=</span><span class="kw">round</span>(pval,<span class="dv">2</span>), <span class="dt">color=</span><span class="st">&quot;white&quot;</span>) <span class="op">+</span></span>
+<span id="cb212-18"><a href="goodness-of-fit.html#cb212-18"></a><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dv">2</span>, <span class="fl">0.3</span>, <span class="dt">label=</span><span class="kw">round</span>(chi2,<span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="goodness-of-fit.html#cb213-1"></a><span class="kw">chisq.test</span>(y, <span class="dt">p=</span>p)</span></code></pre></div>
 </div>
-<div id="introduction-강의-개요" class="section level1">
-<h1><span class="header-section-number">Chapter 1</span> Introduction 강의 개요</h1>
-<ul>
-<li>매주 목요일 강의노트, 동영상 업데이트</li>
-<li>강사: 한국생명공학연구원 바이오합성연구센터 김하성</li>
-<li>연락처: 042-860-4372, haseong [at] kribb.re.kr (생명연 연구동 1143)</li>
-<li>강의조교: 박성군, tjdrns27 [at] kribb.re.kr</li>
-<li>강의site: <a href="https://greendaygh.github.io/Rstat2020/" class="uri">https://greendaygh.github.io/Rstat2020/</a></li>
-</ul>
-<div id="goal-강의-목표" class="section level2">
-<h2><span class="header-section-number">1.1</span> Goal 강의 목표</h2>
-<ul>
-<li>이공계열 대학원생이 데이터 분석용 프로그래밍언어인 R을 기반으로 프로그래밍 기술과 함께 데이터를 분석하는 능력을 습득하고 이공계 연구에 필수인 통계적 사고의 기초를 배양함</li>
-</ul>
+<div id="the-chi-square-test-of-independence" class="section level2">
+<h2><span class="header-section-number">11.2</span> The chi-square test of independence</h2>
+<p>우리는 4장에서 two way-contingency table을 이용해서 두 범주형 변수의 상관성을 카이제곱 통계량으로 알아보았습니다. 즉, 테이블의 두 범주형 변수가 독립인지를 검사하기 위해서 주변분포와 조건부분포를 이용해서 기대값을 계산하고 관측값과의 차이로 카이제곱 통계량을 계산했습니다. 이 때 두 변수의 독립을 가정한 상태로 기대값을 계산했는데 이러한 가정이 바로 귀무가설과 같습니다. 정리하면 두 범주형 변수의 독립을 검정하기 위해서는 귀무가설과 대립가설, 검정통계량과 분포가 있으면 되겠습니다.</p>
+<p><span class="math inline">\(y_{ij}\)</span>, <span class="math inline">\(i\)</span>=1,…,<span class="math inline">\(n_r\)</span>, <span class="math inline">\(j\)</span>=1,…,<span class="math inline">\(n_c\)</span> 를 two way contingency 테이블의 (<span class="math inline">\(i\)</span>, <span class="math inline">\(j\)</span>) 셀의 숫자라고 하고 <span class="math inline">\(p_{ij}\)</span>를 해당하는 확률이라고 하겠습니다. 그리고 테이블에서 주변확률을 각각 <span class="math inline">\(p_i^r = p_{i1} + p_{i2} + ... + p_{in_r}\)</span> 과 <span class="math inline">\(p_j^c = p_{1j} + p_{2j} + ... + p_{n_cj}\)</span>라 하면 두 변수가 독립일 경우 <span class="math inline">\(p_{ij}=p_i^r p_j^c\)</span> 입니다. 따라서 귀무가설과 대립가설은 다음과 같이 정의할 수 있습니다.</p>
+<p><span class="math inline">\(H_0\)</span>: 두 변수가 독립, <span class="math inline">\(H_A\)</span>: 두 변수가 독립이 아님.</p>
+<p>이제 <span class="math inline">\(H_0\)</span>를 참으로 가정한 상태에서 통계량은 다음과 같습니다.</p>
+<p><span class="math display">\[
+\chi^2 = \sum_{i=1}^{n_r} \sum_{j=1}^{n_c} \frac{(y_{ij} - n \hat{p_{ij}})^2}{n\hat{p_{ij}}}
+\]</span></p>
+<p>앞서 Goodness of fit 검정과 다른 점은 앞에서는 <span class="math inline">\(\hat{p_{ij}}\)</span>에 해당하는 기대 확률이 주어져 있었고 독립성 검정에서는 이 기대 확률을 테이블을 통해 계산한다는 점 입니다. 이 통계량은 귀무가설하에서 자유도 <span class="math inline">\((n_r-1)(n_c-1)\)</span>인 카이제곱 분포를 따르며 p-value는 다음과 같습니다.</p>
+<p><span class="math display">\[
+P(\chi^2 \ge \text{observed value} | H_0)
+\]</span></p>
+<p>독립성 검정은 <code>chisq.test()</code>함수를 이용하여 수행할 수 있습니다. 아래 예제는 4장 두 변수의 연관성 학습할 때 나왔던 예제와 같습니다.</p>
+<p><strong>[Example]</strong> 다음 seatbelt 데이터에서 만약 부모와 아이들의 안전벨트를 매는 두 사건 (변수)가 독립이라면 <span class="math inline">\(p(C, P) == p(C)p(P)\)</span> 즉, 결합확률이 각 확률을 곱한 것과 같고 기대값은 확률 x 전체 사건의 수(<span class="math inline">\(N\)</span>) 이므로 다시 적으면 <span class="math inline">\(N p(C,P) == N p(C)p(P)\)</span>임. 여기서 <span class="math inline">\(N p(C,P)\)</span>는 우리가 관측한 값으로 볼 수 있고 <span class="math inline">\(N p(C) p(P)\)</span>는 독립을 가정한 상태에서 기대값이라고 볼 수 있음.</p>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="goodness-of-fit.html#cb214-1"></a>fo &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">56</span>, <span class="dv">2</span>, <span class="dv">8</span>, <span class="dv">16</span>), <span class="dt">nrow=</span><span class="dv">2</span>)</span>
+<span id="cb214-2"><a href="goodness-of-fit.html#cb214-2"></a><span class="kw">rownames</span>(fo) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;buckled&quot;</span>,<span class="st">&quot;unbuckled&quot;</span>)</span>
+<span id="cb214-3"><a href="goodness-of-fit.html#cb214-3"></a><span class="kw">colnames</span>(fo) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;buckled&quot;</span>,<span class="st">&quot;unbuckled&quot;</span>)</span>
+<span id="cb214-4"><a href="goodness-of-fit.html#cb214-4"></a></span>
+<span id="cb214-5"><a href="goodness-of-fit.html#cb214-5"></a><span class="co">## marginal probability</span></span>
+<span id="cb214-6"><a href="goodness-of-fit.html#cb214-6"></a>margin_rows &lt;-<span class="st"> </span><span class="kw">rowSums</span>(fo)<span class="op">/</span><span class="kw">sum</span>(fo)</span>
+<span id="cb214-7"><a href="goodness-of-fit.html#cb214-7"></a>margin_cols &lt;-<span class="st"> </span><span class="kw">colSums</span>(fo)<span class="op">/</span><span class="kw">sum</span>(fo)</span>
+<span id="cb214-8"><a href="goodness-of-fit.html#cb214-8"></a></span>
+<span id="cb214-9"><a href="goodness-of-fit.html#cb214-9"></a><span class="co">## expected numbers</span></span>
+<span id="cb214-10"><a href="goodness-of-fit.html#cb214-10"></a>fe &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="dt">nrow=</span><span class="dv">2</span>)</span>
+<span id="cb214-11"><a href="goodness-of-fit.html#cb214-11"></a>fe[<span class="dv">1</span>,<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">sum</span>(fo)<span class="op">*</span>margin_rows[<span class="dv">1</span>]<span class="op">*</span>margin_cols[<span class="dv">1</span>]</span>
+<span id="cb214-12"><a href="goodness-of-fit.html#cb214-12"></a>fe[<span class="dv">1</span>,<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">sum</span>(fo)<span class="op">*</span>margin_rows[<span class="dv">1</span>]<span class="op">*</span>margin_cols[<span class="dv">2</span>]</span>
+<span id="cb214-13"><a href="goodness-of-fit.html#cb214-13"></a>fe[<span class="dv">2</span>,<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">sum</span>(fo)<span class="op">*</span>margin_rows[<span class="dv">2</span>]<span class="op">*</span>margin_cols[<span class="dv">1</span>]</span>
+<span id="cb214-14"><a href="goodness-of-fit.html#cb214-14"></a>fe[<span class="dv">2</span>,<span class="dv">2</span>] &lt;-<span class="st"> </span><span class="kw">sum</span>(fo)<span class="op">*</span>margin_rows[<span class="dv">2</span>]<span class="op">*</span>margin_cols[<span class="dv">2</span>]</span>
+<span id="cb214-15"><a href="goodness-of-fit.html#cb214-15"></a><span class="co">#fe</span></span>
+<span id="cb214-16"><a href="goodness-of-fit.html#cb214-16"></a></span>
+<span id="cb214-17"><a href="goodness-of-fit.html#cb214-17"></a><span class="co">## use chisq.test function</span></span>
+<span id="cb214-18"><a href="goodness-of-fit.html#cb214-18"></a><span class="co">#(fo-fe)^2 / fe</span></span>
+<span id="cb214-19"><a href="goodness-of-fit.html#cb214-19"></a>chistat &lt;-<span class="st"> </span><span class="kw">sum</span>((fo<span class="op">-</span>fe)<span class="op">^</span><span class="dv">2</span> <span class="op">/</span><span class="st"> </span>fe)</span>
+<span id="cb214-20"><a href="goodness-of-fit.html#cb214-20"></a>df &lt;-<span class="st"> </span>(<span class="kw">nrow</span>(fo)<span class="op">-</span><span class="dv">1</span>)<span class="op">*</span>(<span class="kw">ncol</span>(fo)<span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb214-21"><a href="goodness-of-fit.html#cb214-21"></a><span class="dv">1</span><span class="op">-</span><span class="kw">pchisq</span>(chistat, df)</span>
+<span id="cb214-22"><a href="goodness-of-fit.html#cb214-22"></a></span>
+<span id="cb214-23"><a href="goodness-of-fit.html#cb214-23"></a></span>
+<span id="cb214-24"><a href="goodness-of-fit.html#cb214-24"></a>result &lt;-<span class="st"> </span><span class="kw">chisq.test</span>(fo)</span></code></pre></div>
+<p><img src="images/03/15.png" /></p>
+<p><strong>[Example]</strong> 한 의학연구가에 의하면 흡연은 눈가에 주름이 지게 하는 요인이 된다고 한다. 이러한 주장이 타당한가를 알아보기 위해 30대 남자 1000명을 랜덤하게 추출하여 조사한 결과 다음과 같은 표를 얻었다. 30대 남자들을 대상으로 볼 때 연구가의 주장이 옳은지 판단하는 연관성을 나타내는 카이제곱 값을 구하라</p>
+<p><img src="images/09/10.png" /></p>
+<p>chistat = 74.9652, pvalue&lt;2.2E-16</p>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="goodness-of-fit.html#cb215-1"></a>fo &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">186</span>, <span class="dv">228</span>, <span class="dv">114</span>, <span class="dv">472</span>), <span class="dt">nrow=</span><span class="dv">2</span>)</span>
+<span id="cb215-2"><a href="goodness-of-fit.html#cb215-2"></a>fo</span></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]  186  114
+## [2,]  228  472</code></pre>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="goodness-of-fit.html#cb217-1"></a><span class="kw">chisq.test</span>(fo, <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## 
+## 	Pearson&#39;s Chi-squared test with Yates&#39; continuity correction
+## 
+## data:  fo
+## X-squared = 73.757, df = 1, p-value &lt; 2.2e-16</code></pre>
 </div>
-<div id="this-course" class="section level2">
-<h2><span class="header-section-number">1.2</span> This course</h2>
-<ul>
-<li>온라인 (강의자료, 동영상) 강의를 기본으로 함</li>
-<li>기초 통계의 개념 설명과 R 실습 예시가 강의자료와 동영상 형식으로 제공됨</li>
-<li>매 회 강의에는 해당 강의 내용과 관련된 과제가 주어지며 이메일을 통해 문제 풀이를 제출 받음</li>
-<li>상황에 따라 강의 자료 및 동영상 업데이트 일정이 조정될 수 있음</li>
-</ul>
-</div>
-<div id="tips" class="section level2">
-<h2><span class="header-section-number">1.3</span> Tips</h2>
-<ul>
-<li>눈으로 이해하지 않고 스스로 실습 필수</li>
-<li>각 명령줄이 어떻게/왜 작동하는지 이해하기</li>
-<li>인터넷 검색을 통한 다른사람의 코드 이해/적용 필요</li>
-</ul>
-</div>
-<div id="references-books-참고-교제" class="section level2">
-<h2><span class="header-section-number">1.4</span> References books 참고 교제</h2>
-<ul>
-<li>Using R for Introductory Statistics by John Verzani
-<ul>
-<li>Free version of 1st Edition
-<ul>
-<li><a href="https://cran.r-project.org/doc/contrib/Verzani-SimpleR.pdf" class="uri">https://cran.r-project.org/doc/contrib/Verzani-SimpleR.pdf</a></li>
-</ul></li>
-<li>Second edition
-<ul>
-<li><a href="https://www.crcpress.com/Using-R-for-Introductory-Statistics-Second-Edition/Verzani/p/book/9781466590731" class="uri">https://www.crcpress.com/Using-R-for-Introductory-Statistics-Second-Edition/Verzani/p/book/9781466590731</a></li>
-</ul></li>
-</ul></li>
-<li>R for Data Science (<a href="https://r4ds.had.co.nz" class="uri">https://r4ds.had.co.nz</a>, <a href="https://github.com/hadley" class="uri">https://github.com/hadley</a>)</li>
-<li>Bioinformatics Data Skills by Vince Buffalo (<a href="http://2.droppdf.com/files/5aTvl/bioinformatics-data-skills.pdf" class="uri">http://2.droppdf.com/files/5aTvl/bioinformatics-data-skills.pdf</a>)</li>
-<li>First Course in Statistical Programming with R by Braun and
-Murdoch (<a href="https://www.cambridge.org/core/books/first-course-in-statistical-programming-with-r/C9F088122AB40517B07FA77F2F0FDE2F" class="uri">https://www.cambridge.org/core/books/first-course-in-statistical-programming-with-r/C9F088122AB40517B07FA77F2F0FDE2F</a>)</li>
-<li>Introductory Statistics with R by Dalgaard (<a href="http://www.academia.dk/BiologiskAntropologi/Epidemiologi/PDF/Introductory_Statistics_with_R__2nd_ed.pdf" class="uri">http://www.academia.dk/BiologiskAntropologi/Epidemiologi/PDF/Introductory_Statistics_with_R__2nd_ed.pdf</a>)</li>
-<li>Modern Applied Statistics with S by Venables and Ripley (<a href="http://www.bagualu.net/wordpress/wp-content/uploads/2015/10/Modern_Applied_Statistics_With_S.pdf" class="uri">http://www.bagualu.net/wordpress/wp-content/uploads/2015/10/Modern_Applied_Statistics_With_S.pdf</a>)</li>
-<li>일반통계학 (영지문화사, 김우철 외)</li>
-</ul>
-</div>
-<div id="references-참고-자료" class="section level2">
-<h2><span class="header-section-number">1.5</span> References 참고 자료</h2>
-<ul>
-<li><a href="https://resources.rstudio.com/" class="uri">https://resources.rstudio.com/</a></li>
-<li><a href="http://shiny.rstudio.com/tutorial/" class="uri">http://shiny.rstudio.com/tutorial/</a></li>
-<li>R 홈페이지 <a href="https://www.r-project.org/" class="uri">https://www.r-project.org/</a></li>
-<li>Rstudio 홈페이지 <a href="https://www.rstudio.com/" class="uri">https://www.rstudio.com/</a></li>
-<li>Packages for biologists <a href="https://www.bioconductor.org/" class="uri">https://www.bioconductor.org/</a></li>
-<li>R 기본 문서들 (소개, 사용, 설치, 운영) <a href="https://cran.r-project.org/manuals.html" class="uri">https://cran.r-project.org/manuals.html</a></li>
-<li>R ebooks <a href="https://bookdown.org/" class="uri">https://bookdown.org/</a></li>
-<li>Cheat Sheets <a href="https://www.rstudio.com/resources/cheatsheets/" class="uri">https://www.rstudio.com/resources/cheatsheets/</a></li>
-</ul>
-</div>
-<div id="evaluation-평가-세부-항목" class="section level2">
-<h2><span class="header-section-number">1.6</span> Evaluation 평가 세부 항목</h2>
-<ul>
-<li><p>과제 100%</p></li>
-<li><p>성적부여기준: 최종 평균균 70점 이상 S, 70점 미만 U 부여</p></li>
-<li><p>과제 채점: 각 과제당 총점 100점 만점 환산 점수 (답이 틀려도 코드가 있으면 가산점)</p></li>
-<li><p>과제 제출일: 수업 자료 배포 후 1주일 오후 6시 (목요일 자료 배포 -&gt; 다음주 목요일 오후 6시)</p></li>
-<li><p>과제 솔루션 배포: 과제 제출일 마감 이 후 조교 배포</p></li>
-<li><p>감점 기준</p>
-<ul>
-<li>솔루션 배포 이전 과제 제출: 감점 없음</li>
-<li>솔루션 배포 이후 과제 제출: 40점 감점</li>
-<li>과제 미제출: 100점 감점</li>
-</ul></li>
-</ul>
-</div>
-<div id="schedule-강의-계획" class="section level2">
-<h2><span class="header-section-number">1.7</span> Schedule 강의 계획</h2>
-<ul>
-<li>1주차 - R basics / introduction of data</li>
-<li>2주차 - Univariate data – Summary statistics</li>
-<li>3주차 - Bivariate data – Correlation / Independence<br />
-</li>
-<li>4주차 - Multivariate data – R data structure</li>
-<li>5주차 - Populations – Families of distributions</li>
-<li>6주차 - Sampling – Distribution and CLT</li>
-<li>7주차 - Statistical inference</li>
-<li>8주차 - Confidence intervals</li>
-<li>9주차 - Significance test - parameteric</li>
-<li>10주차 - Significance test – non parametric</li>
-<li>11주차 - Goodness of fit - parametric</li>
-<li>12주차 - Goodness of fit – non parametirc</li>
-<li>13주차 - Linear regression – basics &amp; simple LR</li>
-<li>14주차 - Multiple linear regression</li>
-<li>15주차 - Analysis of variance</li>
-<li>16주차 - Logistic / Non-linear regression</li>
-</ul>
-</div>
-<div id="r-lecture-youtube-link" class="section level2">
-<h2><span class="header-section-number">1.8</span> R Lecture Youtube Link</h2>
-<div id="lecture-chapter-1" class="section level3">
-<h3><span class="header-section-number">1.8.1</span> Lecture Chapter 1</h3>
-<ul>
-<li>1-1 <a href="https://youtu.be/8KNbdcUnko8" class="uri">https://youtu.be/8KNbdcUnko8</a></li>
-<li>1-2 <a href="https://youtu.be/6YLWwv3fhEI" class="uri">https://youtu.be/6YLWwv3fhEI</a></li>
-<li>1-3 <a href="https://youtu.be/Rd8MfVNK3AQ" class="uri">https://youtu.be/Rd8MfVNK3AQ</a></li>
-<li>1-4 <a href="https://youtu.be/I3REftNvPxI" class="uri">https://youtu.be/I3REftNvPxI</a></li>
-</ul>
-</div>
-<div id="lecture-2" class="section level3">
-<h3><span class="header-section-number">1.8.2</span> Lecture 2</h3>
-<ul>
-<li>2-1 <a href="https://youtu.be/OzQZZKgJw1Q" class="uri">https://youtu.be/OzQZZKgJw1Q</a></li>
-<li>2-2 <a href="https://youtu.be/svCRuAzo8Eg" class="uri">https://youtu.be/svCRuAzo8Eg</a></li>
-<li>2-3 <a href="https://youtu.be/3nk7nuVEYhw" class="uri">https://youtu.be/3nk7nuVEYhw</a></li>
-<li>2-4 <a href="https://youtu.be/XU5oODKWpUY" class="uri">https://youtu.be/XU5oODKWpUY</a></li>
-<li>2-5 <a href="https://youtu.be/5RbWqIErLHA" class="uri">https://youtu.be/5RbWqIErLHA</a></li>
-<li>2-6 <a href="https://youtu.be/rKn4NnaFx74" class="uri">https://youtu.be/rKn4NnaFx74</a></li>
-</ul>
-</div>
-<div id="lecture-3" class="section level3">
-<h3><span class="header-section-number">1.8.3</span> Lecture 3</h3>
-<ul>
-<li>3-1 <a href="https://youtu.be/jsgN12MqGCc" class="uri">https://youtu.be/jsgN12MqGCc</a></li>
-<li>3-2 <a href="https://youtu.be/RmnoquEPVPs" class="uri">https://youtu.be/RmnoquEPVPs</a></li>
-<li>3-3 <a href="https://youtu.be/6fI2_680deE" class="uri">https://youtu.be/6fI2_680deE</a></li>
-<li>3-4 <a href="https://youtu.be/hpplZyD-GKc" class="uri">https://youtu.be/hpplZyD-GKc</a></li>
-<li>3-5 <a href="https://youtu.be/p1cnLDSatfM" class="uri">https://youtu.be/p1cnLDSatfM</a></li>
-<li>3-6 <a href="https://youtu.be/0a8IseP7os8" class="uri">https://youtu.be/0a8IseP7os8</a></li>
-<li>3-7 <a href="https://youtu.be/G4ma21AqMis" class="uri">https://youtu.be/G4ma21AqMis</a></li>
-</ul>
-</div>
-<div id="lecture-4" class="section level3">
-<h3><span class="header-section-number">1.8.4</span> Lecture 4</h3>
-<ul>
-<li>4-1 <a href="https://youtu.be/BPPn4pRKOaE" class="uri">https://youtu.be/BPPn4pRKOaE</a></li>
-<li>4-2 <a href="https://youtu.be/Ptn5L1xuBJc" class="uri">https://youtu.be/Ptn5L1xuBJc</a></li>
-<li>4-3 <a href="https://youtu.be/tukHveP3on0" class="uri">https://youtu.be/tukHveP3on0</a></li>
-<li>4-4 <a href="https://youtu.be/6N8i9uQ-6F8" class="uri">https://youtu.be/6N8i9uQ-6F8</a></li>
-<li>4-5 <a href="https://youtu.be/TbxHHHNWltE" class="uri">https://youtu.be/TbxHHHNWltE</a></li>
-</ul>
-</div>
-<div id="lecture-5" class="section level3">
-<h3><span class="header-section-number">1.8.5</span> Lecture 5</h3>
-<ul>
-<li><a href="https://youtu.be/KhVJ1TtxPGA" class="uri">https://youtu.be/KhVJ1TtxPGA</a></li>
-</ul>
-</div>
-<div id="lecture-6" class="section level3">
-<h3><span class="header-section-number">1.8.6</span> Lecture 6</h3>
-<ul>
-<li><a href="https://youtu.be/zEGrUncFg4I" class="uri">https://youtu.be/zEGrUncFg4I</a></li>
-</ul>
-</div>
-<div id="lecture-7" class="section level3">
-<h3><span class="header-section-number">1.8.7</span> Lecture 7</h3>
-<ul>
-<li><a href="https://youtu.be/QIUM-diWzso" class="uri">https://youtu.be/QIUM-diWzso</a></li>
-<li><a href="https://youtu.be/bidwKqXReCE" class="uri">https://youtu.be/bidwKqXReCE</a></li>
-</ul>
+<div id="goodness-of-fit-tests-for-continuous-distribution" class="section level2">
+<h2><span class="header-section-number">11.3</span> Goodness-of-fit tests for continuous distribution</h2>
+<p>앞서 신뢰구간을 학습할 때 신뢰구간의 계산은 표본분포가 정규분포라고 가정하고 구할 수 있는 값이였습니다. 따라서 표본이 정규분포에서 추출되었는지 아닌지를 판단하는 것이 중요하며 이를 위해서 사분위 그래프 (quantile plot)이나 히스토그램을 그려서 정규분포인지를 판단했습니다. 이번에는 검정을 통해서 한 표본이 정규분포와 같은 연속형 분포를 따르는지를 판단하는 내용을 학습해 보겠습니다. Kolmogorov-Smirnov test는 표본이 정규분포와 같은지를 검정하는데 사용되는 방법입니다.</p>
 
-</div>
 </div>
 </div>
             </section>
@@ -524,8 +466,8 @@ Murdoch (<a href="https://www.cambridge.org/core/books/first-course-in-statistic
           </div>
         </div>
       </div>
+<a href="significance-test.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
-<a href="r-basics.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

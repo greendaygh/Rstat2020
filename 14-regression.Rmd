@@ -1,0 +1,7 @@
+# Goodness of fit2
+
+
+## Variable type and testing methods
+
+
+![](./images/09/11.png)

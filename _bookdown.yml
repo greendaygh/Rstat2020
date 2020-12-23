@@ -8,7 +8,8 @@ rmd_files: [
   "09-population.Rmd",
   "10-statistical_inference.Rmd",
   "11-confidence_interval.Rmd",
-  "12-significance-test.Rmd"
+  "12-significance-test.Rmd",
+  "13-goodness-of-fit.Rmd"
 ]
 book_filename: "Rstat"
 repo: https://github.com/greendaygh/Rstat2020/
