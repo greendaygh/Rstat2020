@@ -24,7 +24,7 @@
 <meta name="author" content="한국생명공학연구원 김하성" />
 
 
-<meta name="date" content="2020-12-23" />
+<meta name="date" content="2020-12-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -344,10 +344,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="goodness-of-fit" class="section level1">
 <h1><span class="header-section-number">Chapter 11</span> Goodness of fit</h1>
+<p><a href="https://youtu.be/f2rklo9u6EY" class="uri">https://youtu.be/f2rklo9u6EY</a></p>
 <p>앞서 chapter 4에서 범주형 데이터와 함께 The chi-squared statistics의 간략한 설명이 있었습니다. 범주형 데이터에서는 테이블로 데이터를 요약할 수 있고 각 테이블 숫자들의 분포가 얼마나 기대한 숫자들과 유사한지를 테스트할 수 있습니다. 이러한 검정을 적합도 검정이라고 합니다.</p>
 <div id="the-chi-squared-goodness-of-fit-test" class="section level2">
 <h2><span class="header-section-number">11.1</span> The chi-squared goodness-of-fit test</h2>
-<p>어떤 선거를 앞두고 100명의 사람들에게 공화당과 민주당 후보 중 어느 후보를 지지하는지 투표를 수행했다고 합시다. 공화당이 35명 민주당이 40명 그리고 결정하지 못 한 사람이 25명 이라고 할 때 공화당과 민주당 지지하는 사람들의 차이는 유의한 것인가? 라는 질문을 할 수 있습니다. 유의성 검정을 수행하기 위해서는 유의확률을 계산할 수 있는 확률 분포가 필요합니다. 그런데 위 설문조사는 두 개 이상의 옵션을 가지고 있습니다. 두 가지 경우의 수만을 가지는 경우를 이항분포라고 하였다면 두 가지 이상의 경우를 가지는 경우의 분포를 다항분포 (multinomical) 라고 합니다.</p>
+<p>어떤 선거를 앞두고 100명의 사람들에게 공화당과 민주당 후보 중 어느 후보를 지지하는지 투표를 수행했다고 합시다. 공화당이 35명 민주당이 40명 그리고 결정하지 못 한 사람이 25명 이라고 할 때 공화당과 민주당 지지하는 사람들의 차이는 유의한 것인가? 라는 질문을 할 수 있습니다. 유의성 검정을 수행하기 위해서는 유의확률을 계산할 수 있는 확률 분포가 필요합니다. 그런데 위 설문조사는 두 개 이상의 옵션을 가지고 있습니다. 두 가지 경우의 수만을 가지는 경우를 이항분포라고 하였다면 두 가지 이상의 경우를 가지는 경우의 분포를 다항분포 (multinomial) 라고 합니다.</p>
 <p><span class="math inline">\(k\)</span>개의 범주를 갖는 <span class="math inline">\(1\)</span> 부터 <span class="math inline">\(k\)</span>까지의 라벨이 적힌 카드가 있다고 할 경우 랜덤하게 카드를 하나 뽑을때 뽑힐 카드의 확률은 <span class="math inline">\(p_1\)</span>, <span class="math inline">\(p_2\)</span>, …, <span class="math inline">\(p_k\)</span>이고 <span class="math inline">\(p_1 + p_2 + ... + p_k = 1\)</span> 입니다. <span class="math inline">\(n\)</span>번의 카드를 반복해서 뽑을 때 각 카드가 몇 개 뽑혔는지 테이블을 만들 수 있습니다. 이 테이블 각 cell의 숫자를 <span class="math inline">\(y_1\)</span>, <span class="math inline">\(y_2\)</span>, …, <span class="math inline">\(y_k\)</span>라 하고 이 숫자들을 모두 더하면 <span class="math inline">\(n\)</span>이 됩니다. 각 cell의 숫자들을 나타내는 변수를 확률변수로 볼 수 있고 이 확률 변수들의 결합확률이 다항분포 입니다.</p>
 <p>앞서 선거 예제를 보면 우리가 기대하는 공화당, 민주당, 기권의 비율은 각각 35%, 35%, 30%라고 하면 100명의 설문조사인원 중 35명은 공화당, 40명은 민주당, 25명은 기권이 관측될 확률을 계산하는 경우로 볼 수 있고 이는 다음과 같습니다.</p>
 <p><span class="math display">\[
@@ -357,7 +358,7 @@ P(y_1=35, y_2=40, y_3=25) = {100\choose35} \cdot (0.35)^{35} \cdot {65\choose40}
 <p><span class="math display">\[
 \chi^2 = \sum_{i=1}^{k} \frac{(y_i-np_i)^2}{np_i} = \sum \frac{(observed-expected)^2}{expected} 
 \]</span></p>
-<p>테이블의 각 cell의 수가 (<span class="math inline">\(y_i\)</span>) 5 이상일 경우 <span class="math inline">\(y_i\)</span>는 근사적으로 <span class="math inline">\(k-1\)</span> 자유도를 갖는 카이제곱 분포를 따른다고 알려져 있습니다. 위 통계량을 사용하여 유의성 검정을 수행할 수 있습니다. 통계량 값이 클 경우 예측값과 관측값 차이가 커지게 됩니다.</p>
+<p>테이블의 각 cell의 수가 (<span class="math inline">\(y_i\)</span>) 5 이상일 경우 <span class="math inline">\(\chi^2\)</span>는 근사적으로 <span class="math inline">\(k-1\)</span> 자유도를 갖는 카이제곱 분포를 따른다고 알려져 있습니다. 위 통계량을 사용하여 유의성 검정을 수행할 수 있습니다. 통계량 값이 클 경우 예측값과 관측값 차이가 커지게 됩니다.</p>
 <p>범주형 자료의 랜덤표본추출에 의해서 만들어진 테이블의 관측값이 <span class="math inline">\(y_1\)</span>, <span class="math inline">\(y_2\)</span>, …, <span class="math inline">\(y_k\)</span>라 하면 이들이 관측될 결합확률 분포는 다항분포 모형의 <span class="math inline">\(p_1\)</span>, <span class="math inline">\(p_2\)</span>, …, <span class="math inline">\(p_k\)</span>으로 표현할 수 있습니다. 이를 이용하여 다음 귀무가설과 대립가설을 수립하고 카이스퀘어 통계량을 사용하여 유의성 검정을 수행할 수 있습니다.</p>
 <p><span class="math display">\[
 H_0: p_1 = \pi_1, ..., p_k = \pi_k \\
@@ -373,12 +374,12 @@ H_1: p_i \neq \pi_i \text{ for at least on } i
 <span id="cb211-7"><a href="goodness-of-fit.html#cb211-7"></a></span>
 <span id="cb211-8"><a href="goodness-of-fit.html#cb211-8"></a>y &lt;-<span class="st"> </span><span class="kw">sapply</span>(dfs, <span class="cf">function</span>(x){<span class="kw">dchisq</span>(<span class="kw">seq</span>(<span class="fl">0.1</span>, <span class="dv">10</span>, <span class="dt">by =</span> <span class="fl">0.1</span>), <span class="dt">df=</span>x)})</span>
 <span id="cb211-9"><a href="goodness-of-fit.html#cb211-9"></a><span class="kw">colnames</span>(y) &lt;-<span class="st"> </span>dfs</span>
-<span id="cb211-10"><a href="goodness-of-fit.html#cb211-10"></a>dat &lt;-<span class="st"> </span><span class="kw">data.frame</span>(x, y)</span>
+<span id="cb211-10"><a href="goodness-of-fit.html#cb211-10"></a>dat &lt;-<span class="st"> </span><span class="kw">data.frame</span>(xs, y)</span>
 <span id="cb211-11"><a href="goodness-of-fit.html#cb211-11"></a>dat2 &lt;-<span class="st"> </span>dat <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb211-12"><a href="goodness-of-fit.html#cb211-12"></a><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="op">!</span><span class="kw">c</span>(<span class="st">&quot;x&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb211-12"><a href="goodness-of-fit.html#cb211-12"></a><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="op">!</span><span class="kw">c</span>(<span class="st">&quot;xs&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
 <span id="cb211-13"><a href="goodness-of-fit.html#cb211-13"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">df=</span><span class="kw">gsub</span>(<span class="st">&quot;X&quot;</span>, <span class="st">&quot;&quot;</span>, name))</span>
 <span id="cb211-14"><a href="goodness-of-fit.html#cb211-14"></a></span>
-<span id="cb211-15"><a href="goodness-of-fit.html#cb211-15"></a><span class="kw">ggplot</span>(dat2, <span class="kw">aes</span>(<span class="dt">x=</span>x, <span class="dt">y=</span>value, <span class="dt">color=</span>df)) <span class="op">+</span></span>
+<span id="cb211-15"><a href="goodness-of-fit.html#cb211-15"></a><span class="kw">ggplot</span>(dat2, <span class="kw">aes</span>(<span class="dt">x=</span>xs, <span class="dt">y=</span>value, <span class="dt">color=</span>df)) <span class="op">+</span></span>
 <span id="cb211-16"><a href="goodness-of-fit.html#cb211-16"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">size=</span><span class="fl">1.5</span>)</span></code></pre></div>
 <div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="goodness-of-fit.html#cb212-1"></a>y &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">35</span>, <span class="dv">40</span>, <span class="dv">25</span>)</span>
 <span id="cb212-2"><a href="goodness-of-fit.html#cb212-2"></a>p &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">35</span>, <span class="dv">35</span>, <span class="dv">30</span>)</span>
@@ -395,8 +396,8 @@ H_1: p_i \neq \pi_i \text{ for at least on } i
 <span id="cb212-13"><a href="goodness-of-fit.html#cb212-13"></a><span class="kw">ggplot</span>(dat, <span class="kw">aes</span>(<span class="dt">x=</span>xs, <span class="dt">y=</span>ys)) <span class="op">+</span></span>
 <span id="cb212-14"><a href="goodness-of-fit.html#cb212-14"></a><span class="st">  </span><span class="kw">geom_line</span>() <span class="op">+</span></span>
 <span id="cb212-15"><a href="goodness-of-fit.html#cb212-15"></a><span class="st">  </span><span class="kw">geom_vline</span>(<span class="dt">xintercept =</span> chi2) <span class="op">+</span></span>
-<span id="cb212-16"><a href="goodness-of-fit.html#cb212-16"></a><span class="st">  </span><span class="kw">geom_area</span>(<span class="dt">data=</span><span class="kw">filter</span>(dat, xs<span class="op">&gt;</span><span class="dv">0</span> <span class="op">&amp;</span><span class="st"> </span>xs<span class="op">&lt;</span>chi2), <span class="dt">fill=</span><span class="st">&quot;red&quot;</span>) <span class="op">+</span></span>
-<span id="cb212-17"><a href="goodness-of-fit.html#cb212-17"></a><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="fl">0.8</span>, <span class="fl">0.1</span>, <span class="dt">label=</span><span class="kw">round</span>(pval,<span class="dv">2</span>), <span class="dt">color=</span><span class="st">&quot;white&quot;</span>) <span class="op">+</span></span>
+<span id="cb212-16"><a href="goodness-of-fit.html#cb212-16"></a><span class="st">  </span><span class="kw">geom_area</span>(<span class="dt">data=</span><span class="kw">filter</span>(dat, xs<span class="op">&gt;</span>chi2), <span class="dt">fill=</span><span class="st">&quot;red&quot;</span>) <span class="op">+</span></span>
+<span id="cb212-17"><a href="goodness-of-fit.html#cb212-17"></a><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="fl">2.5</span>, <span class="fl">0.1</span>, <span class="dt">label=</span><span class="kw">round</span>(pval,<span class="dv">2</span>), <span class="dt">color=</span><span class="st">&quot;white&quot;</span>) <span class="op">+</span></span>
 <span id="cb212-18"><a href="goodness-of-fit.html#cb212-18"></a><span class="st">  </span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dv">2</span>, <span class="fl">0.3</span>, <span class="dt">label=</span><span class="kw">round</span>(chi2,<span class="dv">2</span>))</span></code></pre></div>
 <div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="goodness-of-fit.html#cb213-1"></a><span class="kw">chisq.test</span>(y, <span class="dt">p=</span>p)</span></code></pre></div>
 </div>
